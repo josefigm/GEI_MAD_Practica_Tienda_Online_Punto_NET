@@ -3,6 +3,6 @@ _Práctica para la asignatura Marcos de Desarrollo. 4º Curso del grado en Ingen
 
 ## Miembros 👦
 
-  Marcos Graña Domínguez 
-  Diego Dorrego Díaz
-  José A. Figueiras Martínez
+* Marcos Graña Domínguez 
+* Diego Dorrego Díaz
+* José A. Figueiras Martínez
