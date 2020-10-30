@@ -5,14 +5,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="32ce8c37abf8407686c8b26a77f080e3" Name="Diagram1">
-        <EntityTypeShape EntityType="amazoniaModel.Card" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="amazoniaModel.Category" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="amazoniaModel.Client" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="amazoniaModel.Comment" Width="1.5" PointX="5.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="amazoniaModel.Label" Width="1.5" PointX="8" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="amazoniaModel.Product" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="amazoniaModel.Sale" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="amazoniaModel.SaleLine" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="amazoniaModel.Card" Width="1.5" PointX="1.125" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="amazoniaModel.Category" Width="1.5" PointX="9.375" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="amazoniaModel.Client" Width="1.5" PointX="3.25" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="amazoniaModel.Comment" Width="1.5" PointX="6.875" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="amazoniaModel.Label" Width="1.5" PointX="9.125" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="amazoniaModel.Product" Width="1.5" PointX="7.375" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="amazoniaModel.Sale" Width="1.5" PointX="1.625" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="amazoniaModel.SaleLine" Width="1.5" PointX="3.5" PointY="4.5" IsExpanded="true" />
         <AssociationConnector Association="amazoniaModel.FK_SaleCard" ManuallyRouted="false" />
         <AssociationConnector Association="amazoniaModel.FK_ProductCategory" ManuallyRouted="false" />
         <AssociationConnector Association="amazoniaModel.FK_SaleLineProduct" ManuallyRouted="false" />

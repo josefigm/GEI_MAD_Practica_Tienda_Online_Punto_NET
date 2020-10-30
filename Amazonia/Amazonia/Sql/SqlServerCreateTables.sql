@@ -1,5 +1,4 @@
- 
-DECLARE @Default_DB_Path as VARCHAR(64)  
+﻿DECLARE @Default_DB_Path as VARCHAR(64)  
 SET @Default_DB_Path = N'C:\SourceCode\DataBase\'
  
 USE [master]

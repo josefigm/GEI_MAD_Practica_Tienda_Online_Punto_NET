@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Amazonia
+namespace Model
 {
     using System;
     using System.Data.Entity;
