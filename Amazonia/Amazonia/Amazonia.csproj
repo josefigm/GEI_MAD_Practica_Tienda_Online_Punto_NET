@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{45C74583-089B-43D2-BF35-45FF7590F62D}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Model</RootNamespace>
-    <AssemblyName>Model</AssemblyName>
+    <RootNamespace>Amazonia</RootNamespace>
+    <AssemblyName>Amazonia</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -52,21 +52,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="amazonia.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>amazonia.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="amazonia.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>amazonia.tt</DependentUpon>
-    </Compile>
-    <Compile Include="amazonia.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>amazonia.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -81,13 +66,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="amazonia.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>amazonia.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="amazonia.edmx.diagram">
-      <DependentUpon>amazonia.edmx</DependentUpon>
-    </None>
     <None Include="App.config" />
     <EntityDeploy Include="Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -99,16 +77,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="amazonia.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>amazonia.edmx</DependentUpon>
-      <LastGenOutput>amazonia.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="amazonia.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>amazonia.edmx</DependentUpon>
-      <LastGenOutput>amazonia.cs</LastGenOutput>
-    </Content>
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>

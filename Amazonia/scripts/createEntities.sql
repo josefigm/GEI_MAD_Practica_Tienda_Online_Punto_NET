@@ -136,43 +136,6 @@ CREATE TABLE Category (
 PRINT N'Table Category created.'
 GO
 
-CREATE TABLE Bike (
-	id bigint IDENTITY(1,1),
-	colour varchar(30) NOT NULL,
-	size varchar(5) NOT NULL,
-	type varchar(5) NOT NULL,
-
-	CONSTRAINT [PK_Category] PRIMARY KEY (id)
-)
-
-PRINT N'Table Bike created.'
-GO
-
-CREATE TABLE Car (
-	id bigint IDENTITY(1,1),
-	colour varchar(30) NOT NULL,
-	model varchar(20) NOT NULL,
-	enginePower bigint NOT NULL,
-
-	CONSTRAINT [PK_Category] PRIMARY KEY (id)
-)
-
-PRINT N'Table Car created.'
-GO
-
-CREATE TABLE Computer (
-	id bigint IDENTITY(1,1),
-	memoryROM varchar(30) NOT NULL,
-	memoryRAM varchar(30) NOT NULL,
-	cpuPower varchar(20) NOT NULL,
-	model bigint NOT NULL,
-
-	CONSTRAINT [PK_Category] PRIMARY KEY (id)
-)
-
-PRINT N'Table Computer created.'
-GO
-
 CREATE TABLE Product (
 	id bigint IDENTITY(1,1),
 	name varchar(30) NOT NULL,
