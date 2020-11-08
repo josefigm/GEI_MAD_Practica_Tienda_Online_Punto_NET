@@ -86,8 +86,12 @@
     <Compile Include="Computer.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAOs\CardDao\CardDaoEntityFramework.cs" />
+    <Compile Include="DAOs\CardDao\ICardDao.cs" />
     <Compile Include="DAOs\CategoryDao\CategoryDaoEntityFramework.cs" />
     <Compile Include="DAOs\CategoryDao\ICategoryDao.cs" />
+    <Compile Include="DAOs\ProductDao\IProductDao.cs" />
+    <Compile Include="DAOs\ProductDao\ProductDaoEntityFramework.cs" />
     <Compile Include="Label.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -109,6 +113,7 @@
     <Compile Include="Product.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProductServiceImp\ProductDTO.cs" />
     <Compile Include="ProductServiceImp\IProductService.cs" />
     <Compile Include="ProductServiceImp\ProductServiceImp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
