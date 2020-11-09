@@ -1,6 +1,7 @@
 ﻿using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleLineDao;
+using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 using Ninject;
@@ -26,16 +27,16 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         public ISaleLineDao SaleLineDao { private get; set; }
 
         [Transactional]
-        public long buy(List<SaleLine> saleLines, String creditCardNumber, String address, String clientLogin)
+        public long buy(List<SaleLineDTO> saleLines, String creditCardNumber, String address, String clientLogin)
         {
 
             Sale sale = new Sale();
             DateTime date = DateTime.Now;
             double totalPrice = 0;
 
-            foreach (SaleLine line in saleLines)
+            foreach (SaleLineDTO line in saleLines)
             {
-                Product lineProduct = line.Product;
+                Product lineProduct = ProductDao.Find(line.productId);
                 if (lineProduct.stock >= line.units)
                 {
                     lineProduct.stock -= line.units;
@@ -58,14 +59,20 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
 
             SaleDao.Create(sale);
 
-            foreach (SaleLine line in saleLines)
+            foreach (SaleLineDTO line in saleLines)
             {
-                line.Sale = sale;
-                SaleLineDao.Create(line);
+                SaleLine saleLine = new SaleLine();
+                saleLine.units = line.units;
+                saleLine.price = line.price;
+                saleLine.gift = line.gift;
+                saleLine.Product = ProductDao.Find(line.productId);
+                saleLine.Sale = sale;
+                SaleLineDao.Create(saleLine);
             }
 
 
             return sale.id;
         }
+
     }
 }

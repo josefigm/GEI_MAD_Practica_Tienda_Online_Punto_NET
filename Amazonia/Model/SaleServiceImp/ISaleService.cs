@@ -1,6 +1,7 @@
 ﻿using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleLineDao;
+using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         ISaleLineDao SaleLineDao { set; }
 
         [Transactional]
-        long buy(List<SaleLine> saleLines, String creditCardNumber, String address, String clientLogin);
+        long buy(List<SaleLineDTO> saleLines, String creditCardNumber, String address, String clientLogin);
+
     }
 }
