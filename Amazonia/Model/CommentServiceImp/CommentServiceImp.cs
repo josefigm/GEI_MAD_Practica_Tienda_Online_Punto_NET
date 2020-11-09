@@ -13,14 +13,32 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
         [Inject]
         public ICommentDao commentDao;
 
-        public void addComment(string title, string value, long productId)
+        public void AddComment(string title, string value, long productId)
         {
+            if (title == null || value == null || productId == null)
+            {
+                return;
+            }
+
             Comment newComment = new Comment();
             newComment.title = title;
             newComment.value = value;
             newComment.productId = productId;
 
             commentDao.Create(newComment);
+        }
+
+        public List<Comment> FindCommentsOfProduct(long productId)
+        {
+            List<Comment> result = new List<Comment>;
+
+            if (productId == null)
+            {
+                return result;
+            }
+
+            result = commentDao.FindCommentsOfProduct(productId);
+            return result;
         }
     }
 }

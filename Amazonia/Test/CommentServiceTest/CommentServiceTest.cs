@@ -5,6 +5,7 @@ using Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
+using System.Collections.Generic;
 using System.Transactions;
 
 namespace Test.CommentServiceTest
@@ -65,6 +66,7 @@ namespace Test.CommentServiceTest
         [TestMethod]
         public void CreateCommentTest()
         {
+            #region declaration section
             Category c1 = new Category();
             c1.name = "Bicicletas";
 
@@ -88,8 +90,7 @@ namespace Test.CommentServiceTest
             biciCarretera.categoryId = categoryIdBicicleta;
 
             productDao.Create(biciCarretera);
-
-
+            #endregion
 
             Comment newComment = new Comment();
             newComment.title = "Review bicicleta Felt FZ85";
@@ -101,7 +102,48 @@ namespace Test.CommentServiceTest
             Comment retrievedComment = commentDao.Find(biciCarretera.id);
 
             Assert.AreEqual(newComment, retrievedComment);
+        }
 
+        [TestMethod]
+        public void AssignCommentToAdvertTest()
+        {
+            #region declaration section
+            Category c1 = new Category();
+            c1.name = "Bicicletas";
+
+            categoryDao.Create(c1);
+
+            Product biciCarretera = new Product();
+
+            double price = 1200;
+            System.DateTime date = System.DateTime.Now;
+            long stock = 5;
+            string image = "ccc";
+            string description = "Bicicleta";
+            long categoryIdBicicleta = c1.id;
+
+            biciCarretera.name = "Bicicleta Felt FZ85";
+            biciCarretera.price = price;
+            biciCarretera.entryDate = date;
+            biciCarretera.stock = stock;
+            biciCarretera.image = image;
+            biciCarretera.description = description;
+            biciCarretera.categoryId = categoryIdBicicleta;
+
+            productDao.Create(biciCarretera);
+            #endregion
+
+            Comment newComment = new Comment();
+            newComment.title = "Review bicicleta Felt FZ85";
+            newComment.value = "Las ruedas son mejorables, por lo demas excelente bici de iniciación.";
+            newComment.productId = biciCarretera.id;
+
+            commentDao.Create(newComment);
+
+            List<Comment> retrievedComments = commentDao.FindCommentsOfProduct(biciCarretera.id);
+
+            Assert.AreEqual(retrievedComments.Count, 1);
+            Assert.AreEqual(newComment, retrievedComments[0]);
         }
 
     }
