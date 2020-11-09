@@ -40,6 +40,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
     <Reference Include="ModelUtil">
       <HintPath>..\Lib\ModelUtil.dll</HintPath>
     </Reference>
@@ -86,8 +92,18 @@
     <Compile Include="Computer.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAOs\CardDao\CardDaoEntityFramework.cs" />
+    <Compile Include="DAOs\CardDao\ICardDao.cs" />
     <Compile Include="DAOs\CategoryDao\CategoryDaoEntityFramework.cs" />
     <Compile Include="DAOs\CategoryDao\ICategoryDao.cs" />
+    <Compile Include="DAOs\ClientDao\ClientDaoEntityFramework.cs" />
+    <Compile Include="DAOs\ClientDao\IClientDao.cs" />
+    <Compile Include="DAOs\ProductDao\IProductDao.cs" />
+    <Compile Include="DAOs\ProductDao\ProductDaoEntityFramework.cs" />
+    <Compile Include="DAOs\SaleDao\ISaleDao.cs" />
+    <Compile Include="DAOs\SaleDao\SaleDaoEntityFramework.cs" />
+    <Compile Include="DAOs\SaleLineDao\ISaleLineDao.cs" />
+    <Compile Include="DAOs\SaleLineDao\SaleLineDaoEntityFramework.cs" />
     <Compile Include="Label.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -118,6 +134,9 @@
     <Compile Include="SaleLine.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="SaleServiceImp\Exceptions\InsufficientStockException.cs" />
+    <Compile Include="SaleServiceImp\ISaleService.cs" />
+    <Compile Include="SaleServiceImp\SaleServiceImp.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Model.Context.tt">
