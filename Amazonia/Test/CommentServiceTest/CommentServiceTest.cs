@@ -10,6 +10,7 @@ using System.Transactions;
 
 namespace Test.CommentServiceTest
 {
+    [TestClass]
     class CommentServiceTest
     {
         private static IKernel kernel;

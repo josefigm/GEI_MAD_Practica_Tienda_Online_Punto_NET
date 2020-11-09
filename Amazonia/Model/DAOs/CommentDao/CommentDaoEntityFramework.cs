@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using Es.Udc.DotNet.ModelUtil.Dao;
+using System.Linq;
 
 namespace Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao
 {
@@ -7,13 +9,13 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao
     {
         public List<Comment> FindCommentsOfProduct(long productId)
         {
-            DbSet<Comment> commentList = Context.Set<Comment>;
+            DbSet<Comment> commentList = Context.Set<Comment>();
 
-            List<Comment> result =
-                (from c in commentList
-                 where c.productId == productId
-                 orderby c.date
-                 select c);
+            List<Comment> result = (List<Comment>)
+                from c in commentList
+                where c.productId == productId
+                orderby c.date
+                select c;
 
             return result;
         }

@@ -1,5 +1,4 @@
 ﻿using Es.Udc.DotNet.ModelUtil.Dao;
-using System;
 using System.Collections.Generic;
 
 namespace Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao
