@@ -1,5 +1,11 @@
-﻿using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
+﻿using Es.Udc.DotNet.Amazonia.Model.DAOs.CardDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleLineDao;
 using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp;
 using Ninject;
 using System.Configuration;
 using System.Data.Entity;
@@ -21,8 +27,26 @@ namespace Test
             kernel.Bind<ICategoryDao>().
                 To<CategoryDaoEntityFramework>();
 
+            kernel.Bind<IClientDao>().
+                To<ClientDaoEntityFramework>();
+
+            kernel.Bind<ICardDao>().
+                To<CardDaoEntityFramework>();
+
+            kernel.Bind<ISaleDao>().
+                To<SaleDaoEntityFramework>();
+
+            kernel.Bind<ISaleLineDao>().
+                To<SaleLineDaoEntityFramework>();
+
+            kernel.Bind<IProductDao>().
+                To<ProductDaoEntityFramework>();
+
             kernel.Bind<IProductService>().
                 To<ProductServiceImp>();
+
+            kernel.Bind<ISaleService>().
+                To<SaleServiceImp>();
 
             string connectionString =
                 ConfigurationManager.ConnectionStrings["amazoniaEntities"].ConnectionString;
