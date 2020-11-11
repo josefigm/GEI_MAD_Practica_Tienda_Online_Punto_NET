@@ -100,6 +100,66 @@ namespace Test.SaleServiceTests
             Assert.AreEqual((line1.price*line1.units), sale.totalPrice);
         }
 
+
+        [TestMethod]
+        public void TestShowSaleDetails()
+        {
+
+            #region Declaracion de variables
+            Client client = new Client();
+            client.login = "client2";
+            client.password = "password";
+            client.firstName = "firstName";
+            client.lastName = "lastName";
+            client.address = "adress";
+            client.email = "email";
+            client.role = 1;
+            client.language = 1;
+            clientDao.Create(client);
+
+            Card card = new Card();
+            card.number = "4444333322221111";
+            card.cvv = "123";
+            card.expireDate = new DateTime(2025, 1, 1);
+            card.name = "Client Name";
+            card.type = true;
+            cardDao.Create(card);
+
+            client.Cards.Add(card);
+            clientDao.Update(client);
+
+            Category category = new Category();
+            category.name = "category";
+            categoryDao.Create(category);
+
+            Product product = new Product();
+            product.name = "TestProduct";
+            product.price = 24;
+            product.entryDate = new DateTime(2020, 1, 1);
+            product.stock = 200;
+            product.Category = category;
+            productDao.Create(product);
+
+            
+            List<SaleLineDTO> lines = new List<SaleLineDTO>();
+
+            SaleLineDTO line1 = new SaleLineDTO(3, 24, false, product.id);
+
+            lines.Add(line1);
+
+            String address = "Direccion de entrega";
+            #endregion
+
+            long saleId = saleService.buy(lines, card.number, address, client.login);
+
+            SaleDTO sale = saleService.showSaleDetails(saleId);
+
+            Assert.AreEqual(1, sale.saleLines.Count);
+            Assert.AreEqual(card.number, sale.cardNumber);
+            Assert.AreEqual(client.login, sale.clientLogin);
+            Assert.AreEqual((line1.price * line1.units), sale.totalPrice);
+        }
+
         #region Additional test attributes
 
         //Use ClassInitialize to run code before running the first test in the class

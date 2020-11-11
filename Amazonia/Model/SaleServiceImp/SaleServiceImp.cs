@@ -74,5 +74,30 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
             return sale.id;
         }
 
+        [Transactional]
+        public SaleDTO showSaleDetails(long saleId)
+        {
+            Sale sale = SaleDao.Find(saleId);
+            SaleDTO saleDetails = new SaleDTO();
+
+            saleDetails.id = sale.id;
+            saleDetails.date = sale.date;
+            saleDetails.address = sale.address;
+            saleDetails.totalPrice = sale.totalPrice;
+            saleDetails.cardNumber = sale.cardNumber;
+            saleDetails.clientLogin = sale.clientLogin;
+
+            List<SaleLineDTO> saleLines = new List<SaleLineDTO>();
+            foreach (SaleLine line in sale.SaleLines)
+            {
+                saleLines.Add(
+                    new SaleLineDTO(line.units, line.price, line.gift, line.productId));
+            }
+
+            saleDetails.saleLines = saleLines;
+
+            return saleDetails;
+        }
+
     }
 }

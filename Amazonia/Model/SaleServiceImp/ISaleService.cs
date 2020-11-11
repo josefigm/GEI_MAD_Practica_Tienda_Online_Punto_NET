@@ -19,5 +19,8 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         [Transactional]
         long buy(List<SaleLineDTO> saleLines, String creditCardNumber, String address, String clientLogin);
 
+        [Transactional]
+        SaleDTO showSaleDetails(long saleId);
+
     }
 }
