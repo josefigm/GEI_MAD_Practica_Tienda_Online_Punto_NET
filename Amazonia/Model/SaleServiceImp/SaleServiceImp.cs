@@ -7,15 +7,14 @@ using Es.Udc.DotNet.ModelUtil.Transactions;
 using Ninject;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
 {
     public class SaleServiceImp : ISaleService
     {
-        public SaleServiceImp() { }
+        public SaleServiceImp()
+        {
+        }
 
         [Inject]
         public IProductDao ProductDao { private get; set; }
@@ -27,9 +26,8 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         public ISaleLineDao SaleLineDao { private get; set; }
 
         [Transactional]
-        public long buy(List<SaleLineDTO> saleLines, String creditCardNumber, String address, String clientLogin)
+        public long buy(List<SaleLineDTO> saleLines, String creditCardNumber, String descName, String address, String clientLogin)
         {
-
             Sale sale = new Sale();
             DateTime date = DateTime.Now;
             double totalPrice = 0;
@@ -48,13 +46,13 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
                 {
                     throw new InsufficientStockException(lineProduct.stock, line.units);
                 }
-                
             }
 
-            sale.cardNumber= creditCardNumber;
+            sale.cardNumber = creditCardNumber;
             sale.clientLogin = clientLogin;
             sale.totalPrice = totalPrice;
             sale.address = address;
+            sale.descName = descName;
             sale.date = date;
 
             SaleDao.Create(sale);
@@ -69,7 +67,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
                 saleLine.Sale = sale;
                 SaleLineDao.Create(saleLine);
             }
-
 
             return sale.id;
         }
@@ -99,5 +96,21 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
             return saleDetails;
         }
 
+        [Transactional]
+        public List<SaleListItemDTO> showClientSaleList(String clientLogin, int startIndex, int count)
+        {
+            List<SaleListItemDTO> saleList = new List<SaleListItemDTO>();
+
+            List<Sale> clientSalesFound = SaleDao.FindByClientLogin(clientLogin, startIndex, count);
+
+            foreach (Sale sale in clientSalesFound)
+            {
+                saleList.Add(
+                    new SaleListItemDTO(sale.id, sale.date, sale.descName, sale.totalPrice)
+                    );
+            }
+            
+            return saleList;
+        }
     }
 }

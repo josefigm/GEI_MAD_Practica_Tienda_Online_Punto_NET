@@ -1,18 +1,17 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Ninject;
-using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp;
-using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleDao;
-using System.Transactions;
-using Es.Udc.DotNet.Amazonia.Model;
-using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleLineDao;
+﻿using Es.Udc.DotNet.Amazonia.Model;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.CardDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
-using Es.Udc.DotNet.Amazonia.Model.DAOs.CardDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleLineDao;
+using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Ninject;
+using System;
+using System.Collections.Generic;
+using System.Transactions;
 
 namespace Test.SaleServiceTests
 {
@@ -22,7 +21,6 @@ namespace Test.SaleServiceTests
     [TestClass]
     public class ISaleServiceTest
     {
-
         private static IKernel kernel;
         private static ISaleService saleService;
         private static ISaleDao saleDao;
@@ -38,14 +36,13 @@ namespace Test.SaleServiceTests
 
         public ISaleServiceTest()
         {
-
         }
 
         [TestMethod]
         public void TestBuy()
         {
-
             #region Declaracion de variables
+
             Client client = new Client();
             client.login = "client";
             client.password = "password";
@@ -80,7 +77,6 @@ namespace Test.SaleServiceTests
             product.Category = category;
             productDao.Create(product);
 
-
             List<SaleLineDTO> lines = new List<SaleLineDTO>();
 
             SaleLineDTO line1 = new SaleLineDTO(3, 24, false, product.id);
@@ -88,24 +84,25 @@ namespace Test.SaleServiceTests
             lines.Add(line1);
 
             String address = "Direccion de entrega";
-            #endregion
+            String descName = "Test sale";
 
-            long saleId = saleService.buy(lines, card.number, address, client.login);
+            #endregion Declaracion de variables
+
+            long saleId = saleService.buy(lines, card.number, descName, address, client.login);
 
             Sale sale = saleDao.Find(saleId);
 
             Assert.AreEqual(1, sale.SaleLines.Count);
             Assert.AreEqual(card.number, sale.cardNumber);
             Assert.AreEqual(client.login, sale.clientLogin);
-            Assert.AreEqual((line1.price*line1.units), sale.totalPrice);
+            Assert.AreEqual((line1.price * line1.units), sale.totalPrice);
         }
-
 
         [TestMethod]
         public void TestShowSaleDetails()
         {
-
             #region Declaracion de variables
+
             Client client = new Client();
             client.login = "client2";
             client.password = "password";
@@ -140,7 +137,6 @@ namespace Test.SaleServiceTests
             product.Category = category;
             productDao.Create(product);
 
-            
             List<SaleLineDTO> lines = new List<SaleLineDTO>();
 
             SaleLineDTO line1 = new SaleLineDTO(3, 24, false, product.id);
@@ -148,9 +144,11 @@ namespace Test.SaleServiceTests
             lines.Add(line1);
 
             String address = "Direccion de entrega";
-            #endregion
+            String descName = "Test sale";
 
-            long saleId = saleService.buy(lines, card.number, address, client.login);
+            #endregion Declaracion de variables
+
+            long saleId = saleService.buy(lines, card.number, descName, address, client.login);
 
             SaleDTO sale = saleService.showSaleDetails(saleId);
 
@@ -158,6 +156,70 @@ namespace Test.SaleServiceTests
             Assert.AreEqual(card.number, sale.cardNumber);
             Assert.AreEqual(client.login, sale.clientLogin);
             Assert.AreEqual((line1.price * line1.units), sale.totalPrice);
+        }
+
+        [TestMethod]
+        public void TestShowClientSaleList()
+        {
+            #region Declaracion de variables
+
+            Client client = new Client();
+            client.login = "client3";
+            client.password = "password";
+            client.firstName = "firstName";
+            client.lastName = "lastName";
+            client.address = "adress";
+            client.email = "email";
+            client.role = 1;
+            client.language = 1;
+            clientDao.Create(client);
+
+            Card card = new Card();
+            card.number = "5555333322221111";
+            card.cvv = "123";
+            card.expireDate = new DateTime(2025, 1, 1);
+            card.name = "Client Name";
+            card.type = true;
+            cardDao.Create(card);
+
+            client.Cards.Add(card);
+            clientDao.Update(client);
+
+            Category category = new Category();
+            category.name = "category";
+            categoryDao.Create(category);
+
+            Product product = new Product();
+            product.name = "TestProduct";
+            product.price = 24;
+            product.entryDate = new DateTime(2020, 1, 1);
+            product.stock = 200;
+            product.Category = category;
+            productDao.Create(product);
+
+            List<SaleLineDTO> lines = new List<SaleLineDTO>();
+
+            SaleLineDTO line1 = new SaleLineDTO(3, 24, false, product.id);
+
+            lines.Add(line1);
+
+            String address = "Direccion de entrega";
+            String descName = "Test sale";
+
+            #endregion Declaracion de variables
+
+            long saleId = saleService.buy(lines, card.number, descName, address, client.login);
+
+            List<SaleListItemDTO> saleList = saleService.showClientSaleList(client.login, 0, 1);
+
+            Assert.AreEqual(1, saleList.Count);
+
+            List<SaleListItemDTO>.Enumerator saleEnum = saleList.GetEnumerator();
+            saleEnum.MoveNext();
+            SaleListItemDTO sale = saleEnum.Current;
+
+            Assert.AreEqual(saleId, sale.id);
+            Assert.AreEqual(descName, sale.descName);
         }
 
         #region Additional test attributes

@@ -17,10 +17,13 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         ISaleLineDao SaleLineDao { set; }
 
         [Transactional]
-        long buy(List<SaleLineDTO> saleLines, String creditCardNumber, String address, String clientLogin);
+        long buy(List<SaleLineDTO> saleLines, String creditCardNumber, String descName, String address, String clientLogin);
 
         [Transactional]
         SaleDTO showSaleDetails(long saleId);
+
+        [Transactional]
+        List<SaleListItemDTO> showClientSaleList(String clientLogin, int startIndex, int count);
 
     }
 }
