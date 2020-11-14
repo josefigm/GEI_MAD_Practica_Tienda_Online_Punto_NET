@@ -1,5 +1,7 @@
 ﻿using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
 using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao;
+using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp;
 using Ninject;
 using System.Configuration;
 using System.Data.Entity;
@@ -23,6 +25,12 @@ namespace Test
 
             kernel.Bind<IProductService>().
                 To<ProductServiceImp>();
+
+            kernel.Bind<IClientDao>().
+               To<ClientDaoEntityFramework>();
+
+            kernel.Bind<IClientService>().
+                To<ClientServiceImp>();
 
             string connectionString =
                 ConfigurationManager.ConnectionStrings["amazoniaEntities"].ConnectionString;
