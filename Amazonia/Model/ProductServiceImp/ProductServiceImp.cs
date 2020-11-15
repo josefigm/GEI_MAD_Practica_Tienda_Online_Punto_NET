@@ -12,25 +12,25 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         public ProductServiceImp() { }
 
         [Inject]
-        private ICategoryDao categoryDao;
+        public ICategoryDao CategoryDao { private get; set; }
     
         [Inject]
-        private ICommentDao commentDao;
+        public ICommentDao CommentDao { private get; set; }
 
         [Inject]
-        private IProductDao productDao;
+        public IProductDao ProductDao { private get; set; }
 
         [Inject]
-        private ILabelDao labelDao;
+        public ILabelDao LabelDao { private get; set; }
 
         public List<Category> FindCategories()
         {
-            return categoryDao.GetAllElements();
+            return CategoryDao.GetAllElements();
         }
 
         public List<Product> RetrieveProductsWithLabel(string labelValue)
         {
-            List<Product> allProducts = productDao.GetAllElements();
+            List<Product> allProducts = ProductDao.GetAllElements();
             List<Product> productsWithLabel = new List<Product>();
 
             foreach (Product product in allProducts)
@@ -39,7 +39,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
                 List<Comment> comments = (List<Comment>) product.Comments;
                 for (int i = 0; i < comments.Capacity && labelFound == false; i++)
                 {
-                    List<Label> labels = labelDao.FindLabelsOfComment(comments[i]);
+                    List<Label> labels = LabelDao.FindLabelsOfComment(comments[i]);
                     for (int j = 0; j < labels.Capacity && labelFound == false; j++)
                     {
                         if (labels[j].value == labelValue)

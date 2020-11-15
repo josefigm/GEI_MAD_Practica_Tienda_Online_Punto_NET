@@ -11,11 +11,11 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao
         {
             DbSet<Comment> commentList = Context.Set<Comment>();
 
-            List<Comment> result = (List<Comment>)
-                from c in commentList
-                where c.productId == productId
-                orderby c.date
-                select c;
+            List<Comment> result =
+                (from c in commentList
+                 where c.productId == productId
+                 orderby c.date
+                 select c).ToList<Comment>();
 
             return result;
         }

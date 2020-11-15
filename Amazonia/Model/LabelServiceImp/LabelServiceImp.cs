@@ -1,47 +1,43 @@
 ﻿using Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao;
 using Ninject;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
 {
     public class LabelServiceImp : ILabelService
     {
         [Inject]
-        public ICommentDao commentDao;
+        public ICommentDao CommentDao { private get; set; }
         [Inject]
-        public ILabelDao labelDao;
+        public ILabelDao LabelDao { private get; set; }
 
         public void CreateLabel(string value, long commentId)
         {
             Label newLabel = new Label();
             newLabel.value = value;
 
-            Comment relatedComment = commentDao.Find(commentId);
+            Comment relatedComment = CommentDao.Find(commentId);
             newLabel.Comments.Add(relatedComment);
 
-            labelDao.Create(newLabel);
+            LabelDao.Create(newLabel);
         }
 
         public void DeleteLabel(long labelId)
         {
-            labelDao.Remove(labelId);
+            LabelDao.Remove(labelId);
         }
 
         public List<Label> FindALlLabels()
         {
-            return labelDao.GetAllElements();
+            return LabelDao.GetAllElements();
         }
 
         public List<Label> FindLabelsByComment(long commendId)
         {
-            Comment relatedComment = commentDao.Find(commendId);
+            Comment relatedComment = CommentDao.Find(commendId);
             List<Label> result = new List<Label>();
-            result = labelDao.FindLabelsOfComment(relatedComment);
+            result = LabelDao.FindLabelsOfComment(relatedComment);
             return result;
         }
     }

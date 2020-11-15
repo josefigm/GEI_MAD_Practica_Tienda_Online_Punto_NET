@@ -13,10 +13,10 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao
             // TODO
             DbSet<Label> labelList = Context.Set<Label>();
 
-            List<Label> result = (List<Label>)
-                from l in labelList
+            List<Label> result =
+                (from l in labelList
                 where l.Comments.Contains(comment)
-                select l;
+                select l).ToList<Label>();
 
             return result;
 

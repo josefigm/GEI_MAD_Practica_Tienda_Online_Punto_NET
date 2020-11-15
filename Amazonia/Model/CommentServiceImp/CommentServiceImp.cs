@@ -8,7 +8,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
     public class CommentServiceImp : ICommentService
     {
         [Inject]
-        public ICommentDao commentDao;
+        public ICommentDao CommentDao { private get; set; }
 
         public Comment AddComment(string title, string value, long productId)
         {
@@ -16,7 +16,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
             newComment.title = title;
             newComment.value = value;
             newComment.productId = productId;
-            commentDao.Create(newComment);
+            CommentDao.Create(newComment);
 
             return newComment;
         }
@@ -26,7 +26,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
         {
             List<Comment> result = new List<Comment>();
 
-            result = commentDao.FindCommentsOfProduct(productId);
+            result = CommentDao.FindCommentsOfProduct(productId);
             return result;
         }
     }
