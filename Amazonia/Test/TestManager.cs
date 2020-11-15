@@ -1,8 +1,11 @@
 ﻿using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
 using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp;
 using Ninject;
 using System.Configuration;
 using System.Data.Entity;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 
 namespace Test
 {
@@ -23,6 +26,18 @@ namespace Test
 
             kernel.Bind<IProductService>().
                 To<ProductServiceImp>();
+
+
+            kernel.Bind<ICommentService>().
+                To<CommentServiceImp>();
+
+
+            kernel.Bind<ILabelService>().
+                To<LabelServiceImp>();
+
+
+            kernel.Bind<IProductDao>().
+                To<ProductDaoEntityFramework>();
 
             string connectionString =
                 ConfigurationManager.ConnectionStrings["amazoniaEntities"].ConnectionString;

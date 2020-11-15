@@ -6,10 +6,10 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 {
     public interface IProductService
     {
-        ICategoryDao CategoryDao { set; }
-
-
         [Transactional]
         List<Category> FindCategories();
+
+        [Transactional]
+        List<Product> RetrieveProductsWithLabel(string lavelValue);
     }
 }

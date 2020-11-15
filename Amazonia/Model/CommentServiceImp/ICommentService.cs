@@ -6,7 +6,9 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
 {
     public interface ICommentService
     {
-        void AddComment(string title, string value, long productId);
+        Comment AddComment(string title, string value, long productId);
+        
+        // Optional method
         List<Comment> FindCommentsOfProduct(long productId);
     }
 }

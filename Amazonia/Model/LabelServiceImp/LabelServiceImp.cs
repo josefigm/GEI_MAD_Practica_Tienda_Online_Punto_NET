@@ -16,7 +16,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
         [Inject]
         public ILabelDao labelDao;
 
-        public void createLabel(string value, long commentId)
+        public void CreateLabel(string value, long commentId)
         {
             Label newLabel = new Label();
             newLabel.value = value;
@@ -27,12 +27,17 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
             labelDao.Create(newLabel);
         }
 
-        public void deleteLabel(long labelId)
+        public void DeleteLabel(long labelId)
         {
             labelDao.Remove(labelId);
         }
 
-        public List<Label> findLabelsByComment(long commendId)
+        public List<Label> FindALlLabels()
+        {
+            return labelDao.GetAllElements();
+        }
+
+        public List<Label> FindLabelsByComment(long commendId)
         {
             Comment relatedComment = commentDao.Find(commendId);
             List<Label> result = new List<Label>();

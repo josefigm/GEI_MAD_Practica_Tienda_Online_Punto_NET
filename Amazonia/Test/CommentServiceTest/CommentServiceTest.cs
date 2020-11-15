@@ -141,7 +141,7 @@ namespace Test.CommentServiceTest
 
             commentDao.Create(newComment);
 
-            List<Comment> retrievedComments = commentDao.FindCommentsOfProduct(biciCarretera.id);
+            List<Comment> retrievedComments = commentService.FindCommentsOfProduct(biciCarretera.id);
 
             Assert.AreEqual(retrievedComments.Count, 1);
             Assert.AreEqual(newComment, retrievedComments[0]);

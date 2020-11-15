@@ -7,6 +7,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao
 {
     public class LabelDaoEntityFramework : GenericDaoEntityFramework<Label, long>, ILabelDao
     {
+
         public List<Label> FindLabelsOfComment(Comment comment)
         {
             // TODO

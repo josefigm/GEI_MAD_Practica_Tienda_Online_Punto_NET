@@ -8,8 +8,9 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
 {
     public interface ILabelService
     {
-        void createLabel(string value, long commentId);
-        void deleteLabel(long labelId);
-        List<Label> findLabelsByComment(long commendId);
+        void CreateLabel(string value, long commentId);
+        void DeleteLabel(long labelId);
+        List<Label> FindALlLabels();
+        List<Label> FindLabelsByComment(long commendId);
     }
 }
