@@ -49,5 +49,28 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 
             }
         }
+
+        /// <exception cref="InstanceNotFoundException"/>
+        [Transactional]
+        public void UpdateUserProfileDetails(string login, ClientDetails clientDetails)
+        {
+
+            Client client = ClientDao.FindByLogin(login);
+
+
+            client.firstName = clientDetails.FirstName;
+            client.lastName = clientDetails.LastName;
+            client.address = clientDetails.Address;
+            client.email = clientDetails.Email;
+            client.role = clientDetails.Role;
+
+            // Se cambia sólo si el valor de clientDetails enviado no es el valor por defecto
+            if (!(clientDetails.Language == 0))
+            {
+                client.language = clientDetails.Language;
+            }
+
+            ClientDao.Update(client);
+        }
     }
 }

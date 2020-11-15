@@ -24,5 +24,16 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
             ClientDetails clientDetails);
 
 
+        /// <summary>
+        /// Actualiza los datos de un cliente ya existente.
+        /// </summary>
+        /// <param name="login"> The user profile id. </param>
+        /// <param name="clientDetails"> The user profile details. </param>
+        /// <exception cref="InstanceNotFoundException"/>
+        [Transactional]
+        void UpdateUserProfileDetails(String login,
+            ClientDetails clientDetails);
+
+
     }
 }

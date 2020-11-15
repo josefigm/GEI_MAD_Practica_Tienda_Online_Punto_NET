@@ -19,6 +19,7 @@ namespace Test.ClientServiceTests
 
         // Variables used in several tests are initialized here
         private const string login = "loginTest";
+        private const string login2 = "loginTest2";
         private const string clearPassword = "password";
         private const string firstName = "name";
         private const string lastName = "lastName";
@@ -66,7 +67,13 @@ namespace Test.ClientServiceTests
         [TestMethod]
         public void TestRegisterClient()
         {
-           
+
+            using (var scope = new TransactionScope())
+            {
+
+
+
+
                 clientService.RegisterClient(login, clearPassword,
                         new ClientDetails(firstName, lastName, address, email, role, language));
 
@@ -83,8 +90,44 @@ namespace Test.ClientServiceTests
                 Assert.AreEqual(language, clientBd.language);
 
                 // transaction.Complete() is not called, so Rollback is executed.
-           
+            }
         }
+
+        /// <summary>
+        /// A test for UpdateUserProfileDetails
+        /// </summary>
+        [TestMethod]
+        public void UpdateUserProfileDetailsTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                
+
+                // Register user and update profile details
+                clientService.RegisterClient(login2, clearPassword,
+                        new ClientDetails(firstName, lastName, address, email, role, language));
+
+                var expected =
+                    new ClientDetails(firstName + "X", lastName + "X", address + "X",
+                        email + "X", 5, 5);
+
+                clientService.UpdateUserProfileDetails(login2, expected);
+
+                var clientUpdated = clientDao.FindByLogin(login2);
+
+                // Check changes
+                Assert.AreEqual(firstName + "X", clientUpdated.firstName);
+                Assert.AreEqual(lastName + "X", clientUpdated.lastName);
+                Assert.AreEqual(address + "X", clientUpdated.address);
+                Assert.AreEqual(email + "X", clientUpdated.email);
+                Assert.AreEqual(5, clientUpdated.role);
+                Assert.AreEqual(5, clientUpdated.language);
+
+                // transaction.Complete() is not called, so Rollback is executed.
+            }
+        }
+
 
         #region Additional test attributes
 

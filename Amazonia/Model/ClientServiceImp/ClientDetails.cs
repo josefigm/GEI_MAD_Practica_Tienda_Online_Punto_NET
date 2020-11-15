@@ -64,12 +64,12 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// 
         public ClientDetails(String firstName, String lastName, String address, String email, byte role)
         {
-            FirstName = firstName;
-            LastName = lastName;
-            Address = address;
-            Email = email;
-            Role = role;
-            Language = 0;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.Address = address;
+            this.Email = email;
+            this.Role = role;
+            this.Language = 0;
         }
 
         public override bool Equals(object obj)
