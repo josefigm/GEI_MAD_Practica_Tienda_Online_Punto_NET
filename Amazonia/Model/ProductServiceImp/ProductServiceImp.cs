@@ -37,7 +37,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 
             if (category != null)
             {
-                productListOutput = productDao.FindByKeyWordAndCategory(cleanKeyWord, category);
+                productListOutput = productDao.FindByKeyWordAndCategory(cleanKeyWord, category.id);
             }
             else
             {

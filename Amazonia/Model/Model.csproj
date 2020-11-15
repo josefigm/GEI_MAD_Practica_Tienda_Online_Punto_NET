@@ -113,7 +113,8 @@
     <Compile Include="Product.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="ProductServiceImp\ProductDTO.cs" />
+    <Compile Include="ProductServiceImp\DTOs\ProductDTO.cs" />
+    <Compile Include="ProductServiceImp\DTOs\ProductMapper.cs" />
     <Compile Include="ProductServiceImp\IProductService.cs" />
     <Compile Include="ProductServiceImp\ProductServiceImp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

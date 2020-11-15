@@ -6,6 +6,7 @@ using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
 using Es.Udc.DotNet.Amazonia.Model;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
+using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp.DTOs;
 
 namespace Test.ProductService
 {
@@ -91,8 +92,6 @@ namespace Test.ProductService
             string image = "ccc";
             string description = "Bicicleta";
             long categoryIdBicicleta = c1.id;
-            long categoryIdPortatil = c2.id;
-
 
             biciCarretera.name = "Bicicleta Felt FZ85";
             biciCarretera.price = price;
@@ -234,7 +233,7 @@ namespace Test.ProductService
             #endregion
 
             List<ProductDTO> listaEsperadaOrdenador = new List<ProductDTO>(1);
-            listaEsperadaOrdenador.Add(ProductMapper.ProductToProductDTO(portatil));
+            listaEsperadaOrdenador.Add(ProductMapper.ProductToProductDto(portatil));
             List<ProductDTO> listaRecuperadaOrdenador = productService.FindProductByWordAndCategory("     ordenaDoReS    ", null);
 
             Assert.IsTrue(listaRecuperadaOrdenador.Count == 1);
@@ -302,8 +301,8 @@ namespace Test.ProductService
             #endregion
 
             List<ProductDTO> listaEsperadaBicicletas = new List<ProductDTO>(2);
-            listaEsperadaBicicletas.Add(ProductMapper.ProductToProductDTO(biciCarretera));
-            listaEsperadaBicicletas.Add(ProductMapper.ProductToProductDTO(biciMontaña));
+            listaEsperadaBicicletas.Add(ProductMapper.ProductToProductDto(biciCarretera));
+            listaEsperadaBicicletas.Add(ProductMapper.ProductToProductDto(biciMontaña));
 
             List<ProductDTO> listaRecuperadaBicicletas = productService.FindProductByWordAndCategory("bicicleta", null);
 
@@ -359,9 +358,9 @@ namespace Test.ProductService
             #endregion
 
             List<ProductDTO> listaEsperadaBicicletas = new List<ProductDTO>(1);
-            listaEsperadaBicicletas.Add(ProductMapper.ProductToProductDTO(biciCarretera));
+            listaEsperadaBicicletas.Add(ProductMapper.ProductToProductDto(biciCarretera));
 
-            List<ProductDTO> listaRecuperadaBicicletas = productService.FindProductByWordAndCategory("   bicicLeta  ", categoryIdBicicleta);
+            List<ProductDTO> listaRecuperadaBicicletas = productService.FindProductByWordAndCategory("   bicicLeta  ", c1);
 
             Assert.IsTrue(listaRecuperadaBicicletas.Count == 1);
             CollectionAssert.AreEqual(listaEsperadaBicicletas, listaRecuperadaBicicletas);

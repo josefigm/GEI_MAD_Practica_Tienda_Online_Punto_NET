@@ -1,23 +1,27 @@
 ﻿using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp.DTOs;
 using Es.Udc.DotNet.ModelUtil.Dao;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+
 
 namespace Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao
 {
     public class ProductDaoEntityFramework :
         GenericDaoEntityFramework<Product, Int64>, IProductDao
     {
-        public List<ProductDTO> FindByKeyWordAndCategory(string keyWord, int categoryId)
+        public List<ProductDTO> FindByKeyWordAndCategory(string keyWord, long categoryId)
         {
 
             DbSet<Product> productList = Context.Set<Product>();
 
-            List<Product> productListToTransform =
-                (from p in productList
-                    where p.name.ToLower().contains(keyWord.ToLower()) &&
+            List<Product> productListToTransform = (List<Product>)
+                from p in productList
+                    where p.name.ToLower().Equals(keyWord.ToLower()) &&
                     p.categoryId == categoryId
-                    select p);
+                    select p;
 
             List<ProductDTO> productListOutput = new List<ProductDTO>();
 
@@ -34,16 +38,16 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao
         {
             DbSet<Product> productList = Context.Set<Product>();
 
-            List<Product> productListToTransform =
+            List<Product> productListToTransform = (List<Product>)
                 (from p in productList
-                 where p.name.ToLower().contains(keyWord.ToLower())
+                 where p.name.ToLower().Equals(keyWord.ToLower())
                  select p);
 
             List<ProductDTO> productListOutput = new List<ProductDTO>();
 
             foreach (Product product in productListToTransform)
             {
-                ProductDTO productDTO = ProductMapper.ProductToProductDTO(product);
+                ProductDTO productDTO = ProductMapper.ProductToProductDto(product);
                 productListOutput.Add(productDTO);
             }
             return productListOutput;
