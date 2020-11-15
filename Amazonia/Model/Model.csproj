@@ -88,7 +88,9 @@
     </Compile>
     <Compile Include="ClientServiceImp\ClientDetails.cs" />
     <Compile Include="ClientServiceImp\ClientServiceImp.cs" />
+    <Compile Include="ClientServiceImp\Exceptions\IncorrectPasswordException.cs" />
     <Compile Include="ClientServiceImp\IClientService.cs" />
+    <Compile Include="ClientServiceImp\LoginDetails.cs" />
     <Compile Include="ClientServiceImp\Util\PasswordEncrypter.cs" />
     <Compile Include="Comment.cs">
       <DependentUpon>Model.tt</DependentUpon>

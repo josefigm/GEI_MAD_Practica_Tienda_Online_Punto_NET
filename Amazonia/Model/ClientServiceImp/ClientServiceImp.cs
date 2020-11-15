@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Ninject;
 using Es.Udc.DotNet.ModelUtil.Transactions;
-using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp.Util;
 
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao;
+using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp.Exceptions;
 
 namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 {
@@ -16,6 +13,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
     {
         [Inject]
         public IClientDao ClientDao { private get; set; }
+
 
         /// <exception cref="DuplicateInstanceException"/>
         [Transactional]
@@ -71,6 +69,49 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
             }
 
             ClientDao.Update(client);
+        }
+
+
+
+        /// <exception cref="InstanceNotFoundException"/>
+        /// <exception cref="IncorrectPasswordException"/>
+        [Transactional]
+        public LoginDetails Login(string login, string password, bool passwordIsEncrypted)
+        {
+
+            Client client =
+                ClientDao.FindByLogin(login);
+
+            String storedPassword = client.password;
+
+            if (passwordIsEncrypted)
+            {
+                if (!password.Equals(storedPassword))
+                {
+                    throw new IncorrectPasswordException(login);
+                }
+            }
+            else
+            {
+                if (!PasswordEncrypter.IsClearPasswordCorrect(password,
+                        storedPassword))
+                {
+                    throw new IncorrectPasswordException(login);
+                }
+            }
+
+            return new LoginDetails(client.login, client.firstName,
+            client.password, client.role, client.address, client.language, false);
+
+
+        }
+
+        public void Logout(LoginDetails loginDetails)
+        {
+            if (!loginDetails.Exit)
+            {
+                LoginDetails.ExitLoginDetails(loginDetails);
+            }
         }
     }
 }

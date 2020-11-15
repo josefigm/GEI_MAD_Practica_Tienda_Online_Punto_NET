@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp.Util;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao;
+using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp.Exceptions;
 
 namespace Test.ClientServiceTests
 {
@@ -20,6 +21,9 @@ namespace Test.ClientServiceTests
         // Variables used in several tests are initialized here
         private const string login = "loginTest";
         private const string login2 = "loginTest2";
+        private const string login3 = "loginTest3";
+        private const string login4 = "loginTest4";
+        private const string login5 = "loginTest5";
         private const string clearPassword = "password";
         private const string firstName = "name";
         private const string lastName = "lastName";
@@ -64,15 +68,15 @@ namespace Test.ClientServiceTests
         //
         #endregion
 
+        /// <summary>
+        /// A test for RegisterClient
+        /// </summary>
         [TestMethod]
         public void TestRegisterClient()
         {
 
             using (var scope = new TransactionScope())
             {
-
-
-
 
                 clientService.RegisterClient(login, clearPassword,
                         new ClientDetails(firstName, lastName, address, email, role, language));
@@ -97,7 +101,7 @@ namespace Test.ClientServiceTests
         /// A test for UpdateUserProfileDetails
         /// </summary>
         [TestMethod]
-        public void UpdateUserProfileDetailsTest()
+        public void TestUpdateUserProfileDetails()
         {
             using (var scope = new TransactionScope())
             {
@@ -127,6 +131,90 @@ namespace Test.ClientServiceTests
                 // transaction.Complete() is not called, so Rollback is executed.
             }
         }
+
+        /// <summary>
+        /// A test for Login with clear password
+        /// </summary>
+        [TestMethod]
+        public void LoginClearPasswordAndLogoutTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                // Register user
+                clientService.RegisterClient(login3, clearPassword,
+                        new ClientDetails(firstName, lastName, address, email, role, language));
+
+                // Create expected LoginDetails
+                var expected = new LoginDetails(login3, firstName,
+                    PasswordEncrypter.Crypt(clearPassword), role, address, language, false);
+
+                // Login with clear password
+                var realLoginService =
+                    clientService.Login(login3, clearPassword, false);
+
+                // Check data
+                Assert.AreEqual(expected, realLoginService);
+
+                // Logout
+                clientService.Logout(realLoginService);
+
+                // Check data
+                Assert.AreEqual(true, realLoginService.Exit);
+
+
+                // transaction.Complete() is not called, so Rollback is executed.
+            }
+        }
+
+        /// <summary>
+        /// A test for Login with encrypted password
+        /// </summary>
+        [TestMethod]
+        public void LoginEncryptedPasswordTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                // Register user
+                clientService.RegisterClient(login4, clearPassword,
+                        new ClientDetails(firstName, lastName, address, email, role, language));
+
+                // Create expected LoginDetails
+                var expected = new LoginDetails(login4, firstName,
+                    PasswordEncrypter.Crypt(clearPassword), role, address, language, false);
+
+                // Login with encrypted password
+                var real =
+                    clientService.Login(login4,
+                        PasswordEncrypter.Crypt(clearPassword), true);
+
+                // Check data
+                Assert.AreEqual(expected, real);
+
+                // transaction.Complete() is not called, so Rollback is executed.
+            }
+        }
+
+        /// <summary>
+        /// A test for Login with incorrect password
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(IncorrectPasswordException))]
+        public void LoginIncorrectPasswordTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                // Register user
+                clientService.RegisterClient(login5, clearPassword,
+                        new ClientDetails(firstName, lastName, address, email, role, language));
+
+                // Login with incorrect (clear) password
+                var real =
+                    clientService.Login(login5, clearPassword + "imposible", false);
+
+                // transaction.Complete() is not called, so Rollback is executed.
+            }
+        }
+
 
 
         #region Additional test attributes
