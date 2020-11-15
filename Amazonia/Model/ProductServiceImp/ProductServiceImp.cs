@@ -9,13 +9,14 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 {
     public class ProductServiceImp : IProductService
     {
-        [Inject]
-        IProductDao productDao;
 
         public ProductServiceImp() { }
 
         [Inject]
         public ICategoryDao CategoryDao { private get; set; }
+        [Inject]
+        public IProductDao ProductDaoEntityFramework { private get; set; }
+
 
         [Transactional]
         public List<Category> FindCategories()
@@ -26,7 +27,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         [Transactional]
         public Product FindProductById(long id)
         {
-            return productDao.Find(id);
+            return ProductDaoEntityFramework.Find(id);
         }
 
         [Transactional]
@@ -37,11 +38,11 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 
             if (category != null)
             {
-                productListOutput = productDao.FindByKeyWordAndCategory(cleanKeyWord, category.id);
+                productListOutput = ProductDaoEntityFramework.FindByKeyWordAndCategory(cleanKeyWord, category.id);
             }
             else
             {
-                productListOutput = productDao.FindByKeyWord(cleanKeyWord);
+                productListOutput = ProductDaoEntityFramework.FindByKeyWord(cleanKeyWord);
             }
             return productListOutput;
         }

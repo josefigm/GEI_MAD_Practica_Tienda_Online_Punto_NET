@@ -17,11 +17,11 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao
 
             DbSet<Product> productList = Context.Set<Product>();
 
-            List<Product> productListToTransform = (List<Product>)
-                from p in productList
-                    where p.name.ToLower().Equals(keyWord.ToLower()) &&
+            List<Product> productListToTransform =
+                    (from p in productList
+                    where p.name.ToLower() == keyWord.ToLower() &&
                     p.categoryId == categoryId
-                    select p;
+                    select p).ToList<Product>();
 
             List<ProductDTO> productListOutput = new List<ProductDTO>();
 
@@ -38,10 +38,10 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao
         {
             DbSet<Product> productList = Context.Set<Product>();
 
-            List<Product> productListToTransform = (List<Product>)
+            List<Product> productListToTransform =
                 (from p in productList
-                 where p.name.ToLower().Equals(keyWord.ToLower())
-                 select p);
+                 where p.name.ToLower() == keyWord.ToLower()
+                 select p).ToList<Product>();
 
             List<ProductDTO> productListOutput = new List<ProductDTO>();
 

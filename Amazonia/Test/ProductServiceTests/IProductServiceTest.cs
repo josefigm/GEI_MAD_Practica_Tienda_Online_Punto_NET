@@ -377,6 +377,7 @@ namespace Test.ProductService
 
             categoryDao = kernel.Get<ICategoryDao>();
             productService = kernel.Get<IProductService>();
+            productDao = kernel.Get<IProductDao>();
         }
 
         //Use ClassCleanup to run code after all tests in a class have run
