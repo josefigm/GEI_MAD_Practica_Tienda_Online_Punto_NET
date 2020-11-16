@@ -15,7 +15,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao
 
             List<Label> result =
                 (from l in labelList
-                where l.Comments.Contains(comment)
+                where l.Comments.Select(c => c.id).Contains(comment.id)
                 select l).ToList<Label>();
 
             return result;

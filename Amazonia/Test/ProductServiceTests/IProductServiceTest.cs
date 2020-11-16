@@ -56,7 +56,7 @@ namespace Test.ProductService
         #endregion
 
         [TestMethod]
-        public void TestMethod1()
+        public void FindCategoriesTest()
         {
             Category c1 = new Category();
             c1.name = "c1";
@@ -111,7 +111,7 @@ namespace Test.ProductService
 
             List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Malo");
 
-            Assert.AreEqual(productsWithLabel.Capacity, 0);
+            Assert.AreEqual(productsWithLabel.Count, 0);
         
         }
 
@@ -154,7 +154,7 @@ namespace Test.ProductService
 
             List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Genial");
 
-            Assert.AreEqual(productsWithLabel.Capacity, 1);
+            Assert.AreEqual(productsWithLabel.Count, 1);
             Assert.AreEqual(productsWithLabel[0], biciCarretera);
         }
 
@@ -227,10 +227,63 @@ namespace Test.ProductService
 
             List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Genial");
 
-            Assert.AreEqual(productsWithLabel.Capacity, 2);
+            Assert.AreEqual(productsWithLabel.Count, 2);
             Assert.IsTrue(productsWithLabel.Contains(portatil));
             Assert.IsTrue(productsWithLabel.Contains(biciCarretera));
         }
+
+        [TestMethod]
+        public void RetrieveProductWithMultipleLabelsTest()
+        {
+            #region Needed variables
+            Category c1 = new Category();
+            c1.name = "Bicicletas";
+            categoryDao.Create(c1);
+
+            Product biciCarretera = new Product();
+
+            double price = 1200;
+            System.DateTime date = System.DateTime.Now;
+            long stock = 5;
+            string image = "ccc";
+            string description = "Bicicleta";
+            long categoryIdBicicleta = c1.id;
+
+
+            biciCarretera.name = "Bicicleta Felt FZ85";
+            biciCarretera.price = price;
+            biciCarretera.entryDate = date;
+            biciCarretera.stock = stock;
+            biciCarretera.image = image;
+            biciCarretera.description = description;
+            biciCarretera.categoryId = categoryIdBicicleta;
+            #endregion
+
+            #region Persistencia
+            productDao.Create(biciCarretera);
+            #endregion
+
+            #region Comment and label section
+            Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
+            labelService.CreateLabel("Genial", newComment.id);
+            labelService.CreateLabel("Buena", newComment.id);
+
+            #endregion
+
+            // Se busca primero por la primera etiqueta
+            List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Genial");
+
+            Assert.AreEqual(productsWithLabel.Count, 1);
+            Assert.AreEqual(productsWithLabel[0], biciCarretera);
+
+            //Se busca luego por la segunda etiqueta
+            productsWithLabel = productService.RetrieveProductsWithLabel("Buena");
+
+            Assert.AreEqual(productsWithLabel.Count, 1);
+            Assert.AreEqual(productsWithLabel[0], biciCarretera);
+        }
+
+
 
         #region Additional test attributes
 

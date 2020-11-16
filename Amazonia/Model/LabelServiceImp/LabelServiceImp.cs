@@ -2,6 +2,8 @@
 using Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao;
 using Ninject;
 using System.Collections.Generic;
+using System;
+using System.Management.Instrumentation;
 
 namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
 {
@@ -12,8 +14,16 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
         [Inject]
         public ILabelDao LabelDao { private get; set; }
 
-        public void CreateLabel(string value, long commentId)
+        public Label CreateLabel(string value, long commentId)
         {
+            if (value == null)
+            {
+                throw new ArgumentNullException("Valor de etiqueta nulo");
+            }
+            if (CommentDao.Find(commentId) == null)
+            {
+                throw new InstanceNotFoundException("No existe un comentario con id: " + commentId);
+            }
             Label newLabel = new Label();
             newLabel.value = value;
 
@@ -21,6 +31,8 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
             newLabel.Comments.Add(relatedComment);
 
             LabelDao.Create(newLabel);
+
+            return newLabel;
         }
 
         public void DeleteLabel(long labelId)
@@ -28,14 +40,19 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
             LabelDao.Remove(labelId);
         }
 
-        public List<Label> FindALlLabels()
+        public List<Label> FindAllLabels()
         {
             return LabelDao.GetAllElements();
         }
 
-        public List<Label> FindLabelsByComment(long commendId)
+        public List<Label> FindLabelsByComment(long commentId)
         {
-            Comment relatedComment = CommentDao.Find(commendId);
+            if (CommentDao.Find(commentId) == null)
+            {
+                throw new InstanceNotFoundException("No existe un comentario con id: " + commentId);
+            }
+
+            Comment relatedComment = CommentDao.Find(commentId);
             List<Label> result = new List<Label>();
             result = LabelDao.FindLabelsOfComment(relatedComment);
             return result;

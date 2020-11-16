@@ -3,38 +3,43 @@ using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
+using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
 using System.Collections.Generic;
 using System.Transactions;
 
-namespace Test.CommentServiceTest
+namespace Test.LabelServiceTest
 {
     [TestClass]
-    public class CommentServiceTest
+    public class LabelServiceTest
     {
         private static IKernel kernel;
         private static ICommentDao commentDao;
         private static ICommentService commentService;
         private static ICategoryDao categoryDao;
         private static IProductDao productDao;
+        private static ILabelService labelService;
+        private static IProductService productService;
+
+
 
         private TransactionScope transactionScope;
 
         public TestContext TestContext { get; set; }
 
-        public CommentServiceTest()
+        public LabelServiceTest()
         {
 
         }
 
         [TestMethod]
-        public void CreateCommentTest()
+        public void CreateLabelTest()
         {
-            #region declaration section
+            #region Needed variables
             Category c1 = new Category();
             c1.name = "Bicicletas";
-
             categoryDao.Create(c1);
 
             Product biciCarretera = new Product();
@@ -46,6 +51,7 @@ namespace Test.CommentServiceTest
             string description = "Bicicleta";
             long categoryIdBicicleta = c1.id;
 
+
             biciCarretera.name = "Bicicleta Felt FZ85";
             biciCarretera.price = price;
             biciCarretera.entryDate = date;
@@ -53,29 +59,32 @@ namespace Test.CommentServiceTest
             biciCarretera.image = image;
             biciCarretera.description = description;
             biciCarretera.categoryId = categoryIdBicicleta;
+            #endregion
 
+            #region Persistencia
             productDao.Create(biciCarretera);
             #endregion
 
-            Comment newComment = new Comment();
-            newComment.title = "Review bicicleta Felt FZ85";
-            newComment.value = "Muy buena bici";
-            newComment.productId = biciCarretera.id;
+            #region Comment and label section
+            Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
 
-            commentDao.Create(newComment);
+            Label label = labelService.CreateLabel("Genial", newComment.id);
 
-            Comment retrievedComment = commentDao.Find(newComment.id);
+            #endregion
 
-            Assert.AreEqual(newComment, retrievedComment);
+            List<Label> labels = labelService.FindLabelsByComment(newComment.id);
+
+            Assert.AreEqual(labels.Count, 1);
+            Assert.AreEqual(label, labels[0]);
+
         }
 
         [TestMethod]
-        public void AssignCommentToAdvertTest()
+        public void CreateMultipleLabelsTest()
         {
-            #region declaration section
+            #region Needed variables
             Category c1 = new Category();
             c1.name = "Bicicletas";
-
             categoryDao.Create(c1);
 
             Product biciCarretera = new Product();
@@ -87,6 +96,7 @@ namespace Test.CommentServiceTest
             string description = "Bicicleta";
             long categoryIdBicicleta = c1.id;
 
+
             biciCarretera.name = "Bicicleta Felt FZ85";
             biciCarretera.price = price;
             biciCarretera.entryDate = date;
@@ -94,23 +104,72 @@ namespace Test.CommentServiceTest
             biciCarretera.image = image;
             biciCarretera.description = description;
             biciCarretera.categoryId = categoryIdBicicleta;
+            #endregion
 
+            #region Persistencia
             productDao.Create(biciCarretera);
             #endregion
 
-            Comment newComment = new Comment();
-            newComment.title = "Review bicicleta Felt FZ85";
-            newComment.value = "Las ruedas son mejorables, por lo demas excelente bici de iniciación.";
-            newComment.productId = biciCarretera.id;
+            #region Comment and label section
+            Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
 
-            commentDao.Create(newComment);
+            Label label = labelService.CreateLabel("Genial", newComment.id);
+            Label label2 = labelService.CreateLabel("Malo", newComment.id);
 
-            List<Comment> retrievedComments = commentService.FindCommentsOfProduct(biciCarretera.id);
+            #endregion
 
-            Assert.AreEqual(retrievedComments.Count, 1);
-            Assert.AreEqual(newComment, retrievedComments[0]);
+            List<Label> labels = labelService.FindAllLabels();
+
+            Assert.AreEqual(labels.Count, 2);
+            Assert.IsTrue(labels.Contains(label));
+            Assert.IsTrue(labels.Contains(label2));
+
         }
 
+        [TestMethod]
+        public void DeleteLabelTest()
+        {
+            #region Needed variables
+            Category c1 = new Category();
+            c1.name = "Bicicletas";
+            categoryDao.Create(c1);
+
+            Product biciCarretera = new Product();
+
+            double price = 1200;
+            System.DateTime date = System.DateTime.Now;
+            long stock = 5;
+            string image = "ccc";
+            string description = "Bicicleta";
+            long categoryIdBicicleta = c1.id;
+
+
+            biciCarretera.name = "Bicicleta Felt FZ85";
+            biciCarretera.price = price;
+            biciCarretera.entryDate = date;
+            biciCarretera.stock = stock;
+            biciCarretera.image = image;
+            biciCarretera.description = description;
+            biciCarretera.categoryId = categoryIdBicicleta;
+            #endregion
+
+            #region Persistencia
+            productDao.Create(biciCarretera);
+            #endregion
+
+            #region Comment and label section
+            Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
+
+            Label label = labelService.CreateLabel("Genial", newComment.id);
+
+            labelService.DeleteLabel(label.id);
+
+            #endregion
+
+            List<Label> labels = labelService.FindLabelsByComment(newComment.id);
+
+            Assert.AreEqual(labels.Count, 0);
+        }
 
         #region Additional test attributes
 
@@ -123,6 +182,8 @@ namespace Test.CommentServiceTest
             commentService = kernel.Get<ICommentService>();
             categoryDao = kernel.Get<ICategoryDao>();
             productDao = kernel.Get<IProductDao>();
+            labelService = kernel.Get<ILabelService>();
+            productService = kernel.Get<IProductService>();
         }
 
         //Use ClassCleanup to run code after all tests in a class have run
@@ -147,8 +208,5 @@ namespace Test.CommentServiceTest
         }
 
         #endregion Additional test attributes
-
     }
 }
-
-
