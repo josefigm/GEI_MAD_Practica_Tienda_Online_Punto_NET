@@ -20,6 +20,10 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         [Transactional]
         public Product CreateProduct(string name, double price, DateTime entryDate, long stock, string image, string description, long categoryId)
         {
+            if (name == null || price >= 0 || entryDate == null || stock >= 0)
+            {
+                throw new ArgumentException("Se han pasado parámetros no válidos");
+            }
 
             Product productToInsert = new Product();
             productToInsert.name = name;
@@ -39,6 +43,16 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         [Transactional]
         public Product CreateProduct(Product product)
         {
+            if (product == null)
+            {
+                throw new ArgumentNullException("Se han pasado parámetros nulos");
+            }
+
+            if (product.price < 0 || product.stock < 0)
+            {
+                throw new ArgumentException("Se han pasado parámetros no válidos");
+            }
+
             ProductDaoEntityFramework.Create(product);
 
             return product;
@@ -47,6 +61,15 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         [Transactional]
         public Product UpdateProduct(Product product)
         {
+            if (product == null)
+            {
+                throw new ArgumentNullException("Se han pasado parámetros nulos");
+            }
+
+            if (ProductDaoEntityFramework.Find(product.id) == null)
+            {
+                throw new Exception("Se intenta actualizar un producto que no existe");
+            }
             ProductDaoEntityFramework.Update(product);
 
             return product;
@@ -68,6 +91,13 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         [Transactional]
         public List<ProductDTO> FindProductByWordAndCategory(string keyWord, Category category)
         {
+            // Category sí puede ser null (Es otro CU)
+
+            if (keyWord == null)
+            {
+                throw new ArgumentNullException("Se han pasado parámetros nulos");
+            }
+
             List<ProductDTO> productListOutput = new List<ProductDTO>();
             string cleanKeyWord = keyWord.Trim();
 
