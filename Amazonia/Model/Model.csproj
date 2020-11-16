@@ -106,6 +106,10 @@
     <Compile Include="DAOs\ClientDao\IClientDao.cs" />
     <Compile Include="DAOs\ProductDao\IProductDao.cs" />
     <Compile Include="DAOs\ProductDao\ProductDaoEntityFramework.cs" />
+    <Compile Include="DAOs\SaleDao\ISaleDao.cs" />
+    <Compile Include="DAOs\SaleDao\SaleDaoEntityFramework.cs" />
+    <Compile Include="DAOs\SaleLineDao\ISaleLineDao.cs" />
+    <Compile Include="DAOs\SaleLineDao\SaleLineDaoEntityFramework.cs" />
     <Compile Include="Label.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -139,6 +143,10 @@
     <Compile Include="SaleLine.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="SaleServiceImp\DTOs\SaleLineDTO.cs" />
+    <Compile Include="SaleServiceImp\Exceptions\InsufficientStockException.cs" />
+    <Compile Include="SaleServiceImp\ISaleService.cs" />
+    <Compile Include="SaleServiceImp\SaleServiceImp.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\Castle.Core.dll" />

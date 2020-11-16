@@ -56,6 +56,18 @@ GO
 
 
 
+CREATE TABLE Card (
+	number varchar(16),
+	cvv varchar(3) NOT NULL,
+	expireDate date NOT NULL,
+	name varchar(100) NOT NULL,
+	type bit NOT NULL,
+
+	CONSTRAINT [PK_Card] PRIMARY KEY (number)
+)
+
+PRINT N'Table Card created.'
+GO
 
 CREATE TABLE Client (
 	login varchar(30),
@@ -66,26 +78,15 @@ CREATE TABLE Client (
 	email varchar(50) NOT NULL,
 	role tinyint NOT NULL,
 	language tinyint NOT NULL,
+	defaultCardNumber varchar(16),
 
-	CONSTRAINT [PK_Client] PRIMARY KEY (login)
+	CONSTRAINT [PK_Client] PRIMARY KEY (login),
+	CONSTRAINT [FK_ClientCard] FOREIGN KEY (defaultCardNumber) REFERENCES Card(number)
 )
 
 PRINT N'Table Client created.'
 GO
 
-CREATE TABLE Card (
-	number varchar(16),
-	cvv varchar(3) NOT NULL,
-	expireDate date NOT NULL,
-	name varchar(100) NOT NULL,
-	defaultCard bit NOT NULL,
-	type bit NOT NULL,
-
-	CONSTRAINT [PK_Card] PRIMARY KEY (number)
-)
-
-PRINT N'Table Card created.'
-GO
 
 CREATE TABLE ClientCard (
 	login varchar(30),
@@ -106,9 +107,11 @@ CREATE TABLE Sale (
 	address varchar(100) NOT NULL,
 	totalPrice float NOT NULL,
 	cardNumber varchar(16) NOT NULL,
+	clientLogin varchar(30),
 
 	CONSTRAINT [PK_Sale] PRIMARY KEY (id),
-	CONSTRAINT [FK_SaleCard] FOREIGN KEY (cardNumber) REFERENCES Card(number)
+	CONSTRAINT [FK_SaleCard] FOREIGN KEY (cardNumber) REFERENCES Card(number),
+	CONSTRAINT [FK_SaleClient] FOREIGN KEY (clientLogin) REFERENCES Client(login)
 )
 
 
