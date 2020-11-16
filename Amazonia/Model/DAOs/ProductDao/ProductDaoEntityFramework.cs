@@ -19,15 +19,14 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao
 
             List<Product> productListToTransform =
                     (from p in productList
-                    where p.name.ToLower() == keyWord.ToLower() &&
-                    p.categoryId == categoryId
-                    select p).ToList<Product>();
-
+                    where (p.name.ToLower().Contains(keyWord.ToLower())) && (p.categoryId == categoryId)
+                     select p).ToList<Product>();
+            
             List<ProductDTO> productListOutput = new List<ProductDTO>();
 
             foreach (Product product in productListToTransform)
             {
-                ProductDTO productDTO = new ProductDTO(product.id, product.name, product.Category, product.entryDate, product.price);
+                ProductDTO productDTO = ProductMapper.ProductToProductDto(product);
                 productListOutput.Add(productDTO);
             }
 
@@ -40,7 +39,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao
 
             List<Product> productListToTransform =
                 (from p in productList
-                 where p.name.ToLower() == keyWord.ToLower()
+                 where p.name.ToLower().Contains(keyWord.ToLower())
                  select p).ToList<Product>();
 
             List<ProductDTO> productListOutput = new List<ProductDTO>();
@@ -52,6 +51,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao
             }
             return productListOutput;
         }
+
     }
 }
 

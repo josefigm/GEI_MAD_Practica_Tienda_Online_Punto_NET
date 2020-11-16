@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 using Es.Udc.DotNet.ModelUtil.Transactions;
@@ -9,13 +9,48 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 {
     public class ProductServiceImp : IProductService
     {
-
+        
         public ProductServiceImp() { }
 
         [Inject]
         public ICategoryDao CategoryDao { private get; set; }
         [Inject]
         public IProductDao ProductDaoEntityFramework { private get; set; }
+
+        [Transactional]
+        public Product CreateProduct(string name, double price, DateTime entryDate, long stock, string image, string description, long categoryId)
+        {
+
+            Product productToInsert = new Product();
+            productToInsert.name = name;
+            productToInsert.price = price;
+            productToInsert.entryDate = entryDate;
+            productToInsert.stock = stock;
+            productToInsert.image = image;
+            productToInsert.description = description;
+            productToInsert.categoryId = categoryId;
+
+            ProductDaoEntityFramework.Create(productToInsert);
+
+            return productToInsert;
+        }
+
+
+        [Transactional]
+        public Product CreateProduct(Product product)
+        {
+            ProductDaoEntityFramework.Create(product);
+
+            return product;
+        }
+
+        [Transactional]
+        public Product UpdateProduct(Product product)
+        {
+            ProductDaoEntityFramework.Update(product);
+
+            return product;
+        }
 
 
         [Transactional]

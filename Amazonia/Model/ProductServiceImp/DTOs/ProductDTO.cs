@@ -7,23 +7,21 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
     [Serializable()]
     public class ProductDTO
     {
-        #region Properties region
 
         public Int64 id { get; private set; }
         public string productTitle { get; private set; }
-        public Category category { get; private set; }
-        public DateTime entryDate { get; private set; }
         public double price { get; private set; }
+        public DateTime entryDate { get; private set; }
+        public Category category { get; private set; }
 
-        #endregion
 
-        public ProductDTO(Int64 id, string productTitle, Category category, DateTime entryDate, double price)
+        public ProductDTO(long id, string productTitle, double price, DateTime entryDate, Category category)
         {
             this.id = id;
             this.productTitle = productTitle;
-            this.category = category;
-            this.entryDate = entryDate;
             this.price = price;
+            this.entryDate = entryDate;
+            this.category = category;
         }
 
         public override bool Equals(object obj)
@@ -32,19 +30,19 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
             return dTO != null &&
                    id == dTO.id &&
                    productTitle == dTO.productTitle &&
-                   EqualityComparer<Category>.Default.Equals(category, dTO.category) &&
+                   price == dTO.price &&
                    entryDate == dTO.entryDate &&
-                   price == dTO.price;
+                   EqualityComparer<Category>.Default.Equals(category, dTO.category);
         }
 
         public override int GetHashCode()
         {
-            var hashCode = 62468132;
+            var hashCode = 1037498420;
             hashCode = hashCode * -1521134295 + id.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(productTitle);
-            hashCode = hashCode * -1521134295 + EqualityComparer<Category>.Default.GetHashCode(category);
-            hashCode = hashCode * -1521134295 + entryDate.GetHashCode();
             hashCode = hashCode * -1521134295 + price.GetHashCode();
+            hashCode = hashCode * -1521134295 + entryDate.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<Category>.Default.GetHashCode(category);
             return hashCode;
         }
     }

@@ -103,7 +103,7 @@ namespace Test.ProductService
             #endregion
 
             #region Persistencia
-            productDao.Create(biciCarretera);
+            productService.CreateProduct(biciCarretera);
             #endregion
 
             Product retrievedProduct = productDao.Find(biciCarretera.id);
@@ -111,7 +111,44 @@ namespace Test.ProductService
 
         }
 
+        [TestMethod]
+        public void TestUpdateProduct()
+        {
+            #region Declaracion de variables   
+            Category c1 = new Category();
+            c1.name = "Bicicletas";
+            categoryDao.Create(c1);
 
+            Product biciCarretera = new Product();
+
+            double price = 1200;
+            System.DateTime date = System.DateTime.Now;
+            long stock = 5;
+            string image = "ccc";
+            string description = "Bicicleta";
+            long categoryIdBicicleta = c1.id;
+
+            biciCarretera.name = "Bicicleta Felt FZ85";
+            biciCarretera.price = price;
+            biciCarretera.entryDate = date;
+            biciCarretera.stock = stock;
+            biciCarretera.image = image;
+            biciCarretera.description = description;
+            biciCarretera.categoryId = categoryIdBicicleta;
+            #endregion
+
+            #region Persistencia
+            productService.CreateProduct(biciCarretera);
+            #endregion
+            //Se cambia biciCarretera y se comprueba que al actualizarla en BBDD son iguales.
+
+            biciCarretera.price = 1500d;
+
+            productService.UpdateProduct(biciCarretera);
+
+            Product retrievedProduct = productDao.Find(biciCarretera.id);
+            Assert.AreEqual(biciCarretera, retrievedProduct);
+        }
 
 
         [TestMethod]
@@ -165,9 +202,9 @@ namespace Test.ProductService
             #endregion
 
             #region Persistencia
-            productDao.Create(biciCarretera);
-            productDao.Create(portatil);
-            productDao.Create(biciMontaña);
+            productService.CreateProduct(biciCarretera);
+            productService.CreateProduct(portatil);
+            productService.CreateProduct(biciMontaña);
             #endregion
 
 
@@ -227,19 +264,25 @@ namespace Test.ProductService
             #endregion
 
             #region Persistencia
-            productDao.Create(biciCarretera);
-            productDao.Create(portatil);
-            productDao.Create(biciMontaña);
+            productService.CreateProduct(biciCarretera);
+            productService.CreateProduct(portatil);
+            productService.CreateProduct(biciMontaña);
             #endregion
 
             List<ProductDTO> listaEsperadaOrdenador = new List<ProductDTO>(1);
             listaEsperadaOrdenador.Add(ProductMapper.ProductToProductDto(portatil));
-            List<ProductDTO> listaRecuperadaOrdenador = productService.FindProductByWordAndCategory("     ordenaDoReS    ", null);
+            List<ProductDTO> listaRecuperadaOrdenador = productService.FindProductByWordAndCategory("     ordenaDoReS    ", c2);
+            // Buscando por ordenadores no se debaría encontrar nada.
+
+            Assert.IsTrue(listaRecuperadaOrdenador.Count == 0);
+
+            // Buscando por portátil sí que debería encontrarlo
+            listaRecuperadaOrdenador = productService.FindProductByWordAndCategory("     portATIL    ", c2);
 
             Assert.IsTrue(listaRecuperadaOrdenador.Count == 1);
             CollectionAssert.AreEqual(listaEsperadaOrdenador, listaRecuperadaOrdenador);
 
-            List<ProductDTO> listaRecuperadaBicicletas = productService.FindProductByWordAndCategory("bicicleta", null);
+            List<ProductDTO> listaRecuperadaBicicletas = productService.FindProductByWordAndCategory("bicicleta", c1);
 
             Assert.IsTrue(listaRecuperadaBicicletas.Count == 2);
         }
@@ -295,9 +338,9 @@ namespace Test.ProductService
             #endregion
 
             #region Persistencia
-            productDao.Create(biciCarretera);
-            productDao.Create(portatil);
-            productDao.Create(biciMontaña);
+            productService.CreateProduct(biciCarretera);
+            productService.CreateProduct(portatil);
+            productService.CreateProduct(biciMontaña);
             #endregion
 
             List<ProductDTO> listaEsperadaBicicletas = new List<ProductDTO>(2);
@@ -349,12 +392,12 @@ namespace Test.ProductService
             biciMontaña.stock = stock;
             biciMontaña.image = image;
             biciMontaña.description = description;
-            biciMontaña.categoryId = categoryIdBicicleta;
+            biciMontaña.categoryId = categoryIdBicicletaOutlet;
             #endregion
 
             #region Persistencia
-            productDao.Create(biciCarretera);
-            productDao.Create(biciMontaña);
+            productService.CreateProduct(biciCarretera);
+            productService.CreateProduct(biciMontaña);
             #endregion
 
             List<ProductDTO> listaEsperadaBicicletas = new List<ProductDTO>(1);

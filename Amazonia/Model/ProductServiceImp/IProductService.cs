@@ -10,8 +10,17 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
     public interface IProductService
     {
         ICategoryDao CategoryDao { set; }
+
         IProductDao ProductDaoEntityFramework { set; }
 
+        [Transactional]
+        Product CreateProduct(string name, double price, DateTime entryDate, long stock, string image, string description, long categoryId);
+
+        [Transactional]
+        Product CreateProduct(Product product);
+
+        [Transactional]
+        Product UpdateProduct(Product product);
 
         [Transactional]
         List<Category> FindCategories();
