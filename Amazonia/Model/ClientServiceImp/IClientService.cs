@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao;
 using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp.Exceptions;
 using Ninject;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
+using System.Collections.Generic;
 
 namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 {
@@ -55,6 +56,20 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
         void Logout(LoginDetails loginDetails);
+
+        /// <summary>
+        /// Define por defecto una tarjeta para un usuario.
+        /// </summary>
+        /// <exception cref="InstanceNotFoundException"/>
+        [Transactional]
+        void SetDefaultCard(String numberCard, String login);
+
+        /// <summary>
+        /// Lista tarjetas de un cliente por su login.
+        /// </summary>
+        /// <exception cref="InstanceNotFoundException"/>
+        [Transactional]
+        List<Card> ListCardsByClientLogin(string login);
 
     }
 }

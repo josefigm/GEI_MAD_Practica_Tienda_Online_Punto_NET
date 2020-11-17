@@ -15,11 +15,11 @@ namespace Test.ClientServiceTests
     /// Descripción resumida de IProductServiceTest
     /// </summary>
     [TestClass]
-    public class IProductServiceTest
+    public class IClientServiceTest
     {
 
         // Variables used in several tests are initialized here
-        private const string login = "loginTest";
+        private const string login = "loginTestprueba";
         private const string login2 = "loginTest2";
         private const string login3 = "loginTest3";
         private const string login4 = "loginTest4";
@@ -41,9 +41,8 @@ namespace Test.ClientServiceTests
 
         public TestContext TestContext { get; set; }
 
-        public IProductServiceTest()
+        public IClientServiceTest()
         {
-
         }
 
         #region Atributos de prueba adicionales

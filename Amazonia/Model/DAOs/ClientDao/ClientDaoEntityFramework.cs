@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Data.Entity;
-
 using Es.Udc.DotNet.ModelUtil.Dao;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 
 namespace Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao
 {
     public class ClientDaoEntityFramework :
-        GenericDaoEntityFramework<Client, Int64>, IClientDao
+        GenericDaoEntityFramework<Client, String>, IClientDao
     {
 
         #region Public Constructors
@@ -49,20 +48,5 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao
 
             return clientProfile;
         }
-    }
-}
-
-﻿using Es.Udc.DotNet.ModelUtil.Dao;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao
-{
-    public class ClientDaoEntityFramework :
-        GenericDaoEntityFramework<Client, String>, IClientDao
-    {
     }
 }

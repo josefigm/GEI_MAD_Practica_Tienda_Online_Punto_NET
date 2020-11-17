@@ -5,12 +5,13 @@ using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleLineDao;
 using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp;
-using Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao;
 using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.CardServiceImp;
 using Ninject;
 using System.Configuration;
 using System.Data.Entity;
+
 
 namespace Test
 {
@@ -47,14 +48,15 @@ namespace Test
             kernel.Bind<IProductService>().
                 To<ProductServiceImp>();
 
-            kernel.Bind<IClientDao>().
-               To<ClientDaoEntityFramework>();
-
             kernel.Bind<IClientService>().
                 To<ClientServiceImp>();
 
+            kernel.Bind<ICardService>().
+                To<CardServiceImp>();
+
             kernel.Bind<ISaleService>().
                 To<SaleServiceImp>();
+
 
             string connectionString =
                 ConfigurationManager.ConnectionStrings["amazoniaEntities"].ConnectionString;

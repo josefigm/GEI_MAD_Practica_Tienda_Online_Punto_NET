@@ -79,6 +79,7 @@
     <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CardServiceTests\ICardServiceTest.cs" />
     <Compile Include="ClientServiceTests\IClientServiceTest.cs" />
     <Compile Include="ProductServiceTests\IProductServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

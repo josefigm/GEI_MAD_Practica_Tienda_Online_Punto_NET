@@ -6,6 +6,8 @@ using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp.Util;
 
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao;
 using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp.Exceptions;
+using System.Collections.Generic;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.CardDao;
 
 namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 {
@@ -13,6 +15,9 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
     {
         [Inject]
         public IClientDao ClientDao { private get; set; }
+
+        [Inject]
+        public ICardDao CardDao { private get; set; }
 
 
         /// <exception cref="DuplicateInstanceException"/>
@@ -113,5 +118,27 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
                 LoginDetails.ExitLoginDetails(loginDetails);
             }
         }
+
+        public void SetDefaultCard(string numberCard, string login)
+        {
+
+            Client client =
+                ClientDao.FindByLogin(login);
+
+            client.defaultCardNumber = numberCard;
+
+            ClientDao.Update(client);
+
+        }
+
+        public List<Card> ListCardsByClientLogin(String login)
+        {
+
+            Client client =
+                ClientDao.FindByLogin(login);
+
+            return CardDao.FindCardsOfClient(client);
+        }
+
     }
 }

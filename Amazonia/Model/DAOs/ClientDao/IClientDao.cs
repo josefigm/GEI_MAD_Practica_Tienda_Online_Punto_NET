@@ -3,7 +3,7 @@ using Es.Udc.DotNet.ModelUtil.Dao;
 
 namespace Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao
 {
-    public interface IClientDao : IGenericDao<Client, Int64>
+    public interface IClientDao : IGenericDao<Client, String>
     {
 
         /// <summary>
