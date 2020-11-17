@@ -7,6 +7,8 @@ using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleLineDao;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs;
+using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions;
+using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
 using System;
@@ -29,6 +31,10 @@ namespace Test.SaleServiceTests
         private static ICategoryDao categoryDao;
         private static ISaleLineDao saleLineDao;
         private static IProductDao productDao;
+
+        private String address = "Direccion de entrega";
+        private String descName = "Test sale";
+        private const long NON_EXISTENT_SALE_ID = -1;
 
         private TransactionScope transactionScope;
 
@@ -83,12 +89,9 @@ namespace Test.SaleServiceTests
 
             lines.Add(line1);
 
-            String address = "Direccion de entrega";
-            String descName = "Test sale";
-
             #endregion Declaracion de variables
 
-            long saleId = saleService.buy(lines, card.number, descName, address, client.login);
+            long saleId = saleService.Buy(lines, card.number, descName, address, client.login);
 
             Sale sale = saleDao.Find(saleId);
 
@@ -96,6 +99,57 @@ namespace Test.SaleServiceTests
             Assert.AreEqual(card.number, sale.cardNumber);
             Assert.AreEqual(client.login, sale.clientLogin);
             Assert.AreEqual((line1.price * line1.units), sale.totalPrice);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InsufficientStockException))]
+        public void TestBuyMoreThanStock()
+        {
+            #region Declaracion de variables
+
+            Client client = new Client();
+            client.login = "client1";
+            client.password = "password";
+            client.firstName = "firstName";
+            client.lastName = "lastName";
+            client.address = "adress";
+            client.email = "email";
+            client.role = 1;
+            client.language = 1;
+            clientDao.Create(client);
+
+            Card card = new Card();
+            card.number = "111122223333555";
+            card.cvv = "123";
+            card.expireDate = new DateTime(2025, 1, 1);
+            card.name = "Client Name";
+            card.type = true;
+            cardDao.Create(card);
+
+            client.Cards.Add(card);
+            clientDao.Update(client);
+
+            Category category = new Category();
+            category.name = "category";
+            categoryDao.Create(category);
+
+            Product product = new Product();
+            product.name = "TestProduct";
+            product.price = 24;
+            product.entryDate = new DateTime(2020, 1, 1);
+            product.stock = 2;
+            product.Category = category;
+            productDao.Create(product);
+
+            List<SaleLineDTO> lines = new List<SaleLineDTO>();
+
+            SaleLineDTO line1 = new SaleLineDTO(30, 24, false, product.id);
+
+            lines.Add(line1);
+
+            #endregion Declaracion de variables
+
+            long saleId = saleService.Buy(lines, card.number, descName, address, client.login);
         }
 
         [TestMethod]
@@ -143,19 +197,23 @@ namespace Test.SaleServiceTests
 
             lines.Add(line1);
 
-            String address = "Direccion de entrega";
-            String descName = "Test sale";
-
             #endregion Declaracion de variables
 
-            long saleId = saleService.buy(lines, card.number, descName, address, client.login);
+            long saleId = saleService.Buy(lines, card.number, descName, address, client.login);
 
-            SaleDTO sale = saleService.showSaleDetails(saleId);
+            SaleDTO sale = saleService.ShowSaleDetails(saleId);
 
             Assert.AreEqual(1, sale.saleLines.Count);
             Assert.AreEqual(card.number, sale.cardNumber);
             Assert.AreEqual(client.login, sale.clientLogin);
             Assert.AreEqual((line1.price * line1.units), sale.totalPrice);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InstanceNotFoundException))]
+        public void TestShowSaleDetailsNonExistentSale()
+        {
+            SaleDTO sale = saleService.ShowSaleDetails(NON_EXISTENT_SALE_ID);
         }
 
         [TestMethod]
@@ -174,6 +232,17 @@ namespace Test.SaleServiceTests
             client.language = 1;
             clientDao.Create(client);
 
+            Client client2 = new Client();
+            client2.login = "client3bis";
+            client2.password = "password";
+            client2.firstName = "firstName";
+            client2.lastName = "lastName";
+            client2.address = "adress";
+            client2.email = "email";
+            client2.role = 1;
+            client2.language = 1;
+            clientDao.Create(client2);
+
             Card card = new Card();
             card.number = "5555333322221111";
             card.cvv = "123";
@@ -183,7 +252,9 @@ namespace Test.SaleServiceTests
             cardDao.Create(card);
 
             client.Cards.Add(card);
+            client2.Cards.Add(card);
             clientDao.Update(client);
+            clientDao.Update(client2);
 
             Category category = new Category();
             category.name = "category";
@@ -203,14 +274,13 @@ namespace Test.SaleServiceTests
 
             lines.Add(line1);
 
-            String address = "Direccion de entrega";
-            String descName = "Test sale";
-
             #endregion Declaracion de variables
 
-            long saleId = saleService.buy(lines, card.number, descName, address, client.login);
+            long saleId = saleService.Buy(lines, card.number, descName, address, client.login);
 
-            List<SaleListItemDTO> saleList = saleService.showClientSaleList(client.login, 0, 1);
+            saleService.Buy(lines, card.number, descName, address, client2.login);
+
+            List<SaleListItemDTO> saleList = saleService.ShowClientSaleList(client.login, 0, 1);
 
             Assert.AreEqual(1, saleList.Count);
 
@@ -220,6 +290,29 @@ namespace Test.SaleServiceTests
 
             Assert.AreEqual(saleId, sale.id);
             Assert.AreEqual(descName, sale.descName);
+        }
+
+        [TestMethod]
+        public void TestShowClientEmptySaleList()
+        {
+            #region Declaracion de variables
+
+            Client client = new Client();
+            client.login = "client4";
+            client.password = "password";
+            client.firstName = "firstName";
+            client.lastName = "lastName";
+            client.address = "adress";
+            client.email = "email";
+            client.role = 1;
+            client.language = 1;
+            clientDao.Create(client);
+
+            #endregion Declaracion de variables
+
+            List<SaleListItemDTO> saleList = saleService.ShowClientSaleList(client.login, 0, 1);
+
+            Assert.AreEqual(0, saleList.Count);
         }
 
         #region Additional test attributes

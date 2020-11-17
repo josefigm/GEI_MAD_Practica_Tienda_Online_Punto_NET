@@ -16,14 +16,15 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
 
         ISaleLineDao SaleLineDao { set; }
 
+        /// <exception cref="Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions.InsufficientStockException"></exception>
         [Transactional]
-        long buy(List<SaleLineDTO> saleLines, String creditCardNumber, String descName, String address, String clientLogin);
+        long Buy(List<SaleLineDTO> saleLines, String creditCardNumber, String descName, String address, String clientLogin);
 
         [Transactional]
-        SaleDTO showSaleDetails(long saleId);
+        SaleDTO ShowSaleDetails(long saleId);
 
         [Transactional]
-        List<SaleListItemDTO> showClientSaleList(String clientLogin, int startIndex, int count);
+        List<SaleListItemDTO> ShowClientSaleList(String clientLogin, int startIndex, int count);
 
     }
 }

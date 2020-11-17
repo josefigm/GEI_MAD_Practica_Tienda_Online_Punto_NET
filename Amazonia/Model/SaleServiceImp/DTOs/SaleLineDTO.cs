@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs
 {
+    [Serializable()]
     public class SaleLineDTO
     {
         public long units { get; set; }

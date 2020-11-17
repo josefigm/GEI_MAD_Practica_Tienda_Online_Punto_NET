@@ -26,7 +26,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         public ISaleLineDao SaleLineDao { private get; set; }
 
         [Transactional]
-        public long buy(List<SaleLineDTO> saleLines, String creditCardNumber, String descName, String address, String clientLogin)
+        public long Buy(List<SaleLineDTO> saleLines, String creditCardNumber, String descName, String address, String clientLogin)
         {
             Sale sale = new Sale();
             DateTime date = DateTime.Now;
@@ -72,7 +72,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         }
 
         [Transactional]
-        public SaleDTO showSaleDetails(long saleId)
+        public SaleDTO ShowSaleDetails(long saleId)
         {
             Sale sale = SaleDao.Find(saleId);
             SaleDTO saleDetails = new SaleDTO();
@@ -97,7 +97,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         }
 
         [Transactional]
-        public List<SaleListItemDTO> showClientSaleList(String clientLogin, int startIndex, int count)
+        public List<SaleListItemDTO> ShowClientSaleList(String clientLogin, int startIndex, int count)
         {
             List<SaleListItemDTO> saleList = new List<SaleListItemDTO>();
 
@@ -109,7 +109,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
                     new SaleListItemDTO(sale.id, sale.date, sale.descName, sale.totalPrice)
                     );
             }
-            
+
             return saleList;
         }
     }

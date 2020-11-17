@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs
 {
+    [Serializable()]
     public class SaleDTO
     {
         public long id { get; set; }
