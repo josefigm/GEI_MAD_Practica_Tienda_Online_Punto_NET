@@ -1,5 +1,4 @@
-﻿
-USE [amazonia]
+﻿USE [amazonia]
 
 /*  Drop Tables  if already exists  */
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID('[SaleLine]') AND type in ('U'))
