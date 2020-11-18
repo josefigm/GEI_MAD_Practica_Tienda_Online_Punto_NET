@@ -24,7 +24,7 @@ namespace Test.ProductService
         private static ILabelService labelService;
         private static IProductDao productDao;
         private static ICategoryDao categoryDao;
-        private static IProductDao productDao;
+
 
         private TransactionScope transactionScope;
 

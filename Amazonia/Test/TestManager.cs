@@ -6,7 +6,6 @@ using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp;
 using Ninject;
 using System.Configuration;
 using System.Data.Entity;
-using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao;
 
@@ -40,16 +39,12 @@ namespace Test
             kernel.Bind<ICommentDao>().
                 To<CommentDaoEntityFramework>();
 
-
             kernel.Bind<ILabelService>().
                 To<LabelServiceImp>();
 
             kernel.Bind<ILabelDao>().
                 To<LabelDaoEntityFramework>();
 
-
-            kernel.Bind<IProductDao>().
-                To<ProductDaoEntityFramework>();
 
             string connectionString =
                 ConfigurationManager.ConnectionStrings["amazoniaEntities"].ConnectionString;

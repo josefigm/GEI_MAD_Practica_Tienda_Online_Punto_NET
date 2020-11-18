@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 using Es.Udc.DotNet.ModelUtil.Transactions;
-﻿using System.Collections.Generic;
 using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp;
-using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao;
-using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 using Ninject;
-using System;
+
 
 namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 {
@@ -131,6 +128,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
                 productListOutput = ProductDaoEntityFramework.FindByKeyWord(cleanKeyWord);
             }
             return productListOutput;
+        }
 
         public List<Product> RetrieveProductsWithLabel(string labelValue)
         {
