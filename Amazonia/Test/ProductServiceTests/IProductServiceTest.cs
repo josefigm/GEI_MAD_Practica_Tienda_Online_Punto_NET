@@ -7,6 +7,8 @@ using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
 using Es.Udc.DotNet.Amazonia.Model;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp.DTOs;
+using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp;
 
 namespace Test.ProductService
 {
@@ -16,9 +18,11 @@ namespace Test.ProductService
     [TestClass]
     public class IProductServiceTest
     {
-
         private static IKernel kernel;
         private static IProductService productService;
+        private static ICommentService commentService;
+        private static ILabelService labelService;
+        private static IProductDao productDao;
         private static ICategoryDao categoryDao;
         private static IProductDao productDao;
 
@@ -410,6 +414,220 @@ namespace Test.ProductService
 
         }
 
+        [TestMethod]
+        public void RetrieveProductsWithLabelEmptyTest()
+        {
+            #region Needed variables
+            Category c1 = new Category();
+            c1.name = "Bicicletas";
+            categoryDao.Create(c1);
+
+            Product biciCarretera = new Product();
+
+            double price = 1200;
+            System.DateTime date = System.DateTime.Now;
+            long stock = 5;
+            string image = "ccc";
+            string description = "Bicicleta";
+            long categoryIdBicicleta = c1.id;
+
+
+            biciCarretera.name = "Bicicleta Felt FZ85";
+            biciCarretera.price = price;
+            biciCarretera.entryDate = date;
+            biciCarretera.stock = stock;
+            biciCarretera.image = image;
+            biciCarretera.description = description;
+            biciCarretera.categoryId = categoryIdBicicleta;
+            #endregion
+
+            #region Persistencia
+            productDao.Create(biciCarretera);
+            #endregion
+
+            #region Comment and label section
+            Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
+
+            labelService.CreateLabel("Genial", newComment.id);
+
+            #endregion
+
+            List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Malo");
+
+            Assert.AreEqual(productsWithLabel.Count, 0);
+        
+        }
+
+        [TestMethod]
+        public void RetrieveProductWithLabelTest()
+        {
+            #region Needed variables
+            Category c1 = new Category();
+            c1.name = "Bicicletas";
+            categoryDao.Create(c1);
+
+            Product biciCarretera = new Product();
+
+            double price = 1200;
+            System.DateTime date = System.DateTime.Now;
+            long stock = 5;
+            string image = "ccc";
+            string description = "Bicicleta";
+            long categoryIdBicicleta = c1.id;
+
+
+            biciCarretera.name = "Bicicleta Felt FZ85";
+            biciCarretera.price = price;
+            biciCarretera.entryDate = date;
+            biciCarretera.stock = stock;
+            biciCarretera.image = image;
+            biciCarretera.description = description;
+            biciCarretera.categoryId = categoryIdBicicleta;
+            #endregion
+
+            #region Persistencia
+            productDao.Create(biciCarretera);
+            #endregion
+
+            #region Comment and label section
+            Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
+            labelService.CreateLabel("Genial", newComment.id);
+
+            #endregion
+
+            List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Genial");
+
+            Assert.AreEqual(productsWithLabel.Count, 1);
+            Assert.AreEqual(productsWithLabel[0], biciCarretera);
+        }
+
+        [TestMethod]
+        public void RetrieveProductsWithLabelTest()
+        {
+            #region Needed variables
+            Category c1 = new Category();
+            c1.name = "Bicicletas";
+            Category c2 = new Category();
+            c2.name = "Ordenadores";
+
+            categoryDao.Create(c1);
+            categoryDao.Create(c2);
+
+            Product biciCarretera = new Product();
+            Product biciMontaña = new Product();
+            Product portatil = new Product();
+
+            double price = 1200;
+            System.DateTime date = System.DateTime.Now;
+            long stock = 5;
+            string image = "ccc";
+            string description = "Bicicleta";
+            long categoryIdBicicleta = c1.id;
+            long categoryIdPortatil = c2.id;
+
+
+            biciCarretera.name = "Bicicleta Felt FZ85";
+            biciCarretera.price = price;
+            biciCarretera.entryDate = date;
+            biciCarretera.stock = stock;
+            biciCarretera.image = image;
+            biciCarretera.description = description;
+            biciCarretera.categoryId = categoryIdBicicleta;
+
+            biciMontaña.name = "Bicicleta Felt FZ85";
+            biciMontaña.price = price;
+            biciMontaña.entryDate = date;
+            biciMontaña.stock = stock;
+            biciMontaña.image = image;
+            biciMontaña.description = description;
+            biciMontaña.categoryId = categoryIdBicicleta;
+
+            portatil.name = "Portatil Dell XPS";
+            portatil.price = price;
+            portatil.entryDate = date;
+            portatil.stock = stock;
+            portatil.image = image;
+            portatil.description = description;
+            portatil.categoryId = categoryIdPortatil;
+            #endregion
+
+            #region Persistencia
+            productDao.Create(biciCarretera);
+            productDao.Create(portatil);
+            productDao.Create(biciMontaña);
+            #endregion
+
+            #region Comment and label section
+            Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
+            Comment newComment2 = commentService.AddComment("Review 1", "Muy mala bicicleta", biciMontaña.id);
+            Comment newComment3 = commentService.AddComment("Review 1", "Muy buen portátil", portatil.id);
+
+            labelService.CreateLabel("Genial", newComment.id);
+            labelService.CreateLabel("Mala", newComment2.id);
+            labelService.CreateLabel("Genial", newComment3.id);
+
+            #endregion
+
+            List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Genial");
+
+            Assert.AreEqual(productsWithLabel.Count, 2);
+            Assert.IsTrue(productsWithLabel.Contains(portatil));
+            Assert.IsTrue(productsWithLabel.Contains(biciCarretera));
+        }
+
+        [TestMethod]
+        public void RetrieveProductWithMultipleLabelsTest()
+        {
+            #region Needed variables
+            Category c1 = new Category();
+            c1.name = "Bicicletas";
+            categoryDao.Create(c1);
+
+            Product biciCarretera = new Product();
+
+            double price = 1200;
+            System.DateTime date = System.DateTime.Now;
+            long stock = 5;
+            string image = "ccc";
+            string description = "Bicicleta";
+            long categoryIdBicicleta = c1.id;
+
+
+            biciCarretera.name = "Bicicleta Felt FZ85";
+            biciCarretera.price = price;
+            biciCarretera.entryDate = date;
+            biciCarretera.stock = stock;
+            biciCarretera.image = image;
+            biciCarretera.description = description;
+            biciCarretera.categoryId = categoryIdBicicleta;
+            #endregion
+
+            #region Persistencia
+            productDao.Create(biciCarretera);
+            #endregion
+
+            #region Comment and label section
+            Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
+            labelService.CreateLabel("Genial", newComment.id);
+            labelService.CreateLabel("Buena", newComment.id);
+
+            #endregion
+
+            // Se busca primero por la primera etiqueta
+            List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Genial");
+
+            Assert.AreEqual(productsWithLabel.Count, 1);
+            Assert.AreEqual(productsWithLabel[0], biciCarretera);
+
+            //Se busca luego por la segunda etiqueta
+            productsWithLabel = productService.RetrieveProductsWithLabel("Buena");
+
+            Assert.AreEqual(productsWithLabel.Count, 1);
+            Assert.AreEqual(productsWithLabel[0], biciCarretera);
+        }
+
+
+
         #region Additional test attributes
 
         //Use ClassInitialize to run code before running the first test in the class
@@ -421,6 +639,11 @@ namespace Test.ProductService
             categoryDao = kernel.Get<ICategoryDao>();
             productService = kernel.Get<IProductService>();
             productDao = kernel.Get<IProductDao>();
+            commentService = kernel.Get<ICommentService>();
+            labelService = kernel.Get<ILabelService>();
+            productDao = kernel.Get<IProductDao>();
+            categoryDao = kernel.Get<ICategoryDao>();
+
         }
 
         //Use ClassCleanup to run code after all tests in a class have run

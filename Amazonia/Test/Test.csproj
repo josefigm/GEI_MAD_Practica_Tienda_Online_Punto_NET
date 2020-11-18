@@ -79,6 +79,8 @@
     <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommentServiceTest\CommentServiceTest.cs" />
+    <Compile Include="LabelServiceTest\LabelServiceTest.cs" />
     <Compile Include="ProductServiceTests\IProductServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestManager.cs" />

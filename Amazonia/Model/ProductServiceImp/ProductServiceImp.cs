@@ -3,7 +3,14 @@ using System.Collections.Generic;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 using Es.Udc.DotNet.ModelUtil.Transactions;
+﻿using System.Collections.Generic;
+using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 using Ninject;
+using System;
 
 namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 {
@@ -14,8 +21,21 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 
         [Inject]
         public ICategoryDao CategoryDao { private get; set; }
+        
         [Inject]
         public IProductDao ProductDaoEntityFramework { private get; set; }
+        
+        [Inject]
+        public ICommentDao CommentDao { private get; set; }
+
+        [Inject]
+        public IProductDao ProductDao { private get; set; }
+
+        [Inject]
+        public ILabelDao LabelDao { private get; set; }
+
+        [Inject]
+        public ICommentService CommentService { private get;  set; }
 
         [Transactional]
         public Product CreateProduct(string name, double price, DateTime entryDate, long stock, string image, string description, long categoryId)
@@ -82,6 +102,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
             return CategoryDao.GetAllElements();
         }
 
+
         [Transactional]
         public Product FindProductById(long id)
         {
@@ -110,6 +131,37 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
                 productListOutput = ProductDaoEntityFramework.FindByKeyWord(cleanKeyWord);
             }
             return productListOutput;
+
+        public List<Product> RetrieveProductsWithLabel(string labelValue)
+        {
+            if (labelValue == null)
+            {
+                throw new ArgumentNullException("Valor de etiqueta nulo");
+            }
+
+            List<Product> allProducts = ProductDao.GetAllElements();
+            List<Product> productsWithLabel = new List<Product>();
+
+            foreach (Product product in allProducts)
+            {
+                bool labelFound = false;
+                List<Comment> comments = CommentService.FindCommentsOfProduct(product.id);
+                for (int i = 0; i < comments.Count && labelFound == false; i++)
+                {
+                    List<Label> labels = LabelDao.FindLabelsOfComment(comments[i]);
+                    for (int j = 0; j < labels.Count && labelFound == false; j++)
+                    {
+                        if (labels[j].value == labelValue)
+                        {
+                            labelFound = true;
+                            productsWithLabel.Add(product);
+                        }
+                    }
+                }
+            }
+
+            return productsWithLabel;
+
         }
     }
 }

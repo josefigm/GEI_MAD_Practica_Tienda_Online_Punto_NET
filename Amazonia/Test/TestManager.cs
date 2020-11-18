@@ -1,9 +1,14 @@
 ﻿using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp;
 using Ninject;
 using System.Configuration;
 using System.Data.Entity;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao;
 
 namespace Test
 {
@@ -24,6 +29,24 @@ namespace Test
 
             kernel.Bind<IProductService>().
                 To<ProductServiceImp>();
+
+            kernel.Bind<IProductDao>().
+                To<ProductDaoEntityFramework>();
+
+            kernel.Bind<ICommentService>().
+                To<CommentServiceImp>();
+
+
+            kernel.Bind<ICommentDao>().
+                To<CommentDaoEntityFramework>();
+
+
+            kernel.Bind<ILabelService>().
+                To<LabelServiceImp>();
+
+            kernel.Bind<ILabelDao>().
+                To<LabelDaoEntityFramework>();
+
 
             kernel.Bind<IProductDao>().
                 To<ProductDaoEntityFramework>();

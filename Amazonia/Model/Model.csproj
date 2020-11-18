@@ -89,6 +89,8 @@
     <Compile Include="Comment.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="CommentServiceImp\ICommentService.cs" />
+    <Compile Include="CommentServiceImp\CommentServiceImp.cs" />
     <Compile Include="Computer.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -96,11 +98,17 @@
     <Compile Include="DAOs\CardDao\ICardDao.cs" />
     <Compile Include="DAOs\CategoryDao\CategoryDaoEntityFramework.cs" />
     <Compile Include="DAOs\CategoryDao\ICategoryDao.cs" />
+    <Compile Include="DAOs\CommentDao\CommentDaoEntityFramework.cs" />
+    <Compile Include="DAOs\CommentDao\ICommentDao.cs" />
+    <Compile Include="DAOs\LabelDao\LabelDaoEntityFramework.cs" />
+    <Compile Include="DAOs\LabelDao\ILabelDao.cs" />
     <Compile Include="DAOs\ProductDao\IProductDao.cs" />
     <Compile Include="DAOs\ProductDao\ProductDaoEntityFramework.cs" />
     <Compile Include="Label.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="LabelServiceImp\ILabelService.cs" />
+    <Compile Include="LabelServiceImp\LabelServiceImp.cs" />
     <Compile Include="Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
