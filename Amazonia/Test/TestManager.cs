@@ -1,6 +1,13 @@
-﻿using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
+﻿using Es.Udc.DotNet.Amazonia.Model.DAOs.CardDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleLineDao;
 using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.CardServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp;
 using Ninject;
@@ -8,6 +15,7 @@ using System.Configuration;
 using System.Data.Entity;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao;
+
 
 namespace Test
 {
@@ -26,11 +34,33 @@ namespace Test
             kernel.Bind<ICategoryDao>().
                 To<CategoryDaoEntityFramework>();
 
-            kernel.Bind<IProductService>().
-                To<ProductServiceImp>();
+            kernel.Bind<IClientDao>().
+                To<ClientDaoEntityFramework>();
+
+            kernel.Bind<ICardDao>().
+                To<CardDaoEntityFramework>();
+
+            kernel.Bind<ISaleDao>().
+                To<SaleDaoEntityFramework>();
+
+            kernel.Bind<ISaleLineDao>().
+                To<SaleLineDaoEntityFramework>();
 
             kernel.Bind<IProductDao>().
                 To<ProductDaoEntityFramework>();
+
+            kernel.Bind<IProductService>().
+                To<ProductServiceImp>();
+
+            kernel.Bind<IClientService>().
+                To<ClientServiceImp>();
+
+            kernel.Bind<ICardService>().
+                To<CardServiceImp>();
+
+            kernel.Bind<ISaleService>().
+                To<SaleServiceImp>();
+
 
             kernel.Bind<ICommentService>().
                 To<CommentServiceImp>();

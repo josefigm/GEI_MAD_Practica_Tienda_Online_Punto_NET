@@ -18,9 +18,9 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao
 
             List<Product> productListToTransform =
                     (from p in productList
-                    where (p.name.ToLower().Contains(keyWord.ToLower())) && (p.categoryId == categoryId)
+                     where (p.name.ToLower().Contains(keyWord.ToLower())) && (p.categoryId == categoryId)
                      select p).ToList<Product>();
-            
+
             List<ProductDTO> productListOutput = new List<ProductDTO>();
 
             foreach (Product product in productListToTransform)
