@@ -6,6 +6,7 @@ using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleLineDao;
 using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp;
 using Ninject;
 using System.Configuration;
 using System.Data.Entity;
@@ -47,6 +48,9 @@ namespace Test
 
             kernel.Bind<ISaleService>().
                 To<SaleServiceImp>();
+
+            kernel.Bind<IShoppingCartService>().
+                To<ShoppingCartServiceImp>();
 
             string connectionString =
                 ConfigurationManager.ConnectionStrings["amazoniaEntities"].ConnectionString;

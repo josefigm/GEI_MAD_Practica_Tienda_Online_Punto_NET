@@ -2,6 +2,7 @@
 using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleLineDao;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs;
+using Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp.DTOs;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
 
         /// <exception cref="Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions.InsufficientStockException"></exception>
         [Transactional]
-        long Buy(List<SaleLineDTO> saleLines, String creditCardNumber, String descName, String address, String clientLogin);
+        long Buy(ShoppingCart shoppingCart, String descName, String address, String cardNumber, String clientLogin);
 
         [Transactional]
         SaleDTO ShowSaleDetails(long saleId);

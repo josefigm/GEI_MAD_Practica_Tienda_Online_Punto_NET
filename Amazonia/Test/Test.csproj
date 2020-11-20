@@ -82,6 +82,7 @@
     <Compile Include="ProductServiceTests\IProductServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaleServiceTests\ISaleServiceTest.cs" />
+    <Compile Include="ShoppingCartServiceTest\IShoppingCartServiceTest.cs" />
     <Compile Include="TestManager.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +95,7 @@
       <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

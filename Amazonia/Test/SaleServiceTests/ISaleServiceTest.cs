@@ -8,6 +8,8 @@ using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleLineDao;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions;
+using Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp.DTOs;
+using Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
@@ -83,15 +85,17 @@ namespace Test.SaleServiceTests
             product.Category = category;
             productDao.Create(product);
 
-            List<SaleLineDTO> lines = new List<SaleLineDTO>();
+            List<ShoppingCartItem> lines = new List<ShoppingCartItem>();
 
-            SaleLineDTO line1 = new SaleLineDTO(3, 24, false, product.id);
+            ShoppingCartItem line1 = new ShoppingCartItem(3, false, product.id);
 
             lines.Add(line1);
 
+            ShoppingCart shoppingCart = new ShoppingCart(72, lines);
+
             #endregion Declaracion de variables
 
-            long saleId = saleService.Buy(lines, card.number, descName, address, client.login);
+            long saleId = saleService.Buy(shoppingCart, descName, address, card.number, client.login);
 
             Sale sale = saleDao.Find(saleId);
 
@@ -141,15 +145,17 @@ namespace Test.SaleServiceTests
             product.Category = category;
             productDao.Create(product);
 
-            List<SaleLineDTO> lines = new List<SaleLineDTO>();
+            List<ShoppingCartItem> lines = new List<ShoppingCartItem>();
 
-            SaleLineDTO line1 = new SaleLineDTO(30, 24, false, product.id);
+            ShoppingCartItem line1 = new ShoppingCartItem(3, false, product.id);
 
             lines.Add(line1);
 
+            ShoppingCart shoppingCart = new ShoppingCart(72, lines);
+
             #endregion Declaracion de variables
 
-            long saleId = saleService.Buy(lines, card.number, descName, address, client.login);
+            long saleId = saleService.Buy(shoppingCart, descName, address, card.number, client.login);
         }
 
         [TestMethod]
@@ -191,15 +197,17 @@ namespace Test.SaleServiceTests
             product.Category = category;
             productDao.Create(product);
 
-            List<SaleLineDTO> lines = new List<SaleLineDTO>();
+            List<ShoppingCartItem> lines = new List<ShoppingCartItem>();
 
-            SaleLineDTO line1 = new SaleLineDTO(3, 24, false, product.id);
+            ShoppingCartItem line1 = new ShoppingCartItem(3, false, product.id);
 
             lines.Add(line1);
 
+            ShoppingCart shoppingCart = new ShoppingCart(72, lines);
+
             #endregion Declaracion de variables
 
-            long saleId = saleService.Buy(lines, card.number, descName, address, client.login);
+            long saleId = saleService.Buy(shoppingCart, descName, address, card.number, client.login);
 
             SaleDTO sale = saleService.ShowSaleDetails(saleId);
 
@@ -268,17 +276,19 @@ namespace Test.SaleServiceTests
             product.Category = category;
             productDao.Create(product);
 
-            List<SaleLineDTO> lines = new List<SaleLineDTO>();
+            List<ShoppingCartItem> lines = new List<ShoppingCartItem>();
 
-            SaleLineDTO line1 = new SaleLineDTO(3, 24, false, product.id);
+            ShoppingCartItem line1 = new ShoppingCartItem(3, false, product.id);
 
             lines.Add(line1);
 
+            ShoppingCart shoppingCart = new ShoppingCart(72, lines);
+
             #endregion Declaracion de variables
 
-            long saleId = saleService.Buy(lines, card.number, descName, address, client.login);
+            long saleId = saleService.Buy(shoppingCart, descName, address, card.number, client.login);
 
-            saleService.Buy(lines, card.number, descName, address, client2.login);
+            saleService.Buy(shoppingCart, descName, address, card.number, client2.login);
 
             List<SaleListItemDTO> saleList = saleService.ShowClientSaleList(client.login, 0, 1);
 

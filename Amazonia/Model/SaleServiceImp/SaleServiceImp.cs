@@ -3,6 +3,8 @@ using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleLineDao;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions;
+using Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp.DTOs;
+using Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 using Ninject;
 using System;
@@ -26,13 +28,13 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         public ISaleLineDao SaleLineDao { private get; set; }
 
         [Transactional]
-        public long Buy(List<SaleLineDTO> saleLines, String creditCardNumber, String descName, String address, String clientLogin)
+        public long Buy(ShoppingCart shoppingCart, String descName, String address, String cardNumber, String clientLogin)
         {
             Sale sale = new Sale();
             DateTime date = DateTime.Now;
             double totalPrice = 0;
 
-            foreach (SaleLineDTO line in saleLines)
+            foreach (ShoppingCartItem line in shoppingCart.items)
             {
                 Product lineProduct = ProductDao.Find(line.productId);
                 if (lineProduct.stock >= line.units)
@@ -48,7 +50,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
                 }
             }
 
-            sale.cardNumber = creditCardNumber;
+            sale.cardNumber = cardNumber;
             sale.clientLogin = clientLogin;
             sale.totalPrice = totalPrice;
             sale.address = address;
@@ -57,7 +59,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
 
             SaleDao.Create(sale);
 
-            foreach (SaleLineDTO line in saleLines)
+            foreach (ShoppingCartItem line in shoppingCart.items)
             {
                 SaleLine saleLine = new SaleLine();
                 saleLine.units = line.units;
@@ -112,5 +114,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
 
             return saleList;
         }
+
     }
 }
