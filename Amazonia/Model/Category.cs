@@ -25,5 +25,26 @@ namespace Es.Udc.DotNet.Amazonia.Model
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var category = obj as Category;
+            return category != null &&
+                   id == category.id &&
+                   name == category.name &&
+                   EqualityComparer<ICollection<Product>>.Default.Equals(Products, category.Products);
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 717462883;
+            hashCode = hashCode * -1521134295 + id.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(name);
+            hashCode = hashCode * -1521134295 + EqualityComparer<ICollection<Product>>.Default.GetHashCode(Products);
+            return hashCode;
+        }
     }
+
+
+    
 }

@@ -79,6 +79,10 @@
     <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommentServiceTest\CommentServiceTest.cs" />
+    <Compile Include="LabelServiceTest\LabelServiceTest.cs" />
+    <Compile Include="CardServiceTests\ICardServiceTest.cs" />
+    <Compile Include="ClientServiceTests\IClientServiceTest.cs" />
     <Compile Include="ProductServiceTests\IProductServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaleServiceTests\ISaleServiceTest.cs" />
@@ -91,7 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">
-      <Project>{BECCAD34-AD73-48FA-8F51-8C59071D576F}</Project>
+      <Project>{beccad34-ad73-48fa-8f51-8c59071d576f}</Project>
       <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>

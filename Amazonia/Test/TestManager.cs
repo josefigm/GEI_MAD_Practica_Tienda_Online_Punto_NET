@@ -5,11 +5,18 @@ using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleLineDao;
 using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.CardServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp;
 using Ninject;
 using System.Configuration;
 using System.Data.Entity;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao;
+
 
 namespace Test
 {
@@ -46,11 +53,30 @@ namespace Test
             kernel.Bind<IProductService>().
                 To<ProductServiceImp>();
 
+            kernel.Bind<IClientService>().
+                To<ClientServiceImp>();
+
+            kernel.Bind<ICardService>().
+                To<CardServiceImp>();
+
             kernel.Bind<ISaleService>().
                 To<SaleServiceImp>();
 
             kernel.Bind<IShoppingCartService>().
                 To<ShoppingCartServiceImp>();
+
+            kernel.Bind<ICommentService>().
+                To<CommentServiceImp>();
+
+            kernel.Bind<ICommentDao>().
+                To<CommentDaoEntityFramework>();
+
+            kernel.Bind<ILabelService>().
+                To<LabelServiceImp>();
+
+            kernel.Bind<ILabelDao>().
+                To<LabelDaoEntityFramework>();
+
 
             string connectionString =
                 ConfigurationManager.ConnectionStrings["amazoniaEntities"].ConnectionString;
