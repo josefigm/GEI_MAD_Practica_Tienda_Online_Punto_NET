@@ -138,9 +138,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Product.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -168,21 +165,6 @@
     <Compile Include="ShoppingCartServiceImp\ShoppingCartServiceImp.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Debug\Castle.Core.dll" />
-    <Content Include="bin\Debug\Castle.Core.xml" />
-    <Content Include="bin\Debug\EntityFramework.dll" />
-    <Content Include="bin\Debug\EntityFramework.SqlServer.dll" />
-    <Content Include="bin\Debug\EntityFramework.SqlServer.xml" />
-    <Content Include="bin\Debug\EntityFramework.xml" />
-    <Content Include="bin\Debug\Model.dll" />
-    <Content Include="bin\Debug\Model.pdb" />
-    <Content Include="bin\Debug\ModelUtil.dll" />
-    <Content Include="bin\Debug\Ninject.dll" />
-    <Content Include="bin\Debug\Ninject.Extensions.Interception.dll" />
-    <Content Include="bin\Debug\Ninject.Extensions.Interception.DynamicProxy.dll" />
-    <Content Include="bin\Debug\Ninject.Extensions.Interception.DynamicProxy.xml" />
-    <Content Include="bin\Debug\Ninject.Extensions.Interception.xml" />
-    <Content Include="bin\Debug\Ninject.xml" />
     <Content Include="Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model.edmx</DependentUpon>
@@ -193,9 +175,6 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
-    <Content Include="obj\Debug\Model.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Debug\Model.dll" />
-    <Content Include="obj\Debug\Model.pdb" />
     <Content Include="sql\SqlServerCreateDatabase.sql" />
     <Content Include="sql\SqlServerCreateTables.sql" />
   </ItemGroup>
@@ -207,25 +186,14 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="bin\Debug\Model.dll.config" />
     <None Include="Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </None>
-    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <None Include="obj\Debug\edmxResourcesToEmbed\Model.csdl" />
-    <None Include="obj\Debug\edmxResourcesToEmbed\Model.msl" />
-    <None Include="obj\Debug\edmxResourcesToEmbed\Model.ssdl" />
-    <None Include="obj\Debug\Model.csproj.CopyComplete" />
-    <None Include="obj\Debug\Model.csproj.CoreCompileInputs.cache" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="bin\Debug\es\" />
-    <Folder Include="bin\Release\" />
-    <Folder Include="obj\Debug\TempPE\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

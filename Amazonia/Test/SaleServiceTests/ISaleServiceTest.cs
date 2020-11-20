@@ -87,7 +87,7 @@ namespace Test.SaleServiceTests
 
             List<ShoppingCartItem> lines = new List<ShoppingCartItem>();
 
-            ShoppingCartItem line1 = new ShoppingCartItem(3, false, product.id);
+            ShoppingCartItem line1 = new ShoppingCartItem(3, false, product.id, product.name);
 
             lines.Add(line1);
 
@@ -147,7 +147,7 @@ namespace Test.SaleServiceTests
 
             List<ShoppingCartItem> lines = new List<ShoppingCartItem>();
 
-            ShoppingCartItem line1 = new ShoppingCartItem(3, false, product.id);
+            ShoppingCartItem line1 = new ShoppingCartItem(3, false, product.id, product.name);
 
             lines.Add(line1);
 
@@ -199,7 +199,7 @@ namespace Test.SaleServiceTests
 
             List<ShoppingCartItem> lines = new List<ShoppingCartItem>();
 
-            ShoppingCartItem line1 = new ShoppingCartItem(3, false, product.id);
+            ShoppingCartItem line1 = new ShoppingCartItem(3, false, product.id, product.name);
 
             lines.Add(line1);
 
@@ -278,7 +278,7 @@ namespace Test.SaleServiceTests
 
             List<ShoppingCartItem> lines = new List<ShoppingCartItem>();
 
-            ShoppingCartItem line1 = new ShoppingCartItem(3, false, product.id);
+            ShoppingCartItem line1 = new ShoppingCartItem(3, false, product.id, product.name);
 
             lines.Add(line1);
 
