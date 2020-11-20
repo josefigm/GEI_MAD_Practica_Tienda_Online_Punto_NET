@@ -7,7 +7,6 @@ using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleLineDao;
 using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp;
-using Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.CardServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp;
@@ -61,9 +60,6 @@ namespace Test
 
             kernel.Bind<ISaleService>().
                 To<SaleServiceImp>();
-
-            kernel.Bind<IShoppingCartService>().
-                To<ShoppingCartServiceImp>();
 
             kernel.Bind<ICommentService>().
                 To<CommentServiceImp>();

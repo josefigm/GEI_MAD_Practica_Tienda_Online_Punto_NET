@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp.DTOs
+namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs
 {
     [Serializable()]
     public class ShoppingCart

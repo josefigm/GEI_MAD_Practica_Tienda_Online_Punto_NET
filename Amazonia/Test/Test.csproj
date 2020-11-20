@@ -86,7 +86,6 @@
     <Compile Include="ProductServiceTests\IProductServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaleServiceTests\ISaleServiceTest.cs" />
-    <Compile Include="ShoppingCartServiceTest\IShoppingCartServiceTest.cs" />
     <Compile Include="TestManager.cs" />
   </ItemGroup>
   <ItemGroup>

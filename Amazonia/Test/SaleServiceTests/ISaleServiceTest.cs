@@ -8,7 +8,6 @@ using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleLineDao;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions;
-using Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp.DTOs;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
@@ -43,6 +42,157 @@ namespace Test.SaleServiceTests
 
         public ISaleServiceTest()
         {
+        }
+
+        [TestMethod]
+        public void TestAddToShoppingCart()
+        {
+            #region Declaracion de variables
+
+            Category category = new Category();
+            category.name = "category";
+            categoryDao.Create(category);
+
+            Product product = new Product();
+            product.name = "TestProduct";
+            product.price = 24;
+            product.entryDate = new DateTime(2020, 1, 1);
+            product.stock = 200;
+            product.Category = category;
+            productDao.Create(product);
+
+            Product product2 = new Product();
+            product2.name = "TestProduct2";
+            product2.price = 10;
+            product2.entryDate = new DateTime(2020, 1, 1);
+            product2.stock = 200;
+            product2.Category = category;
+            productDao.Create(product2);
+
+            ShoppingCart shoppingCart = new ShoppingCart();
+
+            #endregion Declaracion de variables
+
+            ShoppingCart returnedShoppingCart = saleService.AddToShoppingCart(shoppingCart, product.id, 3, false);
+            returnedShoppingCart = saleService.AddToShoppingCart(returnedShoppingCart, product2.id, 1, false);
+
+            Assert.AreEqual(2, returnedShoppingCart.items.Count);
+            Assert.AreEqual(82, returnedShoppingCart.totalPrice);
+        }
+
+        [TestMethod]
+        public void TestAddToShoppingCartExistentProduct()
+        {
+            #region Declaracion de variables
+
+            Category category = new Category();
+            category.name = "category";
+            categoryDao.Create(category);
+
+            Product product = new Product();
+            product.name = "TestProduct";
+            product.price = 24;
+            product.entryDate = new DateTime(2020, 1, 1);
+            product.stock = 200;
+            product.Category = category;
+            productDao.Create(product);
+
+            ShoppingCart shoppingCart = new ShoppingCart();
+
+            #endregion Declaracion de variables
+
+            ShoppingCart returnedShoppingCart = saleService.AddToShoppingCart(shoppingCart, product.id, 3, false);
+            returnedShoppingCart = saleService.AddToShoppingCart(returnedShoppingCart, product.id, 1, false);
+
+            Assert.AreEqual(1, returnedShoppingCart.items.Count);
+            Assert.AreEqual(96, returnedShoppingCart.totalPrice);
+        }
+
+        [TestMethod]
+        public void TestDeleteFromShoppingCart()
+        {
+            #region Declaracion de variables
+
+            Category category = new Category();
+            category.name = "category";
+            categoryDao.Create(category);
+
+            Product product = new Product();
+            product.name = "TestProduct";
+            product.price = 24;
+            product.entryDate = new DateTime(2020, 1, 1);
+            product.stock = 200;
+            product.Category = category;
+            productDao.Create(product);
+
+            Product product2 = new Product();
+            product2.name = "TestProduct2";
+            product2.price = 10;
+            product2.entryDate = new DateTime(2020, 1, 1);
+            product2.stock = 200;
+            product2.Category = category;
+            productDao.Create(product2);
+
+            ShoppingCart shoppingCart = new ShoppingCart();
+
+            #endregion Declaracion de variables
+
+            ShoppingCart returnedShoppingCart = saleService.AddToShoppingCart(shoppingCart, product.id, 3, false);
+            returnedShoppingCart = saleService.AddToShoppingCart(returnedShoppingCart, product2.id, 1, false);
+
+            Assert.AreEqual(2, returnedShoppingCart.items.Count);
+            Assert.AreEqual(82, returnedShoppingCart.totalPrice);
+
+            returnedShoppingCart = saleService.DeleteFromShoppingCart(returnedShoppingCart, product2.id);
+
+            Assert.AreEqual(1, returnedShoppingCart.items.Count);
+            Assert.AreEqual(72, returnedShoppingCart.totalPrice);
+        }
+
+        [TestMethod]
+        public void TestModifyShoppingCartItem()
+        {
+            #region Declaracion de variables
+
+            Category category = new Category();
+            category.name = "category";
+            categoryDao.Create(category);
+
+            Product product = new Product();
+            product.name = "TestProduct";
+            product.price = 24;
+            product.entryDate = new DateTime(2020, 1, 1);
+            product.stock = 200;
+            product.Category = category;
+            productDao.Create(product);
+
+            Product product2 = new Product();
+            product2.name = "TestProduct2";
+            product2.price = 10;
+            product2.entryDate = new DateTime(2020, 1, 1);
+            product2.stock = 200;
+            product2.Category = category;
+            productDao.Create(product2);
+
+            ShoppingCart shoppingCart = new ShoppingCart();
+
+            #endregion Declaracion de variables
+
+            ShoppingCart returnedShoppingCart = saleService.AddToShoppingCart(shoppingCart, product.id, 3, false);
+            returnedShoppingCart = saleService.AddToShoppingCart(returnedShoppingCart, product2.id, 1, false);
+
+            Assert.AreEqual(2, returnedShoppingCart.items.Count);
+            Assert.AreEqual(82, returnedShoppingCart.totalPrice);
+
+            returnedShoppingCart = saleService.ModifyShoppingCartItem(returnedShoppingCart, product2.id, 10, true);
+
+            Assert.AreEqual(2, returnedShoppingCart.items.Count);
+            Assert.AreEqual(172, returnedShoppingCart.totalPrice);
+
+            ShoppingCartItem modifiedItem = returnedShoppingCart.items.Find(x => x.productId == product2.id);
+
+            Assert.AreEqual(10, modifiedItem.units);
+            Assert.IsTrue(modifiedItem.gift);
         }
 
         [TestMethod]
