@@ -1,6 +1,5 @@
 ﻿using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 using Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp.DTOs;
-using Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 using Ninject;
 
@@ -14,28 +13,27 @@ namespace Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp
         [Transactional]
         public ShoppingCart AddToShoppingCart(ShoppingCart shoppingCart, long productId, long units, bool gift)
         {
+            Product product = ProductDao.Find(productId);
             if (!shoppingCart.items.Exists(x => x.productId == productId))
             {
                 if (ProductDao.Exists(productId))
                 {
-                    Product product = ProductDao.Find(productId);
-
                     ShoppingCartItem item = new ShoppingCartItem(units, gift, productId, product.name);
                     item.price = (item.units * product.price);
                     shoppingCart.items.Add(item);
 
                     shoppingCart.totalPrice += item.price;
                 }
+                return shoppingCart;
             }
             else
             {
-                throw new ProductAlreadyOnShoppingCartException(productId);
-            }
+                ShoppingCartItem item = shoppingCart.items.Find(x => x.productId == productId);
 
-            return shoppingCart;
+                return ModifyShoppingCartItem(shoppingCart, productId, (item.units + units), gift);
+            }
         }
 
-        [Transactional]
         public ShoppingCart DeleteFromShoppingCart(ShoppingCart shoppingCart, long productId)
         {
             ShoppingCartItem item = shoppingCart.items.Find(x => x.productId == productId);

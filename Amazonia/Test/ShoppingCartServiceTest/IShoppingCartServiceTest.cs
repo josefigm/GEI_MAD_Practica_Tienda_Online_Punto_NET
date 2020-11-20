@@ -1,15 +1,12 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
+﻿using Es.Udc.DotNet.Amazonia.Model;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
+using Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp.DTOs;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
-using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
+using System;
 using System.Transactions;
-using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
-using Es.Udc.DotNet.Amazonia.Model;
-using Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp.DTOs;
-using Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp.Exceptions;
-using Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp;
 
 namespace Test.ShoppingCartServiceTest
 {
@@ -36,6 +33,7 @@ namespace Test.ShoppingCartServiceTest
         public void TestAddToShoppingCart()
         {
             #region Declaracion de variables
+
             Category category = new Category();
             category.name = "category";
             categoryDao.Create(category);
@@ -57,6 +55,7 @@ namespace Test.ShoppingCartServiceTest
             productDao.Create(product2);
 
             ShoppingCart shoppingCart = new ShoppingCart();
+
             #endregion Declaracion de variables
 
             ShoppingCart returnedShoppingCart = shoppingCartService.AddToShoppingCart(shoppingCart, product.id, 3, false);
@@ -64,14 +63,13 @@ namespace Test.ShoppingCartServiceTest
 
             Assert.AreEqual(2, returnedShoppingCart.items.Count);
             Assert.AreEqual(82, returnedShoppingCart.totalPrice);
-
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ProductAlreadyOnShoppingCartException))]
-        public void TestAddToShoppingCartException()
+        public void TestAddToShoppingCartExistentProduct()
         {
             #region Declaracion de variables
+
             Category category = new Category();
             category.name = "category";
             categoryDao.Create(category);
@@ -85,17 +83,21 @@ namespace Test.ShoppingCartServiceTest
             productDao.Create(product);
 
             ShoppingCart shoppingCart = new ShoppingCart();
+
             #endregion Declaracion de variables
 
             ShoppingCart returnedShoppingCart = shoppingCartService.AddToShoppingCart(shoppingCart, product.id, 3, false);
             returnedShoppingCart = shoppingCartService.AddToShoppingCart(returnedShoppingCart, product.id, 1, false);
 
+            Assert.AreEqual(1, returnedShoppingCart.items.Count);
+            Assert.AreEqual(96, returnedShoppingCart.totalPrice);
         }
 
         [TestMethod]
         public void TestDeleteFromShoppingCart()
         {
             #region Declaracion de variables
+
             Category category = new Category();
             category.name = "category";
             categoryDao.Create(category);
@@ -117,6 +119,7 @@ namespace Test.ShoppingCartServiceTest
             productDao.Create(product2);
 
             ShoppingCart shoppingCart = new ShoppingCart();
+
             #endregion Declaracion de variables
 
             ShoppingCart returnedShoppingCart = shoppingCartService.AddToShoppingCart(shoppingCart, product.id, 3, false);
@@ -129,13 +132,13 @@ namespace Test.ShoppingCartServiceTest
 
             Assert.AreEqual(1, returnedShoppingCart.items.Count);
             Assert.AreEqual(72, returnedShoppingCart.totalPrice);
-
         }
 
         [TestMethod]
         public void TestModifyShoppingCartItem()
         {
             #region Declaracion de variables
+
             Category category = new Category();
             category.name = "category";
             categoryDao.Create(category);
@@ -157,6 +160,7 @@ namespace Test.ShoppingCartServiceTest
             productDao.Create(product2);
 
             ShoppingCart shoppingCart = new ShoppingCart();
+
             #endregion Declaracion de variables
 
             ShoppingCart returnedShoppingCart = shoppingCartService.AddToShoppingCart(shoppingCart, product.id, 3, false);
@@ -174,7 +178,6 @@ namespace Test.ShoppingCartServiceTest
 
             Assert.AreEqual(10, modifiedItem.units);
             Assert.IsTrue(modifiedItem.gift);
-
         }
 
         #region Additional test attributes

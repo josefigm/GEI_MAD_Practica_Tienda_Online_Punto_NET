@@ -9,7 +9,6 @@ using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions;
 using Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp.DTOs;
-using Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;

@@ -161,7 +161,6 @@
     <Compile Include="SaleServiceImp\SaleServiceImp.cs" />
     <Compile Include="ShoppingCartServiceImp\DTOs\ShoppingCart.cs" />
     <Compile Include="ShoppingCartServiceImp\DTOs\ShoppingCartItem.cs" />
-    <Compile Include="ShoppingCartServiceImp\Exceptions\ProductAlreadyOnShoppingCartException.cs" />
     <Compile Include="ShoppingCartServiceImp\IShoppingCartService.cs" />
     <Compile Include="ShoppingCartServiceImp\ShoppingCartServiceImp.cs" />
   </ItemGroup>

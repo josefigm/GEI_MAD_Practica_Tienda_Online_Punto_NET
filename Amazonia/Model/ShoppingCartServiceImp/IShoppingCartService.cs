@@ -14,7 +14,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp
         /// <param name="units">The units.</param>
         /// <param name="gift">if set to <c>true</c> [gift].</param>
         /// <returns>The sopping cart with new item added </returns>
-        /// <exception cref="ProductAlreadyOnShoppingCartException">Product already on shopping cart</exception>
         [Transactional]
         ShoppingCart AddToShoppingCart(ShoppingCart shoppingCart, long productId, long units, bool gift);
 
@@ -22,7 +21,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp
         /// <param name="shoppingCart">The shopping cart.</param>
         /// <param name="productId">The product identifier.</param>
         /// <returns>The shopping cart without the item of product</returns>
-        [Transactional]
         ShoppingCart DeleteFromShoppingCart(ShoppingCart shoppingCart, long productId);
 
         /// <summary>Modifies the shopping cart item.</summary>
