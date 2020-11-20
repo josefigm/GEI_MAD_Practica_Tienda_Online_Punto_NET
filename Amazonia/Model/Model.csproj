@@ -155,6 +155,7 @@
     <Compile Include="SaleServiceImp\DTOs\SaleDTO.cs" />
     <Compile Include="SaleServiceImp\DTOs\SaleLineDTO.cs" />
     <Compile Include="SaleServiceImp\DTOs\SaleListItemDTO.cs" />
+    <Compile Include="SaleServiceImp\Exceptions\EmptyShoppingCartException.cs" />
     <Compile Include="SaleServiceImp\Exceptions\InsufficientStockException.cs" />
     <Compile Include="SaleServiceImp\ISaleService.cs" />
     <Compile Include="SaleServiceImp\SaleServiceImp.cs" />

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs
 {
@@ -36,6 +32,16 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs
                 && (this.gift == target.gift)
                 && (this.productId == target.productId)
                 ;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -1781825586;
+            hashCode = hashCode * -1521134295 + units.GetHashCode();
+            hashCode = hashCode * -1521134295 + price.GetHashCode();
+            hashCode = hashCode * -1521134295 + gift.GetHashCode();
+            hashCode = hashCode * -1521134295 + productId.GetHashCode();
+            return hashCode;
         }
     }
 }

@@ -10,7 +10,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp.DTOs
         public double price { get; set; }
         public bool gift { get; set; }
         public long productId { get; set; }
-
         public string productName { get; set; }
 
         public ShoppingCartItem(long units, bool gift, long productId, string productName)

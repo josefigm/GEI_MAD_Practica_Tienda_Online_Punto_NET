@@ -159,6 +159,41 @@ namespace Test.SaleServiceTests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(EmptyShoppingCartException))]
+        public void TestBuyEmptyShoppingCart()
+        {
+            #region Declaracion de variables
+
+            Client client = new Client();
+            client.login = "client1b";
+            client.password = "password";
+            client.firstName = "firstName";
+            client.lastName = "lastName";
+            client.address = "adress";
+            client.email = "email";
+            client.role = 1;
+            client.language = 1;
+            clientDao.Create(client);
+
+            Card card = new Card();
+            card.number = "000022223333555";
+            card.cvv = "123";
+            card.expireDate = new DateTime(2025, 1, 1);
+            card.name = "Client Name";
+            card.type = true;
+            cardDao.Create(card);
+
+            client.Cards.Add(card);
+            clientDao.Update(client);
+
+            ShoppingCart shoppingCart = new ShoppingCart();
+
+            #endregion Declaracion de variables
+
+            long saleId = saleService.Buy(shoppingCart, descName, address, card.number, client.login);
+        }
+
+        [TestMethod]
         public void TestShowSaleDetails()
         {
             #region Declaracion de variables

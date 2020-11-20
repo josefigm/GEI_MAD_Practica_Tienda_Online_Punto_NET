@@ -4,7 +4,6 @@ using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleLineDao;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions;
 using Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp.DTOs;
-using Es.Udc.DotNet.Amazonia.Model.ShoppingCartServiceImp.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 using Ninject;
 using System;
@@ -33,6 +32,11 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
             Sale sale = new Sale();
             DateTime date = DateTime.Now;
             double totalPrice = 0;
+
+            if (shoppingCart.items.Count == 0)
+            {
+                throw new EmptyShoppingCartException();
+            }
 
             foreach (ShoppingCartItem line in shoppingCart.items)
             {
@@ -114,6 +118,5 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
 
             return saleList;
         }
-
     }
 }
