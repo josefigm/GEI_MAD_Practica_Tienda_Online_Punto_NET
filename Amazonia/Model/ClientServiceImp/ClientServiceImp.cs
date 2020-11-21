@@ -3,7 +3,6 @@ using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Ninject;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp.Util;
-
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao;
 using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp.Exceptions;
 using System.Collections.Generic;
@@ -119,6 +118,8 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
             }
         }
 
+        /// <exception cref="InstanceNotFoundException"/>
+        [Transactional]
         public void SetDefaultCard(string numberCard, string login)
         {
 
@@ -131,6 +132,8 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 
         }
 
+        /// <exception cref="InstanceNotFoundException"/>
+        [Transactional]
         public List<Card> ListCardsByClientLogin(String login)
         {
 
