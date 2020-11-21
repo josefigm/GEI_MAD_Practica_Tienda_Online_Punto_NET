@@ -6,7 +6,7 @@ using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 using System;
 using System.Collections.Generic;
-
+using System.Runtime.Caching;
 
 namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 {
@@ -19,6 +19,8 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         ICommentService CommentService { set; }
 
         IProductDao ProductDaoEntityFramework { set; }
+
+        MemoryCache Cache { get; }
 
         /// <summary>
         /// Creates the product.

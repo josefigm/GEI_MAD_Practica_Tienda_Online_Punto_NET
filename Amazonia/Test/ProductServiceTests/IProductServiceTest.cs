@@ -626,6 +626,16 @@ namespace Test.ProductService
             Assert.AreEqual(productsWithLabel[0], biciCarretera);
         }
 
+        [TestMethod]
+        public void CacheTest()
+        {
+            string keyWord1 = "bici";
+
+            productService.FindProductByWordAndCategory(keyWord1, null);
+
+            Assert.IsTrue(productService.Cache.Contains(keyWord1));
+        }
+
 
 
         #region Additional test attributes

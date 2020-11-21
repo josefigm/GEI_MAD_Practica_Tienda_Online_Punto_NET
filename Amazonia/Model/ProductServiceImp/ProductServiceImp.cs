@@ -7,21 +7,21 @@ using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao;
 using Ninject;
-
+using System.Runtime.Caching;
 
 namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 {
     public class ProductServiceImp : IProductService
     {
-        
+
         public ProductServiceImp() { }
 
         [Inject]
         public ICategoryDao CategoryDao { private get; set; }
-        
+
         [Inject]
         public IProductDao ProductDaoEntityFramework { private get; set; }
-        
+
         [Inject]
         public ICommentDao CommentDao { private get; set; }
 
@@ -32,7 +32,12 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         public ILabelDao LabelDao { private get; set; }
 
         [Inject]
-        public ICommentService CommentService { private get;  set; }
+        public ICommentService CommentService { private get; set; }
+
+        private MemoryCache _Cache = new MemoryCache("cache");
+        private List<string> cacheEntries = new List<string>();
+
+        public MemoryCache Cache { get => _Cache; }
 
         [Transactional]
         public Product CreateProduct(string name, double price, DateTime entryDate, long stock, string image, string description, long categoryId)
@@ -106,6 +111,39 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
             return ProductDaoEntityFramework.Find(id);
         }
 
+        private void AddToCache(String entrie, List<ProductDTO> result)
+        {
+            CacheItem item = new CacheItem(entrie, result);
+            CacheItemPolicy itemPolicy = new CacheItemPolicy();
+
+            if (_Cache.GetCount() < 5)
+            {
+                cacheEntries.Add(entrie);
+                _Cache.Add(item, itemPolicy);
+            }
+            else
+            {
+                String firstItem = cacheEntries[0];
+                cacheEntries.Remove(firstItem);
+                cacheEntries.Add(entrie);
+
+                _Cache.Remove(firstItem);
+                _Cache.Add(item, itemPolicy);
+            }
+        }
+
+        private string FormatKeyWordAndCategoryNames(string keyWord, Category category)
+        {
+            if (category != null)
+            {
+                return keyWord + "From" + category.name;
+            }
+            else
+            {
+                return keyWord;    
+            }
+        }
+
         [Transactional]
         public List<ProductDTO> FindProductByWordAndCategory(string keyWord, Category category)
         {
@@ -118,6 +156,13 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 
             List<ProductDTO> productListOutput = new List<ProductDTO>();
             string cleanKeyWord = keyWord.Trim();
+            string formattedKeywordAndCategory = FormatKeyWordAndCategoryNames(cleanKeyWord, category);
+
+            if (_Cache.Contains(formattedKeywordAndCategory))
+            {
+                List<ProductDTO> cacheResult = (List<ProductDTO>)_Cache.GetCacheItem(formattedKeywordAndCategory).Value;
+                return cacheResult;
+            }
 
             if (category != null)
             {
@@ -127,6 +172,9 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
             {
                 productListOutput = ProductDaoEntityFramework.FindByKeyWord(cleanKeyWord);
             }
+
+            AddToCache(formattedKeywordAndCategory, productListOutput);
+
             return productListOutput;
         }
 
