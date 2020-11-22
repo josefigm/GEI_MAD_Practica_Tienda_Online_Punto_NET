@@ -22,11 +22,14 @@ namespace Es.Udc.DotNet.Amazonia.Model
     
         public long id { get; set; }
         public System.DateTime date { get; set; }
+        public string descName { get; set; }
         public string address { get; set; }
         public double totalPrice { get; set; }
         public string cardNumber { get; set; }
+        public string clientLogin { get; set; }
     
         public virtual Card Card { get; set; }
+        public virtual Client Client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SaleLine> SaleLines { get; set; }
     }
