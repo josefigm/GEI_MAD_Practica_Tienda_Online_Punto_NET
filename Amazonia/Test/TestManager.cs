@@ -61,10 +61,8 @@ namespace Test
             kernel.Bind<ISaleService>().
                 To<SaleServiceImp>();
 
-
             kernel.Bind<ICommentService>().
                 To<CommentServiceImp>();
-
 
             kernel.Bind<ICommentDao>().
                 To<CommentDaoEntityFramework>();

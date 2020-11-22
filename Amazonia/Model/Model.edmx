@@ -116,6 +116,7 @@
           </Key>
           <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="descName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="address" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="totalPrice" Type="float" Nullable="false" />
           <Property Name="cardNumber" Type="varchar" MaxLength="16" Nullable="false" />
@@ -388,9 +389,9 @@
           <Property Name="type" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="Car" BaseType="Es.UDC.DotNet.amazoniaModel.Product">
-          <Property Name="colour" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="model" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" Type="String" />
-          <Property Name="enginePower" Nullable="false" Type="Int64" />
+          <Property Name="colour" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="model" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="enginePower" Type="Int64" Nullable="false" />
         </EntityType>
         <EntityType Name="Card">
           <Key>
@@ -478,6 +479,7 @@
           </Key>
           <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="descName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="totalPrice" Type="Double" Nullable="false" />
           <Property Name="cardNumber" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
@@ -740,6 +742,7 @@
               <MappingFragment StoreEntitySet="Sale">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="descName" ColumnName="descName" />
                 <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
                 <ScalarProperty Name="cardNumber" ColumnName="cardNumber" />

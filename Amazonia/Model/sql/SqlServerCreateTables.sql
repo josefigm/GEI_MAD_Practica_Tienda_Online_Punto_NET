@@ -103,6 +103,7 @@ GO
 CREATE TABLE Sale (
 	id bigint IDENTITY(1,1),
 	date date NOT NULL,
+	descName varchar(100) NOT NULL,
 	address varchar(100) NOT NULL,
 	totalPrice float NOT NULL,
 	cardNumber varchar(16) NOT NULL,
