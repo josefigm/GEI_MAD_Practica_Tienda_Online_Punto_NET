@@ -85,6 +85,7 @@
     <Compile Include="CardServiceTests\ICardServiceTest.cs" />
     <Compile Include="ClientServiceTests\IClientServiceTest.cs" />
     <Compile Include="ProductServiceTests\IProductServiceTest.cs" />
+    <Compile Include="ProductServiceTests\CacheTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaleServiceTests\ISaleServiceTest.cs" />
     <Compile Include="TestManager.cs" />
