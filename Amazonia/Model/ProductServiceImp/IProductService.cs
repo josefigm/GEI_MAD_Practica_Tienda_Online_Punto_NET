@@ -80,7 +80,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
         [Transactional]
-        Product FindProductById(Int64 id);
+        Product FindProductById(long id);
 
         /// Retrieves the products with label.
         /// </summary>
@@ -88,7 +88,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         /// <exception cref="ArgumentNullException"/>
         /// <returns></returns>
         [Transactional]
-        List<Product> RetrieveProductsWithLabel(string lavelValue);
+        List<Product> RetrieveProductsWithLabel(string labelValue);
 
     }
 }
