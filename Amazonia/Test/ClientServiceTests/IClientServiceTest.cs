@@ -8,11 +8,14 @@ using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp.Util;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao;
 using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp.Exceptions;
+using Es.Udc.DotNet.Amazonia.Model.CardServiceImp;
+using Es.Udc.DotNet.Amazonia.Model;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.CardDao;
 
 namespace Test.ClientServiceTests
 {
     /// <summary>
-    /// Descripción resumida de IProductServiceTest
+    /// Conjunto de tests de las operaciones de ClientService
     /// </summary>
     [TestClass]
     public class IClientServiceTest
@@ -24,6 +27,9 @@ namespace Test.ClientServiceTests
         private const string login3 = "loginTest3";
         private const string login4 = "loginTest4";
         private const string login5 = "loginTest5";
+        private const string login6 = "prueba.login";
+        private const string login7 = "prueba.login7";
+
         private const string clearPassword = "password";
         private const string firstName = "name";
         private const string lastName = "lastName";
@@ -35,7 +41,9 @@ namespace Test.ClientServiceTests
 
         private static IKernel kernel;
         private static IClientService clientService;
+        private static ICardService cardService;
         private static IClientDao clientDao;
+        private static ICardDao cardDao;
 
         private TransactionScope transactionScope;
 
@@ -214,18 +222,91 @@ namespace Test.ClientServiceTests
             }
         }
 
+        /// <summary>
+        /// A test for set a default card for a user
+        /// </summary>
+        [TestMethod]
+        public void SetDefaultCardTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                // Register user
+                clientService.RegisterClient(login6, clearPassword,
+                        new ClientDetails(firstName, lastName, address, email, role, language));
+
+                // Creamos tarjeta
+                Card card = new Card();
+                card.number = "1111222233334444";
+                card.cvv = "123";
+                card.expireDate = new DateTime(2025, 1, 1);
+                card.name = "Client Name";
+                card.type = true;
+                cardDao.Create(card);
+
+                cardService.CreateCardToClient(card, login6);
+
+                clientService.SetDefaultCard(card.number, login6);
+
+                Client client = clientDao.FindByLogin(login6);
+
+                Assert.AreEqual(card.number, client.defaultCardNumber);
+
+            }
+        }
+
+
+        /// <summary>
+        /// Añadir tarjeta a un usuario test
+        /// </summary>
+        [TestMethod]
+        public void TestListCardsOfClient()
+        {
+
+            using (var scope = new TransactionScope())
+            {
+
+                // Creamos cliente
+                clientService.RegisterClient(login7, clearPassword,
+                        new ClientDetails(firstName, lastName, address, email, role, language));
+
+                Client client = clientDao.FindByLogin(login7);
+
+                // Creamos tarjeta
+                Card card = new Card();
+                card.number = "1111222233334447";
+                card.cvv = "123";
+                card.expireDate = new DateTime(2025, 1, 1);
+                card.name = "Client Name";
+                card.type = true;
+                cardDao.Create(card);
+
+                // Llamamos al servicio asociando la tarjeta al cliente
+                cardService.CreateCardToClient(card, login7);
+
+                // Listamos tarjetas del cliente
+                List<Card> listaCards = clientService.ListCardsByClientLogin(login7);
+
+                Boolean tarjetaEncontrada = listaCards.Contains(card);
+
+                Assert.AreEqual(true, tarjetaEncontrada);
+
+            }
+        }
+
 
 
         #region Additional test attributes
 
-        //Use ClassInitialize to run code before running the first test in the class
+            //Use ClassInitialize to run code before running the first test in the class
         [ClassInitialize]
         public static void MyClassInitialize(TestContext testContext)
         {
             kernel = TestManager.ConfigureNInjectKernel();
 
             clientDao = kernel.Get<IClientDao>();
+            cardDao = kernel.Get<ICardDao>();
             clientService = kernel.Get<IClientService>();
+            cardService = kernel.Get<ICardService>();
         }
 
         //Use ClassCleanup to run code after all tests in a class have run

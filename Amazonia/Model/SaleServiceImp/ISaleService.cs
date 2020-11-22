@@ -21,6 +21,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         /// <param name="productId">The product identifier.</param>
         /// <param name="units">The units.</param>
         /// <param name="gift">if set to <c>true</c> [gift].</param>
+        /// <exception cref="InstanceNotFoundException"/>
         /// <returns>The sopping cart with new item added </returns>
         [Transactional]
         ShoppingCart AddToShoppingCart(ShoppingCart shoppingCart, long productId, long units, bool gift);
@@ -36,6 +37,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         /// <param name="productId">The product identifier.</param>
         /// <param name="units">The units.</param>
         /// <param name="gift">if set to <c>true</c> [gift].</param>
+        /// <exception cref="InstanceNotFoundException"/>
         /// <returns>The shopping cart with the item of product modified</returns>
         [Transactional]
         ShoppingCart ModifyShoppingCartItem(ShoppingCart shoppingCart, long productId, long units, bool gift);
@@ -46,13 +48,14 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         /// <param name="address"></param>
         /// <param name="cardNumber"></param>
         /// <param name="clientLogin"></param>
-        /// /// <exception cref="Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions.EmptyShoppingCartException"></exception>
+        /// <exception cref="Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions.EmptyShoppingCartException">Carrito sin items</exception>
         /// <exception cref="Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions.InsufficientStockException">Stock de producto insuficiente</exception>
         [Transactional]
         long Buy(ShoppingCart shoppingCart, String descName, String address, String cardNumber, String clientLogin);
 
         /// <summary>Shows the sale details.</summary>
         /// <param name="saleId">The sale identifier.</param>
+        /// <exception cref="InstanceNotFoundException"/>
         /// <returns>A DTO with sale details</returns>
         [Transactional]
         SaleDTO ShowSaleDetails(long saleId);

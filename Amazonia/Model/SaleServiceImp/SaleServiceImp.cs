@@ -25,20 +25,19 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         [Inject]
         public ISaleLineDao SaleLineDao { private get; set; }
 
+        /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
         public ShoppingCart AddToShoppingCart(ShoppingCart shoppingCart, long productId, long units, bool gift)
         {
             Product product = ProductDao.Find(productId);
             if (!shoppingCart.items.Exists(x => x.productId == productId))
             {
-                if (ProductDao.Exists(productId))
-                {
-                    ShoppingCartItem item = new ShoppingCartItem(units, gift, productId, product.name);
-                    item.price = (item.units * product.price);
-                    shoppingCart.items.Add(item);
+                ShoppingCartItem item = new ShoppingCartItem(units, gift, productId, product.name);
+                item.price = (item.units * product.price);
+                shoppingCart.items.Add(item);
 
-                    shoppingCart.totalPrice += item.price;
-                }
+                shoppingCart.totalPrice += item.price;
+
                 return shoppingCart;
             }
             else
@@ -63,6 +62,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
             }
         }
 
+        /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
         public ShoppingCart ModifyShoppingCartItem(ShoppingCart shoppingCart, long productId, long units, bool gift)
         {
@@ -87,6 +87,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         [Transactional]
         public long Buy(ShoppingCart shoppingCart, String descName, String address, String cardNumber, String clientLogin)
         {
+
             Sale sale = new Sale();
             DateTime date = DateTime.Now;
             double totalPrice = 0;
@@ -135,6 +136,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
             return sale.id;
         }
 
+        /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
         public SaleDTO ShowSaleDetails(long saleId)
         {
@@ -163,6 +165,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         [Transactional]
         public List<SaleListItemDTO> ShowClientSaleList(String clientLogin, int startIndex, int count)
         {
+
             List<SaleListItemDTO> saleList = new List<SaleListItemDTO>();
 
             List<Sale> clientSalesFound = SaleDao.FindByClientLogin(clientLogin, startIndex, count);
