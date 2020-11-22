@@ -1,14 +1,14 @@
-﻿using System.Transactions;
-using System.Collections.Generic;
-using Ninject;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp;
-using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
-using Es.Udc.DotNet.Amazonia.Model;
-using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
-using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp.DTOs;
+﻿using Es.Udc.DotNet.Amazonia.Model;
 using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp.DTOs;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Ninject;
+using System.Collections.Generic;
+using System.Transactions;
 
 namespace Test.ProductService
 {
@@ -25,37 +25,13 @@ namespace Test.ProductService
         private static IProductDao productDao;
         private static ICategoryDao categoryDao;
 
-
         private TransactionScope transactionScope;
 
         public TestContext TestContext { get; set; }
 
         public IProductServiceTest()
         {
-
         }
-
-        #region Atributos de prueba adicionales
-        //
-        // Puede usar los siguientes atributos adicionales conforme escribe las pruebas:
-        //
-        // Use ClassInitialize para ejecutar el código antes de ejecutar la primera prueba en la clase
-        // [ClassInitialize()]
-        // public static void MyClassInitialize(TestContext testContext) { }
-        //
-        // Use ClassCleanup para ejecutar el código una vez ejecutadas todas las pruebas en una clase
-        // [ClassCleanup()]
-        // public static void MyClassCleanup() { }
-        //
-        // Usar TestInitialize para ejecutar el código antes de ejecutar cada prueba 
-        // [TestInitialize()]
-        // public void MyTestInitialize() { }
-        //
-        // Use TestCleanup para ejecutar el código una vez ejecutadas todas las pruebas
-        // [TestCleanup()]
-        // public void MyTestCleanup() { }
-        //
-        #endregion
 
         [TestMethod]
         public void TestFindCategories()
@@ -72,18 +48,18 @@ namespace Test.ProductService
 
             categoriesExpected.Add(c1);
             categoriesExpected.Add(c2);
-            
+
             List<Category> categoriesFound = productService.FindCategories();
 
             Assert.AreEqual(2, categoriesFound.Count);
             CollectionAssert.AreEqual(categoriesExpected, categoriesFound);
         }
 
-
         [TestMethod]
         public void TestCreateProduct()
         {
-            #region Declaracion de variables   
+            #region Declaracion de variables
+
             Category c1 = new Category();
             c1.name = "Bicicletas";
             categoryDao.Create(c1);
@@ -104,21 +80,24 @@ namespace Test.ProductService
             biciCarretera.image = image;
             biciCarretera.description = description;
             biciCarretera.categoryId = categoryIdBicicleta;
-            #endregion
+
+            #endregion Declaracion de variables
 
             #region Persistencia
+
             productService.CreateProduct(biciCarretera);
-            #endregion
+
+            #endregion Persistencia
 
             Product retrievedProduct = productDao.Find(biciCarretera.id);
             Assert.AreEqual(biciCarretera, retrievedProduct);
-
         }
 
         [TestMethod]
         public void TestUpdateProduct()
         {
-            #region Declaracion de variables   
+            #region Declaracion de variables
+
             Category c1 = new Category();
             c1.name = "Bicicletas";
             categoryDao.Create(c1);
@@ -139,11 +118,15 @@ namespace Test.ProductService
             biciCarretera.image = image;
             biciCarretera.description = description;
             biciCarretera.categoryId = categoryIdBicicleta;
-            #endregion
+
+            #endregion Declaracion de variables
 
             #region Persistencia
+
             productService.CreateProduct(biciCarretera);
-            #endregion
+
+            #endregion Persistencia
+
             //Se cambia biciCarretera y se comprueba que al actualizarla en BBDD son iguales.
 
             biciCarretera.price = 1500d;
@@ -154,11 +137,11 @@ namespace Test.ProductService
             Assert.AreEqual(biciCarretera, retrievedProduct);
         }
 
-
         [TestMethod]
         public void TestFindByKeywordEmpty()
         {
-            #region Declaracion de variables   
+            #region Declaracion de variables
+
             Category c1 = new Category();
             c1.name = "Bicicletas";
             Category c2 = new Category();
@@ -178,7 +161,6 @@ namespace Test.ProductService
             string description = "Bicicleta";
             long categoryIdBicicleta = c1.id;
             long categoryIdPortatil = c2.id;
-
 
             biciCarretera.name = "Bicicleta Felt FZ85";
             biciCarretera.price = price;
@@ -203,14 +185,16 @@ namespace Test.ProductService
             portatil.image = image;
             portatil.description = description;
             portatil.categoryId = categoryIdPortatil;
-            #endregion
+
+            #endregion Declaracion de variables
 
             #region Persistencia
+
             productService.CreateProduct(biciCarretera);
             productService.CreateProduct(portatil);
             productService.CreateProduct(biciMontaña);
-            #endregion
 
+            #endregion Persistencia
 
             List<ProductDTO> listaRecuperada = productService.FindProductByWordAndCategory("Cacahuete", null);
 
@@ -220,7 +204,8 @@ namespace Test.ProductService
         [TestMethod]
         public void TestFindByKeywordOneResultAndTestKeywordTrimAndNoCaseSensitive()
         {
-            #region Declaracion de variables   
+            #region Declaracion de variables
+
             Category c1 = new Category();
             c1.name = "Bicicletas";
             Category c2 = new Category();
@@ -240,7 +225,6 @@ namespace Test.ProductService
             string description = "Bicicleta";
             long categoryIdBicicleta = c1.id;
             long categoryIdPortatil = c2.id;
-
 
             biciCarretera.name = "Bicicleta Felt FZ85";
             biciCarretera.price = price;
@@ -265,13 +249,16 @@ namespace Test.ProductService
             portatil.image = image;
             portatil.description = description;
             portatil.categoryId = categoryIdPortatil;
-            #endregion
+
+            #endregion Declaracion de variables
 
             #region Persistencia
+
             productService.CreateProduct(biciCarretera);
             productService.CreateProduct(portatil);
             productService.CreateProduct(biciMontaña);
-            #endregion
+
+            #endregion Persistencia
 
             List<ProductDTO> listaEsperadaOrdenador = new List<ProductDTO>(1);
             listaEsperadaOrdenador.Add(ProductMapper.ProductToProductDto(portatil));
@@ -294,7 +281,8 @@ namespace Test.ProductService
         [TestMethod]
         public void TestFindByKeywordMultipleResultsAndTestKeywordTrimAndNoCaseSensitive()
         {
-            #region Declaracion de variables   
+            #region Declaracion de variables
+
             Category c1 = new Category();
             c1.name = "Bicicletas";
             Category c2 = new Category();
@@ -314,7 +302,6 @@ namespace Test.ProductService
             string description = "Bicicleta";
             long categoryIdBicicleta = c1.id;
             long categoryIdPortatil = c2.id;
-
 
             biciCarretera.name = "Bicicleta Felt FZ85";
             biciCarretera.price = price;
@@ -339,13 +326,16 @@ namespace Test.ProductService
             portatil.image = image;
             portatil.description = description;
             portatil.categoryId = categoryIdPortatil;
-            #endregion
+
+            #endregion Declaracion de variables
 
             #region Persistencia
+
             productService.CreateProduct(biciCarretera);
             productService.CreateProduct(portatil);
             productService.CreateProduct(biciMontaña);
-            #endregion
+
+            #endregion Persistencia
 
             List<ProductDTO> listaEsperadaBicicletas = new List<ProductDTO>(2);
             listaEsperadaBicicletas.Add(ProductMapper.ProductToProductDto(biciCarretera));
@@ -355,13 +345,13 @@ namespace Test.ProductService
 
             Assert.IsTrue(listaRecuperadaBicicletas.Count == 2);
             CollectionAssert.AreEqual(listaEsperadaBicicletas, listaRecuperadaBicicletas);
-
         }
 
         [TestMethod]
         public void TestFindByKeywordAndCategoryMultipleResultsAndTestKeywordTrimAndNoCaseSensitive()
         {
-            #region Declaracion de variables   
+            #region Declaracion de variables
+
             Category c1 = new Category();
             c1.name = "Bicicletas";
             Category c2 = new Category();
@@ -381,7 +371,6 @@ namespace Test.ProductService
             long categoryIdBicicleta = c1.id;
             long categoryIdBicicletaOutlet = c2.id;
 
-
             biciCarretera.name = "Bicicleta Felt FZ85";
             biciCarretera.price = price;
             biciCarretera.entryDate = date;
@@ -397,12 +386,15 @@ namespace Test.ProductService
             biciMontaña.image = image;
             biciMontaña.description = description;
             biciMontaña.categoryId = categoryIdBicicletaOutlet;
-            #endregion
+
+            #endregion Declaracion de variables
 
             #region Persistencia
+
             productService.CreateProduct(biciCarretera);
             productService.CreateProduct(biciMontaña);
-            #endregion
+
+            #endregion Persistencia
 
             List<ProductDTO> listaEsperadaBicicletas = new List<ProductDTO>(1);
             listaEsperadaBicicletas.Add(ProductMapper.ProductToProductDto(biciCarretera));
@@ -411,13 +403,13 @@ namespace Test.ProductService
 
             Assert.IsTrue(listaRecuperadaBicicletas.Count == 1);
             CollectionAssert.AreEqual(listaEsperadaBicicletas, listaRecuperadaBicicletas);
-
         }
 
         [TestMethod]
         public void RetrieveProductsWithLabelEmptyTest()
         {
             #region Needed variables
+
             Category c1 = new Category();
             c1.name = "Bicicletas";
             categoryDao.Create(c1);
@@ -431,7 +423,6 @@ namespace Test.ProductService
             string description = "Bicicleta";
             long categoryIdBicicleta = c1.id;
 
-
             biciCarretera.name = "Bicicleta Felt FZ85";
             biciCarretera.price = price;
             biciCarretera.entryDate = date;
@@ -439,29 +430,33 @@ namespace Test.ProductService
             biciCarretera.image = image;
             biciCarretera.description = description;
             biciCarretera.categoryId = categoryIdBicicleta;
-            #endregion
+
+            #endregion Needed variables
 
             #region Persistencia
+
             productDao.Create(biciCarretera);
-            #endregion
+
+            #endregion Persistencia
 
             #region Comment and label section
+
             Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
 
             labelService.CreateLabel("Genial", newComment.id);
 
-            #endregion
+            #endregion Comment and label section
 
             List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Malo");
 
             Assert.AreEqual(productsWithLabel.Count, 0);
-        
         }
 
         [TestMethod]
         public void RetrieveProductWithLabelTest()
         {
             #region Needed variables
+
             Category c1 = new Category();
             c1.name = "Bicicletas";
             categoryDao.Create(c1);
@@ -475,7 +470,6 @@ namespace Test.ProductService
             string description = "Bicicleta";
             long categoryIdBicicleta = c1.id;
 
-
             biciCarretera.name = "Bicicleta Felt FZ85";
             biciCarretera.price = price;
             biciCarretera.entryDate = date;
@@ -483,17 +477,21 @@ namespace Test.ProductService
             biciCarretera.image = image;
             biciCarretera.description = description;
             biciCarretera.categoryId = categoryIdBicicleta;
-            #endregion
+
+            #endregion Needed variables
 
             #region Persistencia
+
             productDao.Create(biciCarretera);
-            #endregion
+
+            #endregion Persistencia
 
             #region Comment and label section
+
             Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
             labelService.CreateLabel("Genial", newComment.id);
 
-            #endregion
+            #endregion Comment and label section
 
             List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Genial");
 
@@ -505,6 +503,7 @@ namespace Test.ProductService
         public void RetrieveProductsWithLabelTest()
         {
             #region Needed variables
+
             Category c1 = new Category();
             c1.name = "Bicicletas";
             Category c2 = new Category();
@@ -524,7 +523,6 @@ namespace Test.ProductService
             string description = "Bicicleta";
             long categoryIdBicicleta = c1.id;
             long categoryIdPortatil = c2.id;
-
 
             biciCarretera.name = "Bicicleta Felt FZ85";
             biciCarretera.price = price;
@@ -549,15 +547,19 @@ namespace Test.ProductService
             portatil.image = image;
             portatil.description = description;
             portatil.categoryId = categoryIdPortatil;
-            #endregion
+
+            #endregion Needed variables
 
             #region Persistencia
+
             productDao.Create(biciCarretera);
             productDao.Create(portatil);
             productDao.Create(biciMontaña);
-            #endregion
+
+            #endregion Persistencia
 
             #region Comment and label section
+
             Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
             Comment newComment2 = commentService.AddComment("Review 1", "Muy mala bicicleta", biciMontaña.id);
             Comment newComment3 = commentService.AddComment("Review 1", "Muy buen portátil", portatil.id);
@@ -566,7 +568,7 @@ namespace Test.ProductService
             labelService.CreateLabel("Mala", newComment2.id);
             labelService.CreateLabel("Genial", newComment3.id);
 
-            #endregion
+            #endregion Comment and label section
 
             List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Genial");
 
@@ -579,6 +581,7 @@ namespace Test.ProductService
         public void RetrieveProductWithMultipleLabelsTest()
         {
             #region Needed variables
+
             Category c1 = new Category();
             c1.name = "Bicicletas";
             categoryDao.Create(c1);
@@ -592,7 +595,6 @@ namespace Test.ProductService
             string description = "Bicicleta";
             long categoryIdBicicleta = c1.id;
 
-
             biciCarretera.name = "Bicicleta Felt FZ85";
             biciCarretera.price = price;
             biciCarretera.entryDate = date;
@@ -600,18 +602,22 @@ namespace Test.ProductService
             biciCarretera.image = image;
             biciCarretera.description = description;
             biciCarretera.categoryId = categoryIdBicicleta;
-            #endregion
+
+            #endregion Needed variables
 
             #region Persistencia
+
             productDao.Create(biciCarretera);
-            #endregion
+
+            #endregion Persistencia
 
             #region Comment and label section
+
             Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
             labelService.CreateLabel("Genial", newComment.id);
             labelService.CreateLabel("Buena", newComment.id);
 
-            #endregion
+            #endregion Comment and label section
 
             // Se busca primero por la primera etiqueta
             List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Genial");
@@ -626,8 +632,6 @@ namespace Test.ProductService
             Assert.AreEqual(productsWithLabel[0], biciCarretera);
         }
 
-
-
         #region Additional test attributes
 
         //Use ClassInitialize to run code before running the first test in the class
@@ -641,9 +645,6 @@ namespace Test.ProductService
             productDao = kernel.Get<IProductDao>();
             commentService = kernel.Get<ICommentService>();
             labelService = kernel.Get<ILabelService>();
-            productDao = kernel.Get<IProductDao>();
-            categoryDao = kernel.Get<ICategoryDao>();
-
         }
 
         //Use ClassCleanup to run code after all tests in a class have run
