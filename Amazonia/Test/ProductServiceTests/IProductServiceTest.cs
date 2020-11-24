@@ -7,6 +7,7 @@ using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp.DTOs;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
+using System;
 using System.Collections.Generic;
 using System.Transactions;
 
@@ -36,600 +37,671 @@ namespace Test.ProductService
         [TestMethod]
         public void TestFindCategories()
         {
-            Category c1 = new Category();
-            c1.name = "c1";
-            Category c2 = new Category();
-            c2.name = "c2";
+            using (var scope = new TransactionScope())
+            {
+                Category c1 = new Category();
+                c1.name = "c1";
+                Category c2 = new Category();
+                c2.name = "c2";
 
-            categoryDao.Create(c1);
-            categoryDao.Create(c2);
+                categoryDao.Create(c1);
+                categoryDao.Create(c2);
 
-            List<Category> categoriesExpected = new List<Category>(2);
+                List<Category> categoriesExpected = new List<Category>(2);
 
-            categoriesExpected.Add(c1);
-            categoriesExpected.Add(c2);
+                categoriesExpected.Add(c1);
+                categoriesExpected.Add(c2);
 
-            List<Category> categoriesFound = productService.FindCategories();
+                List<Category> categoriesFound = productService.FindCategories();
 
-            Assert.AreEqual(2, categoriesFound.Count);
-            CollectionAssert.AreEqual(categoriesExpected, categoriesFound);
+                Assert.AreEqual(2, categoriesFound.Count);
+                CollectionAssert.AreEqual(categoriesExpected, categoriesFound);
+            }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void CreateProductBadArgumentsTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                // Precio negativo...
+
+                productService.CreateProduct("GafasRadioactivas", -12, 23, "imagen", "desc", 2);
+            }
+
         }
 
         [TestMethod]
         public void TestCreateProduct()
         {
-            #region Declaracion de variables
+            using (var scope = new TransactionScope())
+            {
+                #region Declaracion de variables
 
-            Category c1 = new Category();
-            c1.name = "Bicicletas";
-            categoryDao.Create(c1);
+                Category c1 = new Category();
+                c1.name = "Bicicletas";
+                categoryDao.Create(c1);
 
-            Product biciCarretera = new Product();
+                Product biciCarretera = new Product();
 
-            double price = 1200;
-            System.DateTime date = System.DateTime.Now;
-            long stock = 5;
-            string image = "ccc";
-            string description = "Bicicleta";
-            long categoryIdBicicleta = c1.id;
+                double price = 1200;
+                System.DateTime date = System.DateTime.Now;
+                long stock = 5;
+                string image = "ccc";
+                string description = "Bicicleta";
+                long categoryIdBicicleta = c1.id;
 
-            biciCarretera.name = "Bicicleta Felt FZ85";
-            biciCarretera.price = price;
-            biciCarretera.entryDate = date;
-            biciCarretera.stock = stock;
-            biciCarretera.image = image;
-            biciCarretera.description = description;
-            biciCarretera.categoryId = categoryIdBicicleta;
+                biciCarretera.name = "Bicicleta Felt FZ85";
+                biciCarretera.price = price;
+                biciCarretera.entryDate = date;
+                biciCarretera.stock = stock;
+                biciCarretera.image = image;
+                biciCarretera.description = description;
+                biciCarretera.categoryId = categoryIdBicicleta;
 
-            #endregion Declaracion de variables
+                #endregion Declaracion de variables
 
-            #region Persistencia
+                #region Persistencia
 
-            productService.CreateProduct(biciCarretera);
+                productService.CreateProduct(biciCarretera);
 
-            #endregion Persistencia
+                #endregion Persistencia
 
-            Product retrievedProduct = productDao.Find(biciCarretera.id);
-            Assert.AreEqual(biciCarretera, retrievedProduct);
+                Product retrievedProduct = productDao.Find(biciCarretera.id);
+                Assert.AreEqual(biciCarretera, retrievedProduct);
+            }
         }
 
         [TestMethod]
         public void TestUpdateProduct()
         {
-            #region Declaracion de variables
+            using (var scope = new TransactionScope())
+            {
+                #region Declaracion de variables
 
-            Category c1 = new Category();
-            c1.name = "Bicicletas";
-            categoryDao.Create(c1);
+                Category c1 = new Category();
+                c1.name = "Bicicletas";
+                categoryDao.Create(c1);
 
-            Product biciCarretera = new Product();
+                Product biciCarretera = new Product();
 
-            double price = 1200;
-            System.DateTime date = System.DateTime.Now;
-            long stock = 5;
-            string image = "ccc";
-            string description = "Bicicleta";
-            long categoryIdBicicleta = c1.id;
+                double price = 1200;
+                System.DateTime date = System.DateTime.Now;
+                long stock = 5;
+                string image = "ccc";
+                string description = "Bicicleta";
+                long categoryIdBicicleta = c1.id;
 
-            biciCarretera.name = "Bicicleta Felt FZ85";
-            biciCarretera.price = price;
-            biciCarretera.entryDate = date;
-            biciCarretera.stock = stock;
-            biciCarretera.image = image;
-            biciCarretera.description = description;
-            biciCarretera.categoryId = categoryIdBicicleta;
+                biciCarretera.name = "Bicicleta Felt FZ85";
+                biciCarretera.price = price;
+                biciCarretera.entryDate = date;
+                biciCarretera.stock = stock;
+                biciCarretera.image = image;
+                biciCarretera.description = description;
+                biciCarretera.categoryId = categoryIdBicicleta;
 
-            #endregion Declaracion de variables
+                #endregion Declaracion de variables
 
-            #region Persistencia
+                #region Persistencia
 
-            productService.CreateProduct(biciCarretera);
+                productService.CreateProduct(biciCarretera);
 
-            #endregion Persistencia
+                #endregion Persistencia
 
-            //Se cambia biciCarretera y se comprueba que al actualizarla en BBDD son iguales.
+                //Se cambia biciCarretera y se comprueba que al actualizarla en BBDD son iguales.
 
-            biciCarretera.price = 1500d;
+                biciCarretera.price = 1500d;
 
-            productService.UpdateProduct(biciCarretera);
+                productService.UpdateProduct(biciCarretera.id, biciCarretera.name, biciCarretera.price, biciCarretera.stock, biciCarretera.image, biciCarretera.description, biciCarretera.categoryId);
 
-            Product retrievedProduct = productDao.Find(biciCarretera.id);
-            Assert.AreEqual(biciCarretera, retrievedProduct);
+                Product retrievedProduct = productDao.Find(biciCarretera.id);
+                Assert.AreEqual(biciCarretera, retrievedProduct);
+            }
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FindByKeywordBadInputTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                List<ProductDTO> listaRecuperada = productService.FindProductByWord("", 0, 10);
+            }
+
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(Es.Udc.DotNet.ModelUtil.Exceptions.InstanceNotFoundException))]
+        public void FindByKeywordCategoryBadInputTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                // Id categoria inexistente...
+
+                List<ProductDTO> listaRecuperada = productService.FindProductByWordAndCategory("Cat", 1L, 0, 10);
+            }
+
+        }
+
 
         [TestMethod]
         public void TestFindByKeywordEmpty()
         {
-            #region Declaracion de variables
+            using (var scope = new TransactionScope())
+            {
+                #region Declaracion de variables
 
-            Category c1 = new Category();
-            c1.name = "Bicicletas";
-            Category c2 = new Category();
-            c2.name = "Ordenadores";
+                Category c1 = new Category();
+                c1.name = "Bicicletas";
+                Category c2 = new Category();
+                c2.name = "Ordenadores";
 
-            categoryDao.Create(c1);
-            categoryDao.Create(c2);
+                categoryDao.Create(c1);
+                categoryDao.Create(c2);
 
-            Product biciCarretera = new Product();
-            Product biciMontaña = new Product();
-            Product portatil = new Product();
+                Product biciCarretera = new Product();
+                Product biciMontaña = new Product();
+                Product portatil = new Product();
 
-            double price = 1200;
-            System.DateTime date = System.DateTime.Now;
-            long stock = 5;
-            string image = "ccc";
-            string description = "Bicicleta";
-            long categoryIdBicicleta = c1.id;
-            long categoryIdPortatil = c2.id;
+                double price = 1200;
+                System.DateTime date = System.DateTime.Now;
+                long stock = 5;
+                string image = "ccc";
+                string description = "Bicicleta";
+                long categoryIdBicicleta = c1.id;
+                long categoryIdPortatil = c2.id;
 
-            biciCarretera.name = "Bicicleta Felt FZ85";
-            biciCarretera.price = price;
-            biciCarretera.entryDate = date;
-            biciCarretera.stock = stock;
-            biciCarretera.image = image;
-            biciCarretera.description = description;
-            biciCarretera.categoryId = categoryIdBicicleta;
+                biciCarretera.name = "Bicicleta Felt FZ85";
+                biciCarretera.price = price;
+                biciCarretera.entryDate = date;
+                biciCarretera.stock = stock;
+                biciCarretera.image = image;
+                biciCarretera.description = description;
+                biciCarretera.categoryId = categoryIdBicicleta;
 
-            biciMontaña.name = "Bicicleta Felt FZ85";
-            biciMontaña.price = price;
-            biciMontaña.entryDate = date;
-            biciMontaña.stock = stock;
-            biciMontaña.image = image;
-            biciMontaña.description = description;
-            biciMontaña.categoryId = categoryIdBicicleta;
+                biciMontaña.name = "Bicicleta Felt FZ85";
+                biciMontaña.price = price;
+                biciMontaña.entryDate = date;
+                biciMontaña.stock = stock;
+                biciMontaña.image = image;
+                biciMontaña.description = description;
+                biciMontaña.categoryId = categoryIdBicicleta;
 
-            portatil.name = "Portatil Dell XPS";
-            portatil.price = price;
-            portatil.entryDate = date;
-            portatil.stock = stock;
-            portatil.image = image;
-            portatil.description = description;
-            portatil.categoryId = categoryIdPortatil;
+                portatil.name = "Portatil Dell XPS";
+                portatil.price = price;
+                portatil.entryDate = date;
+                portatil.stock = stock;
+                portatil.image = image;
+                portatil.description = description;
+                portatil.categoryId = categoryIdPortatil;
 
-            #endregion Declaracion de variables
+                #endregion Declaracion de variables
 
-            #region Persistencia
+                #region Persistencia
 
-            productService.CreateProduct(biciCarretera);
-            productService.CreateProduct(portatil);
-            productService.CreateProduct(biciMontaña);
+                productService.CreateProduct(biciCarretera);
+                productService.CreateProduct(portatil);
+                productService.CreateProduct(biciMontaña);
 
-            #endregion Persistencia
+                #endregion Persistencia
 
-            List<ProductDTO> listaRecuperada = productService.FindProductByWordAndCategory("Cacahuete", null);
+                List<ProductDTO> listaRecuperada = productService.FindProductByWord("Cacahuete", 0, 10);
 
-            Assert.IsTrue(listaRecuperada.Count == 0);
+                Assert.IsTrue(listaRecuperada.Count == 0);
+            }
         }
 
         [TestMethod]
         public void TestFindByKeywordOneResultAndTestKeywordTrimAndNoCaseSensitive()
         {
-            #region Declaracion de variables
+            using (var scope = new TransactionScope())
+            {
+                #region Declaracion de variables
 
-            Category c1 = new Category();
-            c1.name = "Bicicletas";
-            Category c2 = new Category();
-            c2.name = "Ordenadores";
+                Category c1 = new Category();
+                c1.name = "Bicicletas";
+                Category c2 = new Category();
+                c2.name = "Ordenadores";
 
-            categoryDao.Create(c1);
-            categoryDao.Create(c2);
+                categoryDao.Create(c1);
+                categoryDao.Create(c2);
 
-            Product biciCarretera = new Product();
-            Product biciMontaña = new Product();
-            Product portatil = new Product();
+                Product biciCarretera = new Product();
+                Product biciMontaña = new Product();
+                Product portatil = new Product();
 
-            double price = 1200;
-            System.DateTime date = System.DateTime.Now;
-            long stock = 5;
-            string image = "ccc";
-            string description = "Bicicleta";
-            long categoryIdBicicleta = c1.id;
-            long categoryIdPortatil = c2.id;
+                double price = 1200;
+                System.DateTime date = System.DateTime.Now;
+                long stock = 5;
+                string image = "ccc";
+                string description = "Bicicleta";
+                long categoryIdBicicleta = c1.id;
+                long categoryIdPortatil = c2.id;
 
-            biciCarretera.name = "Bicicleta Felt FZ85";
-            biciCarretera.price = price;
-            biciCarretera.entryDate = date;
-            biciCarretera.stock = stock;
-            biciCarretera.image = image;
-            biciCarretera.description = description;
-            biciCarretera.categoryId = categoryIdBicicleta;
+                biciCarretera.name = "Bicicleta Felt FZ85";
+                biciCarretera.price = price;
+                biciCarretera.entryDate = date;
+                biciCarretera.stock = stock;
+                biciCarretera.image = image;
+                biciCarretera.description = description;
+                biciCarretera.categoryId = categoryIdBicicleta;
 
-            biciMontaña.name = "Bicicleta Felt FZ85";
-            biciMontaña.price = price;
-            biciMontaña.entryDate = date;
-            biciMontaña.stock = stock;
-            biciMontaña.image = image;
-            biciMontaña.description = description;
-            biciMontaña.categoryId = categoryIdBicicleta;
+                biciMontaña.name = "Bicicleta Felt FZ85";
+                biciMontaña.price = price;
+                biciMontaña.entryDate = date;
+                biciMontaña.stock = stock;
+                biciMontaña.image = image;
+                biciMontaña.description = description;
+                biciMontaña.categoryId = categoryIdBicicleta;
 
-            portatil.name = "Portatil Dell XPS";
-            portatil.price = price;
-            portatil.entryDate = date;
-            portatil.stock = stock;
-            portatil.image = image;
-            portatil.description = description;
-            portatil.categoryId = categoryIdPortatil;
+                portatil.name = "Portatil Dell XPS";
+                portatil.price = price;
+                portatil.entryDate = date;
+                portatil.stock = stock;
+                portatil.image = image;
+                portatil.description = description;
+                portatil.categoryId = categoryIdPortatil;
 
-            #endregion Declaracion de variables
+                #endregion Declaracion de variables
 
-            #region Persistencia
+                #region Persistencia
 
-            productService.CreateProduct(biciCarretera);
-            productService.CreateProduct(portatil);
-            productService.CreateProduct(biciMontaña);
+                productService.CreateProduct(biciCarretera);
+                productService.CreateProduct(portatil);
+                productService.CreateProduct(biciMontaña);
 
-            #endregion Persistencia
+                #endregion Persistencia
 
-            List<ProductDTO> listaEsperadaOrdenador = new List<ProductDTO>(1);
-            listaEsperadaOrdenador.Add(ProductMapper.ProductToProductDto(portatil));
-            List<ProductDTO> listaRecuperadaOrdenador = productService.FindProductByWordAndCategory("     ordenaDoReS    ", c2);
-            // Buscando por ordenadores no se debaría encontrar nada.
+                List<ProductDTO> listaEsperadaOrdenador = new List<ProductDTO>(1);
+                listaEsperadaOrdenador.Add(ProductMapper.ProductToProductDto(portatil));
+                List<ProductDTO> listaRecuperadaOrdenador = productService.FindProductByWordAndCategory("     ordenaDoReS    ", c2.id, 0, 10);
+                // Buscando por ordenadores no se debaría encontrar nada.
 
-            Assert.IsTrue(listaRecuperadaOrdenador.Count == 0);
+                Assert.IsTrue(listaRecuperadaOrdenador.Count == 0);
 
-            // Buscando por portátil sí que debería encontrarlo
-            listaRecuperadaOrdenador = productService.FindProductByWordAndCategory("     portATIL    ", c2);
+                // Buscando por portátil sí que debería encontrarlo
+                listaRecuperadaOrdenador = productService.FindProductByWordAndCategory("     portATIL    ", c2.id, 0, 10);
 
-            Assert.IsTrue(listaRecuperadaOrdenador.Count == 1);
-            CollectionAssert.AreEqual(listaEsperadaOrdenador, listaRecuperadaOrdenador);
+                Assert.IsTrue(listaRecuperadaOrdenador.Count == 1);
+                CollectionAssert.AreEqual(listaEsperadaOrdenador, listaRecuperadaOrdenador);
 
-            List<ProductDTO> listaRecuperadaBicicletas = productService.FindProductByWordAndCategory("bicicleta", c1);
+                List<ProductDTO> listaRecuperadaBicicletas = productService.FindProductByWordAndCategory("bicicleta", c1.id, 0, 10);
 
-            Assert.IsTrue(listaRecuperadaBicicletas.Count == 2);
+                Assert.IsTrue(listaRecuperadaBicicletas.Count == 2);
+            }
         }
 
         [TestMethod]
         public void TestFindByKeywordMultipleResultsAndTestKeywordTrimAndNoCaseSensitive()
         {
-            #region Declaracion de variables
+            using (var scope = new TransactionScope())
+            {
+                #region Declaracion de variables
 
-            Category c1 = new Category();
-            c1.name = "Bicicletas";
-            Category c2 = new Category();
-            c2.name = "Ordenadores";
+                Category c1 = new Category();
+                c1.name = "Bicicletas";
+                Category c2 = new Category();
+                c2.name = "Ordenadores";
 
-            categoryDao.Create(c1);
-            categoryDao.Create(c2);
+                categoryDao.Create(c1);
+                categoryDao.Create(c2);
 
-            Product biciCarretera = new Product();
-            Product biciMontaña = new Product();
-            Product portatil = new Product();
+                Product biciCarretera = new Product();
+                Product biciMontaña = new Product();
+                Product portatil = new Product();
 
-            double price = 1200;
-            System.DateTime date = System.DateTime.Now;
-            long stock = 5;
-            string image = "ccc";
-            string description = "Bicicleta";
-            long categoryIdBicicleta = c1.id;
-            long categoryIdPortatil = c2.id;
+                double price = 1200;
+                System.DateTime date = System.DateTime.Now;
+                long stock = 5;
+                string image = "ccc";
+                string description = "Bicicleta";
+                long categoryIdBicicleta = c1.id;
+                long categoryIdPortatil = c2.id;
 
-            biciCarretera.name = "Bicicleta Felt FZ85";
-            biciCarretera.price = price;
-            biciCarretera.entryDate = date;
-            biciCarretera.stock = stock;
-            biciCarretera.image = image;
-            biciCarretera.description = description;
-            biciCarretera.categoryId = categoryIdBicicleta;
+                biciCarretera.name = "Bicicleta Felt FZ85";
+                biciCarretera.price = price;
+                biciCarretera.entryDate = date;
+                biciCarretera.stock = stock;
+                biciCarretera.image = image;
+                biciCarretera.description = description;
+                biciCarretera.categoryId = categoryIdBicicleta;
 
-            biciMontaña.name = "Bicicleta Felt FZ85";
-            biciMontaña.price = price;
-            biciMontaña.entryDate = date;
-            biciMontaña.stock = stock;
-            biciMontaña.image = image;
-            biciMontaña.description = description;
-            biciMontaña.categoryId = categoryIdBicicleta;
+                biciMontaña.name = "Bicicleta Felt FZ85";
+                biciMontaña.price = price;
+                biciMontaña.entryDate = date;
+                biciMontaña.stock = stock;
+                biciMontaña.image = image;
+                biciMontaña.description = description;
+                biciMontaña.categoryId = categoryIdBicicleta;
 
-            portatil.name = "Portatil Dell XPS";
-            portatil.price = price;
-            portatil.entryDate = date;
-            portatil.stock = stock;
-            portatil.image = image;
-            portatil.description = description;
-            portatil.categoryId = categoryIdPortatil;
+                portatil.name = "Portatil Dell XPS";
+                portatil.price = price;
+                portatil.entryDate = date;
+                portatil.stock = stock;
+                portatil.image = image;
+                portatil.description = description;
+                portatil.categoryId = categoryIdPortatil;
 
-            #endregion Declaracion de variables
+                #endregion Declaracion de variables
 
-            #region Persistencia
+                #region Persistencia
 
-            productService.CreateProduct(biciCarretera);
-            productService.CreateProduct(portatil);
-            productService.CreateProduct(biciMontaña);
+                productService.CreateProduct(biciCarretera);
+                productService.CreateProduct(portatil);
+                productService.CreateProduct(biciMontaña);
 
-            #endregion Persistencia
+                #endregion Persistencia
 
-            List<ProductDTO> listaEsperadaBicicletas = new List<ProductDTO>(2);
-            listaEsperadaBicicletas.Add(ProductMapper.ProductToProductDto(biciCarretera));
-            listaEsperadaBicicletas.Add(ProductMapper.ProductToProductDto(biciMontaña));
+                List<ProductDTO> listaEsperadaBicicletas = new List<ProductDTO>(2);
+                listaEsperadaBicicletas.Add(ProductMapper.ProductToProductDto(biciCarretera));
+                listaEsperadaBicicletas.Add(ProductMapper.ProductToProductDto(biciMontaña));
 
-            List<ProductDTO> listaRecuperadaBicicletas = productService.FindProductByWordAndCategory("bicicleta", null);
+                List<ProductDTO> listaRecuperadaBicicletas = productService.FindProductByWord("bicicleta", 0, 10);
 
-            Assert.IsTrue(listaRecuperadaBicicletas.Count == 2);
-            CollectionAssert.AreEqual(listaEsperadaBicicletas, listaRecuperadaBicicletas);
+                Assert.IsTrue(listaRecuperadaBicicletas.Count == 2);
+                CollectionAssert.AreEqual(listaEsperadaBicicletas, listaRecuperadaBicicletas);
+            }
         }
 
         [TestMethod]
         public void TestFindByKeywordAndCategoryMultipleResultsAndTestKeywordTrimAndNoCaseSensitive()
         {
-            #region Declaracion de variables
+            using (var scope = new TransactionScope())
+            {
+                #region Declaracion de variables
 
-            Category c1 = new Category();
-            c1.name = "Bicicletas";
-            Category c2 = new Category();
-            c2.name = "Bicicletas Outlet";
+                Category c1 = new Category();
+                c1.name = "Bicicletas";
+                Category c2 = new Category();
+                c2.name = "Bicicletas Outlet";
 
-            categoryDao.Create(c1);
-            categoryDao.Create(c2);
+                categoryDao.Create(c1);
+                categoryDao.Create(c2);
 
-            Product biciCarretera = new Product();
-            Product biciMontaña = new Product();
+                Product biciCarretera = new Product();
+                Product biciMontaña = new Product();
 
-            double price = 1200;
-            System.DateTime date = System.DateTime.Now;
-            long stock = 5;
-            string image = "ccc";
-            string description = "Bicicleta";
-            long categoryIdBicicleta = c1.id;
-            long categoryIdBicicletaOutlet = c2.id;
+                double price = 1200;
+                System.DateTime date = System.DateTime.Now;
+                long stock = 5;
+                string image = "ccc";
+                string description = "Bicicleta";
+                long categoryIdBicicleta = c1.id;
+                long categoryIdBicicletaOutlet = c2.id;
 
-            biciCarretera.name = "Bicicleta Felt FZ85";
-            biciCarretera.price = price;
-            biciCarretera.entryDate = date;
-            biciCarretera.stock = stock;
-            biciCarretera.image = image;
-            biciCarretera.description = description;
-            biciCarretera.categoryId = categoryIdBicicleta;
+                biciCarretera.name = "Bicicleta Felt FZ85";
+                biciCarretera.price = price;
+                biciCarretera.entryDate = date;
+                biciCarretera.stock = stock;
+                biciCarretera.image = image;
+                biciCarretera.description = description;
+                biciCarretera.categoryId = categoryIdBicicleta;
 
-            biciMontaña.name = "Bicicleta MMR";
-            biciMontaña.price = price;
-            biciMontaña.entryDate = date;
-            biciMontaña.stock = stock;
-            biciMontaña.image = image;
-            biciMontaña.description = description;
-            biciMontaña.categoryId = categoryIdBicicletaOutlet;
+                biciMontaña.name = "Bicicleta MMR";
+                biciMontaña.price = price;
+                biciMontaña.entryDate = date;
+                biciMontaña.stock = stock;
+                biciMontaña.image = image;
+                biciMontaña.description = description;
+                biciMontaña.categoryId = categoryIdBicicletaOutlet;
 
-            #endregion Declaracion de variables
+                #endregion Declaracion de variables
 
-            #region Persistencia
+                #region Persistencia
 
-            productService.CreateProduct(biciCarretera);
-            productService.CreateProduct(biciMontaña);
+                productService.CreateProduct(biciCarretera);
+                productService.CreateProduct(biciMontaña);
 
-            #endregion Persistencia
+                #endregion Persistencia
 
-            List<ProductDTO> listaEsperadaBicicletas = new List<ProductDTO>(1);
-            listaEsperadaBicicletas.Add(ProductMapper.ProductToProductDto(biciCarretera));
+                List<ProductDTO> listaEsperadaBicicletas = new List<ProductDTO>(1);
+                listaEsperadaBicicletas.Add(ProductMapper.ProductToProductDto(biciCarretera));
 
-            List<ProductDTO> listaRecuperadaBicicletas = productService.FindProductByWordAndCategory("   bicicLeta  ", c1);
+                List<ProductDTO> listaRecuperadaBicicletas = productService.FindProductByWordAndCategory("   bicicLeta  ", c1.id, 0, 10);
 
-            Assert.IsTrue(listaRecuperadaBicicletas.Count == 1);
-            CollectionAssert.AreEqual(listaEsperadaBicicletas, listaRecuperadaBicicletas);
+                Assert.IsTrue(listaRecuperadaBicicletas.Count == 1);
+                CollectionAssert.AreEqual(listaEsperadaBicicletas, listaRecuperadaBicicletas);
+            }
         }
 
         [TestMethod]
         public void RetrieveProductsWithLabelEmptyTest()
         {
-            #region Needed variables
+            using (var scope = new TransactionScope())
+            {
+                #region Needed variables
 
-            Category c1 = new Category();
-            c1.name = "Bicicletas";
-            categoryDao.Create(c1);
+                Category c1 = new Category();
+                c1.name = "Bicicletas";
+                categoryDao.Create(c1);
 
-            Product biciCarretera = new Product();
+                Product biciCarretera = new Product();
 
-            double price = 1200;
-            System.DateTime date = System.DateTime.Now;
-            long stock = 5;
-            string image = "ccc";
-            string description = "Bicicleta";
-            long categoryIdBicicleta = c1.id;
+                double price = 1200;
+                System.DateTime date = System.DateTime.Now;
+                long stock = 5;
+                string image = "ccc";
+                string description = "Bicicleta";
+                long categoryIdBicicleta = c1.id;
 
-            biciCarretera.name = "Bicicleta Felt FZ85";
-            biciCarretera.price = price;
-            biciCarretera.entryDate = date;
-            biciCarretera.stock = stock;
-            biciCarretera.image = image;
-            biciCarretera.description = description;
-            biciCarretera.categoryId = categoryIdBicicleta;
+                biciCarretera.name = "Bicicleta Felt FZ85";
+                biciCarretera.price = price;
+                biciCarretera.entryDate = date;
+                biciCarretera.stock = stock;
+                biciCarretera.image = image;
+                biciCarretera.description = description;
+                biciCarretera.categoryId = categoryIdBicicleta;
 
-            #endregion Needed variables
+                #endregion Needed variables
 
-            #region Persistencia
+                #region Persistencia
 
-            productDao.Create(biciCarretera);
+                productDao.Create(biciCarretera);
 
-            #endregion Persistencia
+                #endregion Persistencia
 
-            #region Comment and label section
+                #region Comment and label section
 
-            Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
+                Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
 
-            labelService.CreateLabel("Genial", newComment.id);
+                labelService.CreateLabel("Genial", newComment.id);
 
-            #endregion Comment and label section
+                #endregion Comment and label section
 
-            List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Malo");
+                List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Malo");
 
-            Assert.AreEqual(productsWithLabel.Count, 0);
+                Assert.AreEqual(productsWithLabel.Count, 0);
+            }
         }
 
         [TestMethod]
         public void RetrieveProductWithLabelTest()
         {
-            #region Needed variables
+            using (var scope = new TransactionScope())
+            {
+                #region Needed variables
 
-            Category c1 = new Category();
-            c1.name = "Bicicletas";
-            categoryDao.Create(c1);
+                Category c1 = new Category();
+                c1.name = "Bicicletas";
+                categoryDao.Create(c1);
 
-            Product biciCarretera = new Product();
+                Product biciCarretera = new Product();
 
-            double price = 1200;
-            System.DateTime date = System.DateTime.Now;
-            long stock = 5;
-            string image = "ccc";
-            string description = "Bicicleta";
-            long categoryIdBicicleta = c1.id;
+                double price = 1200;
+                System.DateTime date = System.DateTime.Now;
+                long stock = 5;
+                string image = "ccc";
+                string description = "Bicicleta";
+                long categoryIdBicicleta = c1.id;
 
-            biciCarretera.name = "Bicicleta Felt FZ85";
-            biciCarretera.price = price;
-            biciCarretera.entryDate = date;
-            biciCarretera.stock = stock;
-            biciCarretera.image = image;
-            biciCarretera.description = description;
-            biciCarretera.categoryId = categoryIdBicicleta;
+                biciCarretera.name = "Bicicleta Felt FZ85";
+                biciCarretera.price = price;
+                biciCarretera.entryDate = date;
+                biciCarretera.stock = stock;
+                biciCarretera.image = image;
+                biciCarretera.description = description;
+                biciCarretera.categoryId = categoryIdBicicleta;
 
-            #endregion Needed variables
+                #endregion Needed variables
 
-            #region Persistencia
+                #region Persistencia
 
-            productDao.Create(biciCarretera);
+                productDao.Create(biciCarretera);
 
-            #endregion Persistencia
+                #endregion Persistencia
 
-            #region Comment and label section
+                #region Comment and label section
 
-            Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
-            labelService.CreateLabel("Genial", newComment.id);
+                Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
+                labelService.CreateLabel("Genial", newComment.id);
 
-            #endregion Comment and label section
+                #endregion Comment and label section
 
-            List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Genial");
+                List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Genial");
 
-            Assert.AreEqual(productsWithLabel.Count, 1);
-            Assert.AreEqual(productsWithLabel[0], biciCarretera);
+                Assert.AreEqual(productsWithLabel.Count, 1);
+                Assert.AreEqual(productsWithLabel[0], biciCarretera);
+            }
         }
 
         [TestMethod]
         public void RetrieveProductsWithLabelTest()
         {
-            #region Needed variables
+            using (var scope = new TransactionScope())
+            {
+                #region Needed variables
 
-            Category c1 = new Category();
-            c1.name = "Bicicletas";
-            Category c2 = new Category();
-            c2.name = "Ordenadores";
+                Category c1 = new Category();
+                c1.name = "Bicicletas";
+                Category c2 = new Category();
+                c2.name = "Ordenadores";
 
-            categoryDao.Create(c1);
-            categoryDao.Create(c2);
+                categoryDao.Create(c1);
+                categoryDao.Create(c2);
 
-            Product biciCarretera = new Product();
-            Product biciMontaña = new Product();
-            Product portatil = new Product();
+                Product biciCarretera = new Product();
+                Product biciMontaña = new Product();
+                Product portatil = new Product();
 
-            double price = 1200;
-            System.DateTime date = System.DateTime.Now;
-            long stock = 5;
-            string image = "ccc";
-            string description = "Bicicleta";
-            long categoryIdBicicleta = c1.id;
-            long categoryIdPortatil = c2.id;
+                double price = 1200;
+                System.DateTime date = System.DateTime.Now;
+                long stock = 5;
+                string image = "ccc";
+                string description = "Bicicleta";
+                long categoryIdBicicleta = c1.id;
+                long categoryIdPortatil = c2.id;
 
-            biciCarretera.name = "Bicicleta Felt FZ85";
-            biciCarretera.price = price;
-            biciCarretera.entryDate = date;
-            biciCarretera.stock = stock;
-            biciCarretera.image = image;
-            biciCarretera.description = description;
-            biciCarretera.categoryId = categoryIdBicicleta;
+                biciCarretera.name = "Bicicleta Felt FZ85";
+                biciCarretera.price = price;
+                biciCarretera.entryDate = date;
+                biciCarretera.stock = stock;
+                biciCarretera.image = image;
+                biciCarretera.description = description;
+                biciCarretera.categoryId = categoryIdBicicleta;
 
-            biciMontaña.name = "Bicicleta Felt FZ85";
-            biciMontaña.price = price;
-            biciMontaña.entryDate = date;
-            biciMontaña.stock = stock;
-            biciMontaña.image = image;
-            biciMontaña.description = description;
-            biciMontaña.categoryId = categoryIdBicicleta;
+                biciMontaña.name = "Bicicleta Felt FZ85";
+                biciMontaña.price = price;
+                biciMontaña.entryDate = date;
+                biciMontaña.stock = stock;
+                biciMontaña.image = image;
+                biciMontaña.description = description;
+                biciMontaña.categoryId = categoryIdBicicleta;
 
-            portatil.name = "Portatil Dell XPS";
-            portatil.price = price;
-            portatil.entryDate = date;
-            portatil.stock = stock;
-            portatil.image = image;
-            portatil.description = description;
-            portatil.categoryId = categoryIdPortatil;
+                portatil.name = "Portatil Dell XPS";
+                portatil.price = price;
+                portatil.entryDate = date;
+                portatil.stock = stock;
+                portatil.image = image;
+                portatil.description = description;
+                portatil.categoryId = categoryIdPortatil;
 
-            #endregion Needed variables
+                #endregion Needed variables
 
-            #region Persistencia
+                #region Persistencia
 
-            productDao.Create(biciCarretera);
-            productDao.Create(portatil);
-            productDao.Create(biciMontaña);
+                productDao.Create(biciCarretera);
+                productDao.Create(portatil);
+                productDao.Create(biciMontaña);
 
-            #endregion Persistencia
+                #endregion Persistencia
 
-            #region Comment and label section
+                #region Comment and label section
 
-            Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
-            Comment newComment2 = commentService.AddComment("Review 1", "Muy mala bicicleta", biciMontaña.id);
-            Comment newComment3 = commentService.AddComment("Review 1", "Muy buen portátil", portatil.id);
+                Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
+                Comment newComment2 = commentService.AddComment("Review 1", "Muy mala bicicleta", biciMontaña.id);
+                Comment newComment3 = commentService.AddComment("Review 1", "Muy buen portátil", portatil.id);
 
-            labelService.CreateLabel("Genial", newComment.id);
-            labelService.CreateLabel("Mala", newComment2.id);
-            labelService.CreateLabel("Genial", newComment3.id);
+                labelService.CreateLabel("Genial", newComment.id);
+                labelService.CreateLabel("Mala", newComment2.id);
+                labelService.CreateLabel("Fenomenal", newComment3.id);
 
-            #endregion Comment and label section
+                #endregion Comment and label section
 
-            List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Genial");
+                List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Genial");
 
-            Assert.AreEqual(productsWithLabel.Count, 2);
-            Assert.IsTrue(productsWithLabel.Contains(portatil));
-            Assert.IsTrue(productsWithLabel.Contains(biciCarretera));
+                Assert.AreEqual(productsWithLabel.Count, 1);
+                Assert.IsTrue(productsWithLabel.Contains(biciCarretera));
+            }
         }
 
         [TestMethod]
         public void RetrieveProductWithMultipleLabelsTest()
         {
-            #region Needed variables
+            using (var scope = new TransactionScope())
+            {
+                #region Needed variables
 
-            Category c1 = new Category();
-            c1.name = "Bicicletas";
-            categoryDao.Create(c1);
+                Category c1 = new Category();
+                c1.name = "Bicicletas";
+                categoryDao.Create(c1);
 
-            Product biciCarretera = new Product();
+                Product biciCarretera = new Product();
 
-            double price = 1200;
-            System.DateTime date = System.DateTime.Now;
-            long stock = 5;
-            string image = "ccc";
-            string description = "Bicicleta";
-            long categoryIdBicicleta = c1.id;
+                double price = 1200;
+                System.DateTime date = System.DateTime.Now;
+                long stock = 5;
+                string image = "ccc";
+                string description = "Bicicleta";
+                long categoryIdBicicleta = c1.id;
 
-            biciCarretera.name = "Bicicleta Felt FZ85";
-            biciCarretera.price = price;
-            biciCarretera.entryDate = date;
-            biciCarretera.stock = stock;
-            biciCarretera.image = image;
-            biciCarretera.description = description;
-            biciCarretera.categoryId = categoryIdBicicleta;
+                biciCarretera.name = "Bicicleta Felt FZ85";
+                biciCarretera.price = price;
+                biciCarretera.entryDate = date;
+                biciCarretera.stock = stock;
+                biciCarretera.image = image;
+                biciCarretera.description = description;
+                biciCarretera.categoryId = categoryIdBicicleta;
 
-            #endregion Needed variables
+                #endregion Needed variables
 
-            #region Persistencia
+                #region Persistencia
 
-            productDao.Create(biciCarretera);
+                productDao.Create(biciCarretera);
 
-            #endregion Persistencia
+                #endregion Persistencia
 
-            #region Comment and label section
+                #region Comment and label section
 
-            Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
-            labelService.CreateLabel("Genial", newComment.id);
-            labelService.CreateLabel("Buena", newComment.id);
+                Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
+                labelService.CreateLabel("Genial", newComment.id);
+                labelService.CreateLabel("Buena", newComment.id);
 
-            #endregion Comment and label section
+                #endregion Comment and label section
 
-            // Se busca primero por la primera etiqueta
-            List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Genial");
+                // Se busca primero por la primera etiqueta
+                List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Genial");
 
-            Assert.AreEqual(productsWithLabel.Count, 1);
-            Assert.AreEqual(productsWithLabel[0], biciCarretera);
+                Assert.AreEqual(productsWithLabel.Count, 1);
+                Assert.AreEqual(productsWithLabel[0], biciCarretera);
 
-            //Se busca luego por la segunda etiqueta
-            productsWithLabel = productService.RetrieveProductsWithLabel("Buena");
+                //Se busca luego por la segunda etiqueta
+                productsWithLabel = productService.RetrieveProductsWithLabel("Buena");
 
-            Assert.AreEqual(productsWithLabel.Count, 1);
-            Assert.AreEqual(productsWithLabel[0], biciCarretera);
+                Assert.AreEqual(productsWithLabel.Count, 1);
+                Assert.AreEqual(productsWithLabel[0], biciCarretera);
+            }
         }
 
         #region Additional test attributes

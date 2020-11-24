@@ -16,15 +16,34 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
         ILabelDao LabelDao { set; }
 
         /// <summary>
-        /// Creates the label.
+        /// Creates the label and associates the label to a comment since a label with no
+        /// comment has no reason to exist.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="commentId">The comment identifier.</param>
-        /// <exception cref="ArgumentNullException"/>
+        /// <exception cref="ArgumentException"/>
         /// <exception cref="InstanceNotFoundException"/>
         /// <returns></returns>
         [Transactional]
         Label CreateLabel(string value, long commentId);
+
+        /// <summary>
+        /// Assigns the labels to an specific comment.
+        /// </summary>
+        /// <param name="commentId">The comment identifier.</param>
+        /// <param name="labelIds">The label ids.</param>
+        /// <exception cref="InstanceNotFoundException"/>
+        /// <exception cref="ArgumentException"/>
+        [Transactional]
+        void AssignLabelsToComment(long commentId, List<long> labelIds);
+
+        /// <summary>
+        /// Updates the label.
+        /// </summary>
+        /// <param name="labelId">The label identifier.</param>
+        /// <param name="value">The value.</param>
+        /// <exception cref="InstanceNotFoundException"/>
+        void UpdateLabel(long labelId, string newValue);
 
         /// <summary>
         /// Deletes the label.
@@ -32,6 +51,14 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
         /// <param name="labelId">The label identifier.</param>
         [Transactional]
         void DeleteLabel(long labelId);
+
+        /// <summary>
+        /// Deletes the labels from a certain comment.
+        /// </summary>
+        /// <param name="commentId">The comment identifier.</param>
+        /// <param name="labelIds">The label ids.</param>
+        /// <exception cref="InstanceNotFoundException"/>
+        void DeleteLabelsFromComment(long commentId, List<long> labelIds);
 
         /// <summary>
         /// Finds all labels.

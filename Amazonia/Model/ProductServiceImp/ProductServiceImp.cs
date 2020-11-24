@@ -8,6 +8,7 @@ using Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao;
 using Ninject;
 using System.Runtime.Caching;
+using Es.Udc.DotNet.ModelUtil.Exceptions;
 
 namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 {
@@ -40,9 +41,9 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         public MemoryCache Cache { get => _Cache; }
 
         [Transactional]
-        public Product CreateProduct(string name, double price, DateTime entryDate, long stock, string image, string description, long categoryId)
+        public Product CreateProduct(string name, double price, long stock, string image, string description, long categoryId)
         {
-            if (name == null || price >= 0 || entryDate == null || stock >= 0)
+            if (name == null || name.Length == 0 || price <= 0 || stock <= 0)
             {
                 throw new ArgumentException("Se han pasado parámetros no válidos");
             }
@@ -50,7 +51,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
             Product productToInsert = new Product();
             productToInsert.name = name;
             productToInsert.price = price;
-            productToInsert.entryDate = entryDate;
+            productToInsert.entryDate = DateTime.Now;
             productToInsert.stock = stock;
             productToInsert.image = image;
             productToInsert.description = description;
@@ -81,20 +82,31 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         }
 
         [Transactional]
-        public Product UpdateProduct(Product product)
+        public Product UpdateProduct(long productId, string name, double price, long stock, string image, string description, long categoryId)
         {
-            if (product == null)
+            if (name == null || name.Length == 0 || price <= 0 || stock < 0)
             {
-                throw new ArgumentNullException("Se han pasado parámetros nulos");
+                throw new ArgumentException("Se han pasado parámetros no válidos");
             }
 
-            if (ProductDaoEntityFramework.Find(product.id) == null)
+            Product productToProcess = ProductDaoEntityFramework.Find(productId);
+
+            if (productToProcess == null)
             {
                 throw new Exception("Se intenta actualizar un producto que no existe");
             }
-            ProductDaoEntityFramework.Update(product);
 
-            return product;
+            productToProcess.name = name;
+            productToProcess.price = price;
+            productToProcess.stock = stock;
+            productToProcess.image = image;
+            productToProcess.description = description;
+            productToProcess.categoryId = categoryId;
+
+
+            ProductDaoEntityFramework.Update(productToProcess);
+
+            return productToProcess;
         }
 
 
@@ -132,6 +144,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
             }
         }
 
+        /*
         private string FormatKeyWordAndCategoryNames(string keyWord, Category category)
         {
             if (category != null)
@@ -143,19 +156,20 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
                 return keyWord;    
             }
         }
+    **/
 
         [Transactional]
-        public List<ProductDTO> FindProductByWordAndCategory(string keyWord, Category category)
+        public List<ProductDTO> FindProductByWord(string keyWord, int startIndex, int count)
         {
-            // Category sí puede ser null (Es otro CU)
-
-            if (keyWord == null)
+            if (keyWord == null || keyWord.Length == 0)
             {
-                throw new ArgumentNullException("Se han pasado parámetros nulos");
+                throw new ArgumentException("Se han pasado parámetros invalidos");
             }
 
             List<ProductDTO> productListOutput = new List<ProductDTO>();
             string cleanKeyWord = keyWord.Trim();
+
+            /**
             string formattedKeywordAndCategory = FormatKeyWordAndCategoryNames(cleanKeyWord, category);
 
             if (_Cache.Contains(formattedKeywordAndCategory))
@@ -163,17 +177,47 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
                 List<ProductDTO> cacheResult = (List<ProductDTO>)_Cache.GetCacheItem(formattedKeywordAndCategory).Value;
                 return cacheResult;
             }
+    **/
 
-            if (category != null)
+
+            productListOutput = ProductDaoEntityFramework.FindByKeyWord(cleanKeyWord, 0, 10);
+
+            //AddToCache(formattedKeywordAndCategory, productListOutput);
+
+            return productListOutput;
+        }
+
+        [Transactional]
+        public List<ProductDTO> FindProductByWordAndCategory(string keyWord, long categoryId, int startIndex, int count)
+        {
+            // Category sí puede ser null (Es otro CU)
+
+            if (keyWord == null || keyWord.Length == 0)
             {
-                productListOutput = ProductDaoEntityFramework.FindByKeyWordAndCategory(cleanKeyWord, category.id);
-            }
-            else
-            {
-                productListOutput = ProductDaoEntityFramework.FindByKeyWord(cleanKeyWord);
+                throw new ArgumentNullException("Se han pasado parámetros invalidos");
             }
 
-            AddToCache(formattedKeywordAndCategory, productListOutput);
+            Category category = CategoryDao.Find(categoryId);
+            if (category == null)
+            {
+                throw new InstanceNotFoundException(categoryId, "No existe esa categoria");
+            }
+
+            List<ProductDTO> productListOutput = new List<ProductDTO>();
+            string cleanKeyWord = keyWord.Trim();
+            /**
+            string formattedKeywordAndCategory = FormatKeyWordAndCategoryNames(cleanKeyWord, category);
+
+            if (_Cache.Contains(formattedKeywordAndCategory))
+            {
+                List<ProductDTO> cacheResult = (List<ProductDTO>)_Cache.GetCacheItem(formattedKeywordAndCategory).Value;
+                return cacheResult;
+            }
+    **/
+
+            productListOutput = ProductDaoEntityFramework.FindByKeyWordAndCategory(cleanKeyWord, categoryId, 0, 10);
+
+            //AddToCache(formattedKeywordAndCategory, productListOutput);
 
             return productListOutput;
         }
