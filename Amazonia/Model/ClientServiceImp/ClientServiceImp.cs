@@ -123,25 +123,25 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         public void SetDefaultCard(string numberCard, string login)
         {
 
-            Client client =
-                ClientDao.FindByLogin(login);
+            //Client client =
+            //    ClientDao.FindByLogin(login);
 
-            client.defaultCardNumber = numberCard;
+            //client.defaultCardNumber = numberCard;
 
-            ClientDao.Update(client);
+            //ClientDao.Update(client);
 
         }
 
-        /// <exception cref="InstanceNotFoundException"/>
-        [Transactional]
-        public List<Card> ListCardsByClientLogin(String login)
-        {
+        ///// <exception cref="InstanceNotFoundException"/>
+        //[Transactional]
+        //public List<Card> ListCardsByClientLogin(String login)
+        //{
 
-            Client client =
-                ClientDao.FindByLogin(login);
+        //    Client client =
+        //        ClientDao.FindByLogin(login);
 
-            return CardDao.FindCardsOfClient(client);
-        }
+        //    return CardDao.FindCardsOfClient(client);
+        //}
 
     }
 }

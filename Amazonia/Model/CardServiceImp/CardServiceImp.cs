@@ -30,7 +30,8 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
                 throw new ArgumentNullException("Card Nulo");
             }
 
-            if (ClientDao.Find(login) == null)
+            //++++++++ Cambiei pa que non petara, revisar
+            if (ClientDao.FindByLogin(login) == null)
             {
                 throw new InstanceNotFoundException("No existe un cliente con login: " + login);
             }
@@ -38,12 +39,12 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
             // Cliente a añadir tarjeta
             Client relatedClient = ClientDao.FindByLogin(login);
 
-            if (!CardDao.Exists(card.number))
+            if (!CardDao.Exists(card.id))
             {
                 CardDao.Create(card);
             }
-
-            card.Clients1.Add(relatedClient);
+            //+++++++++++++++++++++++++++++++++++++++++
+            //card.Clients1.Add(relatedClient);
             relatedClient.Cards.Add(card);
 
             ClientDao.Update(relatedClient);

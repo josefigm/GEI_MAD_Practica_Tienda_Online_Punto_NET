@@ -76,40 +76,40 @@ namespace Test.CardServiceTests
         /// <summary>
         /// Añadir tarjeta a un usuario test
         /// </summary>
-        [TestMethod]
-        public void TestAddCardToClient()
-        {
+        //[TestMethod]
+        //public void TestAddCardToClient()
+        //{
 
-            using (var scope = new TransactionScope())
-            {
+        //    using (var scope = new TransactionScope())
+        //    {
 
-                // Creamos cliente
-                clientService.RegisterClient(login, clearPassword,
-                        new ClientDetails(firstName, lastName, address, email, role, language));
+        //        // Creamos cliente
+        //        clientService.RegisterClient(login, clearPassword,
+        //                new ClientDetails(firstName, lastName, address, email, role, language));
 
-                Client client = clientDao.FindByLogin(login);
+        //        Client client = clientDao.FindByLogin(login);
 
-                // Creamos tarjeta
-                Card card = new Card();
-                card.number = "1111222233334444";
-                card.cvv = "123";
-                card.expireDate = new DateTime(2025, 1, 1);
-                card.name = "Client Name";
-                card.type = true;
-                cardDao.Create(card);
+        //        // Creamos tarjeta
+        //        Card card = new Card();
+        //        card.number = "1111222233334444";
+        //        card.cvv = "123";
+        //        card.expireDate = new DateTime(2025, 1, 1);
+        //        card.name = "Client Name";
+        //        card.type = true;
+        //        cardDao.Create(card);
 
-                // Llamamos al servicio asociando la tarjeta al cliente
-                cardService.CreateCardToClient(card, login);
+        //        // Llamamos al servicio asociando la tarjeta al cliente
+        //        cardService.CreateCardToClient(card, login);
 
-                // Listamos tarjetas del cliente
-                List<Card> listaCards = clientService.ListCardsByClientLogin(login);
+        //        // Listamos tarjetas del cliente
+        //        List<Card> listaCards = clientService.ListCardsByClientLogin(login);
 
-                Boolean tarjetaEncontrada = listaCards.Contains(card);
+        //        Boolean tarjetaEncontrada = listaCards.Contains(card);
 
-                Assert.AreEqual(true, tarjetaEncontrada);
+        //        Assert.AreEqual(true, tarjetaEncontrada);
 
-            }
-        }
+        //    }
+        //}
 
 
         #region Additional test attributes

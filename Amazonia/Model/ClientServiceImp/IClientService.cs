@@ -68,8 +68,8 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// Lista tarjetas de un cliente por su login.
         /// </summary>
         /// <exception cref="InstanceNotFoundException"/>
-        [Transactional]
-        List<Card> ListCardsByClientLogin(string login);
+        //[Transactional]
+        //List<Card> ListCardsByClientLogin(string login);
 
     }
 }

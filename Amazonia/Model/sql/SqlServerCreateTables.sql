@@ -37,39 +37,21 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID('[Product]') A
 DROP TABLE [Product]
 GO
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID('[ClientCard]') AND type in ('U'))
-DROP TABLE [ClientCard]
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID('[Card]') AND type in ('U'))
+DROP TABLE [Card]
 GO
 
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID('[Client]') AND type in ('U'))
 DROP TABLE [Client]
 GO
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID('[Card]') AND type in ('U'))
-DROP TABLE [Card]
-GO
-
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID('[Category]') AND type in ('U'))
 DROP TABLE [Category]
 GO
 
-
-
-CREATE TABLE Card (
-	number varchar(16),
-	cvv varchar(3) NOT NULL,
-	expireDate date NOT NULL,
-	name varchar(100) NOT NULL,
-	type bit NOT NULL,
-
-	CONSTRAINT [PK_Card] PRIMARY KEY (number)
-)
-
-PRINT N'Table Card created.'
-GO
-
 CREATE TABLE Client (
-	login varchar(30),
+    id bigint IDENTITY(1,1),
+	login varchar(30) NOT NULL UNIQUE,
 	password varchar(60) NOT NULL,
 	firstName varchar(30) NOT NULL,
 	lastName varchar(30) NOT NULL,
@@ -77,27 +59,27 @@ CREATE TABLE Client (
 	email varchar(50) NOT NULL,
 	role tinyint NOT NULL,
 	language tinyint NOT NULL,
-	defaultCardNumber varchar(16),
 
-	CONSTRAINT [PK_Client] PRIMARY KEY (login),
-	CONSTRAINT [FK_ClientCard] FOREIGN KEY (defaultCardNumber) REFERENCES Card(number)
+	CONSTRAINT [PK_Client] PRIMARY KEY (id)
 )
 
 PRINT N'Table Client created.'
 GO
 
+CREATE TABLE Card (
+	id bigint IDENTITY(1,1),
+	number varchar(16) NOT NULL,
+	cvv varchar(3) NOT NULL,
+	expireDate date NOT NULL,
+	clientId bigint NOT NULL,
+	type bit NOT NULL,
+	defaultCard bit NOT NULL,
 
-CREATE TABLE ClientCard (
-	login varchar(30),
-	number varchar(16),
-
-	CONSTRAINT [PK_ClientCard] PRIMARY KEY (login, number),
-	CONSTRAINT [FK_ClientCardClient] FOREIGN KEY (login) REFERENCES Client(login),
-	CONSTRAINT [FK_ClientCardCard] FOREIGN KEY (number) REFERENCES Card(number)
+	CONSTRAINT [PK_Card] PRIMARY KEY (id),
+	CONSTRAINT [FK_CardClient] FOREIGN KEY (clientId) REFERENCES Client(id)
 )
 
-
-PRINT N'Table ClientCard created.'
+PRINT N'Table Card created.'
 GO
 
 CREATE TABLE Sale (
@@ -106,12 +88,12 @@ CREATE TABLE Sale (
 	descName varchar(100) NOT NULL,
 	address varchar(100) NOT NULL,
 	totalPrice float NOT NULL,
-	cardNumber varchar(16) NOT NULL,
-	clientLogin varchar(30),
+	cardId bigint NOT NULL,
+	clientId bigint NOT NULL,
 
 	CONSTRAINT [PK_Sale] PRIMARY KEY (id),
-	CONSTRAINT [FK_SaleCard] FOREIGN KEY (cardNumber) REFERENCES Card(number),
-	CONSTRAINT [FK_SaleClient] FOREIGN KEY (clientLogin) REFERENCES Client(login)
+	CONSTRAINT [FK_SaleCard] FOREIGN KEY (cardId) REFERENCES Card(id),
+	CONSTRAINT [FK_SaleClient] FOREIGN KEY (clientId) REFERENCES Client(id)
 )
 
 

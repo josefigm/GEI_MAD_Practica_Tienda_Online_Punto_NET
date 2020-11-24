@@ -1,4 +1,6 @@
-﻿using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
+﻿using Es.Udc.DotNet.Amazonia.Model.DAOs.CardDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleLineDao;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs;
@@ -15,6 +17,8 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         ISaleDao SaleDao { set; }
 
         ISaleLineDao SaleLineDao { set; }
+        ICardDao CardDao { set; }
+        IClientDao ClientDao { set; }
 
         /// <summary>Adds to shopping cart.</summary>
         /// <param name="shoppingCart">The shopping cart.</param>
@@ -42,6 +46,11 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         [Transactional]
         ShoppingCart ModifyShoppingCartItem(ShoppingCart shoppingCart, long productId, long units, bool gift);
 
+        /// <summary>Shows the shopping cart items.</summary>
+        /// <param name="shoppingCart">The shopping cart.</param>
+        /// <returns>List of shopping cart items.</returns>
+        List<ShoppingCartItem> ShowShoppingCartItems(ShoppingCart shoppingCart);
+
         /// <summary>Buy shopping cart products</summary>
         /// <param name="shoppingCart"></param>
         /// <param name="descName"></param>
@@ -51,7 +60,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         /// <exception cref="Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions.EmptyShoppingCartException">Carrito sin items</exception>
         /// <exception cref="Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions.InsufficientStockException">Stock de producto insuficiente</exception>
         [Transactional]
-        long Buy(ShoppingCart shoppingCart, String descName, String address, String cardNumber, String clientLogin);
+        long Buy(ShoppingCart shoppingCart, String descName, String address, long cardId, long clientId);
 
         /// <summary>Shows the sale details.</summary>
         /// <param name="saleId">The sale identifier.</param>
@@ -66,6 +75,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         /// <param name="count">The count.</param>
         /// <returns>Client sale list</returns>
         [Transactional]
-        List<SaleListItemDTO> ShowClientSaleList(String clientLogin, int startIndex, int count);
+        List<SaleListItemDTO> ShowClientSaleList(long clientId, int startIndex, int count);
     }
 }

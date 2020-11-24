@@ -7,7 +7,7 @@ using Es.Udc.DotNet.ModelUtil.Exceptions;
 namespace Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao
 {
     public class ClientDaoEntityFramework :
-        GenericDaoEntityFramework<Client, String>, IClientDao
+        GenericDaoEntityFramework<Client, Int64>, IClientDao
     {
 
         #region Public Constructors
