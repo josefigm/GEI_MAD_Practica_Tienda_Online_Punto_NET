@@ -3,27 +3,32 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System;
-
+using Es.Udc.DotNet.ModelUtil.Exceptions;
 
 namespace Es.Udc.DotNet.Amazonia.Model.DAOs.CardDao
 {
     public class CardDaoEntityFramework :
        GenericDaoEntityFramework<Card, Int64>, ICardDao
     {
+        public Card FindByNumber(string number)
+        {
 
-        //public List<Card> FindCardsOfClient(Client client)
-        //{
+            Card card = null;
 
-        //    DbSet<Card> cardList = Context.Set<Card>();
+            DbSet<Card> cards = Context.Set<Card>();
 
-        //    List<Card> result =
-        //        (from l in cardList
-        //         where l.Clients1.Select(c => c.login).Contains(client.login)
-        //         select l).ToList<Card>();
+            var result =
+                (from c in cards
+                 where c.number == number
+                 select c);
 
-        //    return result;
+            card = result.FirstOrDefault();
 
-        //}
+            if (card == null)
+                throw new InstanceNotFoundException(number,
+                    typeof(Card).FullName);
 
+            return card;
+        }
     }
 }

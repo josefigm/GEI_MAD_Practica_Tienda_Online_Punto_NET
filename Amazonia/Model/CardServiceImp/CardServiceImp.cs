@@ -19,40 +19,35 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
 
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
-        public Card CreateCardToClient(Card card, string login)
+        public Card CreateCardToClient(CardForm cardForm, string login)
         {
+            // Recuperamos el cliente del login pasado
+            Client relatedClient = ClientDao.FindByLogin(login);
 
-            // Comprobamos que tanto tarjeta como usuario del login pasado
-            //    no sean nulos
-
-            if (card == null)
-            {
-                throw new ArgumentNullException("Card Nulo");
-            }
-
-            //++++++++ Cambiei pa que non petara, revisar
-            if (ClientDao.FindByLogin(login) == null)
+            if (relatedClient == null)
             {
                 throw new InstanceNotFoundException("No existe un cliente con login: " + login);
             }
 
-            // Cliente a añadir tarjeta
-            Client relatedClient = ClientDao.FindByLogin(login);
+            // Creamos tarjeta
+            Card card = new Card();
+            card.number = cardForm.Number;
+            card.cvv = cardForm.CVV;
+            card.expireDate = cardForm.ExpireDate;
+            card.type = cardForm.Type;
+            card.clientId = relatedClient.id;
+            card.defaultCard = cardForm.DefaultCard;
+            CardDao.Create(card);
 
-            if (!CardDao.Exists(card.id))
-            {
-                CardDao.Create(card);
-            }
-            //+++++++++++++++++++++++++++++++++++++++++
-            //card.Clients1.Add(relatedClient);
+            // Modificamos cliente
             relatedClient.Cards.Add(card);
 
+            //card.Client = relatedClient;
+
+            //CardDao.Update(card);
             ClientDao.Update(relatedClient);
-            CardDao.Update(card);
 
             return card;
         }
-
-
     }
 }

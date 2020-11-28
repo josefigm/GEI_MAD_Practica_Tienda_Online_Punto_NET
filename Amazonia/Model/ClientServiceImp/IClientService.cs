@@ -14,7 +14,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         [Inject]
         IClientDao ClientDao { set; }
 
-
         /// <summary>
         /// Registra un nuevo cliente.
         /// </summary>
@@ -23,7 +22,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// <param name="clientDetails"> Detalles de cliente. </param>
         /// <exception cref="DuplicateInstanceException"/>
         [Transactional]
-        void RegisterClient(String login, String clearPassword, 
+        Client RegisterClient(String login, String clearPassword, 
             ClientDetails clientDetails);
 
 
@@ -54,7 +53,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// Salida de sesión de un cliente autenticado.
         /// </summary>
         /// <exception cref="InstanceNotFoundException"/>
-        [Transactional]
         void Logout(LoginDetails loginDetails);
 
         /// <summary>
@@ -62,14 +60,21 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// </summary>
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
-        void SetDefaultCard(String numberCard, String login);
+        void SetDefaultCard(String numberCard);
 
         /// <summary>
         /// Lista tarjetas de un cliente por su login.
         /// </summary>
         /// <exception cref="InstanceNotFoundException"/>
-        //[Transactional]
-        //List<Card> ListCardsByClientLogin(string login);
+        [Transactional]
+        List<Card> ListCardsByClientLogin(string login);
+
+        /// <summary>
+        /// Recuperar tarjeta por defecto
+        /// </summary>
+        /// <exception cref="InstanceNotFoundException"/>
+        [Transactional]
+        Card GetDefaultCard(string login);
 
     }
 }
