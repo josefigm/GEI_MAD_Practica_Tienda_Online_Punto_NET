@@ -13,9 +13,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
     public interface ISaleService
     {
         IProductDao ProductDao { set; }
-
         ISaleDao SaleDao { set; }
-
         ISaleLineDao SaleLineDao { set; }
         ICardDao CardDao { set; }
         IClientDao ClientDao { set; }
@@ -26,6 +24,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         /// <param name="units">The units.</param>
         /// <param name="gift">if set to <c>true</c> [gift].</param>
         /// <exception cref="InstanceNotFoundException"/>
+        /// <exception cref="Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions.InsufficientStockException">Try to add more than stock</exception>
         /// <returns>The sopping cart with new item added </returns>
         [Transactional]
         ShoppingCart AddToShoppingCart(ShoppingCart shoppingCart, long productId, long units, bool gift);
@@ -42,6 +41,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         /// <param name="units">The units.</param>
         /// <param name="gift">if set to <c>true</c> [gift].</param>
         /// <exception cref="InstanceNotFoundException"/>
+        /// <exception cref="Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions.InsufficientStockException">Try to add more than stock</exception>
         /// <returns>The shopping cart with the item of product modified</returns>
         [Transactional]
         ShoppingCart ModifyShoppingCartItem(ShoppingCart shoppingCart, long productId, long units, bool gift);
@@ -55,10 +55,10 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         /// <param name="shoppingCart"></param>
         /// <param name="descName"></param>
         /// <param name="address"></param>
-        /// <param name="cardNumber"></param>
-        /// <param name="clientLogin"></param>
-        /// <exception cref="Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions.EmptyShoppingCartException">Carrito sin items</exception>
-        /// <exception cref="Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions.InsufficientStockException">Stock de producto insuficiente</exception>
+        /// <param name="cardId"></param>
+        /// <param name="clientId"></param>
+        /// <exception cref="Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions.EmptyShoppingCartException">Empty shopping cart</exception>
+        /// <exception cref="Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions.InsufficientStockException">Try to buy more than stock</exception>
         [Transactional]
         long Buy(ShoppingCart shoppingCart, String descName, String address, long cardId, long clientId);
 
@@ -70,7 +70,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         SaleDTO ShowSaleDetails(long saleId);
 
         /// <summary>Shows the client sale list.</summary>
-        /// <param name="clientLogin">The client login.</param>
+        /// <param name="clientId">The client id.</param>
         /// <param name="startIndex">The start index.</param>
         /// <param name="count">The count.</param>
         /// <returns>Client sale list</returns>

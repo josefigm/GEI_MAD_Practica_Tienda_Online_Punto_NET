@@ -120,6 +120,35 @@ namespace Test.SaleServiceTests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(InsufficientStockException))]
+        public void TestAddToShoppingCartMoreThanStock()
+        {
+            #region Declaracion de variables
+
+            Category category = new Category
+            {
+                name = "category"
+            };
+            categoryDao.Create(category);
+
+            Product product = new Product
+            {
+                name = "TestProduct",
+                price = 24,
+                entryDate = new DateTime(2020, 1, 1),
+                stock = 2,
+                Category = category
+            };
+            productDao.Create(product);
+
+            ShoppingCart shoppingCart = new ShoppingCart();
+
+            #endregion Declaracion de variables
+
+            saleService.AddToShoppingCart(shoppingCart, product.id, 3, false);
+        }
+
+        [TestMethod]
         public void TestDeleteFromShoppingCart()
         {
             #region Declaracion de variables
@@ -216,6 +245,40 @@ namespace Test.SaleServiceTests
 
             Assert.AreEqual(10, modifiedItem.units);
             Assert.IsTrue(modifiedItem.gift);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InsufficientStockException))]
+        public void TestModifyShoppingCartItemMoreThanStock()
+        {
+            #region Declaracion de variables
+
+            Category category = new Category
+            {
+                name = "category"
+            };
+            categoryDao.Create(category);
+
+            Product product = new Product
+            {
+                name = "TestProduct",
+                price = 24,
+                entryDate = new DateTime(2020, 1, 1),
+                stock = 5,
+                Category = category
+            };
+            productDao.Create(product);
+
+            ShoppingCart shoppingCart = new ShoppingCart();
+
+            #endregion Declaracion de variables
+
+            ShoppingCart returnedShoppingCart = saleService.AddToShoppingCart(shoppingCart, product.id, 3, false);
+
+            Assert.AreEqual(1, returnedShoppingCart.items.Count);
+            Assert.AreEqual(72, returnedShoppingCart.totalPrice);
+
+            saleService.ModifyShoppingCartItem(returnedShoppingCart, product.id, 10, true);
         }
 
         [TestMethod]

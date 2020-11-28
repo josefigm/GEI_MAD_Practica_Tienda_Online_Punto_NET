@@ -34,20 +34,26 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         [Inject]
         public IClientDao ClientDao { private get; set; }
 
-        /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
         public ShoppingCart AddToShoppingCart(ShoppingCart shoppingCart, long productId, long units, bool gift)
         {
             Product product = ProductDao.Find(productId);
             if (!shoppingCart.items.Exists(x => x.product.id == productId))
             {
-                ShoppingCartItem item = new ShoppingCartItem(units, gift, ProductMapper.ProductToProductDto(product));
-                item.price = (item.units * product.price);
-                shoppingCart.items.Add(item);
+                if (product.stock >= units)
+                {
+                    ShoppingCartItem item = new ShoppingCartItem(units, gift, ProductMapper.ProductToProductDto(product));
+                    item.price = (item.units * product.price);
+                    shoppingCart.items.Add(item);
 
-                shoppingCart.totalPrice += item.price;
-
-                return shoppingCart;
+                    shoppingCart.totalPrice += item.price;
+                    return shoppingCart;
+                }
+                else
+                {
+                    throw new InsufficientStockException(product.stock, units);
+                }
+                
             }
             else
             {
@@ -71,7 +77,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
             }
         }
 
-        /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
         public ShoppingCart ModifyShoppingCartItem(ShoppingCart shoppingCart, long productId, long units, bool gift)
         {
@@ -80,13 +85,21 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
                 if (item.product.id == productId)
                 {
                     Product product = ProductDao.Find(productId);
-                    item.units = units;
-                    item.gift = gift;
-                    double oldPrice = item.price;
-                    item.price = (units * product.price);
+                    if (product.stock >= (units + item.units))
+                    {
+                        item.units = units;
+                        item.gift = gift;
+                        double oldPrice = item.price;
+                        item.price = (units * product.price);
 
-                    shoppingCart.totalPrice = (shoppingCart.totalPrice - oldPrice + item.price);
-                    break;
+                        shoppingCart.totalPrice = (shoppingCart.totalPrice - oldPrice + item.price);
+                        break;
+                    }
+                    else
+                    {
+                        throw new InsufficientStockException(product.stock, units);
+                    }
+                    
                 }
             }
 
@@ -98,7 +111,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
             return shoppingCart.items;
         }
 
-        /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
         public long Buy(ShoppingCart shoppingCart, String descName, String address, long cardId, long clientId)
         {
@@ -170,7 +182,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
             return sale.id;
         }
 
-        /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
         public SaleDTO ShowSaleDetails(long saleId)
         {
