@@ -18,10 +18,9 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         [Inject]
         public ICardDao CardDao { private get; set; }
 
-
         /// <exception cref="DuplicateInstanceException"/>
         [Transactional]
-        public void RegisterClient(string login, string clearPassword,
+        public Client RegisterClient(string login, string clearPassword,
             ClientDetails clientDetails)
         {
             try
@@ -46,8 +45,9 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
                 clientProfile.role = clientDetails.Role;
                 clientProfile.language = clientDetails.Language;
 
-
                 ClientDao.Create(clientProfile);
+
+                return clientProfile;
 
             }
         }
@@ -56,9 +56,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         [Transactional]
         public void UpdateUserProfileDetails(string login, ClientDetails clientDetails)
         {
-
             Client client = ClientDao.FindByLogin(login);
-
 
             client.firstName = clientDetails.FirstName;
             client.lastName = clientDetails.LastName;
@@ -74,8 +72,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 
             ClientDao.Update(client);
         }
-
-
 
         /// <exception cref="InstanceNotFoundException"/>
         /// <exception cref="IncorrectPasswordException"/>
@@ -106,8 +102,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 
             return new LoginDetails(client.login, client.firstName,
             client.password, client.role, client.address, client.language, false);
-
-
         }
 
         public void Logout(LoginDetails loginDetails)
@@ -120,28 +114,39 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
-        public void SetDefaultCard(string numberCard, string login)
+        public void SetDefaultCard(string numberCard)
         {
+            Card card = CardDao.FindByNumber(numberCard);
+            card.defaultCard = true;
 
-            //Client client =
-            //    ClientDao.FindByLogin(login);
-
-            //client.defaultCardNumber = numberCard;
-
-            //ClientDao.Update(client);
-
+            CardDao.Update(card);
         }
 
-        ///// <exception cref="InstanceNotFoundException"/>
-        //[Transactional]
-        //public List<Card> ListCardsByClientLogin(String login)
-        //{
+        /// <exception cref="InstanceNotFoundException"/>
+        [Transactional]
+        public List<Card> ListCardsByClientLogin(String login)
+        {
+            return ClientDao.FindCardsOfClient(ClientDao.FindByLogin(login));
+        }
 
-        //    Client client =
-        //        ClientDao.FindByLogin(login);
+        public Card GetDefaultCard(string login)
+        {
 
-        //    return CardDao.FindCardsOfClient(client);
-        //}
+            // Recuperamos cliente por el login
+            Client client = ClientDao.FindByLogin(login);
 
+            // Recuperamos tarjeta del cliente con el booleano defaultCard a true
+            List<Card> cardList = ClientDao.FindCardsOfClient(client);
+
+            foreach(Card card in cardList)
+            {
+                if(card.defaultCard)
+                {
+                    return card;
+                }
+            }
+
+            return null;
+        }
     }
 }

@@ -23,13 +23,6 @@ namespace Test.ClientServiceTests
 
         // Variables used in several tests are initialized here
         private const string login = "loginTestprueba";
-        private const string login2 = "loginTest2";
-        private const string login3 = "loginTest3";
-        private const string login4 = "loginTest4";
-        private const string login5 = "loginTest5";
-        private const string login6 = "prueba.login";
-        private const string login7 = "prueba.login7";
-
         private const string clearPassword = "password";
         private const string firstName = "name";
         private const string lastName = "lastName";
@@ -37,6 +30,7 @@ namespace Test.ClientServiceTests
         private const string address = "address";
         private const byte role = 1;
         private const byte language = 5;
+        private const string cardNumber = "1111111111111111";
 
 
         private static IKernel kernel;
@@ -85,10 +79,8 @@ namespace Test.ClientServiceTests
             using (var scope = new TransactionScope())
             {
 
-                clientService.RegisterClient(login, clearPassword,
+                Client clientBd = clientService.RegisterClient(login, clearPassword,
                         new ClientDetails(firstName, lastName, address, email, role, language));
-
-                var clientBd = clientDao.FindByLogin(login);
 
                 // Check data
                 Assert.AreEqual(login, clientBd.login);
@@ -113,19 +105,17 @@ namespace Test.ClientServiceTests
             using (var scope = new TransactionScope())
             {
 
-                
-
                 // Register user and update profile details
-                clientService.RegisterClient(login2, clearPassword,
+                clientService.RegisterClient(login, clearPassword,
                         new ClientDetails(firstName, lastName, address, email, role, language));
 
                 var expected =
                     new ClientDetails(firstName + "X", lastName + "X", address + "X",
                         email + "X", 5, 5);
 
-                clientService.UpdateUserProfileDetails(login2, expected);
+                clientService.UpdateUserProfileDetails(login, expected);
 
-                var clientUpdated = clientDao.FindByLogin(login2);
+                var clientUpdated = clientDao.FindByLogin(login);
 
                 // Check changes
                 Assert.AreEqual(firstName + "X", clientUpdated.firstName);
@@ -148,16 +138,16 @@ namespace Test.ClientServiceTests
             using (var scope = new TransactionScope())
             {
                 // Register user
-                clientService.RegisterClient(login3, clearPassword,
+                clientService.RegisterClient(login, clearPassword,
                         new ClientDetails(firstName, lastName, address, email, role, language));
 
                 // Create expected LoginDetails
-                var expected = new LoginDetails(login3, firstName,
+                var expected = new LoginDetails(login, firstName,
                     PasswordEncrypter.Crypt(clearPassword), role, address, language, false);
 
                 // Login with clear password
                 var realLoginService =
-                    clientService.Login(login3, clearPassword, false);
+                    clientService.Login(login, clearPassword, false);
 
                 // Check data
                 Assert.AreEqual(expected, realLoginService);
@@ -167,7 +157,6 @@ namespace Test.ClientServiceTests
 
                 // Check data
                 Assert.AreEqual(true, realLoginService.Exit);
-
 
                 // transaction.Complete() is not called, so Rollback is executed.
             }
@@ -182,16 +171,16 @@ namespace Test.ClientServiceTests
             using (var scope = new TransactionScope())
             {
                 // Register user
-                clientService.RegisterClient(login4, clearPassword,
+                clientService.RegisterClient(login, clearPassword,
                         new ClientDetails(firstName, lastName, address, email, role, language));
 
                 // Create expected LoginDetails
-                var expected = new LoginDetails(login4, firstName,
+                var expected = new LoginDetails(login, firstName,
                     PasswordEncrypter.Crypt(clearPassword), role, address, language, false);
 
                 // Login with encrypted password
                 var real =
-                    clientService.Login(login4,
+                    clientService.Login(login,
                         PasswordEncrypter.Crypt(clearPassword), true);
 
                 // Check data
@@ -211,93 +200,150 @@ namespace Test.ClientServiceTests
             using (var scope = new TransactionScope())
             {
                 // Register user
-                clientService.RegisterClient(login5, clearPassword,
+                clientService.RegisterClient(login, clearPassword,
                         new ClientDetails(firstName, lastName, address, email, role, language));
 
                 // Login with incorrect (clear) password
                 var real =
-                    clientService.Login(login5, clearPassword + "imposible", false);
+                    clientService.Login(login, clearPassword + "jaja", false);
 
                 // transaction.Complete() is not called, so Rollback is executed.
             }
         }
 
         /// <summary>
-        /// A test for set a default card for a user
+        /// Añadir tarjeta a un usuario test
         /// </summary>
-        //[TestMethod]
-        //public void SetDefaultCardTest()
-        //{
-        //    using (var scope = new TransactionScope())
-        //    {
-        //        // Register user
-        //        clientService.RegisterClient(login6, clearPassword,
-        //                new ClientDetails(firstName, lastName, address, email, role, language));
+        [TestMethod]
+        public void TestListCardsOfClient()
+        {
 
-        //        // Creamos tarjeta
-        //        Card card = new Card();
-        //        card.number = "1111222233334444";
-        //        card.cvv = "123";
-        //        card.expireDate = new DateTime(2025, 1, 1);
-        //        card.name = "Client Name";
-        //        card.type = true;
-        //        cardDao.Create(card);
+            using (var scope = new TransactionScope())
+            {
 
-        //        cardService.CreateCardToClient(card, login6);
+                // Creamos cliente
+                clientService.RegisterClient(login, clearPassword,
+                        new ClientDetails(firstName, lastName, address, email, role, language));
 
-        //        clientService.SetDefaultCard(card.number, login6);
+                Client client = clientDao.FindByLogin(login);
 
-        //        Client client = clientDao.FindByLogin(login6);
+                // Creamos CardForm
+                CardForm cardForm =
+                    new CardForm(cardNumber, "123",
+                        new DateTime(2025, 1, 1), false, false);
 
-        //        Assert.AreEqual(card.number, client.defaultCardNumber);
+                // Llamamos al servicio asociando la tarjeta al cliente
+                cardService.CreateCardToClient(cardForm, client.login);
 
-        //    }
-        //}
+                // Listamos tarjetas del cliente
+                List<Card> listaCards = clientService.ListCardsByClientLogin(login);
+
+                // Boolean -> está card creada en la lista de tarjetas del client
+                Boolean tarjetaEncontrada = listaCards.Contains(cardDao.FindByNumber(cardNumber));
+
+                // Comprobar que sí está
+                Assert.AreEqual(true, tarjetaEncontrada);
+            }
+        }
 
 
         /// <summary>
-        /// Añadir tarjeta a un usuario test
+        /// A test for set a default card for a user
         /// </summary>
-        //[TestMethod]
-        //public void TestListCardsOfClient()
-        //{
+        [TestMethod]
+        public void SetDefaultCardTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                // Register user
+                Client client = clientService.RegisterClient(login, clearPassword,
+                        new ClientDetails(firstName, lastName, address, email, role, language));
 
-        //    using (var scope = new TransactionScope())
-        //    {
+                // Creamos CardForm
+                CardForm cardForm = 
+                    new CardForm(cardNumber, "123", 
+                        new DateTime(2025, 1, 1), false);
 
-        //        // Creamos cliente
-        //        clientService.RegisterClient(login7, clearPassword,
-        //                new ClientDetails(firstName, lastName, address, email, role, language));
+                // Creamos tarjeta y la asignamos a usuario
+                cardService.CreateCardToClient(cardForm, login);
 
-        //        Client client = clientDao.FindByLogin(login7);
+                // Establecemos por defecto
+                clientService.SetDefaultCard(cardForm.Number);
 
-        //        // Creamos tarjeta
-        //        Card card = new Card();
-        //        card.number = "1111222233334447";
-        //        card.cvv = "123";
-        //        card.expireDate = new DateTime(2025, 1, 1);
-        //        card.name = "Client Name";
-        //        card.type = true;
-        //        cardDao.Create(card);
+                // Recuperamos tarjeta
+                Card cardBD = cardDao.FindByNumber(cardForm.Number);
 
-        //        // Llamamos al servicio asociando la tarjeta al cliente
-        //        cardService.CreateCardToClient(card, login7);
+                // Comprobamos que la tarjeta esté por defecto
+                Assert.AreEqual(true, cardBD.defaultCard);
 
-        //        // Listamos tarjetas del cliente
-        //        List<Card> listaCards = clientService.ListCardsByClientLogin(login7);
+            }
+        }
 
-        //        Boolean tarjetaEncontrada = listaCards.Contains(card);
+        /// <summary>
+        /// A test for set a default card for a user
+        /// </summary>
+        [TestMethod]
+        public void InitializeDefaultCardTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                // Register user
+                Client client = clientService.RegisterClient(login, clearPassword,
+                        new ClientDetails(firstName, lastName, address, email, role, language));
 
-        //        Assert.AreEqual(true, tarjetaEncontrada);
+                // Creamos CardForm
+                CardForm cardForm =
+                    new CardForm(cardNumber, "123",
+                        new DateTime(2025, 1, 1), false, true);
 
-        //    }
-        //}
+                // Creamos tarjeta y la asignamos a usuario
+                cardService.CreateCardToClient(cardForm, login);
 
+                // Recuperamos tarjeta
+                Card cardBD = cardDao.FindByNumber(cardForm.Number);
+
+                // Comprobamos que la tarjeta esté por defecto
+                Assert.AreEqual(true, cardBD.defaultCard);
+
+            }
+        }
+
+        /// <summary>
+        /// A test for get a default card for a user
+        /// </summary>
+        [TestMethod]
+        public void GetDefaultCardTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                // Register user
+                Client client = clientService.RegisterClient(login, clearPassword,
+                        new ClientDetails(firstName, lastName, address, email, role, language));
+
+                // Creamos CardForm
+                CardForm cardForm =
+                    new CardForm(cardNumber, "123",
+                        new DateTime(2025, 1, 1), false);
+
+                // Creamos tarjeta y la asignamos a usuario
+                cardService.CreateCardToClient(cardForm, login);
+
+                // Establecemos por defecto
+                clientService.SetDefaultCard(cardForm.Number);
+
+                // Recuperamos tarjeta por defecto
+                Card cardBD = clientService.GetDefaultCard(login);
+
+                // Comprobamos que la tarjeta esté por defecto
+                Assert.AreEqual(true, cardBD.defaultCard);
+
+            }
+        }
 
 
         #region Additional test attributes
 
-            //Use ClassInitialize to run code before running the first test in the class
+        //Use ClassInitialize to run code before running the first test in the class
         [ClassInitialize]
         public static void MyClassInitialize(TestContext testContext)
         {
