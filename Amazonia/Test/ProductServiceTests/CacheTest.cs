@@ -24,7 +24,6 @@ namespace Test.ProductService
         {
         }
 
-        /**
         [TestMethod]
         public void TestCache()
         {
@@ -90,17 +89,17 @@ namespace Test.ProductService
 
             Assert.IsFalse(productService.Cache.Contains("bicicleta"));
 
-            List<ProductDTO> listaRecuperadaBicicletas = productService.FindProductByWordAndCategory("bicicleta");
+            List<ProductDTO> listaRecuperadaBicicletas = productService.FindProductByWord("bicicleta", 0, 2);
 
             Assert.IsTrue(listaRecuperadaBicicletas.Count == 2);
             CollectionAssert.AreEqual(listaEsperadaBicicletas, listaRecuperadaBicicletas);
 
             Assert.IsTrue(productService.Cache.Contains("bicicleta"));
 
-            List<ProductDTO> resultadoCache = productService.FindProductByWordAndCategory("bicicleta", null);
+            List<ProductDTO> resultadoCache = productService.FindProductByWord("bicicleta", 0, 2);
             CollectionAssert.AreEqual(listaEsperadaBicicletas, resultadoCache);
         }
-    **/
+
 
         #region Additional test attributes
 

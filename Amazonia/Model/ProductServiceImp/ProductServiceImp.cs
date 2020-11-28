@@ -144,7 +144,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
             }
         }
 
-        /*
+
         private string FormatKeyWordAndCategoryNames(string keyWord, Category category)
         {
             if (category != null)
@@ -156,7 +156,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
                 return keyWord;    
             }
         }
-    **/
+
 
         [Transactional]
         public List<ProductDTO> FindProductByWord(string keyWord, int startIndex, int count)
@@ -169,20 +169,19 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
             List<ProductDTO> productListOutput = new List<ProductDTO>();
             string cleanKeyWord = keyWord.Trim();
 
-            /**
-            string formattedKeywordAndCategory = FormatKeyWordAndCategoryNames(cleanKeyWord, category);
+            
+            string formattedKeywordAndCategory = FormatKeyWordAndCategoryNames(cleanKeyWord, null);
 
             if (_Cache.Contains(formattedKeywordAndCategory))
             {
                 List<ProductDTO> cacheResult = (List<ProductDTO>)_Cache.GetCacheItem(formattedKeywordAndCategory).Value;
                 return cacheResult;
             }
-    **/
 
 
             productListOutput = ProductDaoEntityFramework.FindByKeyWord(cleanKeyWord, 0, 10);
 
-            //AddToCache(formattedKeywordAndCategory, productListOutput);
+            AddToCache(formattedKeywordAndCategory, productListOutput);
 
             return productListOutput;
         }
@@ -205,7 +204,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 
             List<ProductDTO> productListOutput = new List<ProductDTO>();
             string cleanKeyWord = keyWord.Trim();
-            /**
+            
             string formattedKeywordAndCategory = FormatKeyWordAndCategoryNames(cleanKeyWord, category);
 
             if (_Cache.Contains(formattedKeywordAndCategory))
@@ -213,11 +212,11 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
                 List<ProductDTO> cacheResult = (List<ProductDTO>)_Cache.GetCacheItem(formattedKeywordAndCategory).Value;
                 return cacheResult;
             }
-    **/
+
 
             productListOutput = ProductDaoEntityFramework.FindByKeyWordAndCategory(cleanKeyWord, categoryId, 0, 10);
 
-            //AddToCache(formattedKeywordAndCategory, productListOutput);
+            AddToCache(formattedKeywordAndCategory, productListOutput);
 
             return productListOutput;
         }
