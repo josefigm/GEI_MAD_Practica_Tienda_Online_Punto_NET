@@ -120,14 +120,8 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
 
         public List<Label> FindLabelsByComment(long commentId)
         {
-            Comment relatedComment = CommentDao.Find(commentId);
-            if (relatedComment == null)
-            {
-                throw new InstanceNotFoundException("No existe un comentario con id: " + commentId);
-            }
-
             List<Label> result = new List<Label>();
-            result = LabelDao.FindLabelsOfComment(relatedComment);
+            result = LabelDao.FindLabelsOfComment(commentId);
             return result;
         }
 

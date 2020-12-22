@@ -9,14 +9,14 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao
     public class LabelDaoEntityFramework : GenericDaoEntityFramework<Label, long>, ILabelDao
     {
 
-        public List<Label> FindLabelsOfComment(Comment comment)
+        public List<Label> FindLabelsOfComment(long commentId)
         {
             // TODO
             DbSet<Label> labelList = Context.Set<Label>();
 
             List<Label> result =
                 (from l in labelList
-                where l.Comments.Select(c => c.id).Contains(comment.id)
+                where l.Comments.Select(c => c.id).Contains(commentId)
                 select l).ToList<Label>();
 
             return result;

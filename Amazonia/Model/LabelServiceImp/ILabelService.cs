@@ -72,11 +72,13 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
         /// Finds the labels by comment.
         /// </summary>
         /// <param name="commendId">The commend identifier.</param>
-        /// <exception cref="InstanceNotFoundException"/>
         /// <returns></returns>
         [Transactional]
-        List<Label> FindLabelsByComment(long commendId);
+        List<Label> FindLabelsByComment(long commentId);
 
+        /// <summary>Gets the number of comments.</summary>
+        /// <param name="labels">The labels.</param>
+        /// <returns>A list with the number of comments for each label</returns>
         [Transactional]
         List<int> GetNumberOfComments(List<long> labels);
 
