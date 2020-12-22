@@ -32,5 +32,17 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
         /// <returns></returns>
         [Transactional]
         List<Comment> FindCommentsOfProduct(long productId);
+
+
+
+        /// <summary>
+        /// Finds the comments by label.
+        /// </summary>
+        /// <param name="labelId">The label identifier.</param>
+        /// <exception cref="InstanceNotFoundException"/> 
+        /// <returns></returns>
+        [Transactional]
+        List<Comment> FindCommentsByLabel(long labelId);
+
     }
 }

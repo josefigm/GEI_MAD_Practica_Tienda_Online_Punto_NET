@@ -7,6 +7,7 @@ using Es.Udc.DotNet.ModelUtil.Transactions;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Caching;
+using Es.Udc.DotNet.ModelUtil.Exceptions;
 
 namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 {
@@ -35,10 +36,10 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         /// <exception cref="ArgumentException"/>
         /// <returns></returns>
         [Transactional]
-        Product CreateProduct(string name, double price, DateTime entryDate, long stock, string image, string description, long categoryId);
+        Product CreateProduct(string name, double price, long stock, string image, string description, long categoryId);
 
         /// <summary>
-        /// Creates the product.
+        /// Creates the product (Utility method for testing).
         /// </summary>
         /// <param name="product">The product.</param>
         /// <exception cref="ArgumentNullException"/>
@@ -55,7 +56,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         /// <exception cref="Exception"/>
         /// <returns></returns>
         [Transactional]
-        Product UpdateProduct(Product product);
+        Product UpdateProduct(long productId, string name, double price, long stock, string image, string description, long categoryId);
 
         /// <summary>
         /// Finds the categories.
@@ -65,14 +66,28 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         List<Category> FindCategories();
 
         /// <summary>
+        /// Finds the product by word.
+        /// </summary>
+        /// <param name="keyWord">The key word.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="count">The count.</param>
+        /// <exception cref="ArgumentException"/>
+        /// <returns></returns>
+        [Transactional]
+        List<ProductDTO> FindProductByWord(string keyWord, int startIndex, int count);
+
+        /// <summary>
         /// Finds the product by word and category.
         /// </summary>
         /// <param name="keyWord">The key word.</param>
-        /// <param name="category">The category.</param>
-        /// <exception cref="ArgumentNullException"/>
+        /// <param name="categoryId">The category identifier.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="count">The count.</param>
+        /// <exception cref="ArgumentException"/>
+        /// <exception cref="InstanceNotFoundException"/>
         /// <returns></returns>
         [Transactional]
-        List<ProductDTO> FindProductByWordAndCategory(string keyWord, Category category);
+        List<ProductDTO> FindProductByWordAndCategory(string keyWord, long categoryId, int startIndex, int count);
 
         /// <summary>
         /// Finds the product by identifier.

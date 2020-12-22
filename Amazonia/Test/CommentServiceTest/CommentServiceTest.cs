@@ -3,6 +3,7 @@ using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
+using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace Test.CommentServiceTest
         private static ICommentService commentService;
         private static ICategoryDao categoryDao;
         private static IProductDao productDao;
+        private static ILabelService labelService;
 
         private TransactionScope transactionScope;
 
@@ -111,6 +113,70 @@ namespace Test.CommentServiceTest
             Assert.AreEqual(newComment, retrievedComments[0]);
         }
 
+        [TestMethod]
+        public void FindCommentsByLabelTest()
+        {
+                        
+            #region Create Category/Product
+
+            Category c1 = new Category();
+            c1.name = "Bicicletas";
+            categoryDao.Create(c1);
+
+            Product biciCarretera = new Product();
+            double price = 1200;
+            System.DateTime date = System.DateTime.Now;
+            long stock = 5;
+            string image = "ccc";
+            string description = "Bicicleta";
+            long categoryIdBicicleta = c1.id;
+            biciCarretera.name = "Bicicleta Felt FZ85";
+            biciCarretera.price = price;
+            biciCarretera.entryDate = date;
+            biciCarretera.stock = stock;
+            biciCarretera.image = image;
+            biciCarretera.description = description;
+            biciCarretera.categoryId = categoryIdBicicleta;
+
+            productDao.Create(biciCarretera);
+            #endregion
+
+            #region Create 3 Comments to a label
+
+            Comment newComment1 = new Comment();
+            newComment1.title = "Review bicicleta Felt FZ85";
+            newComment1.value = "Muy buena bici";
+            newComment1.productId = biciCarretera.id;
+            commentDao.Create(newComment1);
+            Label label = labelService.CreateLabel("Bicicletas Molonas", newComment1.id);
+
+            List<long> labelIds = new List<long>();
+            labelIds.Add(label.id);
+
+            Comment newComment2 = new Comment();
+            newComment2.title = "Review bicicleta Felt FZ85";
+            newComment2.value = "Menudo pepino";
+            newComment2.productId = biciCarretera.id;
+            commentDao.Create(newComment2);
+            labelService.AssignLabelsToComment(newComment2.id,labelIds);
+
+            Comment newComment3 = new Comment();
+            newComment3.title = "Review bicicleta Felt FZ85";
+            newComment3.value = "Menudo maquinote";
+            newComment3.productId = biciCarretera.id;
+            commentDao.Create(newComment3);
+            labelService.AssignLabelsToComment(newComment3.id, labelIds);
+
+            #endregion
+
+            List<Comment> result = commentService.FindCommentsByLabel(label.id);
+
+            Assert.AreEqual(true, result.Contains(newComment1));
+            Assert.AreEqual(true, result.Contains(newComment2));
+            Assert.AreEqual(true, result.Contains(newComment3));
+
+        }
+
 
         #region Additional test attributes
 
@@ -123,6 +189,7 @@ namespace Test.CommentServiceTest
             commentService = kernel.Get<ICommentService>();
             categoryDao = kernel.Get<ICategoryDao>();
             productDao = kernel.Get<IProductDao>();
+            labelService = kernel.Get<ILabelService>();
         }
 
         //Use ClassCleanup to run code after all tests in a class have run

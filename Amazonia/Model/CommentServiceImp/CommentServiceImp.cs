@@ -4,7 +4,7 @@ using Ninject;
 using System;
 using System.Management.Instrumentation;
 using System.Collections.Generic;
-
+using Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao;
 
 namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
 {
@@ -15,6 +15,9 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
 
         [Inject]
         public IProductDao ProductDao { private get;  set; }
+
+        [Inject]
+        public ILabelDao LabelDao { private get; set; }
 
         public Comment AddComment(string title, string value, long productId)
         {
@@ -31,6 +34,35 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
 
             return newComment;
         }
+
+
+
+
+
+
+        public List<Comment> FindCommentsByLabel(long labelId)
+        {
+
+            // etiqueta : label de la que vamos a buscar sus comentarios
+            Label etiqueta = LabelDao.Find(labelId);
+
+            if (etiqueta == null)
+            {
+                throw new InstanceNotFoundException("No existe " +
+                    "una etiqueta con id: " + labelId);
+            }
+
+            List<Comment> result = new List<Comment>();
+            result = CommentDao.FindCommentsByLabel(etiqueta);
+            return result;
+
+        }
+
+
+
+
+
+
 
         // Optional method
         public List<Comment> FindCommentsOfProduct(long productId)

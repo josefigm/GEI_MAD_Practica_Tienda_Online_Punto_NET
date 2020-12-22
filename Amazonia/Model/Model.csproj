@@ -123,6 +123,7 @@
     <Compile Include="Label.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="LabelServiceImp\DTOs\LabelDTO.cs" />
     <Compile Include="LabelServiceImp\ILabelService.cs" />
     <Compile Include="LabelServiceImp\LabelServiceImp.cs" />
     <Compile Include="Model.Context.cs">
