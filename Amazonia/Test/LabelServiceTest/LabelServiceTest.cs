@@ -401,6 +401,69 @@ namespace Test.LabelServiceTest
             }
         }
 
+        [TestMethod]
+        public void GetNumberOfCommentsTest()
+        {
+            #region Needed variables
+            Category c1 = new Category();
+            c1.name = "Bicicletas";
+            categoryDao.Create(c1);
+
+            Product biciCarretera = new Product();
+
+            double price = 1200;
+            System.DateTime date = System.DateTime.Now;
+            long stock = 5;
+            string image = "ccc";
+            string description = "Bicicleta";
+            long categoryIdBicicleta = c1.id;
+
+
+            biciCarretera.name = "Bicicleta Felt FZ85";
+            biciCarretera.price = price;
+            biciCarretera.entryDate = date;
+            biciCarretera.stock = stock;
+            biciCarretera.image = image;
+            biciCarretera.description = description;
+            biciCarretera.categoryId = categoryIdBicicleta;
+            #endregion
+
+            #region Persistencia
+            productDao.Create(biciCarretera);
+            #endregion
+
+            Comment newComment1 = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
+            Comment newComment2 = commentService.AddComment("Review 2", "Buena bicicleta", biciCarretera.id);
+            Comment newComment3 = commentService.AddComment("Review 3", "Mejorable", biciCarretera.id);
+
+            Label label = labelService.CreateLabel("Genial", newComment1.id);
+            Label label2 = labelService.CreateLabel("Ridicula", newComment3.id);
+
+            List<long> labelIds = new List<long>();
+            labelIds.Add(label.id);
+
+            List<long> label2Ids = new List<long>();
+            label2Ids.Add(label.id);
+            label2Ids.Add(label2.id);
+
+            labelService.AssignLabelsToComment(newComment2.id, label2Ids);
+            labelService.AssignLabelsToComment(newComment3.id, labelIds);
+
+            List<int> numberOfCommentsForLabel = labelService.GetNumberOfComments(label2Ids);
+
+            List<int>.Enumerator commentsEnum = numberOfCommentsForLabel.GetEnumerator();
+            commentsEnum.MoveNext();
+            int n = commentsEnum.Current;
+
+            Assert.AreEqual(3, n);
+
+            commentsEnum.MoveNext();
+            n = commentsEnum.Current;
+
+            Assert.AreEqual(2, n);
+
+        }
+
         #region Additional test attributes
 
         [ClassInitialize]

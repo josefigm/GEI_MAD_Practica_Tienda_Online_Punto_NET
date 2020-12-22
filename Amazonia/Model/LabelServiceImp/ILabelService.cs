@@ -75,5 +75,8 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
         /// <returns></returns>
         [Transactional]
         List<Label> FindLabelsByComment(long commendId);
+
+        [Transactional]
+        List<int> GetNumberOfComments(List<long> labels);
     }
 }
