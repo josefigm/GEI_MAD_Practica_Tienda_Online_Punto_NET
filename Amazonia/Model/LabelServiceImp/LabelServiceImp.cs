@@ -4,6 +4,7 @@ using Ninject;
 using System.Collections.Generic;
 using System;
 using System.Management.Instrumentation;
+using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp.DTOs;
 
 namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
 {
@@ -143,6 +144,14 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
             }
 
             return commentsForLabels;
+        }
+
+        public List<LabelDTO> FindMostUsedLabels(int limit)
+        {
+            List<LabelDTO> result = LabelDao.FindMostUsedLabels();
+            
+            // We return only the first limit labels
+            return result.GetRange(0, limit);
         }
     }
 }

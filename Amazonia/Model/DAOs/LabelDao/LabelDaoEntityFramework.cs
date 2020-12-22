@@ -1,4 +1,5 @@
-﻿using Es.Udc.DotNet.ModelUtil.Dao;
+﻿using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp.DTOs;
+using Es.Udc.DotNet.ModelUtil.Dao;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -21,5 +22,27 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao
             return result;
 
         }
+
+        public List<LabelDTO> FindMostUsedLabels()
+        {
+            DbSet<Label> labelList = Context.Set<Label>();
+
+            // We only select the id in order to be as efficient as possible
+            List<long> labelIds =
+                (from l in labelList
+                 orderby l.Comments.Count descending
+                 select l.id).ToList<long>();
+
+            // The labelDTOs are created
+            List<LabelDTO> result = new List<LabelDTO>();
+            for (int index = 0; index < labelIds.Count; index++)
+            {
+                result.Add(new LabelDTO(labelIds[index]));
+            }
+
+            return result;
+        }
+
     }
+
 }

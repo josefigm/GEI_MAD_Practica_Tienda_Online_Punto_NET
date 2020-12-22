@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Es.Udc.DotNet.ModelUtil.Transactions;
+using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp.DTOs;
 
 namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
 {
@@ -78,5 +79,13 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
 
         [Transactional]
         List<int> GetNumberOfComments(List<long> labels);
+
+        /// <summary>
+        /// Finds the most used labels.
+        /// </summary>
+        /// <param name="limit"> Specifies the number of labels to retrieve.</param>
+        /// <returns> The list of the most used labels (containing limit labels)</returns>
+        [Transactional]
+        List<LabelDTO> FindMostUsedLabels(int limit);
     }
 }
