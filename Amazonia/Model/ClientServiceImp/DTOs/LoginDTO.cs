@@ -8,7 +8,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
     /// A Custom VO which keeps the details for a login action.
     /// </summary>
     [Serializable()]
-    public class LoginDetails
+    public class LoginDTO
     {
 
         /// <summary>
@@ -20,7 +20,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// <param name="language">The language.</param>
         /// <param name="country">The country.</param>
         /// <param name="exit">The state of Login Details.</param>
-        public LoginDetails(String login, String firstName,
+        public LoginDTO(String login, String firstName,
             String encryptedPassword, byte role, String address, byte language, Boolean exit)
         {
             this.Login = login;
@@ -80,14 +80,14 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 
         #endregion Properties Region
 
-        public static void ExitLoginDetails(LoginDetails loginDetails)
+        public static void ExitLoginDetails(LoginDTO loginDetails)
         {
             loginDetails.Exit = true;
         }
 
         public override bool Equals(object obj)
         {
-            var details = obj as LoginDetails;
+            var details = obj as LoginDTO;
             return details != null &&
                    Login == details.Login &&
                    FirstName == details.FirstName &&

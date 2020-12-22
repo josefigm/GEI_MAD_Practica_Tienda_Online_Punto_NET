@@ -8,7 +8,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
     /// VO Class which contains the card details
     /// </summary>
     [Serializable()]
-    public class CardForm
+    public class CardDTO
     {
         #region Properties Region
 
@@ -34,7 +34,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
         /// <param name="type">Tipo de tarjeta.</param>
         /// <param name="defaultCard">Tarjeta por defecto.</param>
         /// 
-        public CardForm(string number, string cVV, DateTime expireDate, bool type, bool defaultCard)
+        public CardDTO(string number, string cVV, DateTime expireDate, bool type, bool defaultCard)
         {
             this.Number = number;
             this.CVV = cVV;
@@ -52,7 +52,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
         /// <param name="expireDate">La fecha en la que expirará la tarjeta.</param>
         /// <param name="type">Tipo de tarjeta.</param>
         /// 
-        public CardForm(string number, string cVV, DateTime expireDate, bool type)
+        public CardDTO(string number, string cVV, DateTime expireDate, bool type)
         {
             this.Number = number;
             this.CVV = cVV;
@@ -63,7 +63,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
 
         public override bool Equals(object obj)
         {
-            var form = obj as CardForm;
+            var form = obj as CardDTO;
             return form != null &&
                    Number == form.Number &&
                    CVV == form.CVV &&

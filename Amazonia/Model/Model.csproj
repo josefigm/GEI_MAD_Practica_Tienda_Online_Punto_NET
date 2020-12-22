@@ -81,7 +81,7 @@
     <Compile Include="Card.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="CardServiceImp\CardForm.cs" />
+    <Compile Include="CardServiceImp\DTOs\CardDto.cs" />
     <Compile Include="CardServiceImp\CardServiceImp.cs" />
     <Compile Include="CardServiceImp\ICardService.cs" />
     <Compile Include="Category.cs">
@@ -90,11 +90,11 @@
     <Compile Include="Client.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="ClientServiceImp\ClientDetails.cs" />
+    <Compile Include="ClientServiceImp\DTOs\ClientDTO.cs" />
     <Compile Include="ClientServiceImp\ClientServiceImp.cs" />
     <Compile Include="ClientServiceImp\Exceptions\IncorrectPasswordException.cs" />
     <Compile Include="ClientServiceImp\IClientService.cs" />
-    <Compile Include="ClientServiceImp\LoginDetails.cs" />
+    <Compile Include="ClientServiceImp\DTOs\LoginDTO.cs" />
     <Compile Include="ClientServiceImp\Util\PasswordEncrypter.cs" />
     <Compile Include="Comment.cs">
       <DependentUpon>Model.tt</DependentUpon>

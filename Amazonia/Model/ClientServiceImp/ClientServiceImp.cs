@@ -21,7 +21,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// <exception cref="DuplicateInstanceException"/>
         [Transactional]
         public Client RegisterClient(string login, string clearPassword,
-            ClientDetails clientDetails)
+            ClientDetailsDTO clientDetails)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
-        public void UpdateUserProfileDetails(string login, ClientDetails clientDetails)
+        public void UpdateUserProfileDetails(string login, ClientDetailsDTO clientDetails)
         {
             Client client = ClientDao.FindByLogin(login);
 
@@ -76,7 +76,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// <exception cref="InstanceNotFoundException"/>
         /// <exception cref="IncorrectPasswordException"/>
         [Transactional]
-        public LoginDetails Login(string login, string password, bool passwordIsEncrypted)
+        public LoginDTO Login(string login, string password, bool passwordIsEncrypted)
         {
 
             Client client =
@@ -100,15 +100,15 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
                 }
             }
 
-            return new LoginDetails(client.login, client.firstName,
+            return new LoginDTO(client.login, client.firstName,
             client.password, client.role, client.address, client.language, false);
         }
 
-        public void Logout(LoginDetails loginDetails)
+        public void Logout(LoginDTO loginDetails)
         {
             if (!loginDetails.Exit)
             {
-                LoginDetails.ExitLoginDetails(loginDetails);
+                LoginDTO.ExitLoginDetails(loginDetails);
             }
         }
 

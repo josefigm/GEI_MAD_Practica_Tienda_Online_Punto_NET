@@ -22,8 +22,8 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// <param name="clientDetails"> Detalles de cliente. </param>
         /// <exception cref="DuplicateInstanceException"/>
         [Transactional]
-        Client RegisterClient(String login, String clearPassword, 
-            ClientDetails clientDetails);
+        Client RegisterClient(String login, String clearPassword,
+            ClientDetailsDTO clientDetails);
 
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
         void UpdateUserProfileDetails(String login,
-            ClientDetails clientDetails);
+            ClientDetailsDTO clientDetails);
 
         /// <summary>
         /// Inicia sesión de un login determinado.
@@ -46,14 +46,14 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// <exception cref="InstanceNotFoundException"/>
         /// <exception cref="IncorrectPasswordException"/>
         [Transactional]
-        LoginDetails Login(String login, String password,
+        LoginDTO Login(String login, String password,
             Boolean passwordIsEncrypted);
 
         /// <summary>
         /// Salida de sesión de un cliente autenticado.
         /// </summary>
         /// <exception cref="InstanceNotFoundException"/>
-        void Logout(LoginDetails loginDetails);
+        void Logout(LoginDTO loginDetails);
 
         /// <summary>
         /// Define por defecto una tarjeta para un usuario.
