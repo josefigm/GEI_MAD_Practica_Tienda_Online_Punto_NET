@@ -237,7 +237,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
                 List<Comment> comments = CommentService.FindCommentsOfProduct(product.id);
                 for (int i = 0; i < comments.Count && labelFound == false; i++)
                 {
-                    List<Label> labels = LabelDao.FindLabelsOfComment(comments[i]);
+                    List<Label> labels = LabelDao.FindLabelsOfComment(comments[i].id);
                     for (int j = 0; j < labels.Count && labelFound == false; j++)
                     {
                         if (labels[j].value == labelValue)
