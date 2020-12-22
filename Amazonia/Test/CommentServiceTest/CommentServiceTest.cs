@@ -141,22 +141,39 @@ namespace Test.CommentServiceTest
             productDao.Create(biciCarretera);
             #endregion
 
-            #region Create Comment to a label
+            #region Create 3 Comments to a label
 
             Comment newComment1 = new Comment();
             newComment1.title = "Review bicicleta Felt FZ85";
             newComment1.value = "Muy buena bici";
             newComment1.productId = biciCarretera.id;
-            
             commentDao.Create(newComment1);
-
             Label label = labelService.CreateLabel("Bicicletas Molonas", newComment1.id);
+
+            List<long> labelIds = new List<long>();
+            labelIds.Add(label.id);
+
+            Comment newComment2 = new Comment();
+            newComment2.title = "Review bicicleta Felt FZ85";
+            newComment2.value = "Menudo pepino";
+            newComment2.productId = biciCarretera.id;
+            commentDao.Create(newComment2);
+            labelService.AssignLabelsToComment(newComment2.id,labelIds);
+
+            Comment newComment3 = new Comment();
+            newComment3.title = "Review bicicleta Felt FZ85";
+            newComment3.value = "Menudo maquinote";
+            newComment3.productId = biciCarretera.id;
+            commentDao.Create(newComment3);
+            labelService.AssignLabelsToComment(newComment3.id, labelIds);
 
             #endregion
 
             List<Comment> result = commentService.FindCommentsByLabel(label.id);
 
             Assert.AreEqual(true, result.Contains(newComment1));
+            Assert.AreEqual(true, result.Contains(newComment2));
+            Assert.AreEqual(true, result.Contains(newComment3));
 
         }
 
