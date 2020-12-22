@@ -25,13 +25,15 @@
         </EntityType>
         <EntityType Name="Card">
           <Key>
-            <PropertyRef Name="number" />
+            <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="number" Type="varchar" MaxLength="16" Nullable="false" />
           <Property Name="cvv" Type="varchar" MaxLength="3" Nullable="false" />
           <Property Name="expireDate" Type="date" Nullable="false" />
-          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="clientId" Type="bigint" Nullable="false" />
           <Property Name="type" Type="bit" Nullable="false" />
+          <Property Name="defaultCard" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -42,8 +44,9 @@
         </EntityType>
         <EntityType Name="Client">
           <Key>
-            <PropertyRef Name="login" />
+            <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="login" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="password" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="firstName" Type="varchar" MaxLength="30" Nullable="false" />
@@ -52,15 +55,6 @@
           <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="role" Type="tinyint" Nullable="false" />
           <Property Name="language" Type="tinyint" Nullable="false" />
-          <Property Name="defaultCardNumber" Type="varchar" MaxLength="16" />
-        </EntityType>
-        <EntityType Name="ClientCard">
-          <Key>
-            <PropertyRef Name="login" />
-            <PropertyRef Name="number" />
-          </Key>
-          <Property Name="login" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="number" Type="varchar" MaxLength="16" Nullable="false" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -119,8 +113,8 @@
           <Property Name="descName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="address" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="totalPrice" Type="float" Nullable="false" />
-          <Property Name="cardNumber" Type="varchar" MaxLength="16" Nullable="false" />
-          <Property Name="clientLogin" Type="varchar" MaxLength="30" />
+          <Property Name="cardId" Type="bigint" Nullable="false" />
+          <Property Name="clientId" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="SaleLine">
           <Key>
@@ -147,6 +141,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CardClient">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Card" Type="Self.Card" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Card">
+              <PropertyRef Name="clientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CarProduct">
           <End Role="Product" Type="Self.Product" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -158,42 +164,6 @@
             </Principal>
             <Dependent Role="Computer">
               <PropertyRef Name="productId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ClientCard">
-          <End Role="Card" Type="Self.Card" Multiplicity="0..1" />
-          <End Role="Client" Type="Self.Client" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Card">
-              <PropertyRef Name="number" />
-            </Principal>
-            <Dependent Role="Client">
-              <PropertyRef Name="defaultCardNumber" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ClientCardCard">
-          <End Role="Card" Type="Self.Card" Multiplicity="1" />
-          <End Role="ClientCard" Type="Self.ClientCard" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Card">
-              <PropertyRef Name="number" />
-            </Principal>
-            <Dependent Role="ClientCard">
-              <PropertyRef Name="number" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ClientCardClient">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="ClientCard" Type="Self.ClientCard" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="login" />
-            </Principal>
-            <Dependent Role="ClientCard">
-              <PropertyRef Name="login" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -264,22 +234,22 @@
           <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Card">
-              <PropertyRef Name="number" />
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Sale">
-              <PropertyRef Name="cardNumber" />
+              <PropertyRef Name="cardId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SaleClient">
-          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
-              <PropertyRef Name="login" />
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Sale">
-              <PropertyRef Name="clientLogin" />
+              <PropertyRef Name="clientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -313,7 +283,6 @@
           <EntitySet Name="Card" EntityType="Self.Card" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ClientCard" EntityType="Self.ClientCard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CommentLabel" EntityType="Self.CommentLabel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Computer" EntityType="Self.Computer" Schema="dbo" store:Type="Tables" />
@@ -325,21 +294,13 @@
             <End Role="Product" EntitySet="Product" />
             <End Role="Bike" EntitySet="Bike" />
           </AssociationSet>
+          <AssociationSet Name="FK_CardClient" Association="Self.FK_CardClient">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Card" EntitySet="Card" />
+          </AssociationSet>
           <AssociationSet Name="FK_CarProduct" Association="Self.FK_CarProduct">
             <End Role="Product" EntitySet="Product" />
             <End Role="Computer" EntitySet="Computer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ClientCard" Association="Self.FK_ClientCard">
-            <End Role="Card" EntitySet="Card" />
-            <End Role="Client" EntitySet="Client" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ClientCardCard" Association="Self.FK_ClientCardCard">
-            <End Role="Card" EntitySet="Card" />
-            <End Role="ClientCard" EntitySet="ClientCard" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ClientCardClient" Association="Self.FK_ClientCardClient">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="ClientCard" EntitySet="ClientCard" />
           </AssociationSet>
           <AssociationSet Name="FK_CommentLabelComment" Association="Self.FK_CommentLabelComment">
             <End Role="Comment" EntitySet="Comment" />
@@ -395,16 +356,17 @@
         </EntityType>
         <EntityType Name="Card">
           <Key>
-            <PropertyRef Name="number" />
+            <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="number" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cvv" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="expireDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="clientId" Type="Int64" Nullable="false" />
           <Property Name="type" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Clients" Relationship="Self.FK_ClientCard" FromRole="Card" ToRole="Client" />
+          <Property Name="defaultCard" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_CardClient" FromRole="Card" ToRole="Client" />
           <NavigationProperty Name="Sales" Relationship="Self.FK_SaleCard" FromRole="Card" ToRole="Sale" />
-          <NavigationProperty Name="Clients1" Relationship="Self.ClientCard" FromRole="Card" ToRole="Client" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -416,8 +378,9 @@
         </EntityType>
         <EntityType Name="Client">
           <Key>
-            <PropertyRef Name="login" />
+            <PropertyRef Name="id" />
           </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="login" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="password" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="firstName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
@@ -426,10 +389,8 @@
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="role" Type="Byte" Nullable="false" />
           <Property Name="language" Type="Byte" Nullable="false" />
-          <Property Name="defaultCardNumber" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Card" Relationship="Self.FK_ClientCard" FromRole="Client" ToRole="Card" />
+          <NavigationProperty Name="Cards" Relationship="Self.FK_CardClient" FromRole="Client" ToRole="Card" />
           <NavigationProperty Name="Sales" Relationship="Self.FK_SaleClient" FromRole="Client" ToRole="Sale" />
-          <NavigationProperty Name="Cards" Relationship="Self.ClientCard" FromRole="Client" ToRole="Card" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -482,8 +443,8 @@
           <Property Name="descName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="totalPrice" Type="Double" Nullable="false" />
-          <Property Name="cardNumber" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="clientLogin" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="cardId" Type="Int64" Nullable="false" />
+          <Property Name="clientId" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Card" Relationship="Self.FK_SaleCard" FromRole="Sale" ToRole="Card" />
           <NavigationProperty Name="Client" Relationship="Self.FK_SaleClient" FromRole="Sale" ToRole="Client" />
           <NavigationProperty Name="SaleLines" Relationship="Self.FK_SaleLineSale" FromRole="Sale" ToRole="SaleLine" />
@@ -501,15 +462,15 @@
           <NavigationProperty Name="Product" Relationship="Self.FK_SaleLineProduct" FromRole="SaleLine" ToRole="Product" />
           <NavigationProperty Name="Sale" Relationship="Self.FK_SaleLineSale" FromRole="SaleLine" ToRole="Sale" />
         </EntityType>
-        <Association Name="FK_ClientCard">
-          <End Role="Card" Type="Self.Card" Multiplicity="0..1" />
-          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+        <Association Name="FK_CardClient">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Card" Type="Self.Card" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Card">
-              <PropertyRef Name="number" />
+            <Principal Role="Client">
+              <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Client">
-              <PropertyRef Name="defaultCardNumber" />
+            <Dependent Role="Card">
+              <PropertyRef Name="clientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -518,10 +479,10 @@
           <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Card">
-              <PropertyRef Name="number" />
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Sale">
-              <PropertyRef Name="cardNumber" />
+              <PropertyRef Name="cardId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -538,14 +499,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SaleClient">
-          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
-              <PropertyRef Name="login" />
+              <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Sale">
-              <PropertyRef Name="clientLogin" />
+              <PropertyRef Name="clientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -585,10 +546,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="ClientCard">
-          <End Role="Card" Type="Self.Card" Multiplicity="*" />
-          <End Role="Client" Type="Self.Client" Multiplicity="*" />
-        </Association>
         <Association Name="CommentLabel">
           <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
           <End Role="Label" Type="Self.Label" Multiplicity="*" />
@@ -602,9 +559,9 @@
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="Sales" EntityType="Self.Sale" />
           <EntitySet Name="SaleLines" EntityType="Self.SaleLine" />
-          <AssociationSet Name="FK_ClientCard" Association="Self.FK_ClientCard">
-            <End Role="Card" EntitySet="Cards" />
+          <AssociationSet Name="FK_CardClient" Association="Self.FK_CardClient">
             <End Role="Client" EntitySet="Clients" />
+            <End Role="Card" EntitySet="Cards" />
           </AssociationSet>
           <AssociationSet Name="FK_SaleCard" Association="Self.FK_SaleCard">
             <End Role="Card" EntitySet="Cards" />
@@ -630,10 +587,6 @@
             <End Role="Sale" EntitySet="Sales" />
             <End Role="SaleLine" EntitySet="SaleLines" />
           </AssociationSet>
-          <AssociationSet Name="ClientCard" Association="Self.ClientCard">
-            <End Role="Card" EntitySet="Cards" />
-            <End Role="Client" EntitySet="Clients" />
-          </AssociationSet>
           <AssociationSet Name="CommentLabel" Association="Self.CommentLabel">
             <End Role="Comment" EntitySet="Comments" />
             <End Role="Label" EntitySet="Labels" />
@@ -648,11 +601,13 @@
           <EntitySetMapping Name="Cards">
             <EntityTypeMapping TypeName="Es.UDC.DotNet.amazoniaModel.Card">
               <MappingFragment StoreEntitySet="Card">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="number" ColumnName="number" />
                 <ScalarProperty Name="cvv" ColumnName="cvv" />
                 <ScalarProperty Name="expireDate" ColumnName="expireDate" />
-                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="clientId" ColumnName="clientId" />
                 <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="defaultCard" ColumnName="defaultCard" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -667,6 +622,7 @@
           <EntitySetMapping Name="Clients">
             <EntityTypeMapping TypeName="Es.UDC.DotNet.amazoniaModel.Client">
               <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="login" ColumnName="login" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="firstName" ColumnName="firstName" />
@@ -675,7 +631,6 @@
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="role" ColumnName="role" />
                 <ScalarProperty Name="language" ColumnName="language" />
-                <ScalarProperty Name="defaultCardNumber" ColumnName="defaultCardNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -745,8 +700,8 @@
                 <ScalarProperty Name="descName" ColumnName="descName" />
                 <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
-                <ScalarProperty Name="cardNumber" ColumnName="cardNumber" />
-                <ScalarProperty Name="clientLogin" ColumnName="clientLogin" />
+                <ScalarProperty Name="cardId" ColumnName="cardId" />
+                <ScalarProperty Name="clientId" ColumnName="clientId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -762,14 +717,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="ClientCard" TypeName="Es.UDC.DotNet.amazoniaModel.ClientCard" StoreEntitySet="ClientCard">
-            <EndProperty Name="Card">
-              <ScalarProperty Name="number" ColumnName="number" />
-            </EndProperty>
-            <EndProperty Name="Client">
-              <ScalarProperty Name="login" ColumnName="login" />
-            </EndProperty>
-          </AssociationSetMapping>
           <AssociationSetMapping Name="CommentLabel" TypeName="Es.UDC.DotNet.amazoniaModel.CommentLabel" StoreEntitySet="CommentLabel">
             <EndProperty Name="Comment">
               <ScalarProperty Name="id" ColumnName="commentId" />

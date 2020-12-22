@@ -24,8 +24,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
         /// <exception cref="InstanceNotFoundException"/>
         /// <returns></returns>
         [Transactional]
-        Card CreateCardToClient(Card card, string login);
-
-
+        Card CreateCardToClient(CardForm cardForm, string login);
     }
 }

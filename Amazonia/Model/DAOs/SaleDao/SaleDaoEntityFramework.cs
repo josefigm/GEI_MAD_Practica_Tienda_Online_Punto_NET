@@ -9,13 +9,13 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.SaleDao
     public class SaleDaoEntityFramework :
         GenericDaoEntityFramework<Sale, Int64>, ISaleDao
     {
-        public List<Sale> FindByClientLogin(string clientLogin, int startIndex, int count)
+        public List<Sale> FindByClientId(long clientId, int startIndex, int count)
         {
             DbSet<Sale> sales = Context.Set<Sale>();
 
             var result =
                     (from s in sales
-                     where s.clientLogin == clientLogin
+                     where s.clientId == clientId
                      orderby s.id
                      select s).Skip(startIndex).Take(count).ToList();
 

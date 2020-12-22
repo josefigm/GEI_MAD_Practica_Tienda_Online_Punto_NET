@@ -6,6 +6,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.SaleDao
 {
     public interface ISaleDao : IGenericDao<Sale, Int64>
     {
-        List<Sale> FindByClientLogin(string clientLogin, int startIndex, int count);
+        List<Sale> FindByClientId(long clientId, int startIndex, int count);
     }
 }

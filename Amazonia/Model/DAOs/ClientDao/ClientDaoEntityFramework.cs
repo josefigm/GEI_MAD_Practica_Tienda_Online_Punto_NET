@@ -3,11 +3,12 @@ using System.Linq;
 using System.Data.Entity;
 using Es.Udc.DotNet.ModelUtil.Dao;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
+using System.Collections.Generic;
 
 namespace Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao
 {
     public class ClientDaoEntityFramework :
-        GenericDaoEntityFramework<Client, String>, IClientDao
+        GenericDaoEntityFramework<Client, Int64>, IClientDao
     {
 
         #region Public Constructors
@@ -30,6 +31,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao
         /// <exception cref="InstanceNotFoundException"></exception>
         public Client FindByLogin(string login)
         {
+
             Client clientProfile = null;
 
             DbSet<Client> clientProfiles = Context.Set<Client>();
@@ -47,6 +49,19 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao
                     typeof(Client).FullName);
 
             return clientProfile;
+        }
+
+
+        public List<Card> FindCardsOfClient(Client client)
+        {
+
+            List<Card> cards = new List<Card>();
+            foreach (Card card in client.Cards)
+            {
+                cards.Add(card);
+            }
+
+            return cards;
         }
     }
 }

@@ -5,6 +5,7 @@ using Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleLineDao;
+using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp.DTOs;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions;
@@ -32,8 +33,8 @@ namespace Test.SaleServiceTests
         private static ISaleLineDao saleLineDao;
         private static IProductDao productDao;
 
-        private String address = "Direccion de entrega";
-        private String descName = "Test sale";
+        private readonly String address = "Direccion de entrega";
+        private readonly String descName = "Test sale";
         private const long NON_EXISTENT_SALE_ID = -1;
 
         private TransactionScope transactionScope;
@@ -49,24 +50,30 @@ namespace Test.SaleServiceTests
         {
             #region Declaracion de variables
 
-            Category category = new Category();
-            category.name = "category";
+            Category category = new Category
+            {
+                name = "category"
+            };
             categoryDao.Create(category);
 
-            Product product = new Product();
-            product.name = "TestProduct";
-            product.price = 24;
-            product.entryDate = new DateTime(2020, 1, 1);
-            product.stock = 200;
-            product.Category = category;
+            Product product = new Product
+            {
+                name = "TestProduct",
+                price = 24,
+                entryDate = new DateTime(2020, 1, 1),
+                stock = 200,
+                Category = category
+            };
             productDao.Create(product);
 
-            Product product2 = new Product();
-            product2.name = "TestProduct2";
-            product2.price = 10;
-            product2.entryDate = new DateTime(2020, 1, 1);
-            product2.stock = 200;
-            product2.Category = category;
+            Product product2 = new Product
+            {
+                name = "TestProduct2",
+                price = 10,
+                entryDate = new DateTime(2020, 1, 1),
+                stock = 200,
+                Category = category
+            };
             productDao.Create(product2);
 
             ShoppingCart shoppingCart = new ShoppingCart();
@@ -85,16 +92,20 @@ namespace Test.SaleServiceTests
         {
             #region Declaracion de variables
 
-            Category category = new Category();
-            category.name = "category";
+            Category category = new Category
+            {
+                name = "category"
+            };
             categoryDao.Create(category);
 
-            Product product = new Product();
-            product.name = "TestProduct";
-            product.price = 24;
-            product.entryDate = new DateTime(2020, 1, 1);
-            product.stock = 200;
-            product.Category = category;
+            Product product = new Product
+            {
+                name = "TestProduct",
+                price = 24,
+                entryDate = new DateTime(2020, 1, 1),
+                stock = 200,
+                Category = category
+            };
             productDao.Create(product);
 
             ShoppingCart shoppingCart = new ShoppingCart();
@@ -109,28 +120,63 @@ namespace Test.SaleServiceTests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(InsufficientStockException))]
+        public void TestAddToShoppingCartMoreThanStock()
+        {
+            #region Declaracion de variables
+
+            Category category = new Category
+            {
+                name = "category"
+            };
+            categoryDao.Create(category);
+
+            Product product = new Product
+            {
+                name = "TestProduct",
+                price = 24,
+                entryDate = new DateTime(2020, 1, 1),
+                stock = 2,
+                Category = category
+            };
+            productDao.Create(product);
+
+            ShoppingCart shoppingCart = new ShoppingCart();
+
+            #endregion Declaracion de variables
+
+            saleService.AddToShoppingCart(shoppingCart, product.id, 3, false);
+        }
+
+        [TestMethod]
         public void TestDeleteFromShoppingCart()
         {
             #region Declaracion de variables
 
-            Category category = new Category();
-            category.name = "category";
+            Category category = new Category
+            {
+                name = "category"
+            };
             categoryDao.Create(category);
 
-            Product product = new Product();
-            product.name = "TestProduct";
-            product.price = 24;
-            product.entryDate = new DateTime(2020, 1, 1);
-            product.stock = 200;
-            product.Category = category;
+            Product product = new Product
+            {
+                name = "TestProduct",
+                price = 24,
+                entryDate = new DateTime(2020, 1, 1),
+                stock = 200,
+                Category = category
+            };
             productDao.Create(product);
 
-            Product product2 = new Product();
-            product2.name = "TestProduct2";
-            product2.price = 10;
-            product2.entryDate = new DateTime(2020, 1, 1);
-            product2.stock = 200;
-            product2.Category = category;
+            Product product2 = new Product
+            {
+                name = "TestProduct2",
+                price = 10,
+                entryDate = new DateTime(2020, 1, 1),
+                stock = 200,
+                Category = category
+            };
             productDao.Create(product2);
 
             ShoppingCart shoppingCart = new ShoppingCart();
@@ -154,24 +200,30 @@ namespace Test.SaleServiceTests
         {
             #region Declaracion de variables
 
-            Category category = new Category();
-            category.name = "category";
+            Category category = new Category
+            {
+                name = "category"
+            };
             categoryDao.Create(category);
 
-            Product product = new Product();
-            product.name = "TestProduct";
-            product.price = 24;
-            product.entryDate = new DateTime(2020, 1, 1);
-            product.stock = 200;
-            product.Category = category;
+            Product product = new Product
+            {
+                name = "TestProduct",
+                price = 24,
+                entryDate = new DateTime(2020, 1, 1),
+                stock = 200,
+                Category = category
+            };
             productDao.Create(product);
 
-            Product product2 = new Product();
-            product2.name = "TestProduct2";
-            product2.price = 10;
-            product2.entryDate = new DateTime(2020, 1, 1);
-            product2.stock = 200;
-            product2.Category = category;
+            Product product2 = new Product
+            {
+                name = "TestProduct2",
+                price = 10,
+                entryDate = new DateTime(2020, 1, 1),
+                stock = 200,
+                Category = category
+            };
             productDao.Create(product2);
 
             ShoppingCart shoppingCart = new ShoppingCart();
@@ -189,10 +241,86 @@ namespace Test.SaleServiceTests
             Assert.AreEqual(2, returnedShoppingCart.items.Count);
             Assert.AreEqual(172, returnedShoppingCart.totalPrice);
 
-            ShoppingCartItem modifiedItem = returnedShoppingCart.items.Find(x => x.productId == product2.id);
+            ShoppingCartItem modifiedItem = returnedShoppingCart.items.Find(x => x.product.id == product2.id);
 
             Assert.AreEqual(10, modifiedItem.units);
             Assert.IsTrue(modifiedItem.gift);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InsufficientStockException))]
+        public void TestModifyShoppingCartItemMoreThanStock()
+        {
+            #region Declaracion de variables
+
+            Category category = new Category
+            {
+                name = "category"
+            };
+            categoryDao.Create(category);
+
+            Product product = new Product
+            {
+                name = "TestProduct",
+                price = 24,
+                entryDate = new DateTime(2020, 1, 1),
+                stock = 5,
+                Category = category
+            };
+            productDao.Create(product);
+
+            ShoppingCart shoppingCart = new ShoppingCart();
+
+            #endregion Declaracion de variables
+
+            ShoppingCart returnedShoppingCart = saleService.AddToShoppingCart(shoppingCart, product.id, 3, false);
+
+            Assert.AreEqual(1, returnedShoppingCart.items.Count);
+            Assert.AreEqual(72, returnedShoppingCart.totalPrice);
+
+            saleService.ModifyShoppingCartItem(returnedShoppingCart, product.id, 10, true);
+        }
+
+        [TestMethod]
+        public void TestShowShoppingCartItems()
+        {
+            #region Declaracion de variables
+
+            Category category = new Category
+            {
+                name = "category"
+            };
+            categoryDao.Create(category);
+
+            Product product = new Product
+            {
+                name = "TestProduct",
+                price = 24,
+                entryDate = new DateTime(2020, 1, 1),
+                stock = 200,
+                Category = category
+            };
+            productDao.Create(product);
+
+            Product product2 = new Product
+            {
+                name = "TestProduct2",
+                price = 10,
+                entryDate = new DateTime(2020, 1, 1),
+                stock = 200,
+                Category = category
+            };
+            productDao.Create(product2);
+
+            ShoppingCart shoppingCart = new ShoppingCart();
+
+            #endregion Declaracion de variables
+
+            ShoppingCart returnedShoppingCart = saleService.AddToShoppingCart(shoppingCart, product.id, 3, false);
+            returnedShoppingCart = saleService.AddToShoppingCart(returnedShoppingCart, product2.id, 1, false);
+
+            List<ShoppingCartItem> items = saleService.ShowShoppingCartItems(returnedShoppingCart);
+            CollectionAssert.AreEqual(returnedShoppingCart.items, items);
         }
 
         [TestMethod]
@@ -200,43 +328,49 @@ namespace Test.SaleServiceTests
         {
             #region Declaracion de variables
 
-            Client client = new Client();
-            client.login = "client";
-            client.password = "password";
-            client.firstName = "firstName";
-            client.lastName = "lastName";
-            client.address = "adress";
-            client.email = "email";
-            client.role = 1;
-            client.language = 1;
+            Client client = new Client
+            {
+                login = "client",
+                password = "password",
+                firstName = "firstName",
+                lastName = "lastName",
+                address = "adress",
+                email = "email",
+                role = 1,
+                language = 1
+            };
             clientDao.Create(client);
 
-            Card card = new Card();
-            card.number = "1111222233334444";
-            card.cvv = "123";
-            card.expireDate = new DateTime(2025, 1, 1);
-            card.name = "Client Name";
-            card.type = true;
+            Card card = new Card
+            {
+                number = "1111222233334444",
+                cvv = "123",
+                expireDate = new DateTime(2025, 1, 1),
+                type = true,
+                defaultCard = true,
+                Client = client
+            };
             cardDao.Create(card);
 
-            client.Cards.Add(card);
-            clientDao.Update(client);
-
-            Category category = new Category();
-            category.name = "category";
+            Category category = new Category
+            {
+                name = "category"
+            };
             categoryDao.Create(category);
 
-            Product product = new Product();
-            product.name = "TestProduct";
-            product.price = 24;
-            product.entryDate = new DateTime(2020, 1, 1);
-            product.stock = 200;
-            product.Category = category;
+            Product product = new Product
+            {
+                name = "TestProduct",
+                price = 24,
+                entryDate = new DateTime(2020, 1, 1),
+                stock = 200,
+                Category = category
+            };
             productDao.Create(product);
 
             List<ShoppingCartItem> lines = new List<ShoppingCartItem>();
 
-            ShoppingCartItem line1 = new ShoppingCartItem(3, false, product.id, product.name);
+            ShoppingCartItem line1 = new ShoppingCartItem(3, false, ProductMapper.ProductToProductDto(product));
 
             lines.Add(line1);
 
@@ -244,14 +378,15 @@ namespace Test.SaleServiceTests
 
             #endregion Declaracion de variables
 
-            long saleId = saleService.Buy(shoppingCart, descName, address, card.number, client.login);
+            long saleId = saleService.Buy(shoppingCart, descName, address, card.id, client.id);
 
             Sale sale = saleDao.Find(saleId);
 
             Assert.AreEqual(1, sale.SaleLines.Count);
-            Assert.AreEqual(card.number, sale.cardNumber);
-            Assert.AreEqual(client.login, sale.clientLogin);
+            Assert.AreEqual(card.id, sale.cardId);
+            Assert.AreEqual(client.id, sale.clientId);
             Assert.AreEqual((line1.price * line1.units), sale.totalPrice);
+            Assert.AreEqual(0, shoppingCart.items.Count);
         }
 
         [TestMethod]
@@ -260,43 +395,49 @@ namespace Test.SaleServiceTests
         {
             #region Declaracion de variables
 
-            Client client = new Client();
-            client.login = "client1";
-            client.password = "password";
-            client.firstName = "firstName";
-            client.lastName = "lastName";
-            client.address = "adress";
-            client.email = "email";
-            client.role = 1;
-            client.language = 1;
+            Client client = new Client
+            {
+                login = "client",
+                password = "password",
+                firstName = "firstName",
+                lastName = "lastName",
+                address = "adress",
+                email = "email",
+                role = 1,
+                language = 1
+            };
             clientDao.Create(client);
 
-            Card card = new Card();
-            card.number = "111122223333555";
-            card.cvv = "123";
-            card.expireDate = new DateTime(2025, 1, 1);
-            card.name = "Client Name";
-            card.type = true;
+            Card card = new Card
+            {
+                number = "1111222233334444",
+                cvv = "123",
+                expireDate = new DateTime(2025, 1, 1),
+                type = true,
+                defaultCard = true,
+                Client = client
+            };
             cardDao.Create(card);
 
-            client.Cards.Add(card);
-            clientDao.Update(client);
-
-            Category category = new Category();
-            category.name = "category";
+            Category category = new Category
+            {
+                name = "category"
+            };
             categoryDao.Create(category);
 
-            Product product = new Product();
-            product.name = "TestProduct";
-            product.price = 24;
-            product.entryDate = new DateTime(2020, 1, 1);
-            product.stock = 2;
-            product.Category = category;
+            Product product = new Product
+            {
+                name = "TestProduct",
+                price = 24,
+                entryDate = new DateTime(2020, 1, 1),
+                stock = 20,
+                Category = category
+            };
             productDao.Create(product);
 
             List<ShoppingCartItem> lines = new List<ShoppingCartItem>();
 
-            ShoppingCartItem line1 = new ShoppingCartItem(3, false, product.id, product.name);
+            ShoppingCartItem line1 = new ShoppingCartItem(30, false, ProductMapper.ProductToProductDto(product));
 
             lines.Add(line1);
 
@@ -304,7 +445,7 @@ namespace Test.SaleServiceTests
 
             #endregion Declaracion de variables
 
-            long saleId = saleService.Buy(shoppingCart, descName, address, card.number, client.login);
+            long saleId = saleService.Buy(shoppingCart, descName, address, card.id, client.id);
         }
 
         [TestMethod]
@@ -313,33 +454,35 @@ namespace Test.SaleServiceTests
         {
             #region Declaracion de variables
 
-            Client client = new Client();
-            client.login = "client1b";
-            client.password = "password";
-            client.firstName = "firstName";
-            client.lastName = "lastName";
-            client.address = "adress";
-            client.email = "email";
-            client.role = 1;
-            client.language = 1;
+            Client client = new Client
+            {
+                login = "client",
+                password = "password",
+                firstName = "firstName",
+                lastName = "lastName",
+                address = "adress",
+                email = "email",
+                role = 1,
+                language = 1
+            };
             clientDao.Create(client);
 
-            Card card = new Card();
-            card.number = "000022223333555";
-            card.cvv = "123";
-            card.expireDate = new DateTime(2025, 1, 1);
-            card.name = "Client Name";
-            card.type = true;
+            Card card = new Card
+            {
+                number = "1111222233334444",
+                cvv = "123",
+                expireDate = new DateTime(2025, 1, 1),
+                type = true,
+                defaultCard = true,
+                Client = client
+            };
             cardDao.Create(card);
-
-            client.Cards.Add(card);
-            clientDao.Update(client);
 
             ShoppingCart shoppingCart = new ShoppingCart();
 
             #endregion Declaracion de variables
 
-            long saleId = saleService.Buy(shoppingCart, descName, address, card.number, client.login);
+            long saleId = saleService.Buy(shoppingCart, descName, address, card.id, client.id);
         }
 
         [TestMethod]
@@ -347,43 +490,49 @@ namespace Test.SaleServiceTests
         {
             #region Declaracion de variables
 
-            Client client = new Client();
-            client.login = "client2";
-            client.password = "password";
-            client.firstName = "firstName";
-            client.lastName = "lastName";
-            client.address = "adress";
-            client.email = "email";
-            client.role = 1;
-            client.language = 1;
+            Client client = new Client
+            {
+                login = "client",
+                password = "password",
+                firstName = "firstName",
+                lastName = "lastName",
+                address = "adress",
+                email = "email",
+                role = 1,
+                language = 1
+            };
             clientDao.Create(client);
 
-            Card card = new Card();
-            card.number = "4444333322221111";
-            card.cvv = "123";
-            card.expireDate = new DateTime(2025, 1, 1);
-            card.name = "Client Name";
-            card.type = true;
+            Card card = new Card
+            {
+                number = "1111222233334444",
+                cvv = "123",
+                expireDate = new DateTime(2025, 1, 1),
+                type = true,
+                defaultCard = true,
+                Client = client
+            };
             cardDao.Create(card);
 
-            client.Cards.Add(card);
-            clientDao.Update(client);
-
-            Category category = new Category();
-            category.name = "category";
+            Category category = new Category
+            {
+                name = "category"
+            };
             categoryDao.Create(category);
 
-            Product product = new Product();
-            product.name = "TestProduct";
-            product.price = 24;
-            product.entryDate = new DateTime(2020, 1, 1);
-            product.stock = 200;
-            product.Category = category;
+            Product product = new Product
+            {
+                name = "TestProduct",
+                price = 24,
+                entryDate = new DateTime(2020, 1, 1),
+                stock = 200,
+                Category = category
+            };
             productDao.Create(product);
 
             List<ShoppingCartItem> lines = new List<ShoppingCartItem>();
 
-            ShoppingCartItem line1 = new ShoppingCartItem(3, false, product.id, product.name);
+            ShoppingCartItem line1 = new ShoppingCartItem(3, false, ProductMapper.ProductToProductDto(product));
 
             lines.Add(line1);
 
@@ -391,7 +540,7 @@ namespace Test.SaleServiceTests
 
             #endregion Declaracion de variables
 
-            long saleId = saleService.Buy(shoppingCart, descName, address, card.number, client.login);
+            long saleId = saleService.Buy(shoppingCart, descName, address, card.id, client.id);
 
             SaleDTO sale = saleService.ShowSaleDetails(saleId);
 
@@ -413,68 +562,86 @@ namespace Test.SaleServiceTests
         {
             #region Declaracion de variables
 
-            Client client = new Client();
-            client.login = "client3";
-            client.password = "password";
-            client.firstName = "firstName";
-            client.lastName = "lastName";
-            client.address = "adress";
-            client.email = "email";
-            client.role = 1;
-            client.language = 1;
+            Client client = new Client
+            {
+                login = "client1",
+                password = "password",
+                firstName = "firstName",
+                lastName = "lastName",
+                address = "adress",
+                email = "email",
+                role = 1,
+                language = 1
+            };
             clientDao.Create(client);
 
-            Client client2 = new Client();
-            client2.login = "client3bis";
-            client2.password = "password";
-            client2.firstName = "firstName";
-            client2.lastName = "lastName";
-            client2.address = "adress";
-            client2.email = "email";
-            client2.role = 1;
-            client2.language = 1;
+            Client client2 = new Client
+            {
+                login = "client2",
+                password = "password",
+                firstName = "firstName",
+                lastName = "lastName",
+                address = "adress",
+                email = "email",
+                role = 1,
+                language = 1
+            };
             clientDao.Create(client2);
 
-            Card card = new Card();
-            card.number = "5555333322221111";
-            card.cvv = "123";
-            card.expireDate = new DateTime(2025, 1, 1);
-            card.name = "Client Name";
-            card.type = true;
+            Card card = new Card
+            {
+                number = "0000222233334444",
+                cvv = "123",
+                expireDate = new DateTime(2025, 1, 1),
+                type = true,
+                defaultCard = true,
+                Client = client
+            };
             cardDao.Create(card);
 
-            client.Cards.Add(card);
-            client2.Cards.Add(card);
-            clientDao.Update(client);
-            clientDao.Update(client2);
+            Card card2 = new Card
+            {
+                number = "1111222233334444",
+                cvv = "123",
+                expireDate = new DateTime(2025, 1, 1),
+                type = true,
+                defaultCard = true,
+                Client = client2
+            };
+            cardDao.Create(card2);
 
-            Category category = new Category();
-            category.name = "category";
+            Category category = new Category
+            {
+                name = "category"
+            };
             categoryDao.Create(category);
 
-            Product product = new Product();
-            product.name = "TestProduct";
-            product.price = 24;
-            product.entryDate = new DateTime(2020, 1, 1);
-            product.stock = 200;
-            product.Category = category;
+            Product product = new Product
+            {
+                name = "TestProduct",
+                price = 24,
+                entryDate = new DateTime(2020, 1, 1),
+                stock = 200,
+                Category = category
+            };
             productDao.Create(product);
 
             List<ShoppingCartItem> lines = new List<ShoppingCartItem>();
 
-            ShoppingCartItem line1 = new ShoppingCartItem(3, false, product.id, product.name);
+            ShoppingCartItem line1 = new ShoppingCartItem(3, false, ProductMapper.ProductToProductDto(product));
 
             lines.Add(line1);
 
-            ShoppingCart shoppingCart = new ShoppingCart(72, lines);
+            ShoppingCart shoppingCart1 = new ShoppingCart(72, lines);
+            ShoppingCart shoppingCart2 = new ShoppingCart(72, lines);
 
             #endregion Declaracion de variables
 
-            long saleId = saleService.Buy(shoppingCart, descName, address, card.number, client.login);
+            long saleId = saleService.Buy(shoppingCart1, descName, address, card.id, client.id);
 
-            saleService.Buy(shoppingCart, descName, address, card.number, client2.login);
+            saleService.Buy(shoppingCart2, descName, address, card2.id, client2.id);
 
-            List<SaleListItemDTO> saleList = saleService.ShowClientSaleList(client.login, 0, 1);
+            List<SaleListItemDTO> saleList = saleService.ShowClientSaleList(client.id, 0, 1);
 
             Assert.AreEqual(1, saleList.Count);
 
@@ -491,20 +658,22 @@ namespace Test.SaleServiceTests
         {
             #region Declaracion de variables
 
-            Client client = new Client();
-            client.login = "client4";
-            client.password = "password";
-            client.firstName = "firstName";
-            client.lastName = "lastName";
-            client.address = "adress";
-            client.email = "email";
-            client.role = 1;
-            client.language = 1;
+            Client client = new Client
+            {
+                login = "client",
+                password = "password",
+                firstName = "firstName",
+                lastName = "lastName",
+                address = "adress",
+                email = "email",
+                role = 1,
+                language = 1
+            };
             clientDao.Create(client);
 
             #endregion Declaracion de variables
 
-            List<SaleListItemDTO> saleList = saleService.ShowClientSaleList(client.login, 0, 1);
+            List<SaleListItemDTO> saleList = saleService.ShowClientSaleList(client.id, 0, 1);
 
             Assert.AreEqual(0, saleList.Count);
         }
