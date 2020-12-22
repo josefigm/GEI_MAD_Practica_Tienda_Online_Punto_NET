@@ -80,7 +80,7 @@ namespace Test.ClientServiceTests
             {
 
                 Client clientBd = clientService.RegisterClient(login, clearPassword,
-                        new ClientDetails(firstName, lastName, address, email, role, language));
+                        new ClientDetailsDTO(firstName, lastName, address, email, role, language));
 
                 // Check data
                 Assert.AreEqual(login, clientBd.login);
@@ -107,10 +107,10 @@ namespace Test.ClientServiceTests
 
                 // Register user and update profile details
                 clientService.RegisterClient(login, clearPassword,
-                        new ClientDetails(firstName, lastName, address, email, role, language));
+                        new ClientDetailsDTO(firstName, lastName, address, email, role, language));
 
                 var expected =
-                    new ClientDetails(firstName + "X", lastName + "X", address + "X",
+                    new ClientDetailsDTO(firstName + "X", lastName + "X", address + "X",
                         email + "X", 5, 5);
 
                 clientService.UpdateUserProfileDetails(login, expected);
@@ -139,10 +139,10 @@ namespace Test.ClientServiceTests
             {
                 // Register user
                 clientService.RegisterClient(login, clearPassword,
-                        new ClientDetails(firstName, lastName, address, email, role, language));
+                        new ClientDetailsDTO(firstName, lastName, address, email, role, language));
 
                 // Create expected LoginDetails
-                var expected = new LoginDetails(login, firstName,
+                var expected = new LoginDTO(login, firstName,
                     PasswordEncrypter.Crypt(clearPassword), role, address, language, false);
 
                 // Login with clear password
@@ -172,10 +172,10 @@ namespace Test.ClientServiceTests
             {
                 // Register user
                 clientService.RegisterClient(login, clearPassword,
-                        new ClientDetails(firstName, lastName, address, email, role, language));
+                        new ClientDetailsDTO(firstName, lastName, address, email, role, language));
 
                 // Create expected LoginDetails
-                var expected = new LoginDetails(login, firstName,
+                var expected = new LoginDTO(login, firstName,
                     PasswordEncrypter.Crypt(clearPassword), role, address, language, false);
 
                 // Login with encrypted password
@@ -201,7 +201,7 @@ namespace Test.ClientServiceTests
             {
                 // Register user
                 clientService.RegisterClient(login, clearPassword,
-                        new ClientDetails(firstName, lastName, address, email, role, language));
+                        new ClientDetailsDTO(firstName, lastName, address, email, role, language));
 
                 // Login with incorrect (clear) password
                 var real =
@@ -223,13 +223,13 @@ namespace Test.ClientServiceTests
 
                 // Creamos cliente
                 clientService.RegisterClient(login, clearPassword,
-                        new ClientDetails(firstName, lastName, address, email, role, language));
+                        new ClientDetailsDTO(firstName, lastName, address, email, role, language));
 
                 Client client = clientDao.FindByLogin(login);
 
                 // Creamos CardForm
-                CardForm cardForm =
-                    new CardForm(cardNumber, "123",
+                CardDTO cardForm =
+                    new CardDTO(cardNumber, "123",
                         new DateTime(2025, 1, 1), false, false);
 
                 // Llamamos al servicio asociando la tarjeta al cliente
@@ -257,11 +257,11 @@ namespace Test.ClientServiceTests
             {
                 // Register user
                 Client client = clientService.RegisterClient(login, clearPassword,
-                        new ClientDetails(firstName, lastName, address, email, role, language));
+                        new ClientDetailsDTO(firstName, lastName, address, email, role, language));
 
                 // Creamos CardForm
-                CardForm cardForm = 
-                    new CardForm(cardNumber, "123", 
+                CardDTO cardForm = 
+                    new CardDTO(cardNumber, "123", 
                         new DateTime(2025, 1, 1), false);
 
                 // Creamos tarjeta y la asignamos a usuario
@@ -289,11 +289,11 @@ namespace Test.ClientServiceTests
             {
                 // Register user
                 Client client = clientService.RegisterClient(login, clearPassword,
-                        new ClientDetails(firstName, lastName, address, email, role, language));
+                        new ClientDetailsDTO(firstName, lastName, address, email, role, language));
 
                 // Creamos CardForm
-                CardForm cardForm =
-                    new CardForm(cardNumber, "123",
+                CardDTO cardForm =
+                    new CardDTO(cardNumber, "123",
                         new DateTime(2025, 1, 1), false, true);
 
                 // Creamos tarjeta y la asignamos a usuario
@@ -318,11 +318,11 @@ namespace Test.ClientServiceTests
             {
                 // Register user
                 Client client = clientService.RegisterClient(login, clearPassword,
-                        new ClientDetails(firstName, lastName, address, email, role, language));
+                        new ClientDetailsDTO(firstName, lastName, address, email, role, language));
 
                 // Creamos CardForm
-                CardForm cardForm =
-                    new CardForm(cardNumber, "123",
+                CardDTO cardForm =
+                    new CardDTO(cardNumber, "123",
                         new DateTime(2025, 1, 1), false);
 
                 // Creamos tarjeta y la asignamos a usuario

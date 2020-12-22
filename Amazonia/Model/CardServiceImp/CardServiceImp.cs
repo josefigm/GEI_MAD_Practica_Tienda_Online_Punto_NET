@@ -19,7 +19,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
 
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
-        public Card CreateCardToClient(CardForm cardForm, string login)
+        public Card CreateCardToClient(CardDTO cardForm, string login)
         {
             // Recuperamos el cliente del login pasado
             Client relatedClient = ClientDao.FindByLogin(login);

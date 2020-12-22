@@ -9,7 +9,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
     /// VO Class which contains the client details
     /// </summary>
     [Serializable()]
-    public class ClientDetails
+    public class ClientDetailsDTO
     {
 
         #region Properties Region
@@ -41,7 +41,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// <param name="role">El rol del cliente.</param>
         /// <param name="language"> El lenguaje del cliente.</param>
         /// 
-        public ClientDetails(String firstName, String lastName, String address, String email, byte role, byte language)
+        public ClientDetailsDTO(String firstName, String lastName, String address, String email, byte role, byte language)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
@@ -62,7 +62,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// <param name="email">The user's email.</param>
         /// <param name="role">The user's role.</param>
         /// 
-        public ClientDetails(String firstName, String lastName, String address, String email, byte role)
+        public ClientDetailsDTO(String firstName, String lastName, String address, String email, byte role)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
@@ -74,7 +74,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 
         public override bool Equals(object obj)
         {
-            var details = obj as ClientDetails;
+            var details = obj as ClientDetailsDTO;
             return details != null &&
                    FirstName == details.FirstName &&
                    LastName == details.LastName &&
