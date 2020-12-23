@@ -270,6 +270,111 @@ namespace Test.CommentServiceTest
 
         }
 
+        [TestMethod]
+        public void AssignCommentToAdvertAndDeleteTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                #region declaration section
+                Category c1 = new Category();
+                c1.name = "Bicicletas";
+
+                categoryDao.Create(c1);
+
+                Product biciCarretera = new Product();
+
+                double price = 1200;
+                System.DateTime date = System.DateTime.Now;
+                long stock = 5;
+                string image = "ccc";
+                string description = "Bicicleta";
+                long categoryIdBicicleta = c1.id;
+
+                biciCarretera.name = "Bicicleta Felt FZ85";
+                biciCarretera.price = price;
+                biciCarretera.entryDate = date;
+                biciCarretera.stock = stock;
+                biciCarretera.image = image;
+                biciCarretera.description = description;
+                biciCarretera.categoryId = categoryIdBicicleta;
+
+                productDao.Create(biciCarretera);
+                #endregion
+
+                Client cliente = registerUser(LOGIN);
+
+                Comment newComment = new Comment();
+                newComment.title = "Review bicicleta Felt FZ85";
+                newComment.value = "Las ruedas son mejorables, por lo demas excelente bici de iniciación.";
+                newComment.productId = biciCarretera.id;
+                newComment.clientId = cliente.id;
+
+                commentDao.Create(newComment);
+
+                List<Comment> retrievedComments = commentService.FindCommentsOfProduct(biciCarretera.id);
+
+                Assert.AreEqual(retrievedComments.Count, 1);
+                Assert.AreEqual(newComment, retrievedComments[0]);
+
+                commentService.RemoveComment(newComment.id, cliente.id);
+
+                List<Comment> retrievedComments2 = commentService.FindCommentsOfProduct(biciCarretera.id);
+
+                Assert.AreEqual(retrievedComments2.Count, 0);
+            }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotAllowedToDeleteComment))]
+        public void AssignCommentToAdvertAndDeleteNotAllowedToDeleteTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                #region declaration section
+                Category c1 = new Category();
+                c1.name = "Bicicletas";
+
+                categoryDao.Create(c1);
+
+                Product biciCarretera = new Product();
+
+                double price = 1200;
+                System.DateTime date = System.DateTime.Now;
+                long stock = 5;
+                string image = "ccc";
+                string description = "Bicicleta";
+                long categoryIdBicicleta = c1.id;
+
+                biciCarretera.name = "Bicicleta Felt FZ85";
+                biciCarretera.price = price;
+                biciCarretera.entryDate = date;
+                biciCarretera.stock = stock;
+                biciCarretera.image = image;
+                biciCarretera.description = description;
+                biciCarretera.categoryId = categoryIdBicicleta;
+
+                productDao.Create(biciCarretera);
+                #endregion
+
+                Client cliente = registerUser(LOGIN);
+
+                Comment newComment = new Comment();
+                newComment.title = "Review bicicleta Felt FZ85";
+                newComment.value = "Las ruedas son mejorables, por lo demas excelente bici de iniciación.";
+                newComment.productId = biciCarretera.id;
+                newComment.clientId = cliente.id;
+
+                commentDao.Create(newComment);
+
+                List<Comment> retrievedComments = commentService.FindCommentsOfProduct(biciCarretera.id);
+
+                Assert.AreEqual(retrievedComments.Count, 1);
+                Assert.AreEqual(newComment, retrievedComments[0]);
+
+                // We test that an user cannot delete other users's comments
+                commentService.RemoveComment(newComment.id, -1);
+            }
+        }
 
         #region Additional test attributes
 
@@ -311,5 +416,3 @@ namespace Test.CommentServiceTest
 
     }
 }
-
-

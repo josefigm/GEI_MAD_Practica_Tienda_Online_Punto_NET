@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp.Exceptions
 {
     [Serializable]
-    public class AlreadyCommentedThisProduct : Exception
+    public class NotAllowedToDeleteComment : Exception
     {
-        public AlreadyCommentedThisProduct() 
-           : base("You can not comment a product you have already commented.")
+        public NotAllowedToDeleteComment()
+            : base("You can not delete a comment of another user")
         {
-        }   
+        }
     }
 }
-
