@@ -1,6 +1,7 @@
 ﻿using Es.Udc.DotNet.Amazonia.Model;
 using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp.DTOs;
 using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp.Exceptions;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao;
@@ -134,18 +135,16 @@ namespace Test.CommentServiceTest
 
                 Client cliente = registerUser(LOGIN);
 
-                Comment newComment = new Comment();
-                newComment.title = "Review bicicleta Felt FZ85";
-                newComment.value = "Las ruedas son mejorables, por lo demas excelente bici de iniciación.";
-                newComment.productId = biciCarretera.id;
-                newComment.clientId = cliente.id;
+                Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
 
-                commentDao.Create(newComment);
+                Label label = labelService.CreateLabel("Genial", newComment.id);
+                Label label2 = labelService.CreateLabel("Inmejorable", newComment.id);
 
-                List<Comment> retrievedComments = commentService.FindCommentsOfProduct(biciCarretera.id);
+                List<CommentDTO> retrievedComments = commentService.FindCommentsOfProduct(biciCarretera.id);
 
                 Assert.AreEqual(retrievedComments.Count, 1);
-                Assert.AreEqual(newComment, retrievedComments[0]);
+                Assert.AreEqual(newComment.id, retrievedComments[0].id);
+                Assert.AreEqual(2, retrievedComments[0].labels.Count);
             }
         }
 
@@ -186,7 +185,7 @@ namespace Test.CommentServiceTest
                 Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
                 Comment newComment2 = commentService.AddComment("Review 2", "Muy mala bicicleta", biciCarretera.id, cliente.id);
 
-                List<Comment> retrievedComments = commentService.FindCommentsOfProduct(biciCarretera.id);
+                List<CommentDTO> retrievedComments = commentService.FindCommentsOfProduct(biciCarretera.id);
 
                 Assert.AreEqual(retrievedComments.Count, 1);
                 Assert.AreEqual(newComment, retrievedComments[0]);
@@ -311,14 +310,14 @@ namespace Test.CommentServiceTest
 
                 commentDao.Create(newComment);
 
-                List<Comment> retrievedComments = commentService.FindCommentsOfProduct(biciCarretera.id);
+                List<CommentDTO> retrievedComments = commentService.FindCommentsOfProduct(biciCarretera.id);
 
                 Assert.AreEqual(retrievedComments.Count, 1);
-                Assert.AreEqual(newComment, retrievedComments[0]);
+                Assert.AreEqual(newComment.id, retrievedComments[0].id);
 
                 commentService.RemoveComment(newComment.id, cliente.id);
 
-                List<Comment> retrievedComments2 = commentService.FindCommentsOfProduct(biciCarretera.id);
+                List<CommentDTO> retrievedComments2 = commentService.FindCommentsOfProduct(biciCarretera.id);
 
                 Assert.AreEqual(retrievedComments2.Count, 0);
             }
@@ -366,10 +365,10 @@ namespace Test.CommentServiceTest
 
                 commentDao.Create(newComment);
 
-                List<Comment> retrievedComments = commentService.FindCommentsOfProduct(biciCarretera.id);
+                List<CommentDTO> retrievedComments = commentService.FindCommentsOfProduct(biciCarretera.id);
 
                 Assert.AreEqual(retrievedComments.Count, 1);
-                Assert.AreEqual(newComment, retrievedComments[0]);
+                Assert.AreEqual(newComment.id, retrievedComments[0].id);
 
                 // We test that an user cannot delete other users's comments
                 commentService.RemoveComment(newComment.id, -1);

@@ -1,9 +1,10 @@
-﻿using Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao;
+﻿using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp.DTOs;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
-using System.Collections.Generic;
-using System;
-using System.Management.Instrumentation;
 using Es.Udc.DotNet.ModelUtil.Transactions;
+using System;
+using System.Collections.Generic;
+using System.Management.Instrumentation;
 using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp.Exceptions;
 
 namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
@@ -40,17 +41,18 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
         /// Finds the comments of product.
         /// </summary>
         /// <param name="productId">The product identifier.</param>
-        /// <exception cref="InstanceNotFoundException"/> 
+        /// <exception cref="InstanceNotFoundException"/>
         /// <exception cref="AlreadyCommentedThisProduct"/>
         /// <returns></returns>
         [Transactional]
-        List<Comment> FindCommentsOfProduct(long productId);
+        List<CommentDTO> FindCommentsOfProduct(long productId);
+
 
         /// <summary>
         /// Finds the comments by label.
         /// </summary>
         /// <param name="labelId">The label identifier.</param>
-        /// <exception cref="InstanceNotFoundException"/> 
+        /// <exception cref="InstanceNotFoundException"/>
         /// <returns></returns>
         [Transactional]
         List<Comment> FindCommentsByLabel(long labelId);
