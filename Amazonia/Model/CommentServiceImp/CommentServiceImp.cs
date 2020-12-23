@@ -50,10 +50,23 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
             return newComment;
         }
 
+        public void RemoveComment(long commentId, long clientId)
+        {
+            Comment commentToRemove = CommentDao.Find(commentId);
 
+            if (commentToRemove == null)
+            {
+                throw new InstanceNotFoundException("The comment does not exist.");
+            }
 
+            // An user can not delete other user's comments.
+            if (commentToRemove.clientId != clientId)
+            {
+                throw new NotAllowedToDeleteComment();
+            }
 
-
+            CommentDao.Remove(commentToRemove.id);
+        }
 
         public List<Comment> FindCommentsByLabel(long labelId)
         {
@@ -72,12 +85,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
             return result;
 
         }
-
-
-
-
-
-
 
         // Optional method
         public List<Comment> FindCommentsOfProduct(long productId)
