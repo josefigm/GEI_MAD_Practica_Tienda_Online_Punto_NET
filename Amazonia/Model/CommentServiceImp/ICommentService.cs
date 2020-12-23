@@ -56,5 +56,21 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
         /// <returns></returns>
         [Transactional]
         List<Comment> FindCommentsByLabel(long labelId);
+
+        /// <summary>
+        /// Change the value and title of a comment
+        /// </summary>
+        /// <param name="commentId">The comment identifier.</param>
+        /// <param name="title">New title for the comment.</param>
+        /// <param name="value">New value for the comment.</param>
+        /// <param name="clientId">The client identifier 
+        /// who wants to change the comment.</param>
+        /// <exception cref="InstanceNotFoundException"/>
+        /// <exception cref="NotAllowedToChangeCommentException"/>
+        /// <returns></returns>
+        [Transactional]
+        Comment ChangeComment(long commentId, string title, string value, long clientId); 
+
+
     }
 }

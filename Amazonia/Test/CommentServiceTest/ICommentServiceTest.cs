@@ -7,6 +7,7 @@ using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp;
+using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
 using System.Collections.Generic;
@@ -374,6 +375,161 @@ namespace Test.CommentServiceTest
                 commentService.RemoveComment(newComment.id, -1);
             }
         }
+
+        [TestMethod]
+        public void ChangeCommentTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                #region declaration section
+                Category c1 = new Category();
+                c1.name = "Bicicletas";
+
+                categoryDao.Create(c1);
+
+                Product biciCarretera = new Product();
+
+                double price = 1200;
+                System.DateTime date = System.DateTime.Now;
+                long stock = 5;
+                string image = "ccc";
+                string description = "Bicicleta";
+                long categoryIdBicicleta = c1.id;
+
+                biciCarretera.name = "Bicicleta Felt FZ85";
+                biciCarretera.price = price;
+                biciCarretera.entryDate = date;
+                biciCarretera.stock = stock;
+                biciCarretera.image = image;
+                biciCarretera.description = description;
+                biciCarretera.categoryId = categoryIdBicicleta;
+
+                productDao.Create(biciCarretera);
+                #endregion
+
+                Client cliente = registerUser(LOGIN);
+
+                // Creamos un comentario
+                Comment newComment = new Comment();
+                newComment.title = "Review bicicleta Felt FZ85";
+                newComment.value = "Las ruedas son mejorables, por lo demas " +
+                    "excelente bici de iniciación.";
+                newComment.productId = biciCarretera.id;
+                newComment.clientId = cliente.id;
+                commentDao.Create(newComment);
+
+                // Modificamos comentario
+                string newTitle = "Review corregida Felt FZ85";
+                string newValue = "Al final no era tan buena";
+                commentService.ChangeComment(newComment.id, newTitle, 
+                    newValue, cliente.id);
+
+                // Comentario referencia
+                Comment refComment = new Comment();
+                refComment.title = newTitle;
+                refComment.value = newValue;
+                refComment.productId = biciCarretera.id;
+                refComment.clientId = cliente.id;
+
+                Assert.AreEqual(refComment.title, commentDao.Find(newComment.id).title);
+                Assert.AreEqual(refComment.value, commentDao.Find(newComment.id).value);
+            }
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(InstanceNotFoundException))]
+        public void ChangeCommentNotExistentTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                #region declaration section
+                Category c1 = new Category();
+                c1.name = "Bicicletas";
+
+                categoryDao.Create(c1);
+
+                Product biciCarretera = new Product();
+
+                double price = 1200;
+                System.DateTime date = System.DateTime.Now;
+                long stock = 5;
+                string image = "ccc";
+                string description = "Bicicleta";
+                long categoryIdBicicleta = c1.id;
+
+                biciCarretera.name = "Bicicleta Felt FZ85";
+                biciCarretera.price = price;
+                biciCarretera.entryDate = date;
+                biciCarretera.stock = stock;
+                biciCarretera.image = image;
+                biciCarretera.description = description;
+                biciCarretera.categoryId = categoryIdBicicleta;
+
+                productDao.Create(biciCarretera);
+                #endregion
+
+                Client cliente = registerUser(LOGIN);
+
+                commentService.ChangeComment(-1, "",
+                    "", cliente.id);
+            }
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(NotAllowedToChangeCommentException))]
+        public void ChangeCommentNotAllowedTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                #region declaration section
+                Category c1 = new Category();
+                c1.name = "Bicicletas";
+
+                categoryDao.Create(c1);
+
+                Product biciCarretera = new Product();
+
+                double price = 1200;
+                System.DateTime date = System.DateTime.Now;
+                long stock = 5;
+                string image = "ccc";
+                string description = "Bicicleta";
+                long categoryIdBicicleta = c1.id;
+
+                biciCarretera.name = "Bicicleta Felt FZ85";
+                biciCarretera.price = price;
+                biciCarretera.entryDate = date;
+                biciCarretera.stock = stock;
+                biciCarretera.image = image;
+                biciCarretera.description = description;
+                biciCarretera.categoryId = categoryIdBicicleta;
+
+                productDao.Create(biciCarretera);
+                #endregion
+
+                Client cliente = registerUser(LOGIN);
+                Client clienteUsurpador = registerUser(LOGIN + "usurpador");
+
+                // Creamos un comentario
+                Comment newComment = new Comment();
+                newComment.title = "Review bicicleta Felt FZ85";
+                newComment.value = "Las ruedas son mejorables, por lo demas " +
+                    "excelente bici de iniciación.";
+                newComment.productId = biciCarretera.id;
+                newComment.clientId = cliente.id;
+                commentDao.Create(newComment);
+
+                // Modificamos comentario
+                string newTitle = "Review corregida Felt FZ85";
+                string newValue = "Al final no era tan buena";
+                commentService.ChangeComment(newComment.id, newTitle,
+                    newValue, clienteUsurpador.id);
+            }
+        }
+
+
 
         #region Additional test attributes
 

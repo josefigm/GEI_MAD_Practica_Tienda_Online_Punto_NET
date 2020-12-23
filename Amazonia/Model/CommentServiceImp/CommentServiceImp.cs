@@ -125,5 +125,36 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
 
             return comments;
         }
+
+        public Comment ChangeComment(long commentId, string title, string value, long clientId)
+        {
+
+            // Recuperamos commentario : commentToChange y comprobamos que no sea nulo
+            Comment commentToChange = CommentDao.Find(commentId);
+            if (commentToChange == null)
+            {
+                throw new InstanceNotFoundException("No existe un producto con id: " 
+                    + commentId);
+            }
+
+            // Comprobamos que el propietario del comentario sea el
+            //      mismo que el que lo quiera cambiar
+            if ((clientId != commentToChange.clientId))
+            {
+                throw new NotAllowedToChangeCommentException();
+            }
+
+            // Actualizamos title
+            commentToChange.title = title;
+
+            // Actualizamos value
+            commentToChange.value = value;
+
+            // Actualizamos commentToChange en BD
+            CommentDao.Update(commentToChange);
+
+            // Devolvemos commentToChange
+            return commentToChange;
+        }
     }
 }
