@@ -80,8 +80,8 @@
     <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommentServiceTest\CommentServiceTest.cs" />
-    <Compile Include="LabelServiceTest\LabelServiceTest.cs" />
+    <Compile Include="CommentServiceTest\ICommentServiceTest.cs" />
+    <Compile Include="LabelServiceTest\ILabelServiceTest.cs" />
     <Compile Include="CardServiceTests\ICardServiceTest.cs" />
     <Compile Include="ClientServiceTests\IClientServiceTest.cs" />
     <Compile Include="ProductServiceTests\IProductServiceTest.cs" />

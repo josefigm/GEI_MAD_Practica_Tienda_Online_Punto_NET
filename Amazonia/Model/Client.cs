@@ -18,6 +18,7 @@ namespace Es.Udc.DotNet.Amazonia.Model
         public Client()
         {
             this.Cards = new HashSet<Card>();
+            this.Comments = new HashSet<Comment>();
             this.Sales = new HashSet<Sale>();
         }
     
@@ -33,6 +34,8 @@ namespace Es.Udc.DotNet.Amazonia.Model
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Card> Cards { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sale> Sales { get; set; }
     }

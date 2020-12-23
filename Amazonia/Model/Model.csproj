@@ -99,6 +99,7 @@
     <Compile Include="Comment.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="CommentServiceImp\Exceptions\AlreadyCommentedThisProduct.cs" />
     <Compile Include="CommentServiceImp\ICommentService.cs" />
     <Compile Include="CommentServiceImp\CommentServiceImp.cs" />
     <Compile Include="Computer.cs">

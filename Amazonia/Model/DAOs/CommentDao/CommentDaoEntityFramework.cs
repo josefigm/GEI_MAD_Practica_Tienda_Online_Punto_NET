@@ -7,6 +7,20 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao
 {
     public class CommentDaoEntityFramework : GenericDaoEntityFramework<Comment, long>, ICommentDao
     {
+        public List<Comment> FindCommentsOfProductAndClient(long productId, long clientId)
+        {
+            DbSet<Comment> commentList = Context.Set<Comment>();
+
+            List<Comment> result =
+                (from c in commentList
+                 where c.productId == productId &&
+                       c.clientId == clientId
+                 orderby c.date
+                 select c).ToList<Comment>();
+
+            return result;
+        }
+
         public List<Comment> FindCommentsByLabel(Label label)
         {
 
@@ -33,5 +47,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao
 
             return result;
         }
+
     }
 }
