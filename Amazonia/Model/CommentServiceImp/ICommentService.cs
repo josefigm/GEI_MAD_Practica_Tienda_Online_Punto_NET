@@ -18,17 +18,19 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
         /// <param name="title">The title.</param>
         /// <param name="value">The value.</param>
         /// <param name="productId">The product identifier.</param>
+        /// <param name="clientId">The user's login.</param>param>
         /// <exception cref="ArgumentNullException"/>
 
         /// <returns></returns>
         [Transactional]
-        Comment AddComment(string title, string value, long productId);
+        Comment AddComment(string title, string value, long productId, long clientId);
 
         /// <summary>
         /// Finds the comments of product.
         /// </summary>
         /// <param name="productId">The product identifier.</param>
         /// <exception cref="InstanceNotFoundException"/> 
+        /// <exception cref="AlreadyCommentedThisProduct"/>
         /// <returns></returns>
         [Transactional]
         List<Comment> FindCommentsOfProduct(long productId);

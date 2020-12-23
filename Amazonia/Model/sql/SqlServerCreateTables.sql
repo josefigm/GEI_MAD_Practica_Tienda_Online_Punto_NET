@@ -200,10 +200,14 @@ CREATE TABLE Comment (
 	title varchar(60) NOT NULL,
 	value varchar(1000) NOT NULL,
 	date date NOT NULL,
-	productId bigint
+	productId bigint NOT NULL,
+	clientId bigint NOT NULL,
+
+
 
 	CONSTRAINT [PK_Comment] PRIMARY KEY (id),
-	CONSTRAINT [FK_CommentProduct] FOREIGN KEY (productId) REFERENCES Product(id)
+	CONSTRAINT [FK_CommentProduct] FOREIGN KEY (productId) REFERENCES Product(id),
+	CONSTRAINT [FK_CommentClient] FOREIGN KEY (clientId) REFERENCES Client(id)
 )
 
 PRINT N'Table Comment created.'

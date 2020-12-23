@@ -5,11 +5,11 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao
 {
     public interface ICommentDao : IGenericDao<Comment, long>
     {
+        List<Comment> FindCommentsOfProductAndClient(long productId, long clientId);
+
         List<Comment> FindCommentsOfProduct(long productId);
 
         List<Comment> FindCommentsByLabel(Label label);
-
-
-
+        
     }
 }

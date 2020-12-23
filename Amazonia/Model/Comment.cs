@@ -24,8 +24,10 @@ namespace Es.Udc.DotNet.Amazonia.Model
         public string title { get; set; }
         public string value { get; set; }
         public System.DateTime date { get; set; }
-        public Nullable<long> productId { get; set; }
+        public long productId { get; set; }
+        public long clientId { get; set; }
     
+        public virtual Client Client { get; set; }
         public virtual Product Product { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Label> Labels { get; set; }

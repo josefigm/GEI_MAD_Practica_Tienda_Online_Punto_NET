@@ -1,4 +1,5 @@
 ﻿using Es.Udc.DotNet.Amazonia.Model;
+using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
@@ -25,6 +26,19 @@ namespace Test.ProductService
         private static ILabelService labelService;
         private static IProductDao productDao;
         private static ICategoryDao categoryDao;
+        private static IClientService clientService;
+
+        // Variables used in several tests are initialized here
+        private const string LOGIN = "loginTestprueba";
+        private const string LOGIN2 = "loginTestprueba2";
+        private const string LOGIN3 = "loginTestprueba3";
+        private const string CLEAR_PASSWORD = "password";
+        private const string FIRST_NAME = "name";
+        private const string LAST_NAME = "lastName";
+        private const string EMAIL = "email@testing.net";
+        private const string ADDRESS = "address";
+        private const byte ROLE = 1;
+        private const byte LANGUAGUE = 5;
 
         private TransactionScope transactionScope;
 
@@ -32,6 +46,15 @@ namespace Test.ProductService
 
         public IProductServiceTest()
         {
+        }
+
+        // Utility method to create an user
+        private Client registerUser(string login)
+        {
+            Client clientBd = clientService.RegisterClient(login, CLEAR_PASSWORD,
+                new ClientDetailsDTO(FIRST_NAME, LAST_NAME, ADDRESS, EMAIL, ROLE, LANGUAGUE));
+
+            return clientBd;
         }
 
         [TestMethod]
@@ -503,8 +526,9 @@ namespace Test.ProductService
                 #endregion Persistencia
 
                 #region Comment and label section
+                Client cliente = registerUser(LOGIN);
 
-                Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
+                Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
 
                 labelService.CreateLabel("Genial", newComment.id);
 
@@ -553,8 +577,8 @@ namespace Test.ProductService
                 #endregion Persistencia
 
                 #region Comment and label section
-
-                Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
+                Client cliente = registerUser(LOGIN2);
+                Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
                 labelService.CreateLabel("Genial", newComment.id);
 
                 #endregion Comment and label section
@@ -628,10 +652,13 @@ namespace Test.ProductService
                 #endregion Persistencia
 
                 #region Comment and label section
+                Client cliente = registerUser(LOGIN);
+                Client cliente2 = registerUser(LOGIN2);
+                Client cliente3 = registerUser(LOGIN3);
 
-                Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
-                Comment newComment2 = commentService.AddComment("Review 1", "Muy mala bicicleta", biciMontaña.id);
-                Comment newComment3 = commentService.AddComment("Review 1", "Muy buen portátil", portatil.id);
+                Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
+                Comment newComment2 = commentService.AddComment("Review 1", "Muy mala bicicleta", biciMontaña.id, cliente2.id);
+                Comment newComment3 = commentService.AddComment("Review 1", "Muy buen portátil", portatil.id, cliente3.id);
 
                 labelService.CreateLabel("Genial", newComment.id);
                 labelService.CreateLabel("Mala", newComment2.id);
@@ -683,8 +710,9 @@ namespace Test.ProductService
                 #endregion Persistencia
 
                 #region Comment and label section
+                Client cliente = registerUser(LOGIN);
 
-                Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id);
+                Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
                 labelService.CreateLabel("Genial", newComment.id);
                 labelService.CreateLabel("Buena", newComment.id);
 
@@ -717,6 +745,7 @@ namespace Test.ProductService
             productDao = kernel.Get<IProductDao>();
             commentService = kernel.Get<ICommentService>();
             labelService = kernel.Get<ILabelService>();
+            clientService = kernel.Get<IClientService>();
         }
 
         //Use ClassCleanup to run code after all tests in a class have run
