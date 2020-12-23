@@ -6,6 +6,8 @@ using System.Management.Instrumentation;
 using System.Collections.Generic;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao;
 using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp.Exceptions;
+using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp.DTOs;
+using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp.DTOs;
 
 namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
 {
@@ -50,11 +52,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
             return newComment;
         }
 
-
-
-
-
-
         public List<Comment> FindCommentsByLabel(long labelId)
         {
 
@@ -73,23 +70,42 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
 
         }
 
+        private List<LabelDTO> toLabelDTOList(ICollection<Label> labels)
+        {
+            List<LabelDTO> labelDTOs = new List<LabelDTO>();
 
+            foreach (Label label in labels)
+            {
+                labelDTOs.Add(new LabelDTO(label.id, label.value));
+            }
 
-
-
-
+            return labelDTOs;
+        }
 
         // Optional method
-        public List<Comment> FindCommentsOfProduct(long productId)
+        public List<CommentDTO> FindCommentsOfProduct(long productId)
         {
             if (ProductDao.Find(productId) == null)
             {
                 throw new InstanceNotFoundException("No existe un producto con id: " + productId);
             }
             List<Comment> result = new List<Comment>();
+            List<CommentDTO> comments = new List<CommentDTO>();
+            Comment comment;
 
             result = CommentDao.FindCommentsOfProduct(productId);
-            return result;
+
+            for (int i = 0; i < result.Count; i++)
+            {
+                comment = result[i];
+
+                comments.Add(
+                    new CommentDTO(comment.id, comment.title, comment.value, comment.date, comment.productId,
+                    comment.clientId, comment.Client.login, toLabelDTOList(comment.Labels))
+                    );
+            }
+
+            return comments;
         }
     }
 }

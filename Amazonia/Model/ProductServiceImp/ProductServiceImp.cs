@@ -9,6 +9,7 @@ using Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao;
 using Ninject;
 using System.Runtime.Caching;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
+using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp.DTOs;
 
 namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 {
@@ -234,7 +235,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
             foreach (Product product in allProducts)
             {
                 bool labelFound = false;
-                List<Comment> comments = CommentService.FindCommentsOfProduct(product.id);
+                List<CommentDTO> comments = CommentService.FindCommentsOfProduct(product.id);
                 for (int i = 0; i < comments.Count && labelFound == false; i++)
                 {
                     List<Label> labels = LabelDao.FindLabelsOfComment(comments[i].id);
