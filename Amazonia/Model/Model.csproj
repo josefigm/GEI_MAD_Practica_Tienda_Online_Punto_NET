@@ -168,9 +168,6 @@
     <Compile Include="SaleServiceImp\Exceptions\InsufficientStockException.cs" />
     <Compile Include="SaleServiceImp\ISaleService.cs" />
     <Compile Include="SaleServiceImp\SaleServiceImp.cs" />
-    <Compile Include="sysdiagram.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Model.Context.tt">

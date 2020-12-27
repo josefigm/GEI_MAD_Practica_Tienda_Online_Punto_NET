@@ -22,15 +22,16 @@ namespace Test.ClientServiceTests
     {
 
         // Variables used in several tests are initialized here
-        private const string login = "loginTestprueba";
-        private const string clearPassword = "password";
-        private const string firstName = "name";
-        private const string lastName = "lastName";
-        private const string email = "email@testing.net";
-        private const string address = "address";
-        private const byte role = 1;
-        private const string language = "en";
-        private const string cardNumber = "1111111111111111";
+        private const string LOGIN = "LOGINTestprueba";
+        private const string CLEARPASSWORD = "password";
+        private const string FIRSTNAME = "name";
+        private const string LASTNAME = "LASTNAME";
+        private const string EMAIL = "EMAIL@testing.net";
+        private const string ADDRESS = "ADDRESS";
+        private const byte ROLE = 1;
+        private const string LANGUAGE = "en";
+        private const string COUNTRY = "en";
+        private const string CARDNUMBER = "1111111111111111";
 
 
         private static IKernel kernel;
@@ -79,18 +80,19 @@ namespace Test.ClientServiceTests
             using (var scope = new TransactionScope())
             {
 
-                Client clientBd = clientService.RegisterClient(login, clearPassword,
-                        new ClientDTO(firstName, lastName, address, email, role, language));
+                Client clientBd = clientService.RegisterClient(LOGIN, CLEARPASSWORD,
+                        new ClientDTO(FIRSTNAME, LASTNAME, ADDRESS, EMAIL, ROLE, LANGUAGE, COUNTRY));
 
                 // Check data
-                Assert.AreEqual(login, clientBd.login);
-                Assert.AreEqual(PasswordEncrypter.Crypt(clearPassword), clientBd.password);
-                Assert.AreEqual(firstName, clientBd.firstName);
-                Assert.AreEqual(lastName, clientBd.lastName);
-                Assert.AreEqual(address, clientBd.address);
-                Assert.AreEqual(email, clientBd.email);
-                Assert.AreEqual(role, clientBd.role);
-                Assert.AreEqual(language, clientBd.language);
+                Assert.AreEqual(LOGIN, clientBd.login);
+                Assert.AreEqual(PasswordEncrypter.Crypt(CLEARPASSWORD), clientBd.password);
+                Assert.AreEqual(FIRSTNAME, clientBd.firstName);
+                Assert.AreEqual(LASTNAME, clientBd.lastName);
+                Assert.AreEqual(ADDRESS, clientBd.address);
+                Assert.AreEqual(EMAIL, clientBd.email);
+                Assert.AreEqual(ROLE, clientBd.role);
+                Assert.AreEqual(LANGUAGE, clientBd.language);
+                Assert.AreEqual(COUNTRY, clientBd.country);
 
                 // transaction.Complete() is not called, so Rollback is executed.
             }
@@ -106,82 +108,77 @@ namespace Test.ClientServiceTests
             {
 
                 // Register user and update profile details
-                clientService.RegisterClient(login, clearPassword,
-                        new ClientDTO(firstName, lastName, address, email, role, language));
+                clientService.RegisterClient(LOGIN, CLEARPASSWORD,
+                        new ClientDTO(FIRSTNAME, LASTNAME, ADDRESS, EMAIL, ROLE, LANGUAGE, COUNTRY));
 
-                var expected =
-                    new ClientDTO(firstName + "X", lastName + "X", address + "X",
-                        email + "X", 5, language);
+                var update =
+                    new ClientDTO(FIRSTNAME + "X", LASTNAME + "X", ADDRESS + "X",
+                        EMAIL + "X", 5, "es", "mx");
 
-                clientService.UpdateUserProfileDetails(login, expected);
+                clientService.UpdateUserProfileDetails(LOGIN, update);
 
-                var clientUpdated = clientDao.FindByLogin(login);
+                var clientUpdated = clientDao.FindByLogin(LOGIN);
 
                 // Check changes
-                Assert.AreEqual(firstName + "X", clientUpdated.firstName);
-                Assert.AreEqual(lastName + "X", clientUpdated.lastName);
-                Assert.AreEqual(address + "X", clientUpdated.address);
-                Assert.AreEqual(email + "X", clientUpdated.email);
+                Assert.AreEqual(FIRSTNAME + "X", clientUpdated.firstName);
+                Assert.AreEqual(LASTNAME + "X", clientUpdated.lastName);
+                Assert.AreEqual(ADDRESS + "X", clientUpdated.address);
+                Assert.AreEqual(EMAIL + "X", clientUpdated.email);
                 Assert.AreEqual(5, clientUpdated.role);
-                Assert.AreEqual(5, clientUpdated.language);
+                Assert.AreEqual("es", clientUpdated.language);
+                Assert.AreEqual("mx", clientUpdated.country);
 
                 // transaction.Complete() is not called, so Rollback is executed.
             }
         }
 
         /// <summary>
-        /// A test for Login with clear password
+        /// A test for LOGIN with clear password
         /// </summary>
         [TestMethod]
-        public void LoginClearPasswordAndLogoutTest()
+        public void LOGINCLEARPASSWORDTest()
         {
             using (var scope = new TransactionScope())
             {
                 // Register user
-                Client client = clientService.RegisterClient(login, clearPassword,
-                        new ClientDTO(firstName, lastName, address, email, role, language));
+                Client client = clientService.RegisterClient(LOGIN, CLEARPASSWORD,
+                        new ClientDTO(FIRSTNAME, LASTNAME, ADDRESS, EMAIL, ROLE, LANGUAGE, COUNTRY));
 
-                // Create expected LoginDetails
-                var expected = new LoginDTO(client.id, login, firstName,
-                    PasswordEncrypter.Crypt(clearPassword), role, address, language, false);
+                // Create expected LOGINDetails
+                var expected = new LoginDTO(client.id, LOGIN, FIRSTNAME,
+                    PasswordEncrypter.Crypt(CLEARPASSWORD), ROLE, ADDRESS, LANGUAGE, COUNTRY);
 
-                // Login with clear password
-                var realLoginService =
-                    clientService.Login(login, clearPassword, false);
-
-                // Check data
-                Assert.AreEqual(expected, realLoginService);
-
-                // Logout
-                clientService.Logout(realLoginService);
+                // LOGIN with clear password
+                var realLOGINService =
+                    clientService.Login(LOGIN, CLEARPASSWORD, false);
 
                 // Check data
-                Assert.AreEqual(true, realLoginService.Exit);
+                Assert.AreEqual(expected, realLOGINService);
 
                 // transaction.Complete() is not called, so Rollback is executed.
             }
         }
 
         /// <summary>
-        /// A test for Login with encrypted password
+        /// A test for LOGIN with encrypted password
         /// </summary>
         [TestMethod]
-        public void LoginEncryptedPasswordTest()
+        public void LOGINEncryptedPasswordTest()
         {
             using (var scope = new TransactionScope())
             {
                 // Register user
-                Client client = clientService.RegisterClient(login, clearPassword,
-                        new ClientDTO(firstName, lastName, address, email, role, language));
+                Client client = clientService.RegisterClient(LOGIN, CLEARPASSWORD,
+                        new ClientDTO(FIRSTNAME, LASTNAME, ADDRESS, EMAIL, ROLE, LANGUAGE, COUNTRY));
 
-                // Create expected LoginDetails
-                var expected = new LoginDTO(client.id, login, firstName,
-                    PasswordEncrypter.Crypt(clearPassword), role, address, language, false);
+                // Create expected LOGINDetails
+                var expected = new LoginDTO(client.id, LOGIN, FIRSTNAME,
+                    PasswordEncrypter.Crypt(CLEARPASSWORD), ROLE, ADDRESS, LANGUAGE, COUNTRY);
 
-                // Login with encrypted password
+                // LOGIN with encrypted password
                 var real =
-                    clientService.Login(login,
-                        PasswordEncrypter.Crypt(clearPassword), true);
+                    clientService.Login(LOGIN,
+                        PasswordEncrypter.Crypt(CLEARPASSWORD), true);
 
                 // Check data
                 Assert.AreEqual(expected, real);
@@ -191,21 +188,21 @@ namespace Test.ClientServiceTests
         }
 
         /// <summary>
-        /// A test for Login with incorrect password
+        /// A test for LOGIN with incorrect password
         /// </summary>
         [TestMethod]
         [ExpectedException(typeof(IncorrectPasswordException))]
-        public void LoginIncorrectPasswordTest()
+        public void LOGINIncorrectPasswordTest()
         {
             using (var scope = new TransactionScope())
             {
                 // Register user
-                clientService.RegisterClient(login, clearPassword,
-                        new ClientDTO(firstName, lastName, address, email, role, language));
+                clientService.RegisterClient(LOGIN, CLEARPASSWORD,
+                        new ClientDTO(FIRSTNAME, LASTNAME, ADDRESS, EMAIL, ROLE, LANGUAGE, COUNTRY));
 
-                // Login with incorrect (clear) password
+                // LOGIN with incorrect (clear) password
                 var real =
-                    clientService.Login(login, clearPassword + "jaja", false);
+                    clientService.Login(LOGIN, CLEARPASSWORD + "jaja", false);
 
                 // transaction.Complete() is not called, so Rollback is executed.
             }
@@ -222,24 +219,24 @@ namespace Test.ClientServiceTests
             {
 
                 // Creamos cliente
-                clientService.RegisterClient(login, clearPassword,
-                        new ClientDTO(firstName, lastName, address, email, role, language));
+                clientService.RegisterClient(LOGIN, CLEARPASSWORD,
+                        new ClientDTO(FIRSTNAME, LASTNAME, ADDRESS, EMAIL, ROLE, LANGUAGE, COUNTRY));
 
-                Client client = clientDao.FindByLogin(login);
+                Client client = clientDao.FindByLogin(LOGIN);
 
                 // Creamos CardForm
                 CardDTO cardForm =
-                    new CardDTO(cardNumber, "123",
+                    new CardDTO(CARDNUMBER, "123",
                         new DateTime(2025, 1, 1), false, false);
 
                 // Llamamos al servicio asociando la tarjeta al cliente
                 cardService.CreateCardToClient(cardForm, client.login);
 
                 // Listamos tarjetas del cliente
-                List<Card> listaCards = clientService.ListCardsByClientLogin(login);
+                List<Card> listaCards = clientService.ListCardsByClientLogin(LOGIN);
 
                 // Boolean -> está card creada en la lista de tarjetas del client
-                Boolean tarjetaEncontrada = listaCards.Contains(cardDao.FindByNumber(cardNumber));
+                Boolean tarjetaEncontrada = listaCards.Contains(cardDao.FindByNumber(CARDNUMBER));
 
                 // Comprobar que sí está
                 Assert.AreEqual(true, tarjetaEncontrada);
@@ -256,16 +253,16 @@ namespace Test.ClientServiceTests
             using (var scope = new TransactionScope())
             {
                 // Register user
-                Client client = clientService.RegisterClient(login, clearPassword,
-                        new ClientDTO(firstName, lastName, address, email, role, language));
+                Client client = clientService.RegisterClient(LOGIN, CLEARPASSWORD,
+                        new ClientDTO(FIRSTNAME, LASTNAME, ADDRESS, EMAIL, ROLE, LANGUAGE, COUNTRY));
 
                 // Creamos CardForm
                 CardDTO cardForm = 
-                    new CardDTO(cardNumber, "123", 
+                    new CardDTO(CARDNUMBER, "123", 
                         new DateTime(2025, 1, 1), false);
 
                 // Creamos tarjeta y la asignamos a usuario
-                cardService.CreateCardToClient(cardForm, login);
+                cardService.CreateCardToClient(cardForm, LOGIN);
 
                 // Establecemos por defecto
                 clientService.SetDefaultCard(cardForm.Number);
@@ -288,16 +285,16 @@ namespace Test.ClientServiceTests
             using (var scope = new TransactionScope())
             {
                 // Register user
-                Client client = clientService.RegisterClient(login, clearPassword,
-                        new ClientDTO(firstName, lastName, address, email, role, language));
+                Client client = clientService.RegisterClient(LOGIN, CLEARPASSWORD,
+                        new ClientDTO(FIRSTNAME, LASTNAME, ADDRESS, EMAIL, ROLE, LANGUAGE, COUNTRY));
 
                 // Creamos CardForm
                 CardDTO cardForm =
-                    new CardDTO(cardNumber, "123",
+                    new CardDTO(CARDNUMBER, "123",
                         new DateTime(2025, 1, 1), false, true);
 
                 // Creamos tarjeta y la asignamos a usuario
-                cardService.CreateCardToClient(cardForm, login);
+                cardService.CreateCardToClient(cardForm, LOGIN);
 
                 // Recuperamos tarjeta
                 Card cardBD = cardDao.FindByNumber(cardForm.Number);
@@ -317,22 +314,22 @@ namespace Test.ClientServiceTests
             using (var scope = new TransactionScope())
             {
                 // Register user
-                Client client = clientService.RegisterClient(login, clearPassword,
-                        new ClientDTO(firstName, lastName, address, email, role, language));
+                Client client = clientService.RegisterClient(LOGIN, CLEARPASSWORD,
+                        new ClientDTO(FIRSTNAME, LASTNAME, ADDRESS, EMAIL, ROLE, LANGUAGE, COUNTRY));
 
                 // Creamos CardForm
                 CardDTO cardForm =
-                    new CardDTO(cardNumber, "123",
+                    new CardDTO(CARDNUMBER, "123",
                         new DateTime(2025, 1, 1), false);
 
                 // Creamos tarjeta y la asignamos a usuario
-                cardService.CreateCardToClient(cardForm, login);
+                cardService.CreateCardToClient(cardForm, LOGIN);
 
                 // Establecemos por defecto
                 clientService.SetDefaultCard(cardForm.Number);
 
                 // Recuperamos tarjeta por defecto
-                Card cardBD = clientService.GetDefaultCard(login);
+                Card cardBD = clientService.GetDefaultCard(LOGIN);
 
                 // Comprobamos que la tarjeta esté por defecto
                 Assert.AreEqual(true, cardBD.defaultCard);

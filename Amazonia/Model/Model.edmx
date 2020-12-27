@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Es.Udc.DotNet.Amazonia.Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="amazoniaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Bike">
           <Key>
             <PropertyRef Name="productId" />
@@ -55,6 +55,7 @@
           <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="role" Type="tinyint" Nullable="false" />
           <Property Name="language" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="country" Type="varchar" MaxLength="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -127,16 +128,6 @@
           <Property Name="gift" Type="bit" Nullable="false" />
           <Property Name="productId" Type="bigint" Nullable="false" />
           <Property Name="saleId" Type="bigint" Nullable="false" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <Association Name="FK_BikeProduct">
           <End Role="Product" Type="Self.Product" Multiplicity="1">
@@ -300,7 +291,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="EsUdcDotNetAmazoniaModelStoreContainer">
+        <EntityContainer Name="amazoniaModelStoreContainer">
           <EntitySet Name="Bike" EntityType="Self.Bike" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Car" EntityType="Self.Car" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Card" EntityType="Self.Card" Schema="dbo" store:Type="Tables" />
@@ -313,7 +304,6 @@
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sale" EntityType="Self.Sale" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SaleLine" EntityType="Self.SaleLine" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_BikeProduct" Association="Self.FK_BikeProduct">
             <End Role="Product" EntitySet="Product" />
             <End Role="Bike" EntitySet="Bike" />
@@ -371,16 +361,26 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Es.Udc.DotNet.Amazonia.Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Bike" BaseType="Es.Udc.DotNet.Amazonia.Model.Product">
+      <Schema Namespace="amazoniaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bike">
+          <Key>
+            <PropertyRef Name="productId" />
+          </Key>
+          <Property Name="productId" Type="Int64" Nullable="false" />
           <Property Name="colour" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="size" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="type" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_BikeProduct" FromRole="Bike" ToRole="Product" />
         </EntityType>
-        <EntityType Name="Car" BaseType="Es.Udc.DotNet.Amazonia.Model.Product">
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="productId" />
+          </Key>
+          <Property Name="productId" Type="Int64" Nullable="false" />
           <Property Name="colour" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="model" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="enginePower" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ComputerProduct" FromRole="Car" ToRole="Product" />
         </EntityType>
         <EntityType Name="Card">
           <Key>
@@ -417,6 +417,7 @@
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="role" Type="Byte" Nullable="false" />
           <Property Name="language" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="country" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Cards" Relationship="Self.FK_CardClient" FromRole="Client" ToRole="Card" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_CommentClient" FromRole="Client" ToRole="Comment" />
           <NavigationProperty Name="Sales" Relationship="Self.FK_SaleClient" FromRole="Client" ToRole="Sale" />
@@ -435,11 +436,16 @@
           <NavigationProperty Name="Product" Relationship="Self.FK_CommentProduct" FromRole="Comment" ToRole="Product" />
           <NavigationProperty Name="Labels" Relationship="Self.CommentLabel" FromRole="Comment" ToRole="Label" />
         </EntityType>
-        <EntityType Name="Computer" BaseType="Es.Udc.DotNet.Amazonia.Model.Product">
+        <EntityType Name="Computer">
+          <Key>
+            <PropertyRef Name="productId" />
+          </Key>
+          <Property Name="productId" Type="Int64" Nullable="false" />
           <Property Name="memoryROM" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="memoryRAM" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cpuPower" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="model" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_CarProduct" FromRole="Computer" ToRole="Product" />
         </EntityType>
         <EntityType Name="Label">
           <Key>
@@ -461,8 +467,11 @@
           <Property Name="image" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="categoryId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Bike" Relationship="Self.FK_BikeProduct" FromRole="Product" ToRole="Bike" />
+          <NavigationProperty Name="Car" Relationship="Self.FK_ComputerProduct" FromRole="Product" ToRole="Car" />
           <NavigationProperty Name="Category" Relationship="Self.FK_ProductCategory" FromRole="Product" ToRole="Category" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_CommentProduct" FromRole="Product" ToRole="Comment" />
+          <NavigationProperty Name="Computer" Relationship="Self.FK_CarProduct" FromRole="Product" ToRole="Computer" />
           <NavigationProperty Name="SaleLines" Relationship="Self.FK_SaleLineProduct" FromRole="Product" ToRole="SaleLine" />
         </EntityType>
         <EntityType Name="Sale">
@@ -493,16 +502,34 @@
           <NavigationProperty Name="Product" Relationship="Self.FK_SaleLineProduct" FromRole="SaleLine" ToRole="Product" />
           <NavigationProperty Name="Sale" Relationship="Self.FK_SaleLineSale" FromRole="SaleLine" ToRole="Sale" />
         </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
+        <Association Name="FK_BikeProduct">
+          <End Role="Product" Type="Self.Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Bike" Type="Self.Bike" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Bike">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComputerProduct">
+          <End Role="Product" Type="Self.Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Car" Type="Self.Car" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Car">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CardClient">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="Card" Type="Self.Card" Multiplicity="*" />
@@ -575,6 +602,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CarProduct">
+          <End Role="Product" Type="Self.Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Computer" Type="Self.Computer" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Computer">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SaleLineProduct">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="SaleLine" Type="Self.SaleLine" Multiplicity="*" />
@@ -604,15 +645,25 @@
           <End Role="Label" Type="Self.Label" Multiplicity="*" />
         </Association>
         <EntityContainer Name="amazoniaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bikes" EntityType="Self.Bike" />
+          <EntitySet Name="Cars" EntityType="Self.Car" />
           <EntitySet Name="Cards" EntityType="Self.Card" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Clients" EntityType="Self.Client" />
           <EntitySet Name="Comments" EntityType="Self.Comment" />
+          <EntitySet Name="Computers" EntityType="Self.Computer" />
           <EntitySet Name="Labels" EntityType="Self.Label" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="Sales" EntityType="Self.Sale" />
           <EntitySet Name="SaleLines" EntityType="Self.SaleLine" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_BikeProduct" Association="Self.FK_BikeProduct">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Bike" EntitySet="Bikes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComputerProduct" Association="Self.FK_ComputerProduct">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Car" EntitySet="Cars" />
+          </AssociationSet>
           <AssociationSet Name="FK_CardClient" Association="Self.FK_CardClient">
             <End Role="Client" EntitySet="Clients" />
             <End Role="Card" EntitySet="Cards" />
@@ -637,6 +688,10 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="Comment" EntitySet="Comments" />
           </AssociationSet>
+          <AssociationSet Name="FK_CarProduct" Association="Self.FK_CarProduct">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Computer" EntitySet="Computers" />
+          </AssociationSet>
           <AssociationSet Name="FK_SaleLineProduct" Association="Self.FK_SaleLineProduct">
             <End Role="Product" EntitySet="Products" />
             <End Role="SaleLine" EntitySet="SaleLines" />
@@ -655,9 +710,29 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="EsUdcDotNetAmazoniaModelStoreContainer" CdmEntityContainer="amazoniaEntities">
+        <EntityContainerMapping StorageEntityContainer="amazoniaModelStoreContainer" CdmEntityContainer="amazoniaEntities">
+          <EntitySetMapping Name="Bikes">
+            <EntityTypeMapping TypeName="amazoniaModel.Bike">
+              <MappingFragment StoreEntitySet="Bike">
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="colour" ColumnName="colour" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cars">
+            <EntityTypeMapping TypeName="amazoniaModel.Car">
+              <MappingFragment StoreEntitySet="Car">
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="colour" ColumnName="colour" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="enginePower" ColumnName="enginePower" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Cards">
-            <EntityTypeMapping TypeName="Es.Udc.DotNet.Amazonia.Model.Card">
+            <EntityTypeMapping TypeName="amazoniaModel.Card">
               <MappingFragment StoreEntitySet="Card">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="number" ColumnName="number" />
@@ -670,7 +745,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="Es.Udc.DotNet.Amazonia.Model.Category">
+            <EntityTypeMapping TypeName="amazoniaModel.Category">
               <MappingFragment StoreEntitySet="Category">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -678,7 +753,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Clients">
-            <EntityTypeMapping TypeName="Es.Udc.DotNet.Amazonia.Model.Client">
+            <EntityTypeMapping TypeName="amazoniaModel.Client">
               <MappingFragment StoreEntitySet="Client">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="login" ColumnName="login" />
@@ -689,11 +764,12 @@
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="role" ColumnName="role" />
                 <ScalarProperty Name="language" ColumnName="language" />
+                <ScalarProperty Name="country" ColumnName="country" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Comments">
-            <EntityTypeMapping TypeName="Es.Udc.DotNet.Amazonia.Model.Comment">
+            <EntityTypeMapping TypeName="amazoniaModel.Comment">
               <MappingFragment StoreEntitySet="Comment">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="title" ColumnName="title" />
@@ -704,8 +780,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Computers">
+            <EntityTypeMapping TypeName="amazoniaModel.Computer">
+              <MappingFragment StoreEntitySet="Computer">
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="memoryROM" ColumnName="memoryROM" />
+                <ScalarProperty Name="memoryRAM" ColumnName="memoryRAM" />
+                <ScalarProperty Name="cpuPower" ColumnName="cpuPower" />
+                <ScalarProperty Name="model" ColumnName="model" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Labels">
-            <EntityTypeMapping TypeName="Es.Udc.DotNet.Amazonia.Model.Label">
+            <EntityTypeMapping TypeName="amazoniaModel.Label">
               <MappingFragment StoreEntitySet="Label">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="value" ColumnName="value" />
@@ -713,46 +800,21 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="IsTypeOf(Es.Udc.DotNet.Amazonia.Model.Product)">
+            <EntityTypeMapping TypeName="amazoniaModel.Product">
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="categoryId" ColumnName="categoryId" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="image" ColumnName="image" />
-                <ScalarProperty Name="stock" ColumnName="stock" />
-                <ScalarProperty Name="entryDate" ColumnName="entryDate" />
-                <ScalarProperty Name="price" ColumnName="price" />
                 <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-            <EntityTypeMapping TypeName="IsTypeOf(Es.Udc.DotNet.Amazonia.Model.Car)">
-              <MappingFragment StoreEntitySet="Car">
-                <ScalarProperty Name="id" ColumnName="productId" />
-                <ScalarProperty Name="enginePower" ColumnName="enginePower" />
-                <ScalarProperty Name="model" ColumnName="model" />
-                <ScalarProperty Name="colour" ColumnName="colour" />
-              </MappingFragment>
-            </EntityTypeMapping>
-            <EntityTypeMapping TypeName="IsTypeOf(Es.Udc.DotNet.Amazonia.Model.Bike)">
-              <MappingFragment StoreEntitySet="Bike">
-                <ScalarProperty Name="id" ColumnName="productId" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="size" ColumnName="size" />
-                <ScalarProperty Name="colour" ColumnName="colour" />
-              </MappingFragment>
-            </EntityTypeMapping>
-            <EntityTypeMapping TypeName="IsTypeOf(Es.Udc.DotNet.Amazonia.Model.Computer)">
-              <MappingFragment StoreEntitySet="Computer">
-                <ScalarProperty Name="id" ColumnName="productId" />
-                <ScalarProperty Name="model" ColumnName="model" />
-                <ScalarProperty Name="cpuPower" ColumnName="cpuPower" />
-                <ScalarProperty Name="memoryRAM" ColumnName="memoryRAM" />
-                <ScalarProperty Name="memoryROM" ColumnName="memoryROM" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="entryDate" ColumnName="entryDate" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="categoryId" ColumnName="categoryId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Sales">
-            <EntityTypeMapping TypeName="Es.Udc.DotNet.Amazonia.Model.Sale">
+            <EntityTypeMapping TypeName="amazoniaModel.Sale">
               <MappingFragment StoreEntitySet="Sale">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="date" ColumnName="date" />
@@ -765,7 +827,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SaleLines">
-            <EntityTypeMapping TypeName="Es.Udc.DotNet.Amazonia.Model.SaleLine">
+            <EntityTypeMapping TypeName="amazoniaModel.SaleLine">
               <MappingFragment StoreEntitySet="SaleLine">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="units" ColumnName="units" />
@@ -776,18 +838,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="Es.Udc.DotNet.Amazonia.Model.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="CommentLabel" TypeName="Es.Udc.DotNet.Amazonia.Model.CommentLabel" StoreEntitySet="CommentLabel">
+          <AssociationSetMapping Name="CommentLabel" TypeName="amazoniaModel.CommentLabel" StoreEntitySet="CommentLabel">
             <EndProperty Name="Comment">
               <ScalarProperty Name="id" ColumnName="commentId" />
             </EndProperty>

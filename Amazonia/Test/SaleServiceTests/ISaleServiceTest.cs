@@ -337,7 +337,8 @@ namespace Test.SaleServiceTests
                 address = "adress",
                 email = "email",
                 role = 1,
-                language = "en"
+                language = "en",
+                country = "en",
             };
             clientDao.Create(client);
 
@@ -404,7 +405,8 @@ namespace Test.SaleServiceTests
                 address = "adress",
                 email = "email",
                 role = 1,
-                language = "en"
+                language = "en",
+                country = "en",
             };
             clientDao.Create(client);
 
@@ -463,7 +465,8 @@ namespace Test.SaleServiceTests
                 address = "adress",
                 email = "email",
                 role = 1,
-                language = "en"
+                language = "en",
+                country = "en",
             };
             clientDao.Create(client);
 
@@ -499,7 +502,8 @@ namespace Test.SaleServiceTests
                 address = "adress",
                 email = "email",
                 role = 1,
-                language = "en"
+                language = "en",
+                country = "en",
             };
             clientDao.Create(client);
 
@@ -571,7 +575,8 @@ namespace Test.SaleServiceTests
                 address = "adress",
                 email = "email",
                 role = 1,
-                language = "en"
+                language = "en",
+                country = "en",
             };
             clientDao.Create(client);
 
@@ -584,7 +589,8 @@ namespace Test.SaleServiceTests
                 address = "adress",
                 email = "email",
                 role = 1,
-                language = "en"
+                language = "en",
+                country = "en",
             };
             clientDao.Create(client2);
 
@@ -667,7 +673,8 @@ namespace Test.SaleServiceTests
                 address = "adress",
                 email = "email",
                 role = 1,
-                language = "en"
+                language = "en",
+                country = "en",
             };
             clientDao.Create(client);
 

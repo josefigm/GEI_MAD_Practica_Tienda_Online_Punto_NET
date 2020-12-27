@@ -25,7 +25,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         Client RegisterClient(String login, String clearPassword,
             ClientDTO clientDetails);
 
-
+       
         /// <summary>
         /// Actualiza los datos de un cliente ya existente.
         /// </summary>
@@ -48,12 +48,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         [Transactional]
         LoginDTO Login(String login, String password,
             Boolean passwordIsEncrypted);
-
-        /// <summary>
-        /// Salida de sesión de un cliente autenticado.
-        /// </summary>
-        /// <exception cref="InstanceNotFoundException"/>
-        void Logout(LoginDTO loginDetails);
 
         /// <summary>
         /// Define por defecto una tarjeta para un usuario.

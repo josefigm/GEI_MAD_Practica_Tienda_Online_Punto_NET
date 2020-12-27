@@ -12,10 +12,13 @@ namespace Es.Udc.DotNet.Amazonia.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Bike : Product
+    public partial class Bike
     {
+        public long productId { get; set; }
         public string colour { get; set; }
         public string size { get; set; }
         public string type { get; set; }
+    
+        public virtual Product Product { get; set; }
     }
 }

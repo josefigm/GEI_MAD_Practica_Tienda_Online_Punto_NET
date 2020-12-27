@@ -39,6 +39,7 @@ namespace Test.ProductService
         private const string ADDRESS = "address";
         private const byte ROLE = 1;
         private const string LANGUAGUE = "en";
+        private const string COUNTRY = "en";
 
         private TransactionScope transactionScope;
 
@@ -52,7 +53,7 @@ namespace Test.ProductService
         private Client registerUser(string login)
         {
             Client clientBd = clientService.RegisterClient(login, CLEAR_PASSWORD,
-                new ClientDTO(FIRST_NAME, LAST_NAME, ADDRESS, EMAIL, ROLE, LANGUAGUE));
+                new ClientDTO(FIRST_NAME, LAST_NAME, ADDRESS, EMAIL, ROLE, LANGUAGUE, COUNTRY));
 
             return clientBd;
         }

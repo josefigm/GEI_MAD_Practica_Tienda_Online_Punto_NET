@@ -26,6 +26,8 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 
         public String Language { get; private set; }
 
+        public String Country { get; private set; }
+
 
 
         #endregion
@@ -40,8 +42,9 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// <param name="email">El email del cliente.</param>
         /// <param name="role">El rol del cliente.</param>
         /// <param name="language"> El lenguaje del cliente.</param>
+        /// <param name="country"> El país del cliente.</param>
         /// 
-        public ClientDTO(String firstName, String lastName, String address, String email, byte role, string language)
+        public ClientDTO(String firstName, String lastName, String address, String email, byte role, string language, string country)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
@@ -49,6 +52,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
             this.Email = email;
             this.Role = role;
             this.Language = language;
+            this.Country = country;
         }
 
 
@@ -70,46 +74,33 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
             this.Email = email;
             this.Role = role;
             this.Language = "en";
+            this.Country = "en";
         }
 
         public override bool Equals(object obj)
         {
-            var details = obj as ClientDTO;
-            return details != null &&
-                   FirstName == details.FirstName &&
-                   LastName == details.LastName &&
-                   Address == details.Address &&
-                   Email == details.Email &&
-                   Role == details.Role &&
-                   Language == details.Language;
+            var dTO = obj as ClientDTO;
+            return dTO != null &&
+                   FirstName == dTO.FirstName &&
+                   LastName == dTO.LastName &&
+                   Address == dTO.Address &&
+                   Email == dTO.Email &&
+                   Role == dTO.Role &&
+                   Language == dTO.Language &&
+                   Country == dTO.Country;
         }
 
         public override int GetHashCode()
         {
-            var hashCode = 1268584106;
+            var hashCode = -1217607253;
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(FirstName);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(LastName);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Address);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Email);
             hashCode = hashCode * -1521134295 + Role.GetHashCode();
-            hashCode = hashCode * -1521134295 + Language.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Language);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Country);
             return hashCode;
-        }
-
-        public override String ToString()
-        {
-            String strClientDetails;
-
-            strClientDetails =
-                "[ firstName = " + FirstName + " | " +
-                "lastName = " + LastName + " | " +
-                "address = " + Address + " | " +
-                "email = " + Email + " | " +
-                "language = " + Language + " | " +
-                "role = " + Role + " ]";
-
-
-            return strClientDetails;
         }
 
     }

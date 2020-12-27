@@ -44,6 +44,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
                 clientProfile.email = clientDetails.Email;
                 clientProfile.role = clientDetails.Role;
                 clientProfile.language = clientDetails.Language;
+                clientProfile.country = clientDetails.Country;
 
                 ClientDao.Create(clientProfile);
 
@@ -64,6 +65,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
             client.email = clientDetails.Email;
             client.role = clientDetails.Role;
             client.language = clientDetails.Language;
+            client.country = clientDetails.Country;
 
             ClientDao.Update(client);
         }
@@ -96,16 +98,9 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
             }
 
             return new LoginDTO(client.id, client.login, client.firstName,
-            client.password, client.role, client.address, client.language, false);
+            client.password, client.role, client.address, client.language, client.country);
         }
 
-        public void Logout(LoginDTO loginDetails)
-        {
-            if (!loginDetails.Exit)
-            {
-                LoginDTO.ExitLoginDetails(loginDetails);
-            }
-        }
 
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]

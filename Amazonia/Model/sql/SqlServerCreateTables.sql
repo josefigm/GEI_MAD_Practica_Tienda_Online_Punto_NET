@@ -59,6 +59,8 @@ CREATE TABLE Client (
 	email varchar(50) NOT NULL,
 	role tinyint NOT NULL,
 	language varchar(2) NOT NULL,
+	country varchar(2) NOT NULL,
+
 
 	CONSTRAINT [PK_Client] PRIMARY KEY (id)
 )

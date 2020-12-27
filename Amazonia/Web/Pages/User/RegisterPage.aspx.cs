@@ -66,7 +66,7 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.User
                 try
                 {
                     ClientDTO clientDTO =
-                        new ClientDTO(tbFirstName.Text, tbSurname.Text, tbAddress.Text, tbEmail.Text, 0, comboLanguage.SelectedValue);
+                        new ClientDTO(tbFirstName.Text, tbSurname.Text, tbAddress.Text, tbEmail.Text, 0, comboLanguage.SelectedValue, "EN");
 
                     SessionManager.RegisterUser(Context, tbLogin.Text, tbPassword.Text, clientDTO);
 
