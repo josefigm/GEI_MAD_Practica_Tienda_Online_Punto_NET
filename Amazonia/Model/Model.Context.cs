@@ -33,5 +33,6 @@ namespace Es.Udc.DotNet.Amazonia.Model
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Sale> Sales { get; set; }
         public virtual DbSet<SaleLine> SaleLines { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

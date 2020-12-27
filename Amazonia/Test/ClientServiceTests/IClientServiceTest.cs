@@ -29,7 +29,7 @@ namespace Test.ClientServiceTests
         private const string email = "email@testing.net";
         private const string address = "address";
         private const byte role = 1;
-        private const byte language = 5;
+        private const string language = "en";
         private const string cardNumber = "1111111111111111";
 
 
@@ -80,7 +80,7 @@ namespace Test.ClientServiceTests
             {
 
                 Client clientBd = clientService.RegisterClient(login, clearPassword,
-                        new ClientDetailsDTO(firstName, lastName, address, email, role, language));
+                        new ClientDTO(firstName, lastName, address, email, role, language));
 
                 // Check data
                 Assert.AreEqual(login, clientBd.login);
@@ -107,11 +107,11 @@ namespace Test.ClientServiceTests
 
                 // Register user and update profile details
                 clientService.RegisterClient(login, clearPassword,
-                        new ClientDetailsDTO(firstName, lastName, address, email, role, language));
+                        new ClientDTO(firstName, lastName, address, email, role, language));
 
                 var expected =
-                    new ClientDetailsDTO(firstName + "X", lastName + "X", address + "X",
-                        email + "X", 5, 5);
+                    new ClientDTO(firstName + "X", lastName + "X", address + "X",
+                        email + "X", 5, language);
 
                 clientService.UpdateUserProfileDetails(login, expected);
 
@@ -138,11 +138,11 @@ namespace Test.ClientServiceTests
             using (var scope = new TransactionScope())
             {
                 // Register user
-                clientService.RegisterClient(login, clearPassword,
-                        new ClientDetailsDTO(firstName, lastName, address, email, role, language));
+                Client client = clientService.RegisterClient(login, clearPassword,
+                        new ClientDTO(firstName, lastName, address, email, role, language));
 
                 // Create expected LoginDetails
-                var expected = new LoginDTO(login, firstName,
+                var expected = new LoginDTO(client.id, login, firstName,
                     PasswordEncrypter.Crypt(clearPassword), role, address, language, false);
 
                 // Login with clear password
@@ -171,11 +171,11 @@ namespace Test.ClientServiceTests
             using (var scope = new TransactionScope())
             {
                 // Register user
-                clientService.RegisterClient(login, clearPassword,
-                        new ClientDetailsDTO(firstName, lastName, address, email, role, language));
+                Client client = clientService.RegisterClient(login, clearPassword,
+                        new ClientDTO(firstName, lastName, address, email, role, language));
 
                 // Create expected LoginDetails
-                var expected = new LoginDTO(login, firstName,
+                var expected = new LoginDTO(client.id, login, firstName,
                     PasswordEncrypter.Crypt(clearPassword), role, address, language, false);
 
                 // Login with encrypted password
@@ -201,7 +201,7 @@ namespace Test.ClientServiceTests
             {
                 // Register user
                 clientService.RegisterClient(login, clearPassword,
-                        new ClientDetailsDTO(firstName, lastName, address, email, role, language));
+                        new ClientDTO(firstName, lastName, address, email, role, language));
 
                 // Login with incorrect (clear) password
                 var real =
@@ -223,7 +223,7 @@ namespace Test.ClientServiceTests
 
                 // Creamos cliente
                 clientService.RegisterClient(login, clearPassword,
-                        new ClientDetailsDTO(firstName, lastName, address, email, role, language));
+                        new ClientDTO(firstName, lastName, address, email, role, language));
 
                 Client client = clientDao.FindByLogin(login);
 
@@ -257,7 +257,7 @@ namespace Test.ClientServiceTests
             {
                 // Register user
                 Client client = clientService.RegisterClient(login, clearPassword,
-                        new ClientDetailsDTO(firstName, lastName, address, email, role, language));
+                        new ClientDTO(firstName, lastName, address, email, role, language));
 
                 // Creamos CardForm
                 CardDTO cardForm = 
@@ -289,7 +289,7 @@ namespace Test.ClientServiceTests
             {
                 // Register user
                 Client client = clientService.RegisterClient(login, clearPassword,
-                        new ClientDetailsDTO(firstName, lastName, address, email, role, language));
+                        new ClientDTO(firstName, lastName, address, email, role, language));
 
                 // Creamos CardForm
                 CardDTO cardForm =
@@ -318,7 +318,7 @@ namespace Test.ClientServiceTests
             {
                 // Register user
                 Client client = clientService.RegisterClient(login, clearPassword,
-                        new ClientDetailsDTO(firstName, lastName, address, email, role, language));
+                        new ClientDTO(firstName, lastName, address, email, role, language));
 
                 // Creamos CardForm
                 CardDTO cardForm =

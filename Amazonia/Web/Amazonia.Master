@@ -34,7 +34,7 @@
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder_MenuLinks" runat="server">
                     <asp:Label ID="lblDash1" runat="server" Text="-" />
                     <asp:HyperLink ID="lnkAuthenticate" runat="server"
-                        NavigateUrl="~/Pages/MainPage.aspx"
+                        NavigateUrl="~/Pages/User/LoginPage.aspx"
                         meta:resourcekey="lnkAuthenticate" />
                     <asp:Label ID="lblDash2" runat="server" Text="-" />
                     <asp:HyperLink ID="lnkUpdate" runat="server"
@@ -42,7 +42,7 @@
                         meta:resourcekey="lnkUpdate" />
                     <asp:Label ID="lblDash3" runat="server" Text="-" />
                     <asp:HyperLink ID="lnkLogout" runat="server"
-                        NavigateUrl="~/Pages/User/Logout.aspx"
+                        NavigateUrl="~/Pages/User/LogoutPage.aspx"
                         meta:resourcekey="lnkLogout" />
                 </asp:ContentPlaceHolder>
             </span>

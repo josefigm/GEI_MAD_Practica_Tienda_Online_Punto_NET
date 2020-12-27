@@ -1,6 +1,12 @@
 ﻿using Es.Udc.DotNet.Amazonia.Model.CardServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.CardDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleLineDao;
 using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp;
@@ -39,14 +45,28 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Util.IoC
             kernel.Bind<ILabelService>().
                 To<LabelServiceImp>();
 
-            /*** DbContext ***/
-            //string connectionString =
-            //    ConfigurationManager.ConnectionStrings["amazoniaEntities"].ConnectionString;
+            kernel.Bind<ICategoryDao>().
+              To<CategoryDaoEntityFramework>();
 
-            //kernel.Bind<DbContext>().
-             //       ToSelf().
-               //     InSingletonScope().
-                 //   WithConstructorArgument("nameOrConnectionString", connectionString);
+            kernel.Bind<IClientDao>().
+                To<ClientDaoEntityFramework>();
+
+            kernel.Bind<ICardDao>().
+                To<CardDaoEntityFramework>();
+
+            kernel.Bind<ISaleDao>().
+                To<SaleDaoEntityFramework>();
+
+            kernel.Bind<ISaleLineDao>().
+                To<SaleLineDaoEntityFramework>();
+
+            kernel.Bind<IProductDao>().
+                To<ProductDaoEntityFramework>();
+
+            /*** DbContext ***/
+            string connectionString = ConfigurationManager.ConnectionStrings["amazoniaEntities"].ConnectionString;
+
+            kernel.Bind<DbContext>().ToSelf().InSingletonScope().WithConstructorArgument("nameOrConnectionString", connectionString);
         }
 
         public T Resolve<T>()

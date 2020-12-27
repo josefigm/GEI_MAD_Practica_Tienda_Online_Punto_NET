@@ -9,7 +9,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
     /// VO Class which contains the client details
     /// </summary>
     [Serializable()]
-    public class ClientDetailsDTO
+    public class ClientDTO
     {
 
         #region Properties Region
@@ -24,7 +24,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 
         public byte Role { get; private set; }
 
-        public byte Language { get; private set; }
+        public String Language { get; private set; }
 
 
 
@@ -41,7 +41,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// <param name="role">El rol del cliente.</param>
         /// <param name="language"> El lenguaje del cliente.</param>
         /// 
-        public ClientDetailsDTO(String firstName, String lastName, String address, String email, byte role, byte language)
+        public ClientDTO(String firstName, String lastName, String address, String email, byte role, string language)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
@@ -62,19 +62,19 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// <param name="email">The user's email.</param>
         /// <param name="role">The user's role.</param>
         /// 
-        public ClientDetailsDTO(String firstName, String lastName, String address, String email, byte role)
+        public ClientDTO(String firstName, String lastName, String address, String email, byte role)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
             this.Address = address;
             this.Email = email;
             this.Role = role;
-            this.Language = 0;
+            this.Language = "en";
         }
 
         public override bool Equals(object obj)
         {
-            var details = obj as ClientDetailsDTO;
+            var details = obj as ClientDTO;
             return details != null &&
                    FirstName == details.FirstName &&
                    LastName == details.LastName &&

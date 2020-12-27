@@ -37,7 +37,7 @@ namespace Test.LabelServiceTest
         private const string EMAIL = "email@testing.net";
         private const string ADDRESS = "address";
         private const byte ROLE = 1;
-        private const byte LANGUAGUE = 5;
+        private const string LANGUAGUE = "en";
 
         private TransactionScope transactionScope;
 
@@ -52,7 +52,7 @@ namespace Test.LabelServiceTest
         private Client registerUser(string login)
         {
             Client clientBd = clientService.RegisterClient(login, CLEAR_PASSWORD,
-                new ClientDetailsDTO(FIRST_NAME, LAST_NAME, ADDRESS, EMAIL, ROLE, LANGUAGUE));
+                new ClientDTO(FIRST_NAME, LAST_NAME, ADDRESS, EMAIL, ROLE, LANGUAGUE));
 
             return clientBd;
         }

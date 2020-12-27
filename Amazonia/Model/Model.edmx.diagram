@@ -4,31 +4,31 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6cb2c9f6d61148f58ffbcc1ef31c2a79" Name="Diagram1">
-        <EntityTypeShape EntityType="Es.UDC.DotNet.AmazoniaModel.Bike" Width="1.5" PointX="5.875" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Es.UDC.DotNet.AmazoniaModel.Car" Width="1.5" PointX="4" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Es.UDC.DotNet.AmazoniaModel.Card" Width="1.5" PointX="3.5" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Es.UDC.DotNet.AmazoniaModel.Category" Width="1.5" PointX="7.75" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Es.UDC.DotNet.AmazoniaModel.Client" Width="1.5" PointX="0.875" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Es.UDC.DotNet.AmazoniaModel.Comment" Width="1.5" PointX="0.5" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Es.UDC.DotNet.AmazoniaModel.Computer" Width="1.5" PointX="2.25" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Es.UDC.DotNet.AmazoniaModel.Label" Width="1.5" PointX="0.5" PointY="12.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Es.UDC.DotNet.AmazoniaModel.Product" Width="1.5" PointX="4.25" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Es.UDC.DotNet.AmazoniaModel.Sale" Width="1.5" PointX="5.75" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Es.UDC.DotNet.AmazoniaModel.SaleLine" Width="1.5" PointX="8.25" PointY="8" IsExpanded="true" />
-        <AssociationConnector Association="Es.UDC.DotNet.AmazoniaModel.FK_CardClient" ManuallyRouted="false" />
-        <AssociationConnector Association="Es.UDC.DotNet.AmazoniaModel.FK_SaleCard" ManuallyRouted="false" />
-        <AssociationConnector Association="Es.UDC.DotNet.AmazoniaModel.FK_ProductCategory" ManuallyRouted="false" />
-        <AssociationConnector Association="Es.UDC.DotNet.AmazoniaModel.FK_CommentClient" ManuallyRouted="false" />
-        <AssociationConnector Association="Es.UDC.DotNet.AmazoniaModel.FK_SaleClient" ManuallyRouted="false" />
-        <AssociationConnector Association="Es.UDC.DotNet.AmazoniaModel.FK_CommentProduct" ManuallyRouted="false" />
-        <AssociationConnector Association="Es.UDC.DotNet.AmazoniaModel.FK_SaleLineProduct" ManuallyRouted="false" />
-        <AssociationConnector Association="Es.UDC.DotNet.AmazoniaModel.FK_SaleLineSale" ManuallyRouted="false" />
-        <AssociationConnector Association="Es.UDC.DotNet.AmazoniaModel.CommentLabel" ManuallyRouted="false" />
-        <InheritanceConnector EntityType="Es.UDC.DotNet.AmazoniaModel.Computer" />
-        <InheritanceConnector EntityType="Es.UDC.DotNet.AmazoniaModel.Car" />
-        <InheritanceConnector EntityType="Es.UDC.DotNet.AmazoniaModel.Bike" ManuallyRouted="false" >
-        </InheritanceConnector>
+      <Diagram DiagramId="461c2a0ed3a14b39a2903f8de63a553b" Name="Diagram1">
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Amazonia.Model.Bike" Width="1.5" PointX="2.625" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Amazonia.Model.Car" Width="1.5" PointX="0.625" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Amazonia.Model.Card" Width="1.5" PointX="3.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Amazonia.Model.Category" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Amazonia.Model.Client" Width="1.5" PointX="1.5" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Amazonia.Model.Comment" Width="1.5" PointX="6.5" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Amazonia.Model.Computer" Width="1.5" PointX="4.625" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Amazonia.Model.Label" Width="1.5" PointX="7.5" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Amazonia.Model.Product" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Amazonia.Model.Sale" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Amazonia.Model.SaleLine" Width="1.5" PointX="8.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="Es.Udc.DotNet.Amazonia.Model.sysdiagram" Width="1.5" PointX="7.75" PointY="5.25" IsExpanded="true" />
+        <AssociationConnector Association="Es.Udc.DotNet.Amazonia.Model.FK_CardClient" ManuallyRouted="false" />
+        <AssociationConnector Association="Es.Udc.DotNet.Amazonia.Model.FK_SaleCard" ManuallyRouted="false" />
+        <AssociationConnector Association="Es.Udc.DotNet.Amazonia.Model.FK_ProductCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="Es.Udc.DotNet.Amazonia.Model.FK_CommentClient" ManuallyRouted="false" />
+        <AssociationConnector Association="Es.Udc.DotNet.Amazonia.Model.FK_SaleClient" ManuallyRouted="false" />
+        <AssociationConnector Association="Es.Udc.DotNet.Amazonia.Model.FK_CommentProduct" ManuallyRouted="false" />
+        <AssociationConnector Association="Es.Udc.DotNet.Amazonia.Model.FK_SaleLineProduct" ManuallyRouted="false" />
+        <AssociationConnector Association="Es.Udc.DotNet.Amazonia.Model.FK_SaleLineSale" ManuallyRouted="false" />
+        <AssociationConnector Association="Es.Udc.DotNet.Amazonia.Model.CommentLabel" ManuallyRouted="false" />
+        <InheritanceConnector EntityType="Es.Udc.DotNet.Amazonia.Model.Car" />
+        <InheritanceConnector EntityType="Es.Udc.DotNet.Amazonia.Model.Bike" />
+        <InheritanceConnector EntityType="Es.Udc.DotNet.Amazonia.Model.Computer" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

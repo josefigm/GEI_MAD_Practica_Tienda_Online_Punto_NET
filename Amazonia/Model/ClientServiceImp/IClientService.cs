@@ -23,7 +23,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// <exception cref="DuplicateInstanceException"/>
         [Transactional]
         Client RegisterClient(String login, String clearPassword,
-            ClientDetailsDTO clientDetails);
+            ClientDTO clientDetails);
 
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
         void UpdateUserProfileDetails(String login,
-            ClientDetailsDTO clientDetails);
+            ClientDTO clientDetails);
 
         /// <summary>
         /// Inicia sesión de un login determinado.

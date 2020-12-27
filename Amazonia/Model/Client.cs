@@ -30,7 +30,7 @@ namespace Es.Udc.DotNet.Amazonia.Model
         public string address { get; set; }
         public string email { get; set; }
         public byte role { get; set; }
-        public byte language { get; set; }
+        public string language { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Card> Cards { get; set; }

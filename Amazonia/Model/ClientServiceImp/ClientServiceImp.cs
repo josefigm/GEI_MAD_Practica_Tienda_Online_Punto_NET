@@ -21,7 +21,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// <exception cref="DuplicateInstanceException"/>
         [Transactional]
         public Client RegisterClient(string login, string clearPassword,
-            ClientDetailsDTO clientDetails)
+            ClientDTO clientDetails)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
-        public void UpdateUserProfileDetails(string login, ClientDetailsDTO clientDetails)
+        public void UpdateUserProfileDetails(string login, ClientDTO clientDetails)
         {
             Client client = ClientDao.FindByLogin(login);
 
@@ -63,12 +63,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
             client.address = clientDetails.Address;
             client.email = clientDetails.Email;
             client.role = clientDetails.Role;
-
-            // Se cambia sólo si el valor de clientDetails enviado no es el valor por defecto
-            if (!(clientDetails.Language == 0))
-            {
-                client.language = clientDetails.Language;
-            }
+            client.language = clientDetails.Language;
 
             ClientDao.Update(client);
         }
@@ -100,7 +95,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
                 }
             }
 
-            return new LoginDTO(client.login, client.firstName,
+            return new LoginDTO(client.id, client.login, client.firstName,
             client.password, client.role, client.address, client.language, false);
         }
 

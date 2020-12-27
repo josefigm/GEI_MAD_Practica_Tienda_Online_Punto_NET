@@ -21,10 +21,10 @@
 
         #endregion Properties
 
-        public Locale(string language, string country)
+        public Locale(string language)
         {
             this.language = language;
-            this.country = country;
+            this.country = "GB";
         }
     }
 }

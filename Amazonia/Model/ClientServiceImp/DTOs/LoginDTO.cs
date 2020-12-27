@@ -15,14 +15,16 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// Initializes a new instance of the <see cref="LoginDetails"/> class.
         /// </summary>
         /// <param name="userProfileId">The user profile id.</param>
+        /// <param name="login">The user login.</param>
         /// <param name="firstName">Users's first name.</param>
         /// <param name="encryptedPassword">The encrypted password.</param>
         /// <param name="language">The language.</param>
         /// <param name="country">The country.</param>
         /// <param name="exit">The state of Login Details.</param>
-        public LoginDTO(String login, String firstName,
-            String encryptedPassword, byte role, String address, byte language, Boolean exit)
+        public LoginDTO(long userProfileId, String login, String firstName,
+            String encryptedPassword, byte role, String address, string language, Boolean exit)
         {
+            this.UserProfileId = userProfileId;
             this.Login = login;
             this.FirstName = firstName;
             this.EncryptedPassword = encryptedPassword;
@@ -33,7 +35,14 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         }
 
 
-        #region Properties Region
+        #region Properties Region        
+        /// <summary>
+        /// Gets the user profile identifier.
+        /// </summary>
+        /// <value>
+        /// The user profile identifier.
+        /// </value>
+        public long UserProfileId { get; private set; }
 
         /// <summary>
         /// Gets the login.
@@ -70,7 +79,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// Gets the Language code.
         /// </summary>
         /// <value>The user profile id.</value>
-        public byte Language { get; private set; }
+        public string Language { get; private set; }
 
         /// <summary>
         /// Especify if user is exit.

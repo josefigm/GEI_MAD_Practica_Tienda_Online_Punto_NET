@@ -337,7 +337,7 @@ namespace Test.SaleServiceTests
                 address = "adress",
                 email = "email",
                 role = 1,
-                language = 1
+                language = "en"
             };
             clientDao.Create(client);
 
@@ -404,7 +404,7 @@ namespace Test.SaleServiceTests
                 address = "adress",
                 email = "email",
                 role = 1,
-                language = 1
+                language = "en"
             };
             clientDao.Create(client);
 
@@ -463,7 +463,7 @@ namespace Test.SaleServiceTests
                 address = "adress",
                 email = "email",
                 role = 1,
-                language = 1
+                language = "en"
             };
             clientDao.Create(client);
 
@@ -499,7 +499,7 @@ namespace Test.SaleServiceTests
                 address = "adress",
                 email = "email",
                 role = 1,
-                language = 1
+                language = "en"
             };
             clientDao.Create(client);
 
@@ -571,7 +571,7 @@ namespace Test.SaleServiceTests
                 address = "adress",
                 email = "email",
                 role = 1,
-                language = 1
+                language = "en"
             };
             clientDao.Create(client);
 
@@ -584,7 +584,7 @@ namespace Test.SaleServiceTests
                 address = "adress",
                 email = "email",
                 role = 1,
-                language = 1
+                language = "en"
             };
             clientDao.Create(client2);
 
@@ -667,7 +667,7 @@ namespace Test.SaleServiceTests
                 address = "adress",
                 email = "email",
                 role = 1,
-                language = 1
+                language = "en"
             };
             clientDao.Create(client);
 
