@@ -60,8 +60,18 @@
                     <asp:Localize ID="lclLanguage" runat="server" meta:resourcekey="lclLanguage" />
                 </span>
                 <span class="entry">
-                    <asp:DropDownList ID="comboLanguage" runat="server" Width="100px" meta:resourcekey="comboLanguage"></asp:DropDownList>
+                    <asp:DropDownList ID="comboLanguage" runat="server" AutoPostBack="True" Width="100px" meta:resourcekey="comboLanguage" OnSelectedIndexChanged="ComboLanguageSelectedIndexChanged"></asp:DropDownList>
                 </span>
+        </div>
+
+        <div class="field">
+            <span class="label">
+                <asp:Localize ID="lclCountry" runat="server" meta:resourcekey="lclCountry" />
+            </span>
+            <span class="entry">
+                <asp:DropDownList ID="comboCountry" runat="server" Width="100px" meta:resourcekey="comboCountry">
+                </asp:DropDownList>
+            </span>
         </div>
 
         <div class="button">

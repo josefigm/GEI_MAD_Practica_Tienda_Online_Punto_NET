@@ -108,14 +108,14 @@ namespace Test.ClientServiceTests
             {
 
                 // Register user and update profile details
-                clientService.RegisterClient(LOGIN, CLEARPASSWORD,
+                Client client = clientService.RegisterClient(LOGIN, CLEARPASSWORD,
                         new ClientDTO(FIRSTNAME, LASTNAME, ADDRESS, EMAIL, ROLE, LANGUAGE, COUNTRY));
 
                 var update =
                     new ClientDTO(FIRSTNAME + "X", LASTNAME + "X", ADDRESS + "X",
                         EMAIL + "X", 5, "es", "mx");
 
-                clientService.UpdateUserProfileDetails(LOGIN, update);
+                clientService.UpdateUserProfileDetails(client.id, update);
 
                 var clientUpdated = clientDao.FindByLogin(LOGIN);
 

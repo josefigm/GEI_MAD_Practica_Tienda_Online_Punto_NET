@@ -10,106 +10,25 @@
 namespace Es.Udc.DotNet.Amazonia.Web.Pages.User {
     
     
-    public partial class Register {
+    public partial class UpdateClientProfilePage {
         
         /// <summary>
-        /// Control lclUserName.
+        /// Control UpdateClientProfileForm.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize lclUserName;
+        protected global::System.Web.UI.HtmlControls.HtmlForm UpdateClientProfileForm;
         
         /// <summary>
-        /// Control tbLogin.
+        /// Control lnkChangePassword.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbLogin;
-        
-        /// <summary>
-        /// Control rfvUserName.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvUserName;
-        
-        /// <summary>
-        /// Control lblLoginError.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLoginError;
-        
-        /// <summary>
-        /// Control lclPassword.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize lclPassword;
-        
-        /// <summary>
-        /// Control tbPassword.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbPassword;
-        
-        /// <summary>
-        /// Control rfvPassword.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPassword;
-        
-        /// <summary>
-        /// Control lclRetypePassword.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize lclRetypePassword;
-        
-        /// <summary>
-        /// Control tbRetypePassword.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbRetypePassword;
-        
-        /// <summary>
-        /// Control rfvRetypePassword.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvRetypePassword;
-        
-        /// <summary>
-        /// Control cvPasswordCheck.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cvPasswordCheck;
+        protected global::System.Web.UI.WebControls.HyperLink lnkChangePassword;
         
         /// <summary>
         /// Control lclFirstName.
@@ -265,12 +184,12 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.User {
         protected global::System.Web.UI.WebControls.DropDownList comboCountry;
         
         /// <summary>
-        /// Control btnRegister.
+        /// Control btnUpdate.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRegister;
+        protected global::System.Web.UI.WebControls.Button btnUpdate;
     }
 }

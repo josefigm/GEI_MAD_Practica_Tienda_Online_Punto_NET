@@ -117,11 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btnRegister.Text" xml:space="preserve">
-    <value>Sign up</value>
-  </data>
-  <data name="cvPasswordCheck.Text" xml:space="preserve">
-    <value>Passwords do not match</value>
+  <data name="btnUpdate.Text" xml:space="preserve">
+    <value>Update</value>
   </data>
   <data name="lclAddress.Text" xml:space="preserve">
     <value>Address</value>
@@ -133,24 +130,15 @@
     <value>Email</value>
   </data>
   <data name="lclFirstName.Text" xml:space="preserve">
-    <value>First name</value>
+    <value>First Name</value>
   </data>
   <data name="lclLanguage.Text" xml:space="preserve">
     <value>Language</value>
   </data>
-  <data name="lclLogin.Text" xml:space="preserve">
-    <value>Login</value>
-  </data>
-  <data name="lclPassword.Text" xml:space="preserve">
-    <value>Password</value>
-  </data>
-  <data name="lclRepeatPassword.Text" xml:space="preserve">
-    <value>Repeat the password</value>
-  </data>
   <data name="lclSurname.Text" xml:space="preserve">
-    <value>Last name</value>
+    <value>Surname</value>
   </data>
-  <data name="revEmail.Text" xml:space="preserve">
-    <value>Incorrect syntax</value>
+  <data name="lnkChangePassword.Text" xml:space="preserve">
+    <value>Change Password</value>
   </data>
 </root>

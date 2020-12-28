@@ -92,6 +92,7 @@
     </Compile>
     <Compile Include="ClientServiceImp\DTOs\ClientDTO.cs" />
     <Compile Include="ClientServiceImp\ClientServiceImp.cs" />
+    <Compile Include="ClientServiceImp\DTOs\ClientMapper.cs" />
     <Compile Include="ClientServiceImp\Exceptions\IncorrectPasswordException.cs" />
     <Compile Include="ClientServiceImp\IClientService.cs" />
     <Compile Include="ClientServiceImp\DTOs\LoginDTO.cs" />

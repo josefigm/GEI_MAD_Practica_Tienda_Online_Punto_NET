@@ -69,7 +69,7 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Session
             userSession.UserProfileId = clientId;
             userSession.FirstName = clientDTO.FirstName;
 
-            Locale locale = new Locale(clientDTO.Language);
+            Locale locale = new Locale(clientDTO.Language, clientDTO.Country);
 
             SessionManager.UpdateSessionForAuthenticatedUser(context, userSession, locale);
 
@@ -129,7 +129,7 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Session
             userSession.FirstName = loginDTO.FirstName;
 
             Locale locale =
-                new Locale(loginDTO.Language);
+                new Locale(loginDTO.Language, loginDTO.Country);
 
             UpdateSessionForAuthenticatedUser(context, userSession, locale);
 
@@ -241,5 +241,45 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Session
                 return;
             }
         }
+
+        /// <summary>
+        /// Finds the client profile with the id stored in the session.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <returns></returns>
+        public static ClientDTO FindClientProfileDetails(HttpContext context)
+        {
+            UserSession userSession =
+                (UserSession)context.Session[USER_SESSION_ATTRIBUTE];
+
+            ClientDTO userProfileDetails = clientService.GetClientDTO(userSession.UserProfileId);
+
+            return userProfileDetails;
+        }
+
+        /// <summary>
+        /// Updates the client profile details.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="clientDTO">The client profile details.</param>
+        public static void UpdateUserProfileDetails(HttpContext context,
+            ClientDTO clientDTO)
+        {
+            /* Update user's profile details. */
+
+            UserSession userSession = (UserSession)context.Session[USER_SESSION_ATTRIBUTE];
+
+            clientService.UpdateUserProfileDetails(userSession.UserProfileId, clientDTO);
+
+            /* Update user's session objects. */
+
+            Locale locale = new Locale(clientDTO.Language, clientDTO.Country);
+
+            userSession.FirstName = clientDTO.FirstName;
+
+            UpdateSessionForAuthenticatedUser(context, userSession, locale);
+        }
+
+
     }
 }

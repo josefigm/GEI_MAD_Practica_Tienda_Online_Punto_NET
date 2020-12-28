@@ -55,6 +55,29 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
             this.Country = country;
         }
 
+        /// <summary>
+        /// Initializes whit language a new instance of the <see cref="ClientDetails"/>
+        /// class.
+        /// </summary>
+        /// <param name="firstName">El Nombre del cliente.</param>
+        /// <param name="lastName">El Apellido del cliente.</param>
+        /// <param name="address">La dirección del cliente.</param>
+        /// <param name="email">El email del cliente.</param>
+        /// <param name="language"> El lenguaje del cliente.</param>
+        /// <param name="country"> El país del cliente.</param>
+        /// 
+        public ClientDTO(String firstName, String lastName, String address, String email, string language, string country)
+        {
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.Address = address;
+            this.Email = email;
+            this.Role = 0;
+            this.Language = language;
+            this.Country = country;
+        }
+
+
 
         /// <summary>
         /// Initializes whitout language a new instance of the <see cref="ClientDetails"/>

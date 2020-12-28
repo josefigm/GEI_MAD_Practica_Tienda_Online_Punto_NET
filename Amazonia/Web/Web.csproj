@@ -100,6 +100,7 @@
     <Content Include="Pages\User\LoginPage.aspx" />
     <Content Include="Pages\User\LogoutPage.aspx" />
     <Content Include="Pages\User\RegisterPage.aspx" />
+    <Content Include="Pages\User\UpdateClientProfilePage.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +131,7 @@
     <Compile Include="HTTP\Session\UserSession.cs" />
     <Compile Include="HTTP\Util\CookiesManager.cs" />
     <Compile Include="HTTP\Util\IoC\IoCManagerNinject.cs" />
+    <Compile Include="HTTP\View\ApplicationObjects\Countries.cs" />
     <Compile Include="HTTP\View\ApplicationObjects\Languages.cs" />
     <Compile Include="HTTP\View\ApplicationObjects\Locale.cs" />
     <Compile Include="Pages\MainPage.aspx.cs">
@@ -160,6 +162,14 @@
     <Compile Include="Pages\User\RegisterPage.aspx.designer.cs">
       <DependentUpon>RegisterPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\User\UpdateClientProfilePage.aspx.cs">
+      <DependentUpon>UpdateClientProfilePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\User\UpdateClientProfilePage.aspx.designer.cs">
+      <DependentUpon>UpdateClientProfilePage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\User\Util\LanguagesAndCountriesUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +223,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\User\App_LocalResources\RegisterPage.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\User\App_LocalResources\UpdateClientProfilePage.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\User\App_LocalResources\UpdateClientProfilePage.aspx.es.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

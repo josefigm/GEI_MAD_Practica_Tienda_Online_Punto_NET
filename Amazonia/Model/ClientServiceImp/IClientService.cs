@@ -29,11 +29,11 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// <summary>
         /// Actualiza los datos de un cliente ya existente.
         /// </summary>
-        /// <param name="login"> The user profile id. </param>
+        /// <param name="id"> The user profile id. </param>
         /// <param name="clientDetails"> The user profile details. </param>
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
-        void UpdateUserProfileDetails(String login,
+        void UpdateUserProfileDetails(long id,
             ClientDTO clientDetails);
 
         /// <summary>
@@ -69,6 +69,13 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
         Card GetDefaultCard(string login);
+
+        /// <summary>
+        /// Recuperar ClientDTO
+        /// </summary>
+        /// <exception cref="InstanceNotFoundException"/>
+        [Transactional]
+        ClientDTO GetClientDTO(long id);
 
     }
 }

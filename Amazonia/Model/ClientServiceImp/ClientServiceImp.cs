@@ -7,6 +7,7 @@ using Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao;
 using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp.Exceptions;
 using System.Collections.Generic;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CardDao;
+using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp.DTOs;
 
 namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 {
@@ -55,9 +56,9 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
-        public void UpdateUserProfileDetails(string login, ClientDTO clientDetails)
+        public void UpdateUserProfileDetails(long id, ClientDTO clientDetails)
         {
-            Client client = ClientDao.FindByLogin(login);
+            Client client = ClientDao.Find(id);
 
             client.firstName = clientDetails.FirstName;
             client.lastName = clientDetails.LastName;
@@ -137,6 +138,15 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
             }
 
             return null;
+        }
+
+        public ClientDTO GetClientDTO(long id)
+        {
+
+            Client client = ClientDao.Find(id);
+
+            return ClientMapper.ClientToClientDTO(client);
+
         }
     }
 }
