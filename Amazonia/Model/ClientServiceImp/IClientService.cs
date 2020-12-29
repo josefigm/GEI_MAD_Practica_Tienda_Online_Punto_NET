@@ -77,5 +77,16 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         [Transactional]
         ClientDTO GetClientDTO(long id);
 
+        /// <summary>
+        /// Changes the password.
+        /// </summary>
+        /// <param name="clientId"> The client id. </param>
+        /// <param name="oldClearPassword"> The old clear password. </param>
+        /// <param name="newClearPassword"> The new clear password. </param>
+        /// <exception cref="IncorrectPasswordException"/>
+        /// <exception cref="InstanceNotFoundException"/>
+        void ChangePassword(long clientId, String oldClearPassword,
+            String newClearPassword);
+
     }
 }

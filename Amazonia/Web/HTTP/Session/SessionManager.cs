@@ -280,6 +280,28 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Session
             UpdateSessionForAuthenticatedUser(context, userSession, locale);
         }
 
+        /// <summary>
+        /// Changes the user's password
+        /// </summary>
+        /// <param name="context">Http Context includes request, response, etc.</param>
+        /// <param name="oldClearPassword">The old password in clear text</param>
+        /// <param name="newClearPassword">The new password in clear text</param>
+        /// <exception cref="IncorrectPasswordException"/>
+        public static void ChangePassword(HttpContext context,
+               String oldClearPassword, String newClearPassword)
+        {
+            UserSession userSession =
+                (UserSession)context.Session[USER_SESSION_ATTRIBUTE];
+
+            clientService.ChangePassword(userSession.UserProfileId,
+                oldClearPassword, newClearPassword);
+
+            /* Remove cookies. */
+            CookiesManager.RemoveCookies(context);
+        }
+
+
+
 
     }
 }

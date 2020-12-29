@@ -4,7 +4,7 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder_BodyContent" runat="server">
     <div id="form">
         <form id="UpdateClientProfileForm" method="POST" runat="server">
-            <asp:HyperLink ID="lnkChangePassword" runat="server" NavigateUrl="~/Pages/User/ChangePassword.aspx" meta:resourcekey="lnkChangePassword"/>
+            <asp:HyperLink ID="lnkChangePassword" runat="server" NavigateUrl="~/Pages/User/ChangePasswordPage.aspx" meta:resourcekey="lnkChangePassword"/>
             <div class="field">
                 <span class="label">
                     <asp:Localize ID="lclFirstName" runat="server" meta:resourcekey="lclFirstName" />

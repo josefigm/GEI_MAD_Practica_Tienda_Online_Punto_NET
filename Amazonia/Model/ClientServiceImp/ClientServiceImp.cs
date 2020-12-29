@@ -148,5 +148,25 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
             return ClientMapper.ClientToClientDTO(client);
 
         }
+
+        /// <exception cref="IncorrectPasswordException"/>
+        /// <exception cref="InstanceNotFoundException"/>
+        public void ChangePassword(long clientId, string oldClearPassword, string newClearPassword)
+        {
+
+            Client userProfile = ClientDao.Find(clientId);
+            String enStoredPassword = userProfile.password;
+
+            if (!PasswordEncrypter.IsClearPasswordCorrect(oldClearPassword,
+                 enStoredPassword))
+            {
+                throw new IncorrectPasswordException(userProfile.login);
+            }
+
+            userProfile.password = PasswordEncrypter.Crypt(newClearPassword);
+
+            ClientDao.Update(userProfile);
+
+        }
     }
 }

@@ -11,6 +11,7 @@ using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp.Exceptions;
 using Es.Udc.DotNet.Amazonia.Model.CardServiceImp;
 using Es.Udc.DotNet.Amazonia.Model;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CardDao;
+using Es.Udc.DotNet.ModelUtil.Exceptions;
 
 namespace Test.ClientServiceTests
 {
@@ -22,6 +23,7 @@ namespace Test.ClientServiceTests
     {
 
         // Variables used in several tests are initialized here
+        private const long NON_EXISTENT_USER_ID = 99999999;
         private const string LOGIN = "LOGINTestprueba";
         private const string CLEARPASSWORD = "password";
         private const string FIRSTNAME = "name";
@@ -335,6 +337,62 @@ namespace Test.ClientServiceTests
                 Assert.AreEqual(true, cardBD.defaultCard);
 
             }
+        }
+
+        /// <summary>
+        /// A test for ChangePassword
+        /// </summary>
+        [TestMethod]
+        public void ChangePasswordTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                // Register client
+                Client client = clientService.RegisterClient(LOGIN, CLEARPASSWORD,
+                        new ClientDTO(FIRSTNAME, LASTNAME, ADDRESS, EMAIL, ROLE, LANGUAGE, COUNTRY));
+
+                // Change password
+                var newClearPassword = CLEARPASSWORD + "X";
+                clientService.ChangePassword(client.id, CLEARPASSWORD, newClearPassword);
+
+                // Try to login with the new password. If the login is correct, then the password
+                // was successfully changed.
+                clientService.Login(LOGIN, newClearPassword, false);
+
+                // transaction.Complete() is not called, so Rollback is executed.
+            }
+        }
+
+        /// <summary>
+        /// A test for ChangePassword entering a wrong old password
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(IncorrectPasswordException))]
+        public void ChangePasswordWithIncorrectPasswordTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+                // Register client
+                Client client = clientService.RegisterClient(LOGIN, CLEARPASSWORD,
+                        new ClientDTO(FIRSTNAME, LASTNAME, ADDRESS, EMAIL, ROLE, LANGUAGE, COUNTRY));
+
+                // Change password
+                var newClearPassword = CLEARPASSWORD + "X";
+                clientService.ChangePassword(client.id, CLEARPASSWORD + "Y", newClearPassword);
+
+                // transaction.Complete() is not called, so Rollback is executed.
+            }
+        }
+
+        /// <summary>
+        /// A test for ChangePassword when the user does not exist
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(InstanceNotFoundException))]
+        public void ChangePasswordForNonExistingUserTest()
+        {
+            clientService.ChangePassword(NON_EXISTENT_USER_ID,
+                CLEARPASSWORD, CLEARPASSWORD + "X");
         }
 
 
