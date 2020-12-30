@@ -18,12 +18,25 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
         /// <summary>
         /// Crear tarjeta y asignar a un cliente.
         /// </summary>
-        /// <param name="cardNumber">The cardNumber.</param>
-        /// <param name="login">The comment identifier.</param>
+        /// <param name="cardDTO">The card information.</param>
+        /// <param name="id">The client identifier.</param>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="InstanceNotFoundException"/>
         /// <returns></returns>
         [Transactional]
-        Card CreateCardToClient(CardDTO cardForm, string login);
+        Card CreateCardToClient(CardDTO cardForm, long id);
+
+        /// <summary>
+        /// Actualiza los datos de una tarjeta ya existente.
+        /// </summary>
+        /// <param name="id"> The card id. </param>
+        /// <param name="cardDTO"> The user profile details. </param>
+        /// <exception cref="InstanceNotFoundException"/>
+        [Transactional]
+        void UpdateCardDetails(CardDTO cardDTO);
+
+
+
+
     }
 }

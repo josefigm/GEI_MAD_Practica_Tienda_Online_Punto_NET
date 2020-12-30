@@ -8,6 +8,8 @@ using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp.Exceptions;
 using System.Collections.Generic;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CardDao;
 using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp.DTOs;
+using Es.Udc.DotNet.Amazonia.Model.CardServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.CardServiceImp.DTOs;
 
 namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 {
@@ -107,7 +109,22 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         [Transactional]
         public void SetDefaultCard(string numberCard)
         {
+
+            // Recuperamos tarjeta
             Card card = CardDao.FindByNumber(numberCard);
+
+            // Nos aseguramos de que no haya ninguna tarjeta por 
+            // defecto del usuario
+            Client client = card.Client;
+            List<Card> clientCards = ClientDao.FindCardsOfClient(ClientDao.Find(client.id));
+            foreach (Card cardItem in clientCards)
+            {
+                cardItem.defaultCard = false;
+            }
+
+            // Ponemos el boolean de tarjeta por defecto a true
+            //  a la tarjeta que se quiere poner por defecto
+            //Card card = CardDao.FindByNumber(numberCard);
             card.defaultCard = true;
 
             CardDao.Update(card);
@@ -115,16 +132,29 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
-        public List<Card> ListCardsByClientLogin(String login)
+        public List<CardDTO> ListCardsByClientId(long clientId)
         {
-            return ClientDao.FindCardsOfClient(ClientDao.FindByLogin(login));
+            List<Card>  listCards = ClientDao.FindCardsOfClient(ClientDao.Find(clientId));
+            List<CardDTO> listCardDTO = new List<CardDTO>();
+
+            foreach (Card cardItem in listCards)
+            {
+                listCardDTO.Add(CardMapper.CardToCardDTO(cardItem));
+            }
+
+            return listCardDTO;
         }
 
-        public Card GetDefaultCard(string login)
+        /// <exception cref="InstanceNotFoundException"/>
+        public Card GetDefaultCard(long clientId)
         {
 
-            // Recuperamos cliente por el login
-            Client client = ClientDao.FindByLogin(login);
+            // Recuperamos cliente por el id
+            Client client = ClientDao.Find(clientId);
+            if (client == null)
+            {
+
+            }
 
             // Recuperamos tarjeta del cliente con el booleano defaultCard a true
             List<Card> cardList = ClientDao.FindCardsOfClient(client);

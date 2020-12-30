@@ -22,18 +22,28 @@ namespace Test.CardServiceTests
     {
 
         // Variables used in several tests are initialized here
-        private const string login = "aloginTest";
-        private const string login2 = "aloginTest2";
-        private const string login3 = "aloginTest3";
-        private const string login4 = "aloginTest4";
-        private const string login5 = "aloginTest5";
-        private const string clearPassword = "password";
-        private const string firstName = "name";
-        private const string lastName = "lastName";
-        private const string email = "email@testing.net";
-        private const string address = "address";
-        private const byte role = 1;
-        private const byte language = 5;
+        private const string LOGIN = "aloginTest";
+        private const string CLEARPASSWORD= "password";
+        private const string FIRSTNAME = "name";
+        private const string LASTNAME = "lastName";
+        private const string EMAIL = "email@testing.net";
+        private const string ADDRESS = "address";
+        private const byte ROLE = 0;
+        private const string LANGUAGE = "es";
+        private const string COUNTRY = "es";
+
+        private const string NUMBER = "1111222233334441";
+        private const string OTHER_NUMBER = "1111222233334442";
+
+        private const string CVV = "123";
+        private DateTime EXPIREDATE = new DateTime(2025, 1, 1);
+        private const bool TYPE = true;
+        private const bool DEFAULTCARD = false;
+
+        private const string CVV2 = "987";
+        private DateTime EXPIREDATE2 = new DateTime(2029, 1, 1);
+        private const bool TYPE2 = false;
+
 
 
         private static IKernel kernel;
@@ -49,6 +59,13 @@ namespace Test.CardServiceTests
         public ICardServiceTest()
         {
         }
+
+        public static bool SameCard(Card obj)
+        {
+            return obj.number==NUMBER && obj.cvv==CVV;
+        }
+
+        Predicate<Card> predicate = SameCard;
 
         #region Atributos de prueba adicionales
         //
@@ -73,43 +90,94 @@ namespace Test.CardServiceTests
         #endregion
 
 
+        // <summary>
+        // Añadir tarjeta a un usuario test
+        // </summary>
+        [TestMethod]
+        public void TestAddCardToClient()
+        {
+
+            using (var scope = new TransactionScope())
+            {
+
+                // Creamos DTO tarjeta
+                CardDTO cardDTO = new CardDTO(NUMBER, CVV, EXPIREDATE, TYPE, DEFAULTCARD);
+
+                // Creamos cliente
+                Client client = clientService.RegisterClient(LOGIN, CLEARPASSWORD,
+                        new ClientDTO(FIRSTNAME, LASTNAME, ADDRESS, EMAIL, ROLE, LANGUAGE, COUNTRY));
+
+                // Llamamos al servicio asociando la tarjeta al cliente
+                Card card = cardService.CreateCardToClient(cardDTO, client.id);
+
+                // Listamos tarjetas del cliente
+                List<Card> listaCards = clientDao.FindCardsOfClient(client);
+
+                // Comprobamos números de tarjetas
+                int numTarjetas = listaCards.Count;
+                Assert.AreEqual(1, numTarjetas);
+
+                // Comprobamos que Client.Cards contenga la card creada
+                Card firstSameCard = listaCards.Find(predicate);
+                Assert.AreEqual(card, firstSameCard);
+
+                // Comprobamos que card tenga asignado client
+                Card cardBd = cardDao.Find(card.id);
+                Assert.AreEqual(client.id, cardBd.clientId);
+                Assert.AreEqual(client, cardBd.Client);
+
+                // Comprobamos que al ser la primera, será por defecto
+                Assert.AreEqual(true, cardBd.defaultCard);
+
+                // Creamos nueva tarjeta y la asociamos al cliente
+                CardDTO cardDTO2 = new CardDTO(OTHER_NUMBER, CVV, EXPIREDATE, TYPE, true);
+                Card card2 = cardService.CreateCardToClient(cardDTO2, client.id);
+
+                // Comprobamos que al crearla no se definiera por defecto y no afectara a la original
+                Assert.AreEqual(false, card2.defaultCard);
+                Assert.AreEqual(true, card.defaultCard);
+
+            }
+        }
+
         /// <summary>
-        /// Añadir tarjeta a un usuario test
+        /// A test for UpdateUserProfileDetails
         /// </summary>
-        //[TestMethod]
-        //public void TestAddCardToClient()
-        //{
+        [TestMethod]
+        public void TestUpdateUserProfileDetails()
+        {
+            using (var scope = new TransactionScope())
+            {
 
-        //    using (var scope = new TransactionScope())
-        //    {
+                // Creamos DTO tarjeta
+                CardDTO cardDTO = new CardDTO(NUMBER, CVV, EXPIREDATE, TYPE, DEFAULTCARD);
 
-        //        // Creamos cliente
-        //        clientService.RegisterClient(login, clearPassword,
-        //                new ClientDetails(firstName, lastName, address, email, role, language));
+                // Creamos cliente
+                Client client = clientService.RegisterClient(LOGIN, CLEARPASSWORD,
+                        new ClientDTO(FIRSTNAME, LASTNAME, ADDRESS, EMAIL, ROLE, LANGUAGE, COUNTRY));
 
-        //        Client client = clientDao.FindByLogin(login);
+                // Llamamos al servicio asociando la tarjeta al cliente
+                Card card = cardService.CreateCardToClient(cardDTO, client.id);
 
-        //        // Creamos tarjeta
-        //        Card card = new Card();
-        //        card.number = "1111222233334444";
-        //        card.cvv = "123";
-        //        card.expireDate = new DateTime(2025, 1, 1);
-        //        card.name = "Client Name";
-        //        card.type = true;
-        //        cardDao.Create(card);
+                // Creamos nuevo dto a actualizar (cambiando lo que no debería actualizar)
+                CardDTO newCardDTO = new CardDTO(NUMBER, CVV2, EXPIREDATE2, TYPE2, false);
 
-        //        // Llamamos al servicio asociando la tarjeta al cliente
-        //        cardService.CreateCardToClient(card, login);
+                // Actualizamos tarjeta
+                cardService.UpdateCardDetails(newCardDTO);
 
-        //        // Listamos tarjetas del cliente
-        //        List<Card> listaCards = clientService.ListCardsByClientLogin(login);
+                Card cardBD = cardDao.Find(card.id);
 
-        //        Boolean tarjetaEncontrada = listaCards.Contains(card);
+                Assert.AreEqual(NUMBER, cardBD.number);
+                Assert.AreEqual(CVV2, cardBD.cvv);
+                Assert.AreEqual(EXPIREDATE2, cardBD.expireDate);
+                Assert.AreEqual(TYPE2, cardBD.type);
+                // Es true porque es la única
+                Assert.AreEqual(true, cardBD.defaultCard);
 
-        //        Assert.AreEqual(true, tarjetaEncontrada);
 
-        //    }
-        //}
+                // transaction.Complete() is not called, so Rollback is executed.
+            }
+        }
 
 
         #region Additional test attributes

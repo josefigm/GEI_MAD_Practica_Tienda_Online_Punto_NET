@@ -34,6 +34,7 @@ namespace Test.ClientServiceTests
         private const string LANGUAGE = "en";
         private const string COUNTRY = "en";
         private const string CARDNUMBER = "1111111111111111";
+        private const string OTHER_CARDNUMBER = "1111111111111112";
 
 
         private static IKernel kernel;
@@ -138,7 +139,7 @@ namespace Test.ClientServiceTests
         /// A test for LOGIN with clear password
         /// </summary>
         [TestMethod]
-        public void LOGINCLEARPASSWORDTest()
+        public void LoginClearPasswordTest()
         {
             using (var scope = new TransactionScope())
             {
@@ -165,7 +166,7 @@ namespace Test.ClientServiceTests
         /// A test for LOGIN with encrypted password
         /// </summary>
         [TestMethod]
-        public void LOGINEncryptedPasswordTest()
+        public void LoginEncryptedPasswordTest()
         {
             using (var scope = new TransactionScope())
             {
@@ -194,7 +195,7 @@ namespace Test.ClientServiceTests
         /// </summary>
         [TestMethod]
         [ExpectedException(typeof(IncorrectPasswordException))]
-        public void LOGINIncorrectPasswordTest()
+        public void LoginIncorrectPasswordTest()
         {
             using (var scope = new TransactionScope())
             {
@@ -221,24 +222,22 @@ namespace Test.ClientServiceTests
             {
 
                 // Creamos cliente
-                clientService.RegisterClient(LOGIN, CLEARPASSWORD,
+                Client client = clientService.RegisterClient(LOGIN, CLEARPASSWORD,
                         new ClientDTO(FIRSTNAME, LASTNAME, ADDRESS, EMAIL, ROLE, LANGUAGE, COUNTRY));
-
-                Client client = clientDao.FindByLogin(LOGIN);
 
                 // Creamos CardForm
                 CardDTO cardForm =
                     new CardDTO(CARDNUMBER, "123",
-                        new DateTime(2025, 1, 1), false, false);
+                        new DateTime(2025, 1, 1), false, true);
 
                 // Llamamos al servicio asociando la tarjeta al cliente
-                cardService.CreateCardToClient(cardForm, client.login);
+                cardService.CreateCardToClient(cardForm, client.id);
 
                 // Listamos tarjetas del cliente
-                List<Card> listaCards = clientService.ListCardsByClientLogin(LOGIN);
+                List<CardDTO> listaCards = clientService.ListCardsByClientId(client.id);
 
                 // Boolean -> está card creada en la lista de tarjetas del client
-                Boolean tarjetaEncontrada = listaCards.Contains(cardDao.FindByNumber(CARDNUMBER));
+                Boolean tarjetaEncontrada = listaCards.Contains(cardForm);
 
                 // Comprobar que sí está
                 Assert.AreEqual(true, tarjetaEncontrada);
@@ -254,26 +253,40 @@ namespace Test.ClientServiceTests
         {
             using (var scope = new TransactionScope())
             {
-                // Register user
+                // Register client
                 Client client = clientService.RegisterClient(LOGIN, CLEARPASSWORD,
                         new ClientDTO(FIRSTNAME, LASTNAME, ADDRESS, EMAIL, ROLE, LANGUAGE, COUNTRY));
 
-                // Creamos CardForm
-                CardDTO cardForm = 
-                    new CardDTO(CARDNUMBER, "123", 
-                        new DateTime(2025, 1, 1), false);
+                ///////////////////////////////////////////////////////////////////////
 
-                // Creamos tarjeta y la asignamos a usuario
-                cardService.CreateCardToClient(cardForm, LOGIN);
-
-                // Establecemos por defecto
-                clientService.SetDefaultCard(cardForm.Number);
+                // Creamos tarjeta y la asignamos a usuario y establecemos por defecto
+                CardDTO cardDTO = new CardDTO(CARDNUMBER, "123", new DateTime(2025, 1, 1), false);
+                cardService.CreateCardToClient(cardDTO, client.id);
+                clientService.SetDefaultCard(cardDTO.Number);
 
                 // Recuperamos tarjeta
-                Card cardBD = cardDao.FindByNumber(cardForm.Number);
+                Card cardBD = cardDao.FindByNumber(cardDTO.Number);
 
                 // Comprobamos que la tarjeta esté por defecto
                 Assert.AreEqual(true, cardBD.defaultCard);
+
+                ///////////////////////////////////////////////////////////////////////
+
+                // Creamos otra tarjeta y la establecemos por defecto
+                CardDTO other_cardDTO = new CardDTO(OTHER_CARDNUMBER, "123", new DateTime(2025, 1, 1), false);
+                cardService.CreateCardToClient(other_cardDTO, client.id);
+                clientService.SetDefaultCard(other_cardDTO.Number);
+
+                // Recuperamos tarjetas
+                cardBD = cardDao.FindByNumber(cardDTO.Number);
+                Card other_cardBD = cardDao.FindByNumber(other_cardDTO.Number);
+
+                // Comprobamos que la tarjeta esté por defecto
+                Assert.AreEqual(true, other_cardBD.defaultCard);
+                // ... y que la otra no lo está
+                Assert.AreEqual(false, cardBD.defaultCard);
+                // .... y que el método getDefaultCard devuelva la primera correctamente
+                Assert.AreEqual(other_cardBD, clientService.GetDefaultCard(client.id));
 
             }
         }
@@ -296,7 +309,7 @@ namespace Test.ClientServiceTests
                         new DateTime(2025, 1, 1), false, true);
 
                 // Creamos tarjeta y la asignamos a usuario
-                cardService.CreateCardToClient(cardForm, LOGIN);
+                cardService.CreateCardToClient(cardForm, client.id);
 
                 // Recuperamos tarjeta
                 Card cardBD = cardDao.FindByNumber(cardForm.Number);
@@ -325,13 +338,13 @@ namespace Test.ClientServiceTests
                         new DateTime(2025, 1, 1), false);
 
                 // Creamos tarjeta y la asignamos a usuario
-                cardService.CreateCardToClient(cardForm, LOGIN);
+                cardService.CreateCardToClient(cardForm, client.id);
 
                 // Establecemos por defecto
                 clientService.SetDefaultCard(cardForm.Number);
 
                 // Recuperamos tarjeta por defecto
-                Card cardBD = clientService.GetDefaultCard(LOGIN);
+                Card cardBD = clientService.GetDefaultCard(client.id);
 
                 // Comprobamos que la tarjeta esté por defecto
                 Assert.AreEqual(true, cardBD.defaultCard);

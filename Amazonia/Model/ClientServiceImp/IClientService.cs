@@ -5,6 +5,7 @@ using Ninject;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using System.Collections.Generic;
+using Es.Udc.DotNet.Amazonia.Model.CardServiceImp;
 
 namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 {
@@ -25,12 +26,12 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         Client RegisterClient(String login, String clearPassword,
             ClientDTO clientDetails);
 
-       
+
         /// <summary>
         /// Actualiza los datos de un cliente ya existente.
         /// </summary>
         /// <param name="id"> The user profile id. </param>
-        /// <param name="clientDetails"> The user profile details. </param>
+        /// <param name="clientDetails"> The client profile details. </param>
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
         void UpdateUserProfileDetails(long id,
@@ -61,14 +62,14 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// </summary>
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
-        List<Card> ListCardsByClientLogin(string login);
+        List<CardDTO> ListCardsByClientId(long clientId);
 
         /// <summary>
         /// Recuperar tarjeta por defecto
         /// </summary>
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
-        Card GetDefaultCard(string login);
+        Card GetDefaultCard(long clientId);
 
         /// <summary>
         /// Recuperar ClientDTO
