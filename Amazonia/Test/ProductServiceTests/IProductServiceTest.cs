@@ -190,7 +190,7 @@ namespace Test.ProductService
         {
             using (var scope = new TransactionScope())
             {
-                List<ProductDTO> listaRecuperada = productService.FindProductByWord("", 0, 10);
+                List<ProductDTO> listaRecuperada = productService.FindProductByWord("", 0, 10).products;
             }
 
         }
@@ -204,7 +204,7 @@ namespace Test.ProductService
             {
                 // Id categoria inexistente...
 
-                List<ProductDTO> listaRecuperada = productService.FindProductByWordAndCategory("Cat", 1L, 0, 10);
+                List<ProductDTO> listaRecuperada = productService.FindProductByWordAndCategory("Cat", -1L, 0, 10).products;
             }
 
         }
@@ -271,7 +271,7 @@ namespace Test.ProductService
 
                 #endregion Persistencia
 
-                List<ProductDTO> listaRecuperada = productService.FindProductByWord("Cacahuete", 0, 10);
+                List<ProductDTO> listaRecuperada = productService.FindProductByWord("Cacahuete", 0, 10).products;
 
                 Assert.IsTrue(listaRecuperada.Count == 0);
             }
@@ -340,18 +340,18 @@ namespace Test.ProductService
 
                 List<ProductDTO> listaEsperadaOrdenador = new List<ProductDTO>(1);
                 listaEsperadaOrdenador.Add(ProductMapper.ProductToProductDto(portatil));
-                List<ProductDTO> listaRecuperadaOrdenador = productService.FindProductByWordAndCategory("     ordenaDoReS    ", c2.id, 0, 10);
+                List<ProductDTO> listaRecuperadaOrdenador = productService.FindProductByWordAndCategory("     ordenaDoReS    ", c2.id, 0, 10).products;
                 // Buscando por ordenadores no se debaría encontrar nada.
 
                 Assert.IsTrue(listaRecuperadaOrdenador.Count == 0);
 
                 // Buscando por portátil sí que debería encontrarlo
-                listaRecuperadaOrdenador = productService.FindProductByWordAndCategory("     portATIL    ", c2.id, 0, 10);
+                listaRecuperadaOrdenador = productService.FindProductByWordAndCategory("     portATIL    ", c2.id, 0, 10).products;
 
                 Assert.IsTrue(listaRecuperadaOrdenador.Count == 1);
                 CollectionAssert.AreEqual(listaEsperadaOrdenador, listaRecuperadaOrdenador);
 
-                List<ProductDTO> listaRecuperadaBicicletas = productService.FindProductByWordAndCategory("bicicleta", c1.id, 0, 10);
+                List<ProductDTO> listaRecuperadaBicicletas = productService.FindProductByWordAndCategory("bicicleta", c1.id, 0, 10).products;
 
                 Assert.IsTrue(listaRecuperadaBicicletas.Count == 2);
             }
@@ -422,7 +422,7 @@ namespace Test.ProductService
                 listaEsperadaBicicletas.Add(ProductMapper.ProductToProductDto(biciCarretera));
                 listaEsperadaBicicletas.Add(ProductMapper.ProductToProductDto(biciMontaña));
 
-                List<ProductDTO> listaRecuperadaBicicletas = productService.FindProductByWord("bicicleta", 0, 10);
+                List<ProductDTO> listaRecuperadaBicicletas = productService.FindProductByWord("bicicleta", 0, 10).products;
 
                 Assert.IsTrue(listaRecuperadaBicicletas.Count == 2);
                 CollectionAssert.AreEqual(listaEsperadaBicicletas, listaRecuperadaBicicletas);
@@ -483,7 +483,7 @@ namespace Test.ProductService
                 List<ProductDTO> listaEsperadaBicicletas = new List<ProductDTO>(1);
                 listaEsperadaBicicletas.Add(ProductMapper.ProductToProductDto(biciCarretera));
 
-                List<ProductDTO> listaRecuperadaBicicletas = productService.FindProductByWordAndCategory("   bicicLeta  ", c1.id, 0, 10);
+                List<ProductDTO> listaRecuperadaBicicletas = productService.FindProductByWordAndCategory("   bicicLeta  ", c1.id, 0, 10).products;
 
                 Assert.IsTrue(listaRecuperadaBicicletas.Count == 1);
                 CollectionAssert.AreEqual(listaEsperadaBicicletas, listaRecuperadaBicicletas);

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Trace="true" Language="C#" MasterPageFile="~/Amazonia.Master" AutoEventWireup="true" CodeBehind="SearchPage.aspx.cs" Inherits="Es.Udc.DotNet.Amazonia.Web.Pages.Product.SearchPage" %>
+﻿<%@ Page Title=""Language="C#" MasterPageFile="~/Amazonia.Master" AutoEventWireup="true" CodeBehind="SearchPage.aspx.cs" Inherits="Es.Udc.DotNet.Amazonia.Web.Pages.Product.SearchPage" %>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder_BodyContent" runat="server">
     <form id="form1" runat="server">
     <div>
@@ -13,7 +13,6 @@
             <asp:Button ID="btnSearchProduct" runat="server" Text="Button" OnClick="SearchButton_Click" meta:resourcekey="btnSearchProduct" />
         </section>
     </div>
-        <asp:Label ID="debug" runat="server" Text="Label"></asp:Label>
     <br>
     <div class="div_text_center">
         <section>
@@ -36,6 +35,19 @@
                     <SortedDescendingHeaderStyle BackColor="#242121" />
                 </asp:GridView>
             </center>
+        </section>
+    </div>
+
+    <br>
+    <!-- "Previous" and "Next" links. -->
+    <div>
+        <section>
+            <span class="previousLink">
+                <asp:HyperLink ID="lnkPrevious" Text="<%$ Resources:Common, Previous %>" runat="server"
+                    Visible="False"></asp:HyperLink>
+            </span><span class="nextLink">
+                <asp:HyperLink ID="lnkNext" Text="<%$ Resources:Common, Next %>" runat="server" Visible="False"></asp:HyperLink>
+            </span>
         </section>
     </div>
 

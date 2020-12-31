@@ -10,6 +10,7 @@ using Ninject;
 using System.Runtime.Caching;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp.DTOs;
+using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp.DTOs;
 
 namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 {
@@ -124,7 +125,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
             return ProductDaoEntityFramework.Find(id);
         }
 
-        private void AddToCache(String entrie, List<ProductDTO> result)
+        private void AddToCache(String entrie, ProductBlock result)
         {
             CacheItem item = new CacheItem(entrie, result);
             CacheItemPolicy itemPolicy = new CacheItemPolicy();
@@ -160,7 +161,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 
 
         [Transactional]
-        public List<ProductDTO> FindProductByWord(string keyWord, int startIndex, int count)
+        public ProductBlock FindProductByWord(string keyWord, int startIndex, int count)
         {
             if (keyWord == null || keyWord.Length == 0)
             {
@@ -175,20 +176,28 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 
             if (_Cache.Contains(formattedKeywordAndCategory))
             {
-                List<ProductDTO> cacheResult = (List<ProductDTO>)_Cache.GetCacheItem(formattedKeywordAndCategory).Value;
+                ProductBlock cacheResult = (ProductBlock)_Cache.GetCacheItem(formattedKeywordAndCategory).Value;
                 return cacheResult;
             }
 
+            productListOutput = ProductDaoEntityFramework.FindByKeyWord(cleanKeyWord, startIndex, count + 1);
 
-            productListOutput = ProductDaoEntityFramework.FindByKeyWord(cleanKeyWord, 0, 10);
+            bool existMoreProducts = (productListOutput.Count == count + 1);
 
-            AddToCache(formattedKeywordAndCategory, productListOutput);
+            if (existMoreProducts)
+            {
+                productListOutput.RemoveAt(count);
+            }
 
-            return productListOutput;
+            ProductBlock result = new ProductBlock(productListOutput, existMoreProducts);
+
+            AddToCache(formattedKeywordAndCategory, result);
+
+            return result;
         }
 
         [Transactional]
-        public List<ProductDTO> FindProductByWordAndCategory(string keyWord, long categoryId, int startIndex, int count)
+        public ProductBlock FindProductByWordAndCategory(string keyWord, long categoryId, int startIndex, int count)
         {
             // Category sí puede ser null (Es otro CU)
 
@@ -210,16 +219,24 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 
             if (_Cache.Contains(formattedKeywordAndCategory))
             {
-                List<ProductDTO> cacheResult = (List<ProductDTO>)_Cache.GetCacheItem(formattedKeywordAndCategory).Value;
+                ProductBlock cacheResult = (ProductBlock)_Cache.GetCacheItem(formattedKeywordAndCategory).Value;
                 return cacheResult;
             }
 
+            productListOutput = ProductDaoEntityFramework.FindByKeyWordAndCategory(cleanKeyWord, categoryId, startIndex, count);
 
-            productListOutput = ProductDaoEntityFramework.FindByKeyWordAndCategory(cleanKeyWord, categoryId, 0, 10);
+            bool existMoreProducts = (productListOutput.Count == count + 1);
 
-            AddToCache(formattedKeywordAndCategory, productListOutput);
+            if (existMoreProducts)
+            {
+                productListOutput.RemoveAt(count);
+            }
 
-            return productListOutput;
+            ProductBlock result = new ProductBlock(productListOutput, existMoreProducts);
+
+            AddToCache(formattedKeywordAndCategory, result);
+
+            return result;
         }
 
         public List<Product> RetrieveProductsWithLabel(string labelValue)

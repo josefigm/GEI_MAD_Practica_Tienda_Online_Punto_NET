@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Caching;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
+using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp.DTOs;
 
 namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 {
@@ -74,7 +75,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         /// <exception cref="ArgumentException"/>
         /// <returns></returns>
         [Transactional]
-        List<ProductDTO> FindProductByWord(string keyWord, int startIndex, int count);
+        ProductBlock FindProductByWord(string keyWord, int startIndex, int count);
 
         /// <summary>
         /// Finds the product by word and category.
@@ -87,7 +88,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         /// <exception cref="InstanceNotFoundException"/>
         /// <returns></returns>
         [Transactional]
-        List<ProductDTO> FindProductByWordAndCategory(string keyWord, long categoryId, int startIndex, int count);
+        ProductBlock FindProductByWordAndCategory(string keyWord, long categoryId, int startIndex, int count);
 
         /// <summary>
         /// Finds the product by identifier.

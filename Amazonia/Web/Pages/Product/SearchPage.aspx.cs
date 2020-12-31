@@ -1,5 +1,6 @@
 ﻿using Es.Udc.DotNet.Amazonia.Model;
 using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp.DTOs;
 using Es.Udc.DotNet.ModelUtil.IoC;
 using System;
 using System.Collections;
@@ -21,45 +22,12 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
             {
                 UpdateComboCategory();
             }
-
         }
 
         protected void SearchButton_Click(object sender, EventArgs e)
         {
-            debug.Text = "Entra en click";
-            
-            List<ProductDTO> products;
-            IIoCManager iiocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
-            IProductService productService = iiocManager.Resolve<IProductService>();
-
-            // Only one word is necesary, so the first one is retrieved.
-            // Split by whitespaces
-            String[] inputKeywords = tbSearchProduct.Text.Trim().Split();
-            // The first one is retrieved.
-            String keyword = inputKeywords[0];
-
-
-            // We retrieve the category id
-            String categoryId = comboCategory.SelectedValue;
-
-            // If the user selected a category the value will be different of -1
-
-
-            if (categoryId != "-1")
-            {
-                products = productService.FindProductByWordAndCategory(keyword, Convert.ToInt64(categoryId), 0, 5);
-            }
-            else
-            {
-                
-                products = productService.FindProductByWord(keyword, 0, 5);
-            }
-            
-
-            // Update product table
-
-            setRows(products);
-
+            ProductBlock productBlock = getData(0, 5);
+            setRows(productBlock.products);
         }
 
         /// <summary>
@@ -89,6 +57,39 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
             comboCategory.DataValueField = "value";
             comboCategory.DataBind();
             comboCategory.SelectedIndex = 0;            
+        }
+
+        private ProductBlock getData(int startIndex, int count)
+        {
+            ProductBlock productBlock;
+            IIoCManager iiocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
+            IProductService productService = iiocManager.Resolve<IProductService>();
+
+            // Only one word is necesary, so the first one is retrieved.
+            // Split by whitespaces
+            String[] inputKeywords = tbSearchProduct.Text.Trim().Split();
+            // The first one is retrieved.
+            String keyword = inputKeywords[0];
+
+
+            // We retrieve the category id
+            String categoryId = comboCategory.SelectedValue;
+
+            // If the user selected a category the value will be different of -1
+
+            
+            if (categoryId != "-1")
+            {
+                productBlock = productService.FindProductByWordAndCategory(keyword, Convert.ToInt64(categoryId), startIndex, count);
+            }
+            else
+            {
+                productBlock = productService.FindProductByWord(keyword, startIndex, count);
+            }
+
+            // Return the product block
+
+            return productBlock;
         }
 
         private void setRows(List<ProductDTO> products)
