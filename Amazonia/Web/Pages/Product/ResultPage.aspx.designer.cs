@@ -10,7 +10,16 @@
 namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product {
     
     
-    public partial class SearchPage {
+    public partial class ResultPage {
+        
+        /// <summary>
+        /// Control lblNoResults.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNoResults;
         
         /// <summary>
         /// Control form1.
@@ -22,48 +31,30 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// Control lblCategories.
+        /// Control gvProducts.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCategories;
+        protected global::System.Web.UI.WebControls.GridView gvProducts;
         
         /// <summary>
-        /// Control comboCategory.
+        /// Control lnkPrevious.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList comboCategory;
+        protected global::System.Web.UI.WebControls.HyperLink lnkPrevious;
         
         /// <summary>
-        /// Control tbSearchProduct.
+        /// Control lnkNext.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbSearchProduct;
-        
-        /// <summary>
-        /// Control rfvSearchProduct.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvSearchProduct;
-        
-        /// <summary>
-        /// Control btnSearchProduct.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSearchProduct;
+        protected global::System.Web.UI.WebControls.HyperLink lnkNext;
     }
 }

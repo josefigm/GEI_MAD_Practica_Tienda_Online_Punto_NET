@@ -117,21 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="bfCategory.HeaderText" xml:space="preserve">
-    <value>Categoria</value>
-  </data>
-  <data name="bfDate.HeaderText" xml:space="preserve">
-    <value>Fecha de alta</value>
-  </data>
-  <data name="bfLinkAddToCart.HeaderText" xml:space="preserve">
-    <value>Añadir a la cesta</value>
-  </data>
-  <data name="bfName.HeaderText" xml:space="preserve">
-    <value>Nombre</value>
-  </data>
-  <data name="bfPrice.HeaderText" xml:space="preserve">
-    <value>Precio</value>
-  </data>
   <data name="btnSearchProduct.Text" xml:space="preserve">
     <value>Buscar productos</value>
   </data>

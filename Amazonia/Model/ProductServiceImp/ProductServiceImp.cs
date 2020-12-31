@@ -223,7 +223,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
                 return cacheResult;
             }
 
-            productListOutput = ProductDaoEntityFramework.FindByKeyWordAndCategory(cleanKeyWord, categoryId, startIndex, count);
+            productListOutput = ProductDaoEntityFramework.FindByKeyWordAndCategory(cleanKeyWord, categoryId, startIndex, count +1);
 
             bool existMoreProducts = (productListOutput.Count == count + 1);
 

@@ -244,3 +244,71 @@ VALUES
 INSERT INTO Product(name, price, entryDate, stock, image, description, categoryId)
 Values
 ('McLaren 720S', 170000, CURRENT_TIMESTAMP, 1, '', 'The McLaren 720S', 1);
+
+INSERT INTO Product(name, price, entryDate, stock, image, description, categoryId)
+Values
+('Ferrari Pista 488', 245000, CURRENT_TIMESTAMP, 1, '', 'The Ferrari Pista 488', 1);
+
+INSERT INTO Product(name, price, entryDate, stock, image, description, categoryId)
+Values
+('BMW Series 1 120i', 28000, CURRENT_TIMESTAMP, 1, '', 'The BMW Series 1', 1);
+
+INSERT INTO Product(name, price, entryDate, stock, image, description, categoryId)
+Values
+('BMW Series 2 Grand Coupé', 34000, CURRENT_TIMESTAMP, 1, '', 'The BMW Series 2', 1);
+
+INSERT INTO Product(name, price, entryDate, stock, image, description, categoryId)
+Values
+('BMW Series 3 320d', 38000, CURRENT_TIMESTAMP, 1, '', 'The BMW Series 3', 1);
+
+INSERT INTO Product(name, price, entryDate, stock, image, description, categoryId)
+Values
+('BMW Series M2 Competition', 83000, CURRENT_TIMESTAMP, 1, '', 'The BMW M2 Series', 1);
+
+INSERT INTO Product(name, price, entryDate, stock, image, description, categoryId)
+Values
+('BMW Series M4', 120000, CURRENT_TIMESTAMP, 1, '', 'The BMW M4 Series', 1);
+
+INSERT INTO Product(name, price, entryDate, stock, image, description, categoryId)
+Values
+('BMW Series M8', 205150, CURRENT_TIMESTAMP, 1, '', 'The BMW M8 Series', 1);
+
+INSERT INTO Product(name, price, entryDate, stock, image, description, categoryId)
+Values
+('Audi A3 TFSI 3.0', 27500, CURRENT_TIMESTAMP, 1, '', 'The Audi A3', 1);
+
+INSERT INTO Product(name, price, entryDate, stock, image, description, categoryId)
+Values
+('Audi A4 TFSI 3.0', 38000, CURRENT_TIMESTAMP, 1, '', 'The Audi A4', 1);
+
+INSERT INTO Product(name, price, entryDate, stock, image, description, categoryId)
+Values
+('Audi A3 Sportback TFSI 3.0', 31050, CURRENT_TIMESTAMP, 1, '', 'The Audi A3', 1);
+
+INSERT INTO Product(name, price, entryDate, stock, image, description, categoryId)
+Values
+('Audi A3 TFSI 3.0', 27500, CURRENT_TIMESTAMP, 1, '', 'The Audi A3', 1);
+
+INSERT INTO Product(name, price, entryDate, stock, image, description, categoryId)
+Values
+('Dell XPS 13 Intel i3', 1150, CURRENT_TIMESTAMP, 1, '', 'The Dell XPS', 3);
+
+INSERT INTO Product(name, price, entryDate, stock, image, description, categoryId)
+Values
+('Dell XPS 13 Intel i5', 1400, CURRENT_TIMESTAMP, 1, '', 'The Dell XPS', 3);
+
+INSERT INTO Product(name, price, entryDate, stock, image, description, categoryId)
+Values
+('Dell XPS 13 Intel i7', 1850, CURRENT_TIMESTAMP, 1, '', 'The Dell XPS', 3);
+
+INSERT INTO Product(name, price, entryDate, stock, image, description, categoryId)
+Values
+('Dell XPS 13 Intel i9', 2300, CURRENT_TIMESTAMP, 1, '', 'The Dell XPS', 3);
+
+INSERT INTO Product(name, price, entryDate, stock, image, description, categoryId)
+Values
+('Dell XPS 15 Intel i5', 1650, CURRENT_TIMESTAMP, 1, '', 'The Dell XPS', 3);
+
+INSERT INTO Product(name, price, entryDate, stock, image, description, categoryId)
+Values
+('Dell Inspiron 13 Intel i5', 1250, CURRENT_TIMESTAMP, 1, '', 'The Dell inspiron', 3);

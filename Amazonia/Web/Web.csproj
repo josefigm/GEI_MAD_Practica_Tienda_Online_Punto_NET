@@ -97,6 +97,7 @@
     <Content Include="Css\Amazonia.Style.css" />
     <Content Include="Global.asax" />
     <Content Include="Pages\MainPage.aspx" />
+    <Content Include="Pages\Product\ResultPage.aspx" />
     <Content Include="Pages\Product\SearchPage.aspx" />
     <Content Include="Pages\User\LoginPage.aspx" />
     <Content Include="Pages\User\LogoutPage.aspx" />
@@ -141,6 +142,13 @@
     </Compile>
     <Compile Include="Pages\MainPage.aspx.designer.cs">
       <DependentUpon>MainPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Product\ResultPage.aspx.cs">
+      <DependentUpon>ResultPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Product\ResultPage.aspx.designer.cs">
+      <DependentUpon>ResultPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Product\SearchPage.aspx.cs">
       <DependentUpon>SearchPage.aspx</DependentUpon>
@@ -243,6 +251,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\Product\App_LocalResources\SearchPage.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Product\App_LocalResources\ResultPage.aspx.es.resx" />
+    <Content Include="Pages\Product\App_LocalResources\ResultPage.aspx.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

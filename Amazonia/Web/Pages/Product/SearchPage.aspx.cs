@@ -26,8 +26,14 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
 
         protected void SearchButton_Click(object sender, EventArgs e)
         {
-            ProductBlock productBlock = getData(0, 5);
-            setRows(productBlock.products);
+            // Only one word is necesary, so the first one is retrieved.
+            // Split by whitespaces
+            String[] inputKeywords = tbSearchProduct.Text.Trim().Split();
+            // The first one is retrieved.
+            String keyword = inputKeywords[0];
+
+            String url = String.Format("./ResultPage.aspx?keyword={0}&categoryId={1}&startIndex={2}&count={3}", keyword, comboCategory.SelectedValue, 0, 3);
+            Response.Redirect(Response.ApplyAppPathModifier(url));
         }
 
         /// <summary>
@@ -57,66 +63,6 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
             comboCategory.DataValueField = "value";
             comboCategory.DataBind();
             comboCategory.SelectedIndex = 0;            
-        }
-
-        private ProductBlock getData(int startIndex, int count)
-        {
-            ProductBlock productBlock;
-            IIoCManager iiocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
-            IProductService productService = iiocManager.Resolve<IProductService>();
-
-            // Only one word is necesary, so the first one is retrieved.
-            // Split by whitespaces
-            String[] inputKeywords = tbSearchProduct.Text.Trim().Split();
-            // The first one is retrieved.
-            String keyword = inputKeywords[0];
-
-
-            // We retrieve the category id
-            String categoryId = comboCategory.SelectedValue;
-
-            // If the user selected a category the value will be different of -1
-
-            
-            if (categoryId != "-1")
-            {
-                productBlock = productService.FindProductByWordAndCategory(keyword, Convert.ToInt64(categoryId), startIndex, count);
-            }
-            else
-            {
-                productBlock = productService.FindProductByWord(keyword, startIndex, count);
-            }
-
-            // Return the product block
-
-            return productBlock;
-        }
-
-        private void setRows(List<ProductDTO> products)
-        {
-            DataTable dt = new DataTable();
-
-            DataRow dr = dt.NewRow();
-            dt.Columns.Add(new DataColumn("Name", typeof(string)));
-            dt.Columns.Add(new DataColumn("Category", typeof(string)));
-            dt.Columns.Add(new DataColumn("Entry date", typeof(string)));
-            dt.Columns.Add(new DataColumn("Price", typeof(string)));
-            dt.Columns.Add(new DataColumn("Link add to cart", typeof(string)));
-            
-            for (int i = 0; i < products.Count; i++)
-            {
-                dr = dt.NewRow();
-                dr["Name"] = products[i].productTitle;
-                dr["Category"] = products[i].category.id;
-                dr["Entry date"] = products[i].entryDate.ToShortDateString();
-                dr["Price"] = products[i].price.ToString();
-                dr["Link add to cart"] = string.Empty;
-                dt.Rows.Add(dr);
-            }
-            
-            gvProducts.DataSource = dt;
-            gvProducts.DataBind();
-            
         }
     }
 }
