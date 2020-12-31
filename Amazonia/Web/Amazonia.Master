@@ -44,6 +44,11 @@
                     <asp:HyperLink ID="lnkLogout" runat="server"
                         NavigateUrl="~/Pages/User/LogoutPage.aspx"
                         meta:resourcekey="lnkLogout" />
+                     <asp:Label ID="lblDash4" runat="server" Text="-" />
+                    <asp:HyperLink ID="lnkBuscador" runat="server"
+                        NavigateUrl="~/Pages/Product/SearchPage.aspx"
+                        meta:resourcekey="lnkSearch" />
+
                 </asp:ContentPlaceHolder>
             </span>
         </div>

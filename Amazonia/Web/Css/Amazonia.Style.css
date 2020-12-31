@@ -82,20 +82,20 @@ div.field {
     width: 100%;
 }
 
-    div.field span.label {
-        float: left;
-        text-align: right;
-        font-weight: bold;
-        vertical-align: middle;
-        padding-top: 0.3em;
-        width: 49.5%;
-    }
+div.field span.label {
+    float: left;
+    text-align: right;
+    font-weight: bold;
+    vertical-align: middle;
+    padding-top: 0.3em;
+    width: 49.5%;
+}
 
-    div.field span.entry {
-        float: right;
-        text-align: left;
-        width: 49.5%;
-    }
+div.field span.entry {
+    float: right;
+    text-align: left;
+    width: 49.5%;
+}
 
 div.checkbox {
     clear: both;
@@ -110,6 +110,13 @@ div.button {
     text-align: center;
     width: 100%;
 }
+
+div.div_text_center {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 
 input, select, textarea {
     background-color: #f4f4f4;
@@ -132,3 +139,10 @@ input, select, textarea {
     width: 100%;
     padding-top: 5px;
 }
+
+/* Table */
+.centered-table {
+    margin-left: auto;
+    margin-right: auto;
+}
+

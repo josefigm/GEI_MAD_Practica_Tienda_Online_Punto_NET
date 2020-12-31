@@ -25,13 +25,10 @@ namespace Es.Udc.DotNet.Amazonia.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Bike> Bikes { get; set; }
-        public virtual DbSet<Car> Cars { get; set; }
         public virtual DbSet<Card> Cards { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
-        public virtual DbSet<Computer> Computers { get; set; }
         public virtual DbSet<Label> Labels { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Sale> Sales { get; set; }

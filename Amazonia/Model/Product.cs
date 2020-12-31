@@ -30,12 +30,9 @@ namespace Es.Udc.DotNet.Amazonia.Model
         public string description { get; set; }
         public long categoryId { get; set; }
     
-        public virtual Bike Bike { get; set; }
-        public virtual Car Car { get; set; }
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
-        public virtual Computer Computer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SaleLine> SaleLines { get; set; }
     }

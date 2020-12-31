@@ -226,3 +226,21 @@ CREATE TABLE CommentLabel (
 
 PRINT N'Table CommentLabel created.'
 GO
+
+INSERT INTO Category(name)
+VALUES
+('Car');
+
+
+INSERT INTO Category(name)
+VALUES
+('Bike');
+
+
+INSERT INTO Category(name)
+VALUES
+('Computer');
+
+INSERT INTO Product(name, price, entryDate, stock, image, description, categoryId)
+Values
+('McLaren 720S', 170000, CURRENT_TIMESTAMP, 1, '', 'The McLaren 720S', 1);

@@ -117,25 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblWelcome.Text" xml:space="preserve">
-    <value>Bienvenido a Amazonia</value>
+  <data name="bfCategory.HeaderText" xml:space="preserve">
+    <value>Categoria</value>
   </data>
-  <data name="lclFooter.Text" xml:space="preserve">
-    <value>Copyright &amp;copy; Amazonia Limited</value>
+  <data name="bfDate.HeaderText" xml:space="preserve">
+    <value>Fecha de alta</value>
   </data>
-  <data name="lclPageTitle.Text" xml:space="preserve">
-    <value>Amazonia</value>
+  <data name="bfLinkAddToCart.HeaderText" xml:space="preserve">
+    <value>Añadir a la cesta</value>
   </data>
-  <data name="lnkAuthenticate.Text" xml:space="preserve">
-    <value>Autenticación</value>
+  <data name="bfName.HeaderText" xml:space="preserve">
+    <value>Nombre</value>
   </data>
-  <data name="lnkLogout.Text" xml:space="preserve">
-    <value>Salir</value>
+  <data name="bfPrice.HeaderText" xml:space="preserve">
+    <value>Precio</value>
   </data>
-  <data name="lnkSearch.Text" xml:space="preserve">
+  <data name="btnSearchProduct.Text" xml:space="preserve">
     <value>Buscar productos</value>
   </data>
-  <data name="lnkUpdate.Text" xml:space="preserve">
-    <value>Actualizar información de usuario</value>
+  <data name="lblCategories.Text" xml:space="preserve">
+    <value>Categorias</value>
   </data>
 </root>
