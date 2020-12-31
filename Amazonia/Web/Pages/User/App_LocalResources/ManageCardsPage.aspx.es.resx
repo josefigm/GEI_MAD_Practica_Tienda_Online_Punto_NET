@@ -138,4 +138,13 @@
   <data name="Type" xml:space="preserve">
     <value>Tarjeta Crédito/Débito</value>
   </data>
+  <data name="SetDefaultCard" xml:space="preserve">
+    <value>Establecer Tarjeta por Defecto</value>
+  </data>
+  <data name="UpdateCardDetails" xml:space="preserve">
+    <value>Editar Detalles de Tarjeta</value>
+  </data>
+  <data name="EmptyGridView" xml:space="preserve">
+    <value>Sin ninguna tarjeta añadida aún</value>
+  </data>
 </root>

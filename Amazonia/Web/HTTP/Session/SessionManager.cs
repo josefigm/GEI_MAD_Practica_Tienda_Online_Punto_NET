@@ -40,6 +40,11 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Session
             cardService = iiocManager.Resolve<ICardService>();
         }
 
+        internal static void SetDefaultCard(long cardNumber)
+        {
+            clientService.SetDefaultCard(cardNumber.ToString());
+        }
+
         public static void SetLocale(HttpContext context, Locale locale)
         {
             context.Session[LOCALE_SESSION_ATTRIBUTE] = locale;

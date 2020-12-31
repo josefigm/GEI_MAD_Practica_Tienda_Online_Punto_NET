@@ -2,11 +2,19 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder_MenuWelcome" runat="server">
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder_BodyContent" runat="server">
+    <br />
+    <div>
+        <asp:HyperLink ID="lnkChangePassword" runat="server" NavigateUrl="~/Pages/User/ChangePasswordPage.aspx" meta:resourcekey="lnkChangePassword"/>
+    </div>
+    <br />
+    <div>
+        <asp:HyperLink ID="lnkManageCardsPage" runat="server" NavigateUrl="~/Pages/User/ManageCardsPage.aspx" meta:resourcekey="lnkManageCardsPage"/>
+    </div>
+
     <div id="form">
         <form id="UpdateClientProfileForm" method="POST" runat="server">
-            <asp:HyperLink ID="lnkChangePassword" runat="server" NavigateUrl="~/Pages/User/ChangePasswordPage.aspx" meta:resourcekey="lnkChangePassword"/>
-            <br \ />
-            <asp:HyperLink ID="lnkManageCardsPage" runat="server" NavigateUrl="~/Pages/User/ManageCardsPage.aspx" meta:resourcekey="lnkManageCardsPage"/>
+            
+            
             <div class="field">
                 <span class="label">
                     <asp:Localize ID="lclFirstName" runat="server" meta:resourcekey="lclFirstName" />

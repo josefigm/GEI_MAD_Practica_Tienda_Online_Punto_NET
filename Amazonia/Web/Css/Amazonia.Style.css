@@ -140,3 +140,25 @@ table.listCards {
     text-align: center;
     width: 45%;
 }
+
+/*Estilo general para el gridView*/
+.gridView {
+    margin: 0 auto;
+    font-size: 11px;
+    text-align: center;
+    border: hidden;
+}
+/*Selecciona las filas pares y las colorea*/
+.gridView tr:nth-child(even) {
+    background-color: #a9c673;
+}
+/*Selecciona las filas impares y las colorea*/
+.gridView tr:nth-child(odd) {
+    background-color: #fff;
+}
+/*Estilo para las casillas del gridView*/
+.gridView td {
+    padding-left: 3px;
+    padding-right: 3px;
+    border: hidden;
+}

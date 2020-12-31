@@ -27,13 +27,22 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.User
 
         protected void GvListCards_OnRowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName != "Update Card Details") return;
+            // Conseguimos el número de tarjeta
             long cardNumber = Convert.ToInt64(e.CommandArgument);
 
-            // do something
+            if (e.CommandName == "Update Card Details")
+            {
+                
+                String url = String.Format("./UpdateCardDetailsPage.aspx?number={0}", cardNumber);
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
 
-            String url = String.Format("./UpdateCardDetailsPage.aspx?number={0}", cardNumber);
-            Response.Redirect(Response.ApplyAppPathModifier(url));
+            if (e.CommandName == "Set Default Card")
+            {
+                SessionManager.SetDefaultCard(cardNumber);
+                String url = String.Format("./ManageCardsPage.aspx");
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
 
         }
 

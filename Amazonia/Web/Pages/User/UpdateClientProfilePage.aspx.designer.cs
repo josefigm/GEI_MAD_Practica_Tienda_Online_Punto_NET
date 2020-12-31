@@ -13,15 +13,6 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.User {
     public partial class UpdateClientProfilePage {
         
         /// <summary>
-        /// Control UpdateClientProfileForm.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm UpdateClientProfileForm;
-        
-        /// <summary>
         /// Control lnkChangePassword.
         /// </summary>
         /// <remarks>
@@ -38,6 +29,15 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.User {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink lnkManageCardsPage;
+        
+        /// <summary>
+        /// Control UpdateClientProfileForm.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm UpdateClientProfileForm;
         
         /// <summary>
         /// Control lclFirstName.
