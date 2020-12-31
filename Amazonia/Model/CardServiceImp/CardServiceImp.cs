@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Management.Instrumentation;
+﻿using System.Collections.Generic;
+using Es.Udc.DotNet.Amazonia.Model.CardServiceImp.DTOs;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CardDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao;
+using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 using Ninject;
 
@@ -19,6 +19,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
         public ICardDao CardDao { private get; set; }
 
         /// <exception cref="InstanceNotFoundException"/>
+        /// <exception cref="DuplicateInstanceException"/>
         [Transactional]
         public Card CreateCardToClient(CardDTO cardForm, long clientId)
         {
@@ -27,31 +28,66 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
 
             if (relatedClient == null)
             {
-                throw new InstanceNotFoundException("No existe un cliente con login: " + clientId);
+                throw new InstanceNotFoundException("No existe un cliente con login: ", relatedClient.firstName);
             }
 
-            // Creamos tarjeta
-            Card card = new Card();
-            card.number = cardForm.Number;
-            card.cvv = cardForm.CVV;
-            card.expireDate = cardForm.ExpireDate;
-            card.type = cardForm.Type;
-            card.clientId = clientId;
-            card.defaultCard = false;
+            try {
+
+                // Comprobamos que el número de tarjeta no esté repetido
+                Card cardRep = CardDao.FindByNumber(cardForm.Number);
+
+                // Si no lanza excepcíón de que no la ha encontrado...
+                throw new ModelUtil.Exceptions.DuplicateInstanceException(
+                   "Ya existe tarjeta con ese número: ", cardForm.Number);
+
+
+            } catch (InstanceNotFoundException)
+            {
+                // Al lanzar InstanceNotFoundException sabemos que no existe
+                //   ninguna tarjeta por ese nombre
+
+                // Creamos tarjeta
+                Card card = new Card();
+                card.number = cardForm.Number;
+                card.cvv = cardForm.CVV;
+                card.expireDate = cardForm.ExpireDate;
+
+                if (cardForm.Type == "Credit Card" )
+                {
+                    card.type = false;
+                }
+
+                if (cardForm.Type == "Debit Card")
+                {
+                    card.type = true;
+                }
+
+                card.clientId = clientId;
+                card.defaultCard = false;
                 // Si es la unica, la ponemos por defecto
                 List<Card> listCards = ClientDao.FindCardsOfClient(relatedClient);
                 if (listCards.Count == 0)
                 {
                     card.defaultCard = true;
                 }
-            CardDao.Create(card);
+                CardDao.Create(card);
 
-            // Modificamos cliente
-            relatedClient.Cards.Add(card);
+                // Modificamos cliente
+                relatedClient.Cards.Add(card);
 
-            ClientDao.Update(relatedClient);
+                ClientDao.Update(relatedClient);
 
-            return card;
+                return card;
+
+            }
+        }
+
+        /// <exception cref="InstanceNotFoundException"/>
+        public CardDTO GetCardDTO(string cardNumber)
+        {
+            Card card = CardDao.FindByNumber(cardNumber);
+
+            return CardMapper.CardToCardDTO(card);
         }
 
         public void UpdateCardDetails(CardDTO cardDTO)
@@ -61,7 +97,16 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
 
             card.cvv = cardDTO.CVV;
             card.expireDate = cardDTO.ExpireDate;
-            card.type = cardDTO.Type;
+
+            if (cardDTO.Type == "Credit Card")
+            {
+                card.type = false;
+            }
+
+            if (cardDTO.Type == "Debit Card")
+            {
+                card.type = true;
+            }
 
             CardDao.Update(card);
 

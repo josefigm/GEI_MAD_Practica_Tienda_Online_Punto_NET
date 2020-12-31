@@ -10,7 +10,9 @@ using Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao;
 using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp.Exceptions;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CardDao;
 using Es.Udc.DotNet.Amazonia.Model.CardServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.CardServiceImp.DTOs;
 using Es.Udc.DotNet.Amazonia.Model;
+using Es.Udc.DotNet.ModelUtil.Exceptions;
 
 namespace Test.CardServiceTests
 {
@@ -34,6 +36,8 @@ namespace Test.CardServiceTests
 
         private const string NUMBER = "1111222233334441";
         private const string OTHER_NUMBER = "1111222233334442";
+        private const string REPEAT_NUMBER = "1111222239334442";
+
 
         private const string CVV = "123";
         private DateTime EXPIREDATE = new DateTime(2025, 1, 1);
@@ -140,11 +144,41 @@ namespace Test.CardServiceTests
             }
         }
 
+        // <summary>
+        // Añadir tarjeta a un usuario con cardNumber repetido
+        // </summary>
+        [TestMethod]
+        [ExpectedException(typeof(DuplicateInstanceException))]
+        public void TestAddCardWhitSameNumberToClient()
+        {
+
+            using (var scope = new TransactionScope())
+            {
+
+                // Creamos DTO tarjeta
+                CardDTO cardDTO = new CardDTO(REPEAT_NUMBER, CVV, EXPIREDATE, TYPE, DEFAULTCARD);
+
+                // Creamos cliente
+                Client client = clientService.RegisterClient(LOGIN, CLEARPASSWORD,
+                        new ClientDTO(FIRSTNAME, LASTNAME, ADDRESS, EMAIL, ROLE, LANGUAGE, COUNTRY));
+
+                // Llamamos al servicio asociando la tarjeta al cliente
+                Card card = cardService.CreateCardToClient(cardDTO, client.id);
+
+                // Creamos DTO tarjeta con el mismo número
+                CardDTO cardDTO2 = new CardDTO(REPEAT_NUMBER, CVV, EXPIREDATE, TYPE, DEFAULTCARD);
+
+                // La asignamos al cliente y nos salta la exepción "DuplicateInstanceException"
+                Card card2 = cardService.CreateCardToClient(cardDTO2, client.id); 
+
+            }
+        }
+
         /// <summary>
         /// A test for UpdateUserProfileDetails
         /// </summary>
         [TestMethod]
-        public void TestUpdateUserProfileDetails()
+        public void TestUpdateCardDetails()
         {
             using (var scope = new TransactionScope())
             {
@@ -173,6 +207,74 @@ namespace Test.CardServiceTests
                 Assert.AreEqual(TYPE2, cardBD.type);
                 // Es true porque es la única
                 Assert.AreEqual(true, cardBD.defaultCard);
+
+
+                // transaction.Complete() is not called, so Rollback is executed.
+            }
+        }
+
+        /// <summary>
+        /// A test for get CardDTO of Debit Card (bool Type a true)
+        /// </summary>
+        [TestMethod]
+        public void GetDebitCardDTOTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                // Creamos DTO tarjeta
+                CardDTO refCardDTO = new CardDTO(NUMBER, CVV, EXPIREDATE, TYPE, DEFAULTCARD);
+
+                // Creamos cliente
+                Client client = clientService.RegisterClient(LOGIN, CLEARPASSWORD,
+                        new ClientDTO(FIRSTNAME, LASTNAME, ADDRESS, EMAIL, ROLE, LANGUAGE, COUNTRY));
+
+                // Llamamos al servicio asociando la tarjeta al cliente
+                Card card = cardService.CreateCardToClient(refCardDTO, client.id);
+
+                // Recuperamos el DTO
+                CardDTO realCardDTO = cardService.GetCardDTO(card.number);
+
+                Assert.AreEqual(NUMBER, realCardDTO.Number);
+                Assert.AreEqual(CVV, realCardDTO.CVV);
+                Assert.AreEqual(EXPIREDATE, realCardDTO.ExpireDate);
+                Assert.AreEqual("Debit Card", realCardDTO.Type);
+                // Es true porque es la única
+                Assert.AreEqual(true, realCardDTO.DefaultCard);
+
+
+                // transaction.Complete() is not called, so Rollback is executed.
+            }
+        }
+
+        /// <summary>
+        /// A test for get CardDTO of Debit Card (bool Type a true)
+        /// </summary>
+        [TestMethod]
+        public void GetCreditCardDTOTest()
+        {
+            using (var scope = new TransactionScope())
+            {
+
+                // Creamos DTO tarjeta
+                CardDTO refCardDTO = new CardDTO(NUMBER, CVV, EXPIREDATE, false, DEFAULTCARD);
+
+                // Creamos cliente
+                Client client = clientService.RegisterClient(LOGIN, CLEARPASSWORD,
+                        new ClientDTO(FIRSTNAME, LASTNAME, ADDRESS, EMAIL, ROLE, LANGUAGE, COUNTRY));
+
+                // Llamamos al servicio asociando la tarjeta al cliente
+                Card card = cardService.CreateCardToClient(refCardDTO, client.id);
+
+                // Recuperamos el DTO
+                CardDTO realCardDTO = cardService.GetCardDTO(card.number);
+
+                Assert.AreEqual(NUMBER, realCardDTO.Number);
+                Assert.AreEqual(CVV, realCardDTO.CVV);
+                Assert.AreEqual(EXPIREDATE, realCardDTO.ExpireDate);
+                Assert.AreEqual("Credit Card", realCardDTO.Type);
+                // Es true porque es la única
+                Assert.AreEqual(true, realCardDTO.DefaultCard);
 
 
                 // transaction.Complete() is not called, so Rollback is executed.

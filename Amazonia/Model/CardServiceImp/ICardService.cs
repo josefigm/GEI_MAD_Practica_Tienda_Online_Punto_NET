@@ -22,6 +22,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
         /// <param name="id">The client identifier.</param>
         /// <exception cref="ArgumentNullException"/>
         /// <exception cref="InstanceNotFoundException"/>
+        /// <exception cref="DuplicateInstanceException"/>
         /// <returns></returns>
         [Transactional]
         Card CreateCardToClient(CardDTO cardForm, long id);
@@ -34,6 +35,13 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
         void UpdateCardDetails(CardDTO cardDTO);
+
+        /// <summary>
+        /// Recuperar CardDTO
+        /// </summary>
+        /// <exception cref="InstanceNotFoundException"/>
+        [Transactional]
+        CardDTO GetCardDTO(string cardNumber);
 
 
 

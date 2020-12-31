@@ -10,195 +10,150 @@
 namespace Es.Udc.DotNet.Amazonia.Web.Pages.User {
     
     
-    public partial class UpdateClientProfilePage {
+    public partial class CreateNewCardPage {
         
         /// <summary>
-        /// Control UpdateClientProfileForm.
+        /// Control lclNumber.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm UpdateClientProfileForm;
+        protected global::System.Web.UI.WebControls.Localize lclNumber;
         
         /// <summary>
-        /// Control lnkChangePassword.
+        /// Control tbNumber.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkChangePassword;
+        protected global::System.Web.UI.WebControls.TextBox tbNumber;
         
         /// <summary>
-        /// Control lnkManageCardsPage.
+        /// Control rfvNumber.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkManageCardsPage;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvNumber;
         
         /// <summary>
-        /// Control lclFirstName.
+        /// Control lblNumberError.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize lclFirstName;
+        protected global::System.Web.UI.WebControls.Label lblNumberError;
         
         /// <summary>
-        /// Control tbFirstName.
+        /// Control lclCVV.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbFirstName;
+        protected global::System.Web.UI.WebControls.Localize lclCVV;
         
         /// <summary>
-        /// Control rfvFirstName.
+        /// Control tbCVV.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvFirstName;
+        protected global::System.Web.UI.WebControls.TextBox tbCVV;
         
         /// <summary>
-        /// Control lclSurname.
+        /// Control rfvCVV.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize lclSurname;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCVV;
         
         /// <summary>
-        /// Control tbSurname.
+        /// Control lclExpireDate.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbSurname;
+        protected global::System.Web.UI.WebControls.Localize lclExpireDate;
         
         /// <summary>
-        /// Control rfvSurname.
+        /// Control tbExpireDateMonth.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvSurname;
+        protected global::System.Web.UI.WebControls.TextBox tbExpireDateMonth;
         
         /// <summary>
-        /// Control lclAddress.
+        /// Control tbExpireDateYear.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize lclAddress;
+        protected global::System.Web.UI.WebControls.TextBox tbExpireDateYear;
         
         /// <summary>
-        /// Control tbAddress.
+        /// Control rfvExpireDateMonth.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbAddress;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvExpireDateMonth;
         
         /// <summary>
-        /// Control RequiredFieldValidator1.
+        /// Control rfvExpireDateYear.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvExpireDateYear;
         
         /// <summary>
-        /// Control lclEmail.
+        /// Control lclType.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize lclEmail;
+        protected global::System.Web.UI.WebControls.Localize lclType;
         
         /// <summary>
-        /// Control tbEmail.
+        /// Control ddlType.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbEmail;
+        protected global::System.Web.UI.WebControls.DropDownList ddlType;
         
         /// <summary>
-        /// Control rfvEmail.
+        /// Control rfvType.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEmail;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvType;
         
         /// <summary>
-        /// Control revEmail.
+        /// Control btnCreateCard.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator revEmail;
-        
-        /// <summary>
-        /// Control lclLanguage.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize lclLanguage;
-        
-        /// <summary>
-        /// Control comboLanguage.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList comboLanguage;
-        
-        /// <summary>
-        /// Control lclCountry.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize lclCountry;
-        
-        /// <summary>
-        /// Control comboCountry.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList comboCountry;
-        
-        /// <summary>
-        /// Control btnUpdate.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUpdate;
+        protected global::System.Web.UI.WebControls.Button btnCreateCard;
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Security;
 using Es.Udc.DotNet.Amazonia.Model;
+using Es.Udc.DotNet.Amazonia.Model.CardServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp;
 using Es.Udc.DotNet.Amazonia.Web.HTTP.Util;
 using Es.Udc.DotNet.Amazonia.Web.HTTP.View.ApplicationObjects;
@@ -15,19 +17,27 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Session
     public class SessionManager
     {
         public const String LOCALE_SESSION_ATTRIBUTE = "locale";
+
         public static readonly String USER_SESSION_ATTRIBUTE = "userSession";
 
         private static IClientService clientService;
+        private static ICardService cardService;
 
         public IClientService ClientService
         {
             set { clientService = value; }
         }
 
+        public ICardService CardService
+        {
+            set { cardService = value; }
+        }
+
         static SessionManager()
         {
             IIoCManager iiocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
             clientService = iiocManager.Resolve<IClientService>();
+            cardService = iiocManager.Resolve<ICardService>();
         }
 
         public static void SetLocale(HttpContext context, Locale locale)
@@ -74,6 +84,24 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Session
             SessionManager.UpdateSessionForAuthenticatedUser(context, userSession, locale);
 
             FormsAuthentication.SetAuthCookie(loginName, false);
+        }
+
+        /// <summary>
+        /// Registers the user.
+        /// </summary>
+        /// <param name="context">Http Context includes request, response, etc.</param>
+        /// <param name="cardDTO">Username</param>
+        /// <exception cref="DuplicateInstanceException"/>
+        /// <exception cref="InstanceNotFoundException"/>
+        public static void CreateNewCardToClient(HttpContext context, CardDTO cardDTO)
+        {
+
+            UserSession userSession = (UserSession)context.Session[USER_SESSION_ATTRIBUTE];
+
+            // Añadimos tarjeta llamando al servicio
+            Card card = cardService.CreateCardToClient(cardDTO, userSession.UserProfileId);
+            
+
         }
 
         /// <summary>
@@ -249,12 +277,36 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Session
         /// <returns></returns>
         public static ClientDTO FindClientProfileDetails(HttpContext context)
         {
-            UserSession userSession =
-                (UserSession)context.Session[USER_SESSION_ATTRIBUTE];
+            UserSession userSession = (UserSession)context.Session[USER_SESSION_ATTRIBUTE];
 
             ClientDTO userProfileDetails = clientService.GetClientDTO(userSession.UserProfileId);
 
             return userProfileDetails;
+        }
+
+        /// <summary>
+        /// Finds the card details.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <returns></returns>
+        public static CardDTO FindCardDetails(HttpContext context, string cardNumber)
+        {
+            return cardService.GetCardDTO(cardNumber);
+        }
+
+        /// <summary>
+        /// Finds the client cards with the id stored in the session.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <returns></returns>
+        public static List<CardDTO> GetClientCards(HttpContext context)
+        {
+            UserSession userSession = (UserSession)context.Session[USER_SESSION_ATTRIBUTE];
+
+            List<CardDTO> listCards = clientService.ListCardsByClientId(userSession.UserProfileId);
+
+            return listCards;
+
         }
 
         /// <summary>
@@ -281,6 +333,15 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Session
         }
 
         /// <summary>
+        /// Updates the card details.
+        /// </summary>
+        /// <param name="clientDTO">The client profile details.</param>
+        public static void UpdateCardDetails(CardDTO cardDTO)
+        {
+            cardService.UpdateCardDetails(cardDTO);
+        }
+
+        /// <summary>
         /// Changes the user's password
         /// </summary>
         /// <param name="context">Http Context includes request, response, etc.</param>
@@ -299,8 +360,6 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Session
             /* Remove cookies. */
             CookiesManager.RemoveCookies(context);
         }
-
-
 
 
     }

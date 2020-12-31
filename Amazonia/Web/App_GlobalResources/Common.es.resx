@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="creditCard" xml:space="preserve">
+    <value>Tarjeta de Crédito</value>
+  </data>
+  <data name="debitCard" xml:space="preserve">
+    <value>Tarjeta de Débito</value>
+  </data>
   <data name="requiredField" xml:space="preserve">
     <value>Campo obligatorio</value>
   </data>

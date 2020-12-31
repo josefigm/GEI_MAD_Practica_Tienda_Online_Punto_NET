@@ -11,7 +11,7 @@ using Es.Udc.DotNet.Amazonia.Web.Pages.User.Util;
 
 namespace Es.Udc.DotNet.Amazonia.Web.Pages.User
 {
-    public partial class UpdateClientProfilePage : System.Web.UI.Page
+    public partial class UpdateClientProfilePage : SpecificCulturePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -49,14 +49,18 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.User
                     new ClientDTO(tbFirstName.Text, tbSurname.Text, tbAddress.Text,
                         tbEmail.Text, comboLanguage.SelectedValue,
                         comboCountry.SelectedValue);
-
+     
                 SessionManager.UpdateUserProfileDetails(Context,
                     clientDTO);
-
+     
                 Response.Redirect(
                     Response.ApplyAppPathModifier("~/Pages/MainPage.aspx"));
-
+     
             }
         }
+
+
+
+
     }
 }

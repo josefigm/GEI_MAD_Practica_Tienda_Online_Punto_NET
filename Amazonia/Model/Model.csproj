@@ -81,7 +81,7 @@
     <Compile Include="Card.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="CardServiceImp\DTOs\CardDto.cs" />
+    <Compile Include="CardServiceImp\DTOs\CardDTO.cs" />
     <Compile Include="CardServiceImp\CardServiceImp.cs" />
     <Compile Include="CardServiceImp\DTOs\CardMapper.cs" />
     <Compile Include="CardServiceImp\ICardService.cs" />
