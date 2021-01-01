@@ -132,6 +132,12 @@
   <data name="bfPrice.HeaderText" xml:space="preserve">
     <value>Price</value>
   </data>
+  <data name="btnAddToCart.Text" xml:space="preserve">
+    <value>Add to cart</value>
+  </data>
+  <data name="btnSeeDetail.Text" xml:space="preserve">
+    <value>See detail</value>
+  </data>
   <data name="lblNoResults.Text" xml:space="preserve">
     <value>No product matches your criteria</value>
   </data>

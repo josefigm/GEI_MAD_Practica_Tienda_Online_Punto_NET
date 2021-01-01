@@ -11,13 +11,23 @@
     <div class="div_text_center">
         <section>
             <center>
-                <asp:GridView ID="gvProducts" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal" AutoGenerateColumns="False">
+                <asp:GridView ID="gvProducts" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal" AutoGenerateColumns="False" OnRowCommand="GvProducts_RowCommand">
                     <Columns>
-                        <asp:BoundField DataField="Name" meta:resourcekey="bfName" HeaderText="Name"/>
-                        <asp:BoundField DataField="Category" meta:resourcekey="bfCategory" HeaderText="Category"/>
-                        <asp:BoundField DataField="Entry date" meta:resourcekey="bfDate" HeaderText="Entry date"/>
-                        <asp:BoundField DataField="Price" meta:resourcekey="bfPrice" HeaderText="Price"/>
-                        <asp:BoundField DataField="Link add to cart" meta:resourcekey="bfAddToCart" HeaderText="Link add to cart"/>
+                        <asp:BoundField DataField="productTitle" meta:resourcekey="bfName" HeaderText="Name"/>
+                        <asp:BoundField DataField="id" Visible="false"/>
+                        <asp:BoundField DataField="category.id" meta:resourcekey="bfCategory" HeaderText="Category"/>
+                        <asp:BoundField DataField="entryDate" meta:resourcekey="bfDate" HeaderText="Entry date"/>
+                        <asp:BoundField DataField="price" meta:resourcekey="bfPrice" HeaderText="Price"/>
+                        <asp:TemplateField ShowHeader="False">
+                            <ItemTemplate>
+                                <asp:Button ID="btnSeeDetail" meta:resourcekey="btnSeeDetail" runat="server" CausesValidation="false" CommandName="SeeDetail" CommandArgument='<%# Eval("id") %>' />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField ShowHeader="False">
+                            <ItemTemplate>
+                                <asp:Button ID="btnAddToCart" meta:resourcekey="btnAddToCart" runat="server" CausesValidation="false" CommandName="AddToCart" CommandArgument='<%# Eval("id") %>' />
+                            </ItemTemplate>
+                        </asp:TemplateField>             
                     </Columns>
                     <FooterStyle BackColor="#CCCC99" ForeColor="Black" />
                     <HeaderStyle BackColor="#333333" Font-Bold="True" ForeColor="White" />

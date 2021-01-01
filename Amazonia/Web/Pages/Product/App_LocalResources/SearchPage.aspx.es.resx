@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="btnAddToCart.Text" xml:space="preserve">
+    <value>Añadir a carrito</value>
+  </data>
   <data name="btnSearchProduct.Text" xml:space="preserve">
     <value>Buscar productos</value>
+  </data>
+  <data name="btnSeeDetail.Text" xml:space="preserve">
+    <value>Ver detalle</value>
   </data>
   <data name="lblCategories.Text" xml:space="preserve">
     <value>Categorias</value>

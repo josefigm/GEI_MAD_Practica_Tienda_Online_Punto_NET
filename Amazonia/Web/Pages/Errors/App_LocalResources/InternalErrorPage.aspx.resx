@@ -117,16 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btnAddToCart.Text" xml:space="preserve">
-    <value>Add to cart</value>
+  <data name="lblErrorTitle.Text" xml:space="preserve">
+    <value>Internal Error</value>
   </data>
-  <data name="btnSearchProduct.Text" xml:space="preserve">
-    <value>Search products</value>
+  <data name="lblRetryLater.Text" xml:space="preserve">
+    <value>Please, check if the operation has been performed, and retry if it is necessary</value>
   </data>
-  <data name="btnSeeDetail.Text" xml:space="preserve">
-    <value>See detail</value>
-  </data>
-  <data name="lblCategories.Text" xml:space="preserve">
-    <value>Categories</value>
+  <data name="Page.Title" xml:space="preserve">
+    <value>Miniportal - Internal Error</value>
   </data>
 </root>

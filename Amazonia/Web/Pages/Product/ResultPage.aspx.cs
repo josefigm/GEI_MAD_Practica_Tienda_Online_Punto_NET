@@ -21,14 +21,14 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
             lnkNext.Visible = false;
 
             /* Get the keyword passed as parameter in the request from
-             * the previous page
-             */
+                * the previous page
+                */
             string keyword = Request.Params.Get("keyword");
 
 
             /* Get User Identifier passed as parameter in the request from
-             * the previous page
-             */
+                * the previous page
+                */
             long categoryId = Convert.ToInt64(Request.Params.Get("categoryId"));
 
             /* Get Start Index */
@@ -58,7 +58,11 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
                 lblNoResults.Visible = true;
             }
 
-            setRows(productBlock.products);
+            if(!IsPostBack)
+            {
+                setRows(productBlock.products);
+            }
+            
 
 
             /* "Previous" link */
@@ -80,6 +84,7 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
                     Response.ApplyAppPathModifier(url);
                 this.lnkNext.Visible = true;
             }
+            
         }
 
         private ProductBlock getData(string keyword, long categoryId, int startIndex, int count)
@@ -106,28 +111,28 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
 
         private void setRows(List<ProductDTO> products)
         {
-            DataTable dt = new DataTable();
-
-            DataRow dr = dt.NewRow();
-            dt.Columns.Add(new DataColumn("Name", typeof(string)));
-            dt.Columns.Add(new DataColumn("Category", typeof(string)));
-            dt.Columns.Add(new DataColumn("Entry date", typeof(string)));
-            dt.Columns.Add(new DataColumn("Price", typeof(string)));
-            dt.Columns.Add(new DataColumn("Link add to cart", typeof(string)));
-
-            for (int i = 0; i < products.Count; i++)
-            {
-                dr = dt.NewRow();
-                dr["Name"] = products[i].productTitle;
-                dr["Category"] = products[i].category.id;
-                dr["Entry date"] = products[i].entryDate.ToShortDateString();
-                dr["Price"] = products[i].price.ToString();
-                dr["Link add to cart"] = string.Empty;
-                dt.Rows.Add(dr);
-            }
-
-            gvProducts.DataSource = dt;
+            gvProducts.DataSource = products;
             gvProducts.DataBind();
         }
+
+        protected void GvProducts_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+
+            if (e.CommandName == "SeeDetail")
+            {
+                
+                //String url = String.Format("./ViewProductPage.aspx?productId={0}", e.CommandArgument);
+                String url = "/MainPage.aspx";
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
+
+            if (e.CommandName == "AddToCart")
+            {
+                String url = "/MainPage.aspx";
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
+
+        }
+
     }
 }
