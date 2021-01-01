@@ -15,18 +15,22 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         public double price { get; private set; }
         public DateTime entryDate { get; private set; }
         public String categoryName { get; private set; }
+        public long categoryId { get; set; }
         public string image { get; set; }
         public string description { get; set; }
+        public long stock { get; set; }
 
-        public CompleteProductDTO(long id, string name, double price, DateTime entryDate, string categoryName, string image, string description)
+        public CompleteProductDTO(long id, string name, double price, DateTime entryDate, string categoryName, long categoryId, string image, string description, long stock)
         {
             this.id = id;
             this.name = name;
             this.price = price;
             this.entryDate = entryDate;
             this.categoryName = categoryName;
+            this.categoryId = categoryId;
             this.image = image;
             this.description = description;
+            this.stock = stock;
         }
 
         public override bool Equals(object obj)

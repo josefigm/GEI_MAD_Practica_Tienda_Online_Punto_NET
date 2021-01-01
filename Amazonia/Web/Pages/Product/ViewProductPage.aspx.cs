@@ -15,37 +15,48 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            long productId = Convert.ToInt64(Request.Params.Get("productId"));
-
-            CompleteProductDTO product = GetProduct(productId);
-
-            productName.Text = product.name;
-            productCategory.Text = product.categoryName;
-            productPrice.Text = product.price.ToString() + " €";
-            entryDate.Text = product.entryDate.ToShortDateString();
-
-            if (product.image != null)
+            if (!IsPostBack)
             {
-                //productImage.ImageUrl = Server.MapPath("~/images/img.jpg");
-                productImage.ImageUrl = "./noImg.jpg";
-            }
-            else
-            {
-                productImage.ImageUrl = "./noImg.jpg";
-                //productImage.ImageUrl = "../../../images/img.jpg";
-                //productImage.ImageUrl = Server.MapPath("~/images/img.jpg");
-            }
+                long productId = Convert.ToInt64(Request.Params.Get("productId"));
+                lblProductId.Text = productId.ToString();
 
-            if (product.description != null)
-            {
-                lclDescription.Visible = true;
-                productDescription.Text = product.description;
-            }
-            else
-            {
-                lblNoDescription.Visible = true;
-            }
+                CompleteProductDTO product = GetProduct(productId);
 
+                productName.Text = product.name;
+                productCategory.Text = product.categoryName;
+                productPrice.Text = product.price.ToString() + " €";
+                entryDate.Text = product.entryDate.ToShortDateString();
+                stock.Text = product.stock.ToString();
+
+                if (product.image != null)
+                {
+                    //productImage.ImageUrl = Server.MapPath("~/images/img.jpg");
+                    productImage.ImageUrl = "./noImg.jpg";
+                }
+                else
+                {
+                    productImage.ImageUrl = "./noImg.jpg";
+                    //productImage.ImageUrl = "../../../images/img.jpg";
+                    //productImage.ImageUrl = Server.MapPath("~/images/img.jpg");
+                }
+
+                // A role equal to 1 indicates that the user is an administrator.
+                // If a user is an administrator, the user can edit the product info.
+                if (SessionManager.IsUserAuthenticated(Context) && SessionManager.GetUserSession(Context).Role == 1)
+                {
+                    btnEditProduct.Visible = true;
+                }
+
+                if (product.description != null)
+                {
+                    lclDescription.Visible = true;
+                    productDescription.Text = product.description;
+                }
+                else
+                {
+                    lblNoDescription.Visible = true;
+                }
+            }
         }
 
         private CompleteProductDTO GetProduct(long id)
@@ -55,6 +66,12 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
             IProductService productService = iocManager.Resolve<IProductService>();
 
             return productService.FindProductById(id);
+        }
+
+        protected void btnEditProduct_Click(object sender, EventArgs e)
+        {
+            String url = String.Format("./EditProductPage.aspx?productId={0}", lblProductId.Text);
+            Response.Redirect(Response.ApplyAppPathModifier(url));
         }
     }
 }

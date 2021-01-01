@@ -10,7 +10,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp.DTOs
 
         public static CompleteProductDTO ProductToCompleteProductDto(Product input)
         {
-            return new CompleteProductDTO(input.id, input.name, input.price, input.entryDate, input.Category.name, input.image, input.description);
+            return new CompleteProductDTO(input.id, input.name, input.price, input.entryDate, input.Category.name, input.Category.id, input.image, input.description, input.stock);
         }
     }
 }

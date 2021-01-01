@@ -57,7 +57,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         /// <exception cref="Exception"/>
         /// <returns></returns>
         [Transactional]
-        Product UpdateProduct(long productId, string name, double price, long stock, string image, string description, long categoryId);
+        Product UpdateProduct(long productId, string name, double price, long stock, string description);
 
         /// <summary>
         /// Finds the categories.

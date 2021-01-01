@@ -9,6 +9,7 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Session
     {
         private long userProfileId;
         private String firstName;
+        private byte role;
 
         public long UserProfileId
         {
@@ -20,6 +21,12 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Session
         {
             get { return firstName; }
             set { firstName = value; }
+        }
+
+        public byte Role
+        {
+            get { return role; }
+            set { role = value; }
         }
     }
 }

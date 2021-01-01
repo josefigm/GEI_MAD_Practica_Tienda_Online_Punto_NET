@@ -129,7 +129,8 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Session
             UserSession userSession = new UserSession
             {
                 UserProfileId = loginDTO.UserProfileId,
-                FirstName = loginDTO.FirstName
+                FirstName = loginDTO.FirstName,
+                Role = loginDTO.Role
             };
 
             Locale locale =

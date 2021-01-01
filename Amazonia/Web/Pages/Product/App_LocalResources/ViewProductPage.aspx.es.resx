@@ -120,6 +120,9 @@
   <data name="btnAddToShCart.Text" xml:space="preserve">
     <value>Agregar al carrito</value>
   </data>
+  <data name="btnEditProduct.Text" xml:space="preserve">
+    <value>Editar Producto</value>
+  </data>
   <data name="lblNoDescription.Text" xml:space="preserve">
     <value>No hay descripción para este producto</value>
   </data>
@@ -137,5 +140,8 @@
   </data>
   <data name="lclProductName.Text" xml:space="preserve">
     <value>Producto: </value>
+  </data>
+  <data name="lclStock.Text" xml:space="preserve">
+    <value>Stock</value>
   </data>
 </root>
