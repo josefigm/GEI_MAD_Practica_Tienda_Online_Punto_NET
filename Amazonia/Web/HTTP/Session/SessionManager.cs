@@ -65,9 +65,11 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Session
             long clientId = client.id;
 
             /* Insert necessary objects in the session. */
-            UserSession userSession = new UserSession();
-            userSession.UserProfileId = clientId;
-            userSession.FirstName = clientDTO.FirstName;
+            UserSession userSession = new UserSession
+            {
+                UserProfileId = clientId,
+                FirstName = clientDTO.FirstName
+            };
 
             Locale locale = new Locale(clientDTO.Language, clientDTO.Country);
 
@@ -124,9 +126,11 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Session
 
             /* Insert necessary objects in the session. */
 
-            UserSession userSession = new UserSession();
-            userSession.UserProfileId = loginDTO.UserProfileId;
-            userSession.FirstName = loginDTO.FirstName;
+            UserSession userSession = new UserSession
+            {
+                UserProfileId = loginDTO.UserProfileId,
+                FirstName = loginDTO.FirstName
+            };
 
             Locale locale =
                 new Locale(loginDTO.Language, loginDTO.Country);
@@ -280,6 +284,33 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Session
             UpdateSessionForAuthenticatedUser(context, userSession, locale);
         }
 
+        /// <summary>
+        /// Determine if a user is authenticated
+        /// </summary>
+        /// <param name="context">Http Context includes request, response, etc.</param>
+        /// <returns>
+        /// 	<c>true</c> if is user authenticated
+        ///     <c>false</c> otherwise
+        /// </returns>
+        public static Boolean IsUserAuthenticated(HttpContext context)
+        {
+            if (context.Session == null)
+                return false;
 
+            return (context.Session[USER_SESSION_ATTRIBUTE] != null);
+        }
+
+        /// <summary>
+        /// Gets the user info stored in the session.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <returns></returns>
+        public static UserSession GetUserSession(HttpContext context)
+        {
+            if (IsUserAuthenticated(context))
+                return (UserSession)context.Session[USER_SESSION_ATTRIBUTE];
+            else
+                return null;
+        }
     }
 }

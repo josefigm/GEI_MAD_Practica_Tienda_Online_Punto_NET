@@ -51,7 +51,7 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
                 count = 3;
             }
 
-            ProductBlock productBlock = getData(keyword, categoryId, startIndex, count);
+            ProductBlock productBlock = GetData(keyword, categoryId, startIndex, count);
 
             if (productBlock.products.Count == 0)
             {
@@ -60,11 +60,9 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
 
             if(!IsPostBack)
             {
-                setRows(productBlock.products);
+                SetRows(productBlock.products);
             }
             
-
-
             /* "Previous" link */
             if ((startIndex - count) >= 0)
             {
@@ -87,7 +85,7 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
             
         }
 
-        private ProductBlock getData(string keyword, long categoryId, int startIndex, int count)
+        private ProductBlock GetData(string keyword, long categoryId, int startIndex, int count)
         {
             ProductBlock productBlock;
             IIoCManager iiocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
@@ -109,7 +107,7 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
             return productBlock;
         }
 
-        private void setRows(List<ProductDTO> products)
+        private void SetRows(List<ProductDTO> products)
         {
             gvProducts.DataSource = products;
             gvProducts.DataBind();
@@ -122,17 +120,15 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
             {
                 
                 //String url = String.Format("./ViewProductPage.aspx?productId={0}", e.CommandArgument);
-                String url = "/MainPage.aspx";
+                String url = "/Pages/MainPage.aspx";
                 Response.Redirect(Response.ApplyAppPathModifier(url));
             }
 
             if (e.CommandName == "AddToCart")
             {
-                String url = "/MainPage.aspx";
+                String url = "/Pages/MainPage.aspx";
                 Response.Redirect(Response.ApplyAppPathModifier(url));
             }
-
         }
-
     }
 }

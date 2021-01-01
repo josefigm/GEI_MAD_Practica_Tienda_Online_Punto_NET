@@ -42,16 +42,17 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
         /// </summary>
         private void UpdateComboCategory()
         {
-            
             IIoCManager iiocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
             IProductService productService = iiocManager.Resolve<IProductService>();
 
             List<Category> categories = productService.FindCategories();
 
-            ArrayList categoriesDropDown = new ArrayList();
+            ArrayList categoriesDropDown = new ArrayList
+            {
 
-            // A default value is added because searching for a product doesn't require a category, it's optional
-            categoriesDropDown.Add(new ListItem("-", "-1"));
+                // A default value is added because searching for a product doesn't require a category, it's optional
+                new ListItem("-", "-1")
+            };
             // Now, the categories are inserted.
             foreach (var category in categories)
             {

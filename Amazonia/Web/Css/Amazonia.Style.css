@@ -31,7 +31,7 @@ a {
 /* Page title. */
 
 #pageTitle {
-    background-color: #097099;
+    background-color: #333333;
     color: #fff;
     text-align: center;
     font-weight: bold;
@@ -43,7 +43,7 @@ a {
 /* Menu. */
 
 #menu {
-    background-color: #094069;
+    background-color: #bfbfbf;
     color: #fff;
     text-align: left;
     padding: 5px 0 5px 5px;
@@ -55,7 +55,7 @@ a {
 }
 
 #menuLinks a {
-    color: #fffac6;
+    color: #000000;
 }
 
 /* Content. */
