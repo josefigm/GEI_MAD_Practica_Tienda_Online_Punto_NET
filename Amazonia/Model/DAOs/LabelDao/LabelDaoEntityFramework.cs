@@ -43,6 +43,12 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao
             return result;
         }
 
+        public int GetNumberOfCommentsForLabel(long labelId)
+        {
+            Label label = Find(labelId);
+
+            return label.Comments.Count();
+        }
     }
 
 }

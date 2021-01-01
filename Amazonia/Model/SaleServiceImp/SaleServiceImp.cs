@@ -155,8 +155,8 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
                 }
             }
 
-            sale.Card = card;
-            sale.Client = client;
+            sale.cardId = card.id;
+            sale.clientId = client.id;
             sale.totalPrice = totalPrice;
             sale.address = address;
             sale.descName = descName;
@@ -171,8 +171,8 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
                     units = line.units,
                     price = line.price,
                     gift = line.gift,
-                    Product = ProductDao.Find(line.product.id),
-                    Sale = sale,
+                    productId = line.product.id,
+                    saleId = sale.id,
                 };
                 SaleLineDao.Create(saleLine);
             }

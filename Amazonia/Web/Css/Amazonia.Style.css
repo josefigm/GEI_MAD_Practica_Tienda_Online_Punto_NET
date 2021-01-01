@@ -111,6 +111,27 @@ div.button {
     width: 100%;
 }
 
+div.viewProductContainer {
+    margin-left: 100px;
+    margin-right: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+div.productDetails {
+    font-size: 20px;
+    margin-left: 25px;
+    text-align: left;
+    
+}
+
+.price {
+    color: #bf0808;
+    font-weight: bold;
+}
+
+
 input, select, textarea {
     background-color: #f4f4f4;
 }

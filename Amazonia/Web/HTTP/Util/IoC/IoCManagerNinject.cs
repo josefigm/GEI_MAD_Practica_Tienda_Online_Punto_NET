@@ -4,6 +4,8 @@ using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CardDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleLineDao;
@@ -62,6 +64,12 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Util.IoC
 
             kernel.Bind<IProductDao>().
                 To<ProductDaoEntityFramework>();
+
+            kernel.Bind<ICommentDao>().
+               To<CommentDaoEntityFramework>();
+
+            kernel.Bind<ILabelDao>().
+               To<LabelDaoEntityFramework>();
 
             /*** DbContext ***/
             string connectionString = ConfigurationManager.ConnectionStrings["amazoniaEntities"].ConnectionString;

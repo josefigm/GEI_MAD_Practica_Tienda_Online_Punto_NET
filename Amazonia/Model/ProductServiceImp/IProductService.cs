@@ -95,7 +95,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
         [Transactional]
-        Product FindProductById(long id);
+        CompleteProductDTO FindProductById(long id);
 
         /// Retrieves the products with label.
         /// </summary>

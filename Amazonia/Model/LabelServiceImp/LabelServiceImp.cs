@@ -128,13 +128,10 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
         public List<int> GetNumberOfComments(List<long> labels)
         {
             List<int> commentsForLabels = new List<int>();
-            Label label;
 
             for (int i = 0; i < labels.Count; i++)
             {
-                label = LabelDao.Find(labels[i]);
-
-                commentsForLabels.Add(label.Comments.Count);
+                commentsForLabels.Add(LabelDao.GetNumberOfCommentsForLabel(labels[i]));
             }
 
             return commentsForLabels;

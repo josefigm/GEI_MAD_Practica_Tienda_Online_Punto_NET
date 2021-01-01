@@ -119,9 +119,9 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 
 
         [Transactional]
-        public Product FindProductById(long id)
+        public CompleteProductDTO FindProductById(long id)
         {
-            return ProductDaoEntityFramework.Find(id);
+            return ProductDaoEntityFramework.FindCompleteProductDTO(id);
         }
 
         private void AddToCache(String entrie, List<ProductDTO> result)
