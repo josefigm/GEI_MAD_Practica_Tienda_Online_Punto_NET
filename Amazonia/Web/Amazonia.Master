@@ -13,7 +13,7 @@
     <div id="window">
         <!-- Page title. -->
         <div id="pageTitle">
-            <asp:Localize ID="lclPageTitle" runat="server" meta:resourcekey="lclPageTitle" />
+            <asp:HyperLink ID="lclPageTitle" runat="server" NavigateUrl="~/Pages/MainPage.aspx" meta:resourcekey="lclPageTitle" />
         </div>
         <!-- Menu. -->
         <div id="menu">

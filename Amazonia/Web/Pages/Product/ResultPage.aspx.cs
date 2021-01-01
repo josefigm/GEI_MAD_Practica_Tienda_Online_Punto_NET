@@ -118,9 +118,7 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
 
             if (e.CommandName == "SeeDetail")
             {
-                
-                //String url = String.Format("./ViewProductPage.aspx?productId={0}", e.CommandArgument);
-                String url = "/Pages/MainPage.aspx";
+                String url = String.Format("./ViewProductPage.aspx?productId={0}", e.CommandArgument);
                 Response.Redirect(Response.ApplyAppPathModifier(url));
             }
 

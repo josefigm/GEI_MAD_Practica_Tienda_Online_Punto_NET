@@ -118,21 +118,24 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="btnAddToShCart.Text" xml:space="preserve">
-    <value>Agregar al carrito</value>
+    <value>Add to cart</value>
   </data>
   <data name="lblNoDescription.Text" xml:space="preserve">
-    <value>No hay descripción para este producto</value>
+    <value>There is no description for this product</value>
   </data>
   <data name="lclDescription.Text" xml:space="preserve">
-    <value>Descripción del producto: </value>
+    <value>Product description: </value>
   </data>
   <data name="lclEntryDate.Text" xml:space="preserve">
-    <value>Fecha de alta: </value>
+    <value>Entry date: </value>
+  </data>
+  <data name="lclPrice.Text" xml:space="preserve">
+    <value>Price:</value>
   </data>
   <data name="lclProductCategory.Text" xml:space="preserve">
-    <value>Categoría: </value>
+    <value>Category: </value>
   </data>
   <data name="lclProductName.Text" xml:space="preserve">
-    <value>Producto: </value>
+    <value>Product: </value>
   </data>
 </root>

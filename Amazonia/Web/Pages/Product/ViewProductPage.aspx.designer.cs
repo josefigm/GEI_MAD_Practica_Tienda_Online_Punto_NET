@@ -7,19 +7,10 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Es.Udc.DotNet.Amazonia.Web.Pages.Products {
+namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product {
     
     
     public partial class ViewProductPage {
-        
-        /// <summary>
-        /// Control lclProductName.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize lclProductName;
         
         /// <summary>
         /// Control productName.
@@ -38,15 +29,6 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Products {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image productImage;
-        
-        /// <summary>
-        /// Control productPrice.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize productPrice;
         
         /// <summary>
         /// Control lclProductCategory.
@@ -110,5 +92,23 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Products {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Localize productDescription;
+        
+        /// <summary>
+        /// Control lclPrice.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Localize lclPrice;
+        
+        /// <summary>
+        /// Control productPrice.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Localize productPrice;
     }
 }

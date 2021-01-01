@@ -37,7 +37,6 @@ a {
     font-weight: bold;
     padding: 5px 0 5px 5px;
     width: 99%;
-    font-weight: bold;
 }
 
 /* Menu. */
@@ -54,6 +53,10 @@ a {
     font-weight: bold;
 }
 
+#lclPageTitle {
+    color: white;
+}
+
 #menuLinks a {
     color: #000000;
 }
@@ -66,7 +69,7 @@ a {
     width: 100%;
 }
 
-p.info {
+.info {
     font-size: 16px;
 }
 
@@ -76,13 +79,13 @@ form {
     width: 100%;
 }
 
-div.field {
+.field {
     clear: both;
     padding-top: 1em;
     width: 100%;
 }
 
-div.field span.label {
+.field span.label {
     float: left;
     text-align: right;
     font-weight: bold;
@@ -91,33 +94,33 @@ div.field span.label {
     width: 49.5%;
 }
 
-div.field span.entry {
+.field span.entry {
     float: right;
     text-align: left;
     width: 49.5%;
 }
 
-div.checkbox {
+.checkbox {
     clear: both;
     padding-top: 1em;
     text-align: center;
     width: 100%;
 }
 
-div.button {
+.button {
     clear: both;
     padding-top: 1em;
     text-align: center;
     width: 100%;
 }
 
-div.div_text_center {
+.div_text_center {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
 }
 
-div.viewProductContainer {
+.viewProductContainer {
     margin-left: 100px;
     margin-right: 100px;
     display: flex;
@@ -125,7 +128,7 @@ div.viewProductContainer {
     justify-content: center;
 }
 
-div.productDetails {
+.productDetails {
     font-size: 20px;
     margin-left: 25px;
     text-align: left;
@@ -137,6 +140,9 @@ div.productDetails {
     font-weight: bold;
 }
 
+.attributeName {
+    font-weight: bold;
+}
 
 input, select, textarea {
     background-color: #f4f4f4;
@@ -157,7 +163,6 @@ input, select, textarea {
     padding-top: 5px;
     text-align: center;
     width: 100%;
-    padding-top: 5px;
 }
 
 /* Table */

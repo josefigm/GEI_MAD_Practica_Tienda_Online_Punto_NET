@@ -9,7 +9,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Es.Udc.DotNet.Amazonia.Web.Pages.Products
+namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
 {
     public partial class ViewProductPage : SpecificCulturePage
     {
