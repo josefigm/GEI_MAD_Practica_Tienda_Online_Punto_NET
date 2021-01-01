@@ -165,6 +165,7 @@
     </Compile>
     <Compile Include="Pages\Product\SearchPage.aspx.designer.cs">
       <DependentUpon>SearchPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Products\ViewProductPage.aspx.cs">
       <DependentUpon>ViewProductPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
