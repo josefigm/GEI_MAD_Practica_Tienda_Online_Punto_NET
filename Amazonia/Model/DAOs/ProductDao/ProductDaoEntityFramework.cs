@@ -53,6 +53,12 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao
             return productListOutput;
         }
 
+        public CompleteProductDTO FindCompleteProductDTO(long productId)
+        {
+            Product product = Find(productId);
+
+            return ProductMapper.ProductToCompleteProductDto(product);
+        }
     }
 }
 

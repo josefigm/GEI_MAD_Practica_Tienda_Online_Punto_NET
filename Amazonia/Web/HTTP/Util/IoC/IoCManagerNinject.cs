@@ -67,6 +67,7 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Util.IoC
 
             kernel.Bind<ICommentDao>().
                 To<CommentDaoEntityFramework>();
+                
             kernel.Bind<ILabelDao>().
                 To<LabelDaoEntityFramework>();
 

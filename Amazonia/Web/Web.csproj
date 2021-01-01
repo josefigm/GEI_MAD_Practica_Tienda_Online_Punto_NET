@@ -100,6 +100,7 @@
     <Content Include="Pages\MainPage.aspx" />
     <Content Include="Pages\Product\ResultPage.aspx" />
     <Content Include="Pages\Product\SearchPage.aspx" />
+    <Content Include="Pages\Products\ViewProductPage.aspx" />
     <Content Include="Pages\User\LoginPage.aspx" />
     <Content Include="Pages\User\LogoutPage.aspx" />
     <Content Include="Pages\User\RegisterPage.aspx" />
@@ -164,6 +165,12 @@
     </Compile>
     <Compile Include="Pages\Product\SearchPage.aspx.designer.cs">
       <DependentUpon>SearchPage.aspx</DependentUpon>
+    <Compile Include="Pages\Products\ViewProductPage.aspx.cs">
+      <DependentUpon>ViewProductPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Products\ViewProductPage.aspx.designer.cs">
+      <DependentUpon>ViewProductPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\User\LoginPage.aspx.cs">
       <DependentUpon>LoginPage.aspx</DependentUpon>
@@ -269,6 +276,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\Errors\App_LocalResources\InternalError.aspx.es.resx" />
+    <Content Include="Pages\Products\App_LocalResources\ViewProductPage.aspx.es.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Products\App_LocalResources\ViewProductPage.aspx.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
