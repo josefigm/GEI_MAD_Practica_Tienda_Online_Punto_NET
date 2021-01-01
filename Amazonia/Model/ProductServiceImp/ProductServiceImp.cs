@@ -84,7 +84,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         }
 
         [Transactional]
-        public Product UpdateProduct(long productId, string name, double price, long stock, string image, string description, long categoryId)
+        public Product UpdateProduct(long productId, string name, double price, long stock, string description)
         {
             if (name == null || name.Length == 0 || price <= 0 || stock < 0)
             {
@@ -101,10 +101,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
             productToProcess.name = name;
             productToProcess.price = price;
             productToProcess.stock = stock;
-            productToProcess.image = image;
             productToProcess.description = description;
-            productToProcess.categoryId = categoryId;
-
 
             ProductDaoEntityFramework.Update(productToProcess);
 

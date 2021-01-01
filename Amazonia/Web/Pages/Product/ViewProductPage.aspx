@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Amazonia.Master" AutoEventWireup="true" CodeBehind="ViewProductPage.aspx.cs" Inherits="Es.Udc.DotNet.Amazonia.Web.Pages.Product.ViewProductPage" %>
+﻿<%@ Page Title="" Trace="true" Language="C#" MasterPageFile="~/Amazonia.Master" AutoEventWireup="true" CodeBehind="ViewProductPage.aspx.cs" Inherits="Es.Udc.DotNet.Amazonia.Web.Pages.Product.ViewProductPage" %>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder_BodyContent" runat="server">
     <br />
@@ -43,6 +43,14 @@
                     <asp:Localize ID="productPrice" runat="server"></asp:Localize>
                 </span>
             </div>
+            <form id="form1" runat="server">
+                <div class="button">
+                    <span>
+                        <asp:Label ID="lblProductId" runat="server" visible="false" ></asp:Label>
+                        <asp:Button ID="btnEditProduct" runat="server" visible="false" meta:resourcekey="btnEditProduct" OnClick="btnEditProduct_Click"/>
+                    </span>
+                </div>
+            </form>
         </div>
     </div>
 </asp:Content>

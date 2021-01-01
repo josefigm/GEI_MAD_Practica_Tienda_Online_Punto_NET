@@ -120,6 +120,9 @@
   <data name="btnAddToShCart.Text" xml:space="preserve">
     <value>Add to cart</value>
   </data>
+  <data name="btnEditProduct.Text" xml:space="preserve">
+    <value>Edit Product</value>
+  </data>
   <data name="lblNoDescription.Text" xml:space="preserve">
     <value>There is no description for this product</value>
   </data>

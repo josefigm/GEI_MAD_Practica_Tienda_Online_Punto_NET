@@ -98,6 +98,7 @@
     <Content Include="Global.asax" />
     <Content Include="Pages\Errors\InternalErrorPage.aspx" />
     <Content Include="Pages\MainPage.aspx" />
+    <Content Include="Pages\Product\EditProductPage.aspx" />
     <Content Include="Pages\Product\ResultPage.aspx" />
     <Content Include="Pages\Product\SearchPage.aspx" />
     <Content Include="Pages\Product\ViewProductPage.aspx" />
@@ -151,6 +152,13 @@
     </Compile>
     <Compile Include="Pages\MainPage.aspx.designer.cs">
       <DependentUpon>MainPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Product\EditProductPage.aspx.cs">
+      <DependentUpon>EditProductPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Product\EditProductPage.aspx.designer.cs">
+      <DependentUpon>EditProductPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Product\ResultPage.aspx.cs">
       <DependentUpon>ResultPage.aspx</DependentUpon>
@@ -283,6 +291,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\Product\App_LocalResources\ViewProductPage.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Product\App_LocalResources\EditProductPage.aspx.es.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Product\App_LocalResources\EditProductPage.aspx.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

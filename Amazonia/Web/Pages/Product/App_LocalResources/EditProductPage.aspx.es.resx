@@ -117,28 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btnAddToShCart.Text" xml:space="preserve">
-    <value>Agregar al carrito</value>
-  </data>
-  <data name="btnEditProduct.Text" xml:space="preserve">
-    <value>Editar Producto</value>
-  </data>
-  <data name="lblNoDescription.Text" xml:space="preserve">
-    <value>No hay descripción para este producto</value>
+  <data name="btnUpdate.Text" xml:space="preserve">
+    <value>Actualizar</value>
   </data>
   <data name="lclDescription.Text" xml:space="preserve">
-    <value>Descripción del producto: </value>
-  </data>
-  <data name="lclEntryDate.Text" xml:space="preserve">
-    <value>Fecha de alta: </value>
+    <value>Descripcion</value>
   </data>
   <data name="lclPrice.Text" xml:space="preserve">
-    <value>Precio:</value>
-  </data>
-  <data name="lclProductCategory.Text" xml:space="preserve">
-    <value>Categoría: </value>
+    <value>Precio</value>
   </data>
   <data name="lclProductName.Text" xml:space="preserve">
-    <value>Producto: </value>
+    <value>Nombre del producto</value>
+  </data>
+  <data name="lclStock.Text" xml:space="preserve">
+    <value>Stock</value>
+  </data>
+  <data name="maxLenght" xml:space="preserve">
+    <value>La longitud máxima es de 1000 caracteres</value>
+  </data>
+  <data name="maxStock" xml:space="preserve">
+    <value>El stock no puede superar las 1000 unidades</value>
   </data>
 </root>
