@@ -94,6 +94,24 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product {
         protected global::System.Web.UI.WebControls.Localize productDescription;
         
         /// <summary>
+        /// Control lclStock.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Localize lclStock;
+        
+        /// <summary>
+        /// Control stock.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Localize stock;
+        
+        /// <summary>
         /// Control lclPrice.
         /// </summary>
         /// <remarks>

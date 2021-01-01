@@ -34,6 +34,12 @@
                 </span>
                 <asp:Localize ID="productDescription" runat="server"></asp:Localize>
             </div>
+             <div>
+                <span class="attributeName">
+                    <asp:Localize ID="lclStock" runat="server" meta:resourcekey="lclStock"></asp:Localize>
+                </span>
+                <asp:Localize ID="stock" runat="server"></asp:Localize>
+            </div>
             <br>
             <div>
                 <span class="attributeName">

@@ -26,6 +26,7 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
                 productCategory.Text = product.categoryName;
                 productPrice.Text = product.price.ToString() + " €";
                 entryDate.Text = product.entryDate.ToShortDateString();
+                stock.Text = product.stock.ToString();
 
                 if (product.image != null)
                 {
