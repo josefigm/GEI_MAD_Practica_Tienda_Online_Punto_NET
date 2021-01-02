@@ -57,31 +57,31 @@ namespace Test.ProductService
 
             return clientBd;
         }
-
-        [TestMethod]
-        public void TestFindCategories()
-        {
-            using (var scope = new TransactionScope())
-            {
-                Category c1 = new Category();
-                c1.name = "c1";
-                Category c2 = new Category();
-                c2.name = "c2";
-
-                categoryDao.Create(c1);
-                categoryDao.Create(c2);
-
-                List<Category> categoriesExpected = new List<Category>(2);
-
-                categoriesExpected.Add(c1);
-                categoriesExpected.Add(c2);
-
-                List<Category> categoriesFound = productService.FindCategories();
-
-                Assert.AreEqual(2, categoriesFound.Count);
-                CollectionAssert.AreEqual(categoriesExpected, categoriesFound);
-            }
-        }
+//        Este test solo tiene sentido en un entorno con la BBDD vacía.
+//        [TestMethod]
+//        public void TestFindCategories()
+//        {
+//            using (var scope = new TransactionScope())
+//            {
+//                Category c1 = new Category();
+//                c1.name = "c1";
+//                Category c2 = new Category();
+//                c2.name = "c2";
+//
+//                categoryDao.Create(c1);
+//                categoryDao.Create(c2);
+//
+//                List<Category> categoriesExpected = new List<Category>(2);
+//
+//                categoriesExpected.Add(c1);
+//                categoriesExpected.Add(c2);
+//
+//                List<Category> categoriesFound = productService.FindCategories();
+//
+//                Assert.AreEqual(2, categoriesFound.Count);
+//                CollectionAssert.AreEqual(categoriesExpected, categoriesFound);
+//            }
+//        }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
@@ -137,52 +137,52 @@ namespace Test.ProductService
             }
         }
 
-//        [TestMethod]
-//        public void TestUpdateProduct()
-//        {
-//            using (var scope = new TransactionScope())
-//            {
-//                #region Declaracion de variables
+        [TestMethod]
+        public void TestUpdateProduct()
+        {
+            using (var scope = new TransactionScope())
+            {
+                #region Declaracion de variables
 
-//               Category c1 = new Category();
-//               c1.name = "Bicicletas";
-//               categoryDao.Create(c1);
-//
-//               Product biciCarretera = new Product();
-//
-//               double price = 1200;
-//               System.DateTime date = System.DateTime.Now;
-//               long stock = 5;
-//               string image = "ccc";
-//               string description = "Bicicleta";
-//               long categoryIdBicicleta = c1.id;
-//
-//               biciCarretera.name = "Bicicleta Felt FZ85";
-//               biciCarretera.price = price;
-//               biciCarretera.entryDate = date;
-//               biciCarretera.stock = stock;
-//               biciCarretera.image = image;
-//               biciCarretera.description = description;
-//               biciCarretera.categoryId = categoryIdBicicleta;
+               Category c1 = new Category();
+               c1.name = "Bicicletas";
+               categoryDao.Create(c1);
 
-//                #endregion Declaracion de variables
-//
-//                #region Persistencia
+               Product biciCarretera = new Product();
 
-//                productService.CreateProduct(biciCarretera);
+               double price = 1200;
+               System.DateTime date = System.DateTime.Now;
+               long stock = 5;
+               string image = "ccc";
+               string description = "Bicicleta";
+               long categoryIdBicicleta = c1.id;
 
-//                #endregion Persistencia
-//
-//                //Se cambia biciCarretera y se comprueba que al actualizarla en BBDD son iguales.
-//
-//                biciCarretera.price = 1500d;
-//
-//                productService.UpdateProduct(biciCarretera.id, biciCarretera.name, biciCarretera.price, biciCarretera.stock, biciCarretera.image, biciCarretera.description, biciCarretera.categoryId);
-//
-//                Product retrievedProduct = productDao.Find(biciCarretera.id);
-//                Assert.AreEqual(biciCarretera, retrievedProduct);
-//            }
-//        }
+               biciCarretera.name = "Bicicleta Felt FZ85";
+               biciCarretera.price = price;
+               biciCarretera.entryDate = date;
+               biciCarretera.stock = stock;
+               biciCarretera.image = image;
+               biciCarretera.description = description;
+               biciCarretera.categoryId = categoryIdBicicleta;
+
+                #endregion Declaracion de variables
+
+                #region Persistencia
+
+                productService.CreateProduct(biciCarretera);
+
+                #endregion Persistencia
+
+                //Se cambia biciCarretera y se comprueba que al actualizarla en BBDD son iguales.
+
+                biciCarretera.price = 1500d;
+
+                productService.UpdateProduct(biciCarretera.id, biciCarretera.name, biciCarretera.price, biciCarretera.stock, biciCarretera.description);
+
+                Product retrievedProduct = productDao.Find(biciCarretera.id);
+                Assert.AreEqual(biciCarretera, retrievedProduct);
+            }
+        }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
