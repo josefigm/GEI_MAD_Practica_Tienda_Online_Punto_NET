@@ -13,14 +13,14 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp.DTOs
         public System.DateTime date { get; set; }
         public long productId { get; set; }
         public long clientId { get; set; }
-        public string clientName { get; set; }
+        public string clientLogin { get; set; }
         public List<LabelDTO> labels { get; set; }
 
         public CommentDTO()
         {
         }
 
-        public CommentDTO(long id, string title, string value, DateTime date, long productId, long clientId, string clientName, List<LabelDTO> labels)
+        public CommentDTO(long id, string title, string value, DateTime date, long productId, long clientId, string clientLogin, List<LabelDTO> labels)
         {
             this.id = id;
             this.title = title;
@@ -28,7 +28,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp.DTOs
             this.date = date;
             this.productId = productId;
             this.clientId = clientId;
-            this.clientName = clientName;
+            this.clientLogin = clientLogin;
             this.labels = labels;
         }
 
@@ -42,7 +42,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp.DTOs
                    date == dTO.date &&
                    productId == dTO.productId &&
                    clientId == dTO.clientId &&
-                   clientName == dTO.clientName &&
+                   clientLogin == dTO.clientLogin &&
                    EqualityComparer<List<LabelDTO>>.Default.Equals(labels, dTO.labels);
         }
 
@@ -55,7 +55,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp.DTOs
             hashCode = hashCode * -1521134295 + date.GetHashCode();
             hashCode = hashCode * -1521134295 + productId.GetHashCode();
             hashCode = hashCode * -1521134295 + clientId.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(clientName);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(clientLogin);
             hashCode = hashCode * -1521134295 + EqualityComparer<List<LabelDTO>>.Default.GetHashCode(labels);
             return hashCode;
         }

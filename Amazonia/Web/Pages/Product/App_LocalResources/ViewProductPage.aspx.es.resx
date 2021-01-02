@@ -124,10 +124,13 @@
     <value>Agregar al carrito</value>
   </data>
   <data name="btnEditProduct.Text" xml:space="preserve">
-    <value>Editar Producto</value>
+    <value>Editar producto</value>
   </data>
   <data name="btnManageComment.Text" xml:space="preserve">
     <value>Gestionar mi comentario</value>
+  </data>
+  <data name="btnReadComments.Text" xml:space="preserve">
+    <value>Leer comentarios</value>
   </data>
   <data name="lblNoDescription.Text" xml:space="preserve">
     <value>No hay descripción para este producto</value>

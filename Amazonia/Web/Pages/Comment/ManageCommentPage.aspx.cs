@@ -41,19 +41,17 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Comment
                 // Get data
                 long currentClientId = SessionManager.GetUserSession(Context).UserProfileId;
 
-                List<CommentDTO> commentList = commentService.FindCommentsOfProduct(productId);
+                List<CommentDTO> commentList = commentService.FindCommentsOfProductAndClient(productId, currentClientId);
 
-                List<CommentDTO> commentListOfCurrentClient = commentList.Where(c => c.clientId == currentClientId).ToList();
-
-                if (commentListOfCurrentClient.Count == 0)
+                if (commentList.Count == 0)
                 {
                     lblNoCommentYet.Visible = true;
                     return;
                 }
 
-                CommentDTO comment = commentListOfCurrentClient[0];
+                CommentDTO comment = commentList[0];
+                
                 // Set data
-
                 lblCommentId.Text = comment.id.ToString();
                 tbTitle.Text = comment.title;
                 tbValue.Text = comment.value;
@@ -61,9 +59,11 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Comment
                 commentForm.Visible = true;
 
             }
+            //If the product does not exist. This is not normal (Maybe a hacker changed the URL)
             catch (InstanceNotFoundException)
             {
-                lblNoCommentYet.Visible = true;
+                String url = String.Format("../Product/ViewProductPage.aspx?productId={0}", lblProductId.Text);
+                Response.Redirect(Response.ApplyAppPathModifier(url));
             }
         }
 

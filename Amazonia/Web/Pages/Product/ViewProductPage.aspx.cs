@@ -1,4 +1,6 @@
 ﻿using Es.Udc.DotNet.Amazonia.Model;
+using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp.DTOs;
 using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp;
 using Es.Udc.DotNet.Amazonia.Web.HTTP.Session;
 using Es.Udc.DotNet.ModelUtil.IoC;
@@ -57,6 +59,25 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
                     lblNoDescription.Visible = true;
                 }
             }
+
+            // Every time the existence of comments is checked
+            btnReadComments.Visible = false;
+            ComprobarComentarios(Convert.ToInt64(lblProductId.Text));
+        }
+
+        // If there are no comments, view comments button should not be displayed
+        private void ComprobarComentarios(long productId)
+        {
+            CommentBlock commentBlock;
+            IIoCManager iiocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
+            ICommentService commentService = iiocManager.Resolve<ICommentService>();
+
+            commentBlock = commentService.FindCommentsOfProduct(productId, 0, 1);
+
+            if (commentBlock.Comments.Count > 0)
+            {
+                btnReadComments.Visible = true;
+            }
         }
 
         private CompleteProductDTO GetProduct(long id)
@@ -83,6 +104,12 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
         protected void btnManageComment_Click(object sender, EventArgs e)
         {
             String url = String.Format("../Comment/ManageCommentPage.aspx?productId={0}", lblProductId.Text);
+            Response.Redirect(Response.ApplyAppPathModifier(url));
+        }
+
+        protected void btnReadComments_Click(object sender, EventArgs e)
+        {
+            String url = String.Format("../Comment/CommentsPage.aspx?productId={0}&startIndex={1}&count={2}", lblProductId.Text, 0, 5);
             Response.Redirect(Response.ApplyAppPathModifier(url));
         }
     }

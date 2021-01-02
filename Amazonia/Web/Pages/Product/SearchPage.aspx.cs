@@ -32,7 +32,7 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
             // The first one is retrieved.
             String keyword = inputKeywords[0];
 
-            String url = String.Format("./ResultPage.aspx?keyword={0}&categoryId={1}&startIndex={2}&count={3}", keyword, comboCategory.SelectedValue, 0, 3);
+            String url = String.Format("./ResultPage.aspx?keyword={0}&categoryId={1}&startIndex={2}&count={3}", keyword, comboCategory.SelectedValue, 0, 5);
             Response.Redirect(Response.ApplyAppPathModifier(url));
         }
 

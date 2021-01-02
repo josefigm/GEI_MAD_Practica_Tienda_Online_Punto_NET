@@ -89,20 +89,34 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
 
         }
 
-        private List<LabelDTO> toLabelDTOList(ICollection<Label> labels)
+        // Optional method
+        public CommentBlock FindCommentsOfProduct(long productId, int startIndex, int count)
         {
-            List<LabelDTO> labelDTOs = new List<LabelDTO>();
-
-            foreach (Label label in labels)
+            if (ProductDao.Find(productId) == null)
             {
-                labelDTOs.Add(new LabelDTO(label.id, label.value));
+                throw new InstanceNotFoundException("No existe un producto con id: " + productId);
+            }
+            List<Comment> comments = new List<Comment>();
+            List<CommentDTO> commentsDTO = new List<CommentDTO>();
+
+            comments = CommentDao.FindCommentsOfProductPaged(productId, startIndex, count + 1);
+
+            bool existMoreComments = (comments.Count == count + 1);
+
+            if (existMoreComments)
+            {
+                comments.RemoveAt(count);
             }
 
-            return labelDTOs;
+            commentsDTO = CommentMapper.CommentListToCommentDTOList(comments);
+
+            CommentBlock result = new CommentBlock(commentsDTO, existMoreComments);
+
+            return result;
         }
 
-        // Optional method
-        public List<CommentDTO> FindCommentsOfProduct(long productId)
+
+        public List<CommentDTO> FindCommentsOfProductAndClient(long productId, long clientId)
         {
             if (ProductDao.Find(productId) == null)
             {
@@ -112,7 +126,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
             List<CommentDTO> comments = new List<CommentDTO>();
             Comment comment;
 
-            result = CommentDao.FindCommentsOfProduct(productId);
+            result = CommentDao.FindCommentsOfProductAndClient(productId, clientId);
 
             for (int i = 0; i < result.Count; i++)
             {
@@ -120,7 +134,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
 
                 comments.Add(
                     new CommentDTO(comment.id, comment.title, comment.value, comment.date, comment.productId,
-                    comment.clientId, comment.Client.login, toLabelDTOList(comment.Labels))
+                    comment.clientId, comment.Client.login, LabelMapper.toLabelDTOList(comment.Labels))
                     );
             }
 

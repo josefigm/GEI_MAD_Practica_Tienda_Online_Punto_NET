@@ -249,7 +249,10 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
             foreach (Product product in allProducts)
             {
                 bool labelFound = false;
-                List<CommentDTO> comments = CommentService.FindCommentsOfProduct(product.id);
+                List<Comment> commentList = CommentDao.FindCommentsOfProduct(product.id);
+
+                List<CommentDTO> comments = CommentMapper.CommentListToCommentDTOList(commentList);
+                    
                 for (int i = 0; i < comments.Count && labelFound == false; i++)
                 {
                     List<Label> labels = LabelDao.FindLabelsOfComment(comments[i].id);
@@ -263,9 +266,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
                     }
                 }
             }
-
             return productsWithLabel;
-
         }
     }
 }
