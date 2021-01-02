@@ -98,6 +98,7 @@
     <Content Include="Global.asax" />
     <Content Include="Pages\Errors\InternalErrorPage.aspx" />
     <Content Include="Pages\MainPage.aspx" />
+    <Content Include="Pages\Sales\MySalesPage.aspx" />
     <Content Include="Pages\User\ChangePasswordPage.aspx" />
     <Content Include="Pages\User\CreateNewCardPage.aspx" />
     <Content Include="Pages\Product\EditProductPage.aspx" />
@@ -156,6 +157,13 @@
     </Compile>
     <Compile Include="Pages\MainPage.aspx.designer.cs">
       <DependentUpon>MainPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Sales\MySalesPage.aspx.cs">
+      <DependentUpon>MySalesPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Sales\MySalesPage.aspx.designer.cs">
+      <DependentUpon>MySalesPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\User\ChangePasswordPage.aspx.cs">
       <DependentUpon>ChangePasswordPage.aspx</DependentUpon>
@@ -353,6 +361,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\Product\App_LocalResources\EditProductPage.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Pages\Sales\App_LocalResources\MySalesPage.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Sales\App_LocalResources\MySalesPage.aspx.es.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
