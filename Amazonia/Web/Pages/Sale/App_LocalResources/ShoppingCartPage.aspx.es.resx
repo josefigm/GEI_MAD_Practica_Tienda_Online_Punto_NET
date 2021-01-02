@@ -120,11 +120,17 @@
   <data name="btnDelete.Text" xml:space="preserve">
     <value>Eliminar</value>
   </data>
+  <data name="btnModify.Text" xml:space="preserve">
+    <value>Modificar</value>
+  </data>
   <data name="gift" xml:space="preserve">
     <value>Regalo</value>
   </data>
   <data name="lclEmptyShoppingCart.Text" xml:space="preserve">
     <value>Su carrito está vacío</value>
+  </data>
+  <data name="lclTotalPrice.Text" xml:space="preserve">
+    <value>Precio total: </value>
   </data>
   <data name="price" xml:space="preserve">
     <value>Precio</value>

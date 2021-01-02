@@ -1,5 +1,6 @@
 ﻿using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs;
+using Es.Udc.DotNet.Amazonia.Web.HTTP.Session;
 using Es.Udc.DotNet.ModelUtil.IoC;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,13 @@ using System.Web.UI.WebControls;
 
 namespace Es.Udc.DotNet.Amazonia.Web.Pages.Sale
 {
-    public partial class ShoppingCartPage : System.Web.UI.Page
+    public partial class ShoppingCartPage : SpecificCulturePage
     {
+        private long units { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (!IsPostBack)
             {
                 if (Session["shoppingCart"] != null)
@@ -22,6 +26,18 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Sale
 
                     GvShoppingCart.DataSource = shoppingCart.items;
                     GvShoppingCart.DataBind();
+
+                    if (shoppingCart.items.Count == 0)
+                    {
+                        lclTotalPrice.Visible = false;
+                        lclEmptyShoppingCart.Visible = true;
+                    }
+                    else
+                    {
+                        lclTotalPrice.Visible = true;
+                        totalPrice.Text = shoppingCart.totalPrice.ToString();
+                    }
+                   
                 }
                 else
                 {
@@ -39,6 +55,20 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Sale
                 shoppingCart = (ShoppingCart)Session["shoppingCart"];
                 Session["shoppingCart"] = DeleteFromShoppingCart(shoppingCart, Convert.ToInt64(e.CommandArgument));
 
+                String url = "/Pages/Sale/ShoppingCartPage.aspx";
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
+
+            if (e.CommandName == "Modify")
+            {
+                shoppingCart = (ShoppingCart)Session["shoppingCart"];
+
+                GridViewRow gvr = (GridViewRow)((Button)e.CommandSource).NamingContainer;
+
+                TextBox tbbUnits = (TextBox)GvShoppingCart.Rows[gvr.RowIndex].FindControl("tbUnits");
+                CheckBox cbGift = (CheckBox)GvShoppingCart.Rows[gvr.RowIndex].FindControl("cbGift");
+
+                Session["shoppingCart"] = ModifyItem(shoppingCart, Convert.ToInt64(e.CommandArgument.ToString()), Convert.ToInt64(tbbUnits.Text.ToString()), cbGift.Checked);
 
                 String url = "/Pages/Sale/ShoppingCartPage.aspx";
                 Response.Redirect(Response.ApplyAppPathModifier(url));
@@ -53,10 +83,12 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Sale
             return saleService.DeleteFromShoppingCart(shoppingCart, productId);
         }
 
- //       protected void GvShoppingCart_RowDeleting(Object sender, GridViewDeleteEventArgs e)
- //       {
- //           GvShoppingCart.DeleteRow(e.RowIndex);
-  //          GvShoppingCart.DataBind();
-   //     }
+        private ShoppingCart ModifyItem(ShoppingCart shoppingCart, long productId, long units, bool gift)
+        {
+            IIoCManager iiocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
+            ISaleService saleService = iiocManager.Resolve<ISaleService>();
+
+            return saleService.ModifyShoppingCartItem(shoppingCart, productId, units, gift);
+        }
     }
 }
