@@ -117,31 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblWelcome.Hello.Text" xml:space="preserve">
-    <value>Hola</value>
+  <data name="btnDelete.Text" xml:space="preserve">
+    <value>Eliminar</value>
   </data>
-  <data name="lblWelcome.Text" xml:space="preserve">
-    <value>Bienvenido a Amazonia</value>
+  <data name="gift" xml:space="preserve">
+    <value>Regalo</value>
   </data>
-  <data name="lclFooter.Text" xml:space="preserve">
-    <value>Copyright &amp;copy; Amazonia Limited</value>
+  <data name="lclEmptyShoppingCart.Text" xml:space="preserve">
+    <value>Su carrito está vacío</value>
   </data>
-  <data name="lclPageTitle.Text" xml:space="preserve">
-    <value>Amazonia</value>
+  <data name="price" xml:space="preserve">
+    <value>Precio</value>
   </data>
-  <data name="lnkAuthenticate.Text" xml:space="preserve">
-    <value>Autenticación</value>
+  <data name="product" xml:space="preserve">
+    <value>Producto</value>
   </data>
-  <data name="lnkLogout.Text" xml:space="preserve">
-    <value>Salir</value>
-  </data>
-  <data name="lnkSearch.Text" xml:space="preserve">
-    <value>Buscar productos</value>
-  </data>
-  <data name="lnkShoppingCart.Text" xml:space="preserve">
-    <value>Ver carrito</value>
-  </data>
-  <data name="lnkUpdate.Text" xml:space="preserve">
-    <value>Actualizar información de usuario</value>
+  <data name="units" xml:space="preserve">
+    <value>Unidades</value>
   </data>
 </root>

@@ -38,8 +38,10 @@
                     <asp:HyperLink ID="lnkUpdate" runat="server" NavigateUrl="~/Pages/User/UpdateClientProfilePage.aspx" meta:resourcekey="lnkUpdate" />
                     <asp:Label ID="lblDash3" runat="server" Text="-" />
                     <asp:HyperLink ID="lnkLogout" runat="server" NavigateUrl="~/Pages/User/LogoutPage.aspx" meta:resourcekey="lnkLogout" />
-                     <asp:Label ID="lblDash4" runat="server" Text="-" />
+                    <asp:Label ID="lblDash4" runat="server" Text="-" />
                     <asp:HyperLink ID="lnkBuscador" runat="server" NavigateUrl="~/Pages/Product/SearchPage.aspx" meta:resourcekey="lnkSearch" />
+                    <asp:Label ID="lblDash5" runat="server" Text="-" />
+                    <asp:HyperLink ID="lnkShoppingCart" runat="server" NavigateUrl="~/Pages/Sale/ShoppingCartPage.aspx" meta:resourcekey="lnkShoppingCart" />
                 </asp:ContentPlaceHolder>
             </span>
         </div>

@@ -102,6 +102,7 @@
     <Content Include="Pages\Product\ResultPage.aspx" />
     <Content Include="Pages\Product\SearchPage.aspx" />
     <Content Include="Pages\Product\ViewProductPage.aspx" />
+    <Content Include="Pages\Sale\ShoppingCartPage.aspx" />
     <Content Include="Pages\User\LoginPage.aspx" />
     <Content Include="Pages\User\LogoutPage.aspx" />
     <Content Include="Pages\User\RegisterPage.aspx" />
@@ -180,6 +181,13 @@
     </Compile>
     <Compile Include="Pages\Product\ViewProductPage.aspx.designer.cs">
       <DependentUpon>ViewProductPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Sale\ShoppingCartPage.aspx.cs">
+      <DependentUpon>ShoppingCartPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Sale\ShoppingCartPage.aspx.designer.cs">
+      <DependentUpon>ShoppingCartPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\User\LoginPage.aspx.cs">
       <DependentUpon>LoginPage.aspx</DependentUpon>
@@ -297,6 +305,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\Product\App_LocalResources\EditProductPage.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Sale\App_LocalResources\ShoppingCartPage.aspx.es.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Sale\App_LocalResources\ShoppingCartPage.aspx.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

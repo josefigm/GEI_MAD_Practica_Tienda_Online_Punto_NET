@@ -1,5 +1,7 @@
 ﻿using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp.DTOs;
+using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs;
 using Es.Udc.DotNet.ModelUtil.IoC;
 using System;
 using System.Collections.Generic;
@@ -115,6 +117,7 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
 
         protected void GvProducts_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            ShoppingCart shoppingCart;
 
             if (e.CommandName == "SeeDetail")
             {
@@ -124,9 +127,28 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
 
             if (e.CommandName == "AddToCart")
             {
-                String url = "/Pages/MainPage.aspx";
+                if (Session["shoppingCart"] != null)
+                {
+                    shoppingCart = (ShoppingCart)Session["shoppingCart"];
+                    Session["shoppingCart"] = AddToShoppingCart(shoppingCart, Convert.ToInt64(e.CommandArgument));
+                }
+                else
+                {
+                    shoppingCart = new ShoppingCart();
+                    Session.Add("shoppingCart", AddToShoppingCart(shoppingCart, Convert.ToInt64(e.CommandArgument)));
+                }
+
+                String url = "/Pages/Sale/ShoppingCartPage.aspx";
                 Response.Redirect(Response.ApplyAppPathModifier(url));
             }
+        }
+
+        private ShoppingCart AddToShoppingCart(ShoppingCart shoppingCart, long productId)
+        {
+            IIoCManager iiocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
+            ISaleService saleService = iiocManager.Resolve<ISaleService>();
+
+            return saleService.AddToShoppingCart(shoppingCart, productId, 1, false);
         }
     }
 }
