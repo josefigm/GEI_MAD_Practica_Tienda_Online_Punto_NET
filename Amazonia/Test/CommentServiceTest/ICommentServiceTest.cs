@@ -142,7 +142,7 @@ namespace Test.CommentServiceTest
                 Label label = labelService.CreateLabel("Genial", newComment.id);
                 Label label2 = labelService.CreateLabel("Inmejorable", newComment.id);
 
-                List<CommentDTO> retrievedComments = commentService.FindCommentsOfProduct(biciCarretera.id);
+                List<CommentDTO> retrievedComments = CommentMapper.CommentListToCommentDTOList(commentDao.FindCommentsOfProduct(biciCarretera.id));
 
                 Assert.AreEqual(retrievedComments.Count, 1);
                 Assert.AreEqual(newComment.id, retrievedComments[0].id);
@@ -187,7 +187,7 @@ namespace Test.CommentServiceTest
                 Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
                 Comment newComment2 = commentService.AddComment("Review 2", "Muy mala bicicleta", biciCarretera.id, cliente.id);
 
-                List<CommentDTO> retrievedComments = commentService.FindCommentsOfProduct(biciCarretera.id);
+                List<CommentDTO> retrievedComments = CommentMapper.CommentListToCommentDTOList(commentDao.FindCommentsOfProduct(biciCarretera.id));
 
                 Assert.AreEqual(retrievedComments.Count, 1);
                 Assert.AreEqual(newComment, retrievedComments[0]);
@@ -312,14 +312,14 @@ namespace Test.CommentServiceTest
 
                 commentDao.Create(newComment);
 
-                List<CommentDTO> retrievedComments = commentService.FindCommentsOfProduct(biciCarretera.id);
+                List<CommentDTO> retrievedComments = CommentMapper.CommentListToCommentDTOList(commentDao.FindCommentsOfProduct(biciCarretera.id));
 
                 Assert.AreEqual(retrievedComments.Count, 1);
                 Assert.AreEqual(newComment.id, retrievedComments[0].id);
 
                 commentService.RemoveComment(newComment.id, cliente.id);
 
-                List<CommentDTO> retrievedComments2 = commentService.FindCommentsOfProduct(biciCarretera.id);
+                List<CommentDTO> retrievedComments2 = CommentMapper.CommentListToCommentDTOList(commentDao.FindCommentsOfProduct(biciCarretera.id));
 
                 Assert.AreEqual(retrievedComments2.Count, 0);
             }
@@ -367,7 +367,7 @@ namespace Test.CommentServiceTest
 
                 commentDao.Create(newComment);
 
-                List<CommentDTO> retrievedComments = commentService.FindCommentsOfProduct(biciCarretera.id);
+                List<CommentDTO> retrievedComments = CommentMapper.CommentListToCommentDTOList(commentDao.FindCommentsOfProduct(biciCarretera.id));
 
                 Assert.AreEqual(retrievedComments.Count, 1);
                 Assert.AreEqual(newComment.id, retrievedComments[0].id);

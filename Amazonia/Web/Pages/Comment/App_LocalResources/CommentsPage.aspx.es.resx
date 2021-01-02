@@ -117,40 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btnAddComent.Text" xml:space="preserve">
-    <value>Add comment</value>
+  <data name="bfClientLogin.HeaderText" xml:space="preserve">
+    <value>Autor</value>
   </data>
-  <data name="btnAddToShCart.Text" xml:space="preserve">
-    <value>Add to cart</value>
+  <data name="bfValue.HeaderText" xml:space="preserve">
+    <value>Comentario</value>
   </data>
-  <data name="btnEditProduct.Text" xml:space="preserve">
-    <value>Edit product</value>
+  <data name="lblNoResults.Text" xml:space="preserve">
+    <value>Este producto todavía no tiene comentarios. ¡Conviértete en el primero!</value>
   </data>
-  <data name="btnManageComment.Text" xml:space="preserve">
-    <value>Manage my comment</value>
-  </data>
-  <data name="btnReadComments.Text" xml:space="preserve">
-    <value>Read comments</value>
-  </data>
-  <data name="lblNoDescription.Text" xml:space="preserve">
-    <value>There is no description for this product</value>
-  </data>
-  <data name="lclDescription.Text" xml:space="preserve">
-    <value>Product description: </value>
-  </data>
-  <data name="lclEntryDate.Text" xml:space="preserve">
-    <value>Entry date: </value>
-  </data>
-  <data name="lclPrice.Text" xml:space="preserve">
-    <value>Price:</value>
-  </data>
-  <data name="lclProductCategory.Text" xml:space="preserve">
-    <value>Category: </value>
-  </data>
-  <data name="lclProductName.Text" xml:space="preserve">
-    <value>Product: </value>
-  </data>
-  <data name="lclStock.Text" xml:space="preserve">
-    <value>Stock</value>
+  <data name="vfDate.HeaderText" xml:space="preserve">
+    <value>Fecha</value>
   </data>
 </root>

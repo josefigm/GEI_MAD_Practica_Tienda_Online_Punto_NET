@@ -56,6 +56,7 @@
                         <asp:Button ID="btnEditProduct" runat="server" visible="false" meta:resourcekey="btnEditProduct" OnClick="btnEditProduct_Click"/>
                         <asp:Button ID="btnAddComent" runat="server" visible="true" meta:resourcekey="btnAddComent" OnClick="btnAddComent_Click" />
                         <asp:Button ID="btnManageComment" runat="server" visible="true" meta:resourcekey="btnManageComment" OnClick="btnManageComment_Click" />
+                        <asp:Button ID="btnReadComments" runat="server" visible="true" meta:resourcekey="btnReadComments" OnClick="btnReadComments_Click"  />
                     </span>
                 </div>
             </form>

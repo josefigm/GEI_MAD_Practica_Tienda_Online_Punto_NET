@@ -96,6 +96,7 @@
   <ItemGroup>
     <Content Include="Css\Amazonia.Style.css" />
     <Content Include="Global.asax" />
+    <Content Include="Pages\Comment\CommentsPage.aspx" />
     <Content Include="Pages\Comment\ManageCommentPage.aspx" />
     <Content Include="Pages\Errors\InternalErrorPage.aspx" />
     <Content Include="Pages\MainPage.aspx" />
@@ -145,6 +146,13 @@
     <Compile Include="HTTP\View\ApplicationObjects\Countries.cs" />
     <Compile Include="HTTP\View\ApplicationObjects\Languages.cs" />
     <Compile Include="HTTP\View\ApplicationObjects\Locale.cs" />
+    <Compile Include="Pages\Comment\CommentsPage.aspx.cs">
+      <DependentUpon>CommentsPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Comment\CommentsPage.aspx.designer.cs">
+      <DependentUpon>CommentsPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Comment\ManageCommentPage.aspx.cs">
       <DependentUpon>ManageCommentPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -377,6 +385,10 @@
   <ItemGroup>
     <Content Include="Pages\Comment\App_LocalResources\ManageCommentPage.aspx.es.resx" />
     <Content Include="Pages\Comment\App_LocalResources\ManageCommentPage.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Comment\App_LocalResources\CommentsPage.aspx.es.resx" />
+    <Content Include="Pages\Comment\App_LocalResources\CommentsPage.aspx.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
