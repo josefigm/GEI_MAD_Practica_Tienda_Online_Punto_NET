@@ -4,30 +4,30 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f0856574de6d4b7e9df2a7bcdd400bb8" Name="Diagram1" ZoomLevel="150">
-        <EntityTypeShape EntityType="amazoniaModel.Bike" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="amazoniaModel.Car" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
+      <Diagram DiagramId="b1ebffe8a36647579e88dcb131fbd459" Name="Diagram1">
+        <EntityTypeShape EntityType="amazoniaModel.Bike" Width="1.5" PointX="0.625" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="amazoniaModel.Car" Width="1.5" PointX="3.875" PointY="19.25" IsExpanded="true" />
         <EntityTypeShape EntityType="amazoniaModel.Card" Width="1.5" PointX="3.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="amazoniaModel.Category" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="amazoniaModel.Client" Width="1.5" PointX="1.5" PointY="2.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="amazoniaModel.Comment" Width="1.5" PointX="5.25" PointY="10.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="amazoniaModel.Computer" Width="1.5" PointX="5.25" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="amazoniaModel.Category" Width="1.5" PointX="0.75" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="amazoniaModel.Client" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="amazoniaModel.Comment" Width="1.5" PointX="2.875" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="amazoniaModel.Computer" Width="1.5" PointX="7.25" PointY="18.5" IsExpanded="true" />
         <EntityTypeShape EntityType="amazoniaModel.Label" Width="1.5" PointX="7.5" PointY="11.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="amazoniaModel.Product" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="amazoniaModel.Product" Width="1.5" PointX="3.875" PointY="14.5" IsExpanded="true" />
         <EntityTypeShape EntityType="amazoniaModel.Sale" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="amazoniaModel.SaleLine" Width="1.5" PointX="8.25" PointY="8" IsExpanded="true" />
-        <AssociationConnector Association="amazoniaModel.FK_BikeProduct" ManuallyRouted="false" />
-        <AssociationConnector Association="amazoniaModel.FK_ComputerProduct" ManuallyRouted="false" />
         <AssociationConnector Association="amazoniaModel.FK_CardClient" ManuallyRouted="false" />
         <AssociationConnector Association="amazoniaModel.FK_SaleCard" ManuallyRouted="false" />
         <AssociationConnector Association="amazoniaModel.FK_ProductCategory" ManuallyRouted="false" />
         <AssociationConnector Association="amazoniaModel.FK_CommentClient" ManuallyRouted="false" />
         <AssociationConnector Association="amazoniaModel.FK_SaleClient" ManuallyRouted="false" />
         <AssociationConnector Association="amazoniaModel.FK_CommentProduct" ManuallyRouted="false" />
-        <AssociationConnector Association="amazoniaModel.FK_CarProduct" ManuallyRouted="false" />
         <AssociationConnector Association="amazoniaModel.FK_SaleLineProduct" ManuallyRouted="false" />
         <AssociationConnector Association="amazoniaModel.FK_SaleLineSale" ManuallyRouted="false" />
         <AssociationConnector Association="amazoniaModel.CommentLabel" ManuallyRouted="false" />
+        <InheritanceConnector EntityType="amazoniaModel.Bike" />
+        <InheritanceConnector EntityType="amazoniaModel.Car" />
+        <InheritanceConnector EntityType="amazoniaModel.Computer" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

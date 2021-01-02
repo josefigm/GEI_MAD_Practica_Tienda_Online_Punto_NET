@@ -12,14 +12,11 @@ namespace Es.Udc.DotNet.Amazonia.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Computer
+    public partial class Computer : Product
     {
-        public long productId { get; set; }
         public string memoryROM { get; set; }
         public string memoryRAM { get; set; }
         public string cpuPower { get; set; }
         public long model { get; set; }
-    
-        public virtual Product Product { get; set; }
     }
 }

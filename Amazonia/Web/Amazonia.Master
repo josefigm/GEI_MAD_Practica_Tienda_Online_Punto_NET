@@ -13,7 +13,7 @@
     <div id="window">
         <!-- Page title. -->
         <div id="pageTitle">
-            <asp:Localize ID="lclPageTitle" runat="server" meta:resourcekey="lclPageTitle" />
+            <asp:HyperLink ID="lclPageTitle" runat="server" NavigateUrl="~/Pages/MainPage.aspx" meta:resourcekey="lclPageTitle" />
         </div>
         <!-- Menu. -->
         <div id="menu">
@@ -33,17 +33,13 @@
 
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder_MenuLinks" runat="server">
                     <asp:Label ID="lblDash1" runat="server" Text="-" />
-                    <asp:HyperLink ID="lnkAuthenticate" runat="server"
-                        NavigateUrl="~/Pages/User/LoginPage.aspx"
-                        meta:resourcekey="lnkAuthenticate" />
+                    <asp:HyperLink ID="lnkAuthenticate" runat="server" NavigateUrl="~/Pages/User/LoginPage.aspx" meta:resourcekey="lnkAuthenticate" />
                     <asp:Label ID="lblDash2" runat="server" Text="-" />
-                    <asp:HyperLink ID="lnkUpdate" runat="server"
-                        NavigateUrl="~/Pages/User/UpdateClientProfilePage.aspx"
-                        meta:resourcekey="lnkUpdate" />
+                    <asp:HyperLink ID="lnkUpdate" runat="server" NavigateUrl="~/Pages/User/UpdateClientProfilePage.aspx" meta:resourcekey="lnkUpdate" />
                     <asp:Label ID="lblDash3" runat="server" Text="-" />
-                    <asp:HyperLink ID="lnkLogout" runat="server"
-                        NavigateUrl="~/Pages/User/LogoutPage.aspx"
-                        meta:resourcekey="lnkLogout" />
+                    <asp:HyperLink ID="lnkLogout" runat="server" NavigateUrl="~/Pages/User/LogoutPage.aspx" meta:resourcekey="lnkLogout" />
+                     <asp:Label ID="lblDash4" runat="server" Text="-" />
+                    <asp:HyperLink ID="lnkBuscador" runat="server" NavigateUrl="~/Pages/Product/SearchPage.aspx" meta:resourcekey="lnkSearch" />
                 </asp:ContentPlaceHolder>
             </span>
         </div>

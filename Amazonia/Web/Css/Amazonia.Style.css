@@ -31,19 +31,18 @@ a {
 /* Page title. */
 
 #pageTitle {
-    background-color: #097099;
+    background-color: #333333;
     color: #fff;
     text-align: center;
     font-weight: bold;
     padding: 5px 0 5px 5px;
     width: 99%;
-    font-weight: bold;
 }
 
 /* Menu. */
 
 #menu {
-    background-color: #094069;
+    background-color: #bfbfbf;
     color: #fff;
     text-align: left;
     padding: 5px 0 5px 5px;
@@ -54,8 +53,12 @@ a {
     font-weight: bold;
 }
 
+#lclPageTitle {
+    color: white;
+}
+
 #menuLinks a {
-    color: #fffac6;
+    color: #000000;
 }
 
 /* Content. */
@@ -66,7 +69,7 @@ a {
     width: 100%;
 }
 
-p.info {
+.info {
     font-size: 16px;
 }
 
@@ -76,39 +79,69 @@ form {
     width: 100%;
 }
 
-div.field {
+.field {
     clear: both;
     padding-top: 1em;
     width: 100%;
 }
 
-    div.field span.label {
-        float: left;
-        text-align: right;
-        font-weight: bold;
-        vertical-align: middle;
-        padding-top: 0.3em;
-        width: 49.5%;
-    }
+.field span.label {
+    float: left;
+    text-align: right;
+    font-weight: bold;
+    vertical-align: middle;
+    padding-top: 0.3em;
+    width: 49.5%;
+}
 
-    div.field span.entry {
-        float: right;
-        text-align: left;
-        width: 49.5%;
-    }
+.field span.entry {
+    float: right;
+    text-align: left;
+    width: 49.5%;
+}
 
-div.checkbox {
+.checkbox {
     clear: both;
     padding-top: 1em;
     text-align: center;
     width: 100%;
 }
 
-div.button {
+.button {
     clear: both;
     padding-top: 1em;
     text-align: center;
     width: 100%;
+}
+
+.div_text_center {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.viewProductContainer {
+    margin-left: 100px;
+    margin-right: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.productDetails {
+    font-size: 20px;
+    margin-left: 25px;
+    text-align: left;
+    
+}
+
+.price {
+    color: #bf0808;
+    font-weight: bold;
+}
+
+.attributeName {
+    font-weight: bold;
 }
 
 input, select, textarea {
@@ -130,35 +163,11 @@ input, select, textarea {
     padding-top: 5px;
     text-align: center;
     width: 100%;
-    padding-top: 5px;
 }
 
-/* List Cards (ManageCardsPage). */
-
-table.listCards {
-    margin: 0 auto;
-    text-align: center;
-    width: 45%;
+/* Table */
+.centered-table {
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/*Estilo general para el gridView*/
-.gridView {
-    margin: 0 auto;
-    font-size: 11px;
-    text-align: center;
-    border: hidden;
-}
-/*Selecciona las filas pares y las colorea*/
-.gridView tr:nth-child(even) {
-    background-color: #a9c673;
-}
-/*Selecciona las filas impares y las colorea*/
-.gridView tr:nth-child(odd) {
-    background-color: #fff;
-}
-/*Estilo para las casillas del gridView*/
-.gridView td {
-    padding-left: 3px;
-    padding-right: 3px;
-    border: hidden;
-}

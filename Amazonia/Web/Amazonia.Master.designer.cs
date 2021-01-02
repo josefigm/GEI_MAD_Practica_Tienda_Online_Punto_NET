@@ -19,7 +19,7 @@ namespace Es.Udc.DotNet.Amazonia.Web {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize lclPageTitle;
+        protected global::System.Web.UI.WebControls.HyperLink lclPageTitle;
         
         /// <summary>
         /// Control ContentPlaceHolder_MenuWelcome.
@@ -110,6 +110,24 @@ namespace Es.Udc.DotNet.Amazonia.Web {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink lnkLogout;
+        
+        /// <summary>
+        /// Control lblDash4.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDash4;
+        
+        /// <summary>
+        /// Control lnkBuscador.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkBuscador;
         
         /// <summary>
         /// Control ContentPlaceHolder_BodyContent.

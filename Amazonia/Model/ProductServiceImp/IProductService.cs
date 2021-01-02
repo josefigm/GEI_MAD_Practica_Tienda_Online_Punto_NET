@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Caching;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
+using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp.DTOs;
 
 namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 {
@@ -56,7 +57,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         /// <exception cref="Exception"/>
         /// <returns></returns>
         [Transactional]
-        Product UpdateProduct(long productId, string name, double price, long stock, string image, string description, long categoryId);
+        Product UpdateProduct(long productId, string name, double price, long stock, string description);
 
         /// <summary>
         /// Finds the categories.
@@ -74,7 +75,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         /// <exception cref="ArgumentException"/>
         /// <returns></returns>
         [Transactional]
-        List<ProductDTO> FindProductByWord(string keyWord, int startIndex, int count);
+        ProductBlock FindProductByWord(string keyWord, int startIndex, int count);
 
         /// <summary>
         /// Finds the product by word and category.
@@ -87,7 +88,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         /// <exception cref="InstanceNotFoundException"/>
         /// <returns></returns>
         [Transactional]
-        List<ProductDTO> FindProductByWordAndCategory(string keyWord, long categoryId, int startIndex, int count);
+        ProductBlock FindProductByWordAndCategory(string keyWord, long categoryId, int startIndex, int count);
 
         /// <summary>
         /// Finds the product by identifier.
@@ -95,7 +96,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         /// <param name="id">The identifier.</param>
         /// <returns></returns>
         [Transactional]
-        Product FindProductById(long id);
+        CompleteProductDTO FindProductById(long id);
 
         /// Retrieves the products with label.
         /// </summary>

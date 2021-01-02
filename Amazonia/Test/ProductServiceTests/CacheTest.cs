@@ -89,14 +89,14 @@ namespace Test.ProductService
 
             Assert.IsFalse(productService.Cache.Contains("bicicleta"));
 
-            List<ProductDTO> listaRecuperadaBicicletas = productService.FindProductByWord("bicicleta", 0, 2);
+            List<ProductDTO> listaRecuperadaBicicletas = productService.FindProductByWord("bicicleta", 0, 2).products;
 
             Assert.IsTrue(listaRecuperadaBicicletas.Count == 2);
             CollectionAssert.AreEqual(listaEsperadaBicicletas, listaRecuperadaBicicletas);
 
             Assert.IsTrue(productService.Cache.Contains("bicicleta"));
 
-            List<ProductDTO> resultadoCache = productService.FindProductByWord("bicicleta", 0, 2);
+            List<ProductDTO> resultadoCache = productService.FindProductByWord("bicicleta", 0, 2).products;
             CollectionAssert.AreEqual(listaEsperadaBicicletas, resultadoCache);
         }
 

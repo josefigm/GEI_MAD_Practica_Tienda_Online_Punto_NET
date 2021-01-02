@@ -150,6 +150,8 @@
     <Compile Include="Product.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProductServiceImp\DTOs\ProductBlock.cs" />
+    <Compile Include="ProductServiceImp\DTOs\CompleteProductDTO.cs" />
     <Compile Include="ProductServiceImp\DTOs\ProductDTO.cs" />
     <Compile Include="ProductServiceImp\DTOs\ProductMapper.cs" />
     <Compile Include="ProductServiceImp\IProductService.cs" />

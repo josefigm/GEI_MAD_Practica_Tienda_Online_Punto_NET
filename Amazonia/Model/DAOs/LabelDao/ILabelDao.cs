@@ -9,6 +9,8 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao
         List<Label> FindLabelsOfComment(long commentId);
 
         List<LabelDTO> FindMostUsedLabels();
+
+        int GetNumberOfCommentsForLabel(long labelId);
     }
 
 }

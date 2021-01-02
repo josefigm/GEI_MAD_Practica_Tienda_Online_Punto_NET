@@ -1,6 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Amazonia.Master" AutoEventWireup="true" CodeBehind="UpdateClientProfilePage.aspx.cs" Inherits="Es.Udc.DotNet.Amazonia.Web.Pages.User.UpdateClientProfilePage" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder_MenuWelcome" runat="server">
-</asp:Content>
+
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder_BodyContent" runat="server">
     <br />
     <div>
