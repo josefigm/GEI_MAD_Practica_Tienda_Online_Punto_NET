@@ -42,10 +42,18 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
         /// </summary>
         /// <param name="productId">The product identifier.</param>
         /// <exception cref="InstanceNotFoundException"/>
-        /// <exception cref="AlreadyCommentedThisProduct"/>
         /// <returns></returns>
         [Transactional]
-        List<CommentDTO> FindCommentsOfProduct(long productId);
+        CommentBlock FindCommentsOfProduct(long productId, int startIndex, int count);
+
+        /// <summary>
+        /// Finds the comments of product.
+        /// </summary>
+        /// <param name="productId">The product identifier.</param>
+        /// <exception cref="InstanceNotFoundException"/>
+        /// <returns></returns>
+        [Transactional]
+        List<CommentDTO> FindCommentsOfProductAndClient(long productId, long clientId);
 
 
         /// <summary>

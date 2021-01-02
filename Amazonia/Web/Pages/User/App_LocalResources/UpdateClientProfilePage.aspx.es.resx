@@ -141,4 +141,7 @@
   <data name="lnkChangePassword.Text" xml:space="preserve">
     <value>Cambiar Contraseña</value>
   </data>
+  <data name="lnkManageCardsPage.Text" xml:space="preserve">
+    <value>Gestionar Tarjetas</value>
+  </data>
 </root>

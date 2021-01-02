@@ -79,6 +79,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Credit Card.
+        /// </summary>
+        internal static string creditCard {
+            get {
+                return ResourceManager.GetString("creditCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Debit Card.
+        /// </summary>
+        internal static string debitCard {
+            get {
+                return ResourceManager.GetString("debitCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Required field.
         /// </summary>
         internal static string requiredField {

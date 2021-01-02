@@ -4,7 +4,6 @@
     <asp:HyperLink ID="hl1" runat="server" meta:resourcekey="hl1" NavigateUrl="~/Pages/User/RegisterPage.aspx">HyperLink</asp:HyperLink>    
     <div>
         <form id="form1" runat="server">
-
             <div class ="field">
                 <span class="label">
                     <asp:Localize ID="lclLogin" runat="server" meta:resourcekey="lclLogin"></asp:Localize>
