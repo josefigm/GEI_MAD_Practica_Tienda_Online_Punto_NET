@@ -69,6 +69,13 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         [Transactional]
         SaleDTO ShowSaleDetails(long saleId);
 
+        /// <summary>Shows the sale lines.</summary>
+        /// <param name="saleId">The sale identifier.</param>
+        /// <exception cref="InstanceNotFoundException"/>
+        /// <returns>A list of SaleLines </returns>
+        [Transactional]
+        List<SaleLineDTO> ShowSaleLines(long saleId);
+
         /// <summary>Shows the client sale list.</summary>
         /// <param name="clientId">The client id.</param>
         /// <param name="startIndex">The start index.</param>

@@ -58,30 +58,30 @@ namespace Test.ProductService
             return clientBd;
         }
 
-        [TestMethod]
-        public void TestFindCategories()
-        {
-            using (var scope = new TransactionScope())
-            {
-                Category c1 = new Category();
-                c1.name = "c1";
-                Category c2 = new Category();
-                c2.name = "c2";
-
-                categoryDao.Create(c1);
-                categoryDao.Create(c2);
-
-                List<Category> categoriesExpected = new List<Category>(2);
-
-                categoriesExpected.Add(c1);
-                categoriesExpected.Add(c2);
-
-                List<Category> categoriesFound = productService.FindCategories();
-
-                Assert.AreEqual(2, categoriesFound.Count);
-                CollectionAssert.AreEqual(categoriesExpected, categoriesFound);
-            }
-        }
+//        [TestMethod]
+//        public void TestFindCategories()
+//        {
+//            using (var scope = new TransactionScope())
+//            {
+//                Category c1 = new Category();
+//                c1.name = "c1";
+//                Category c2 = new Category();
+//                c2.name = "c2";
+//
+//                categoryDao.Create(c1);
+//                categoryDao.Create(c2);
+//
+//                List<Category> categoriesExpected = new List<Category>(2);
+//
+//                categoriesExpected.Add(c1);
+//                categoriesExpected.Add(c2);
+//
+//                List<Category> categoriesFound = productService.FindCategories();
+//
+//                Assert.AreEqual(2, categoriesFound.Count);
+//                CollectionAssert.AreEqual(categoriesExpected, categoriesFound);
+//            }
+//        }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]

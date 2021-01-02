@@ -210,6 +210,26 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
             return saleDetails;
         }
 
+        public List<SaleLineDTO> ShowSaleLines(long saleId)
+        {
+            // Recupera objeto compra
+            Sale sale = SaleDao.Find(saleId);
+
+            // Inicializamos Product y una lista de SaleLineDTO
+            Product product;
+            List<SaleLineDTO> saleLines = new List<SaleLineDTO>();
+
+            // Recorremos las líneas del objeto sale y las añadimos a la listaDTO a devolver
+            foreach (SaleLine line in sale.SaleLines)
+            {
+                product = ProductDao.Find(line.productId);
+                saleLines.Add(new SaleLineDTO(line.units, line.price, line.gift, product.id, product.name));
+            }
+
+            return saleLines;
+
+        }
+
         [Transactional]
         public List<SaleListItemDTO> ShowClientSaleList(long clientId, int startIndex, int count)
         {
@@ -226,5 +246,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
 
             return saleList;
         }
+
+
     }
 }

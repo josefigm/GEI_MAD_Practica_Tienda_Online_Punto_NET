@@ -555,6 +555,83 @@ namespace Test.SaleServiceTests
         }
 
         [TestMethod]
+        public void TestShowSaleLines()
+        {
+            #region Declaracion de variables
+
+            Client client = new Client
+            {
+                login = "client",
+                password = "password",
+                firstName = "firstName",
+                lastName = "lastName",
+                address = "adress",
+                email = "email",
+                role = 1,
+                language = "en",
+                country = "en",
+            };
+            clientDao.Create(client);
+
+            Card card = new Card
+            {
+                number = "1111222233334444",
+                cvv = "123",
+                expireDate = new DateTime(2025, 1, 1),
+                type = true,
+                defaultCard = true,
+                Client = client
+            };
+            cardDao.Create(card);
+
+            Category category = new Category
+            {
+                name = "category"
+            };
+            categoryDao.Create(category);
+
+            Product product1 = new Product
+            {
+                name = "TestProduct",
+                price = 24,
+                entryDate = new DateTime(2020, 1, 1),
+                stock = 200,
+                Category = category
+            };
+            productDao.Create(product1);
+
+            Product product2 = new Product
+            {
+                name = "TestProductxxx",
+                price = 50,
+                entryDate = new DateTime(2024, 1, 1),
+                stock = 300,
+                Category = category
+            };
+            productDao.Create(product2);
+
+            List<ShoppingCartItem> lines = new List<ShoppingCartItem>();
+            ShoppingCartItem line1 = new ShoppingCartItem(3, false, ProductMapper.ProductToProductDto(product1));
+            ShoppingCartItem line2 = new ShoppingCartItem(2, true, ProductMapper.ProductToProductDto(product2));
+            lines.Add(line1);
+            lines.Add(line2);
+
+            ShoppingCart shoppingCart = new ShoppingCart(172, lines);
+
+            #endregion Declaracion de variables
+
+            long saleId = saleService.Buy(shoppingCart, descName, address, card.id, client.id);
+
+            List<SaleLineDTO> saleLines = saleService.ShowSaleLines(saleId);
+
+            SaleLineDTO saleLine1 = new SaleLineDTO(3, 24, false, product1.id, product1.name);
+            SaleLineDTO saleLine2 = new SaleLineDTO(2, 50, true, product2.id, product2.name);
+
+            Assert.AreEqual(2, saleLines.Count);
+
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(InstanceNotFoundException))]
         public void TestShowSaleDetailsNonExistentSale()
         {
