@@ -101,12 +101,14 @@
     <Content Include="Pages\Errors\InternalErrorPage.aspx" />
     <Content Include="Pages\MainPage.aspx" />
     <Content Include="Pages\Comment\AddCommentPage.aspx" />
+    <Content Include="Pages\Sale\FinishedSalePage.aspx" />
     <Content Include="Pages\User\ChangePasswordPage.aspx" />
     <Content Include="Pages\User\CreateNewCardPage.aspx" />
     <Content Include="Pages\Product\EditProductPage.aspx" />
     <Content Include="Pages\Product\ResultPage.aspx" />
     <Content Include="Pages\Product\SearchPage.aspx" />
     <Content Include="Pages\Product\ViewProductPage.aspx" />
+    <Content Include="Pages\Sale\FinishSalePage.aspx" />
     <Content Include="Pages\Sale\ShoppingCartPage.aspx" />
     <Content Include="Pages\User\LoginPage.aspx" />
     <Content Include="Pages\User\LogoutPage.aspx" />
@@ -182,6 +184,13 @@
     <Compile Include="Pages\Comment\AddCommentPage.aspx.designer.cs">
       <DependentUpon>AddCommentPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Sale\FinishedSalePage.aspx.cs">
+      <DependentUpon>FinishedSalePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Sale\FinishedSalePage.aspx.designer.cs">
+      <DependentUpon>FinishedSalePage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\User\ChangePasswordPage.aspx.cs">
       <DependentUpon>ChangePasswordPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -223,6 +232,13 @@
     </Compile>
     <Compile Include="Pages\Product\ViewProductPage.aspx.designer.cs">
       <DependentUpon>ViewProductPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Sale\FinishSalePage.aspx.cs">
+      <DependentUpon>FinishSalePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Sale\FinishSalePage.aspx.designer.cs">
+      <DependentUpon>FinishSalePage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Sale\ShoppingCartPage.aspx.cs">
       <DependentUpon>ShoppingCartPage.aspx</DependentUpon>
@@ -401,6 +417,18 @@
   <ItemGroup>
     <Content Include="Pages\Comment\App_LocalResources\CommentsPage.aspx.es.resx" />
     <Content Include="Pages\Comment\App_LocalResources\CommentsPage.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Sale\App_LocalResources\FinishSalePage.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Sale\App_LocalResources\FinishSalePage.aspx.es.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Sale\App_LocalResources\FinishedSalePage.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Sale\App_LocalResources\FinishedSalePage.aspx.es.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

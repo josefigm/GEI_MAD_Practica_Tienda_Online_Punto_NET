@@ -14,6 +14,10 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp.DTOs
             return new CardDTO(input.number, input.cvv, input.expireDate, input.type, input.defaultCard);
         }
 
+        public static CardDTO CardToCardIdDTO(Card input)
+        {
+            return new CardDTO(input.id, input.number, input.cvv, input.expireDate, input.type, input.defaultCard);
+        }
 
     }
 }

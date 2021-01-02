@@ -117,37 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btnDelete.Text" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="btnModify.Text" xml:space="preserve">
-    <value>Modify</value>
-  </data>
-  <data name="gift" xml:space="preserve">
-    <value>Gift</value>
-  </data>
-  <data name="lclEmptyShoppingCart.Text" xml:space="preserve">
-    <value>Your shopping cart is empty</value>
-  </data>
-  <data name="lclShoppingCart.Text" xml:space="preserve">
-    <value>Your shopping cart</value>
-  </data>
-  <data name="lclTotalPrice.Text" xml:space="preserve">
-    <value>Total price: </value>
-  </data>
-  <data name="lnkEndSale.Text" xml:space="preserve">
+  <data name="btnFinishSale.Text" xml:space="preserve">
     <value>Buy</value>
   </data>
-  <data name="maxStock" xml:space="preserve">
-    <value>sdafasdf</value>
+  <data name="lclAdress.Text" xml:space="preserve">
+    <value>Send to this address: </value>
   </data>
-  <data name="price" xml:space="preserve">
-    <value>Price</value>
+  <data name="lclChangeAddress.Text" xml:space="preserve">
+    <value>Send to another address</value>
   </data>
-  <data name="product" xml:space="preserve">
-    <value>Product</value>
+  <data name="lclChooseCard.Text" xml:space="preserve">
+    <value>Choose another card</value>
   </data>
-  <data name="units" xml:space="preserve">
-    <value>Units</value>
+  <data name="lclDescName.Text" xml:space="preserve">
+    <value>Assign a descriptive name</value>
+  </data>
+  <data name="lclFinishSale.Text" xml:space="preserve">
+    <value>Finish sale</value>
+  </data>
+  <data name="lclPayWithDefault.Text" xml:space="preserve">
+    <value>Pay with your default card:</value>
   </data>
 </root>

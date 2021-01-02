@@ -129,8 +129,14 @@
   <data name="lclEmptyShoppingCart.Text" xml:space="preserve">
     <value>Su carrito está vacío</value>
   </data>
+  <data name="lclShoppingCart.Text" xml:space="preserve">
+    <value>Tu carrito</value>
+  </data>
   <data name="lclTotalPrice.Text" xml:space="preserve">
     <value>Precio total: </value>
+  </data>
+  <data name="lnkEndSale.Text" xml:space="preserve">
+    <value>Comprar</value>
   </data>
   <data name="price" xml:space="preserve">
     <value>Precio</value>

@@ -22,6 +22,15 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Sale {
         protected global::System.Web.UI.WebControls.Localize lclEmptyShoppingCart;
         
         /// <summary>
+        /// Control lclShoppingCart.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Localize lclShoppingCart;
+        
+        /// <summary>
         /// Control form1.
         /// </summary>
         /// <remarks>
@@ -56,5 +65,14 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Sale {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Localize totalPrice;
+        
+        /// <summary>
+        /// Control lnkEndSale.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkEndSale;
     }
 }

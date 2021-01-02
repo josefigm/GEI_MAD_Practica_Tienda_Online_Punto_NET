@@ -4,7 +4,9 @@
     <center>
         <h1>
             <asp:Localize ID="lclEmptyShoppingCart" runat="server" meta:resourcekey="lclEmptyShoppingCart" Visible="false"></asp:Localize>
+            <asp:Localize ID="lclShoppingCart" runat="server" meta:resourcekey="lclShoppingCart" Visible="false"></asp:Localize>
         </h1>
+        <br />
         <form id="form1" runat="server">
             <asp:GridView ID="GvShoppingCart" runat="server" AutoGenerateColumns="False" OnRowCommand="GvShoppingCart_RowCommand">
                 <Columns>
@@ -43,5 +45,6 @@
                 <asp:Localize ID="totalPrice" runat="server"></asp:Localize>
             </span>
         </div>
+        <asp:HyperLink ID="lnkEndSale" runat="server" NavigateUrl="~/Pages/Sale/FinishSalePage.aspx" meta:resourcekey="lnkEndSale" Visible="false"/>           
     </center>
 </asp:Content>

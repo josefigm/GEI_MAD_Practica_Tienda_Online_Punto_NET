@@ -13,7 +13,6 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Sale
 {
     public partial class ShoppingCartPage : SpecificCulturePage
     {
-        private long units { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -34,6 +33,8 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Sale
                     }
                     else
                     {
+                        lclShoppingCart.Visible = true;
+                        lnkEndSale.Visible = true;
                         lclTotalPrice.Visible = true;
                         totalPrice.Text = shoppingCart.totalPrice.ToString();
                     }

@@ -1,4 +1,5 @@
-﻿using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs;
+﻿using Es.Udc.DotNet.Amazonia.Model.CardServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Session
         private long userProfileId;
         private String firstName;
         private byte role;
+        private String address;
+        private CardDTO defaultCard;
 
         public long UserProfileId
         {
@@ -30,5 +33,16 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Session
             set { role = value; }
         }
 
+        public String Address
+        {
+            get { return address; }
+            set { address = value; }
+        }
+
+        public CardDTO DefaultCard
+        {
+            get { return defaultCard; }
+            set { defaultCard = value; }
+        }
     }
 }

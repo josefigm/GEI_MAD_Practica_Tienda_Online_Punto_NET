@@ -12,6 +12,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
     {
         #region Properties Region
 
+        public long CardId { get; private set; }
         public String Number { get; private set; }
 
         public String CVV { get; private set; }
@@ -36,6 +37,23 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
         /// 
         public CardDTO(string number, string cVV, DateTime expireDate, bool type, bool defaultCard)
         {
+            this.Number = number;
+            this.CVV = cVV;
+            this.ExpireDate = expireDate;
+
+            this.Type = "Credit Card";
+
+            if (type)
+            {
+                this.Type = "Debit Card";
+            }
+
+            this.DefaultCard = defaultCard;
+        }
+
+        public CardDTO(long id, string number, string cVV, DateTime expireDate, bool type, bool defaultCard)
+        {
+            this.CardId = id;
             this.Number = number;
             this.CVV = cVV;
             this.ExpireDate = expireDate;

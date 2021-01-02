@@ -117,37 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btnDelete.Text" xml:space="preserve">
-    <value>Delete</value>
+  <data name="lclFinishedMsg.Text" xml:space="preserve">
+    <value>Finalizado correctamente. Id de compra: </value>
   </data>
-  <data name="btnModify.Text" xml:space="preserve">
-    <value>Modify</value>
-  </data>
-  <data name="gift" xml:space="preserve">
-    <value>Gift</value>
-  </data>
-  <data name="lclEmptyShoppingCart.Text" xml:space="preserve">
-    <value>Your shopping cart is empty</value>
-  </data>
-  <data name="lclShoppingCart.Text" xml:space="preserve">
-    <value>Your shopping cart</value>
-  </data>
-  <data name="lclTotalPrice.Text" xml:space="preserve">
-    <value>Total price: </value>
-  </data>
-  <data name="lnkEndSale.Text" xml:space="preserve">
-    <value>Buy</value>
-  </data>
-  <data name="maxStock" xml:space="preserve">
-    <value>sdafasdf</value>
-  </data>
-  <data name="price" xml:space="preserve">
-    <value>Price</value>
-  </data>
-  <data name="product" xml:space="preserve">
-    <value>Product</value>
-  </data>
-  <data name="units" xml:space="preserve">
-    <value>Units</value>
+  <data name="lclPageTitle.Text" xml:space="preserve">
+    <value>Página principal</value>
   </data>
 </root>
