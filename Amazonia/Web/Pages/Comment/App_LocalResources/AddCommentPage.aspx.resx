@@ -117,37 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btnAddComent.Text" xml:space="preserve">
-    <value>Añadir comentario</value>
+  <data name="btnAddComment.Text" xml:space="preserve">
+    <value>Add comment</value>
   </data>
-  <data name="btnAddToShCart.Text" xml:space="preserve">
-    <value>Agregar al carrito</value>
+  <data name="lblAlreadyCommentedError.Text" xml:space="preserve">
+    <value>It's not possible to comment twice the same product</value>
   </data>
-  <data name="btnEditProduct.Text" xml:space="preserve">
-    <value>Editar Producto</value>
+  <data name="lclTitle.Text" xml:space="preserve">
+    <value>Title:</value>
   </data>
-  <data name="btnManageComment.Text" xml:space="preserve">
-    <value>Gestionar mi comentario</value>
+  <data name="lclValue.Text" xml:space="preserve">
+    <value>Comment:</value>
   </data>
-  <data name="lblNoDescription.Text" xml:space="preserve">
-    <value>No hay descripción para este producto</value>
+  <data name="maxLenghtTitle" xml:space="preserve">
+    <value>Title should not be greater than 60 characters.</value>
   </data>
-  <data name="lclDescription.Text" xml:space="preserve">
-    <value>Descripción del producto: </value>
-  </data>
-  <data name="lclEntryDate.Text" xml:space="preserve">
-    <value>Fecha de alta: </value>
-  </data>
-  <data name="lclPrice.Text" xml:space="preserve">
-    <value>Precio:</value>
-  </data>
-  <data name="lclProductCategory.Text" xml:space="preserve">
-    <value>Categoría: </value>
-  </data>
-  <data name="lclProductName.Text" xml:space="preserve">
-    <value>Producto: </value>
-  </data>
-  <data name="lclStock.Text" xml:space="preserve">
-    <value>Stock</value>
+  <data name="maxLenghtValue" xml:space="preserve">
+    <value>Comment should not be greater than 1000 characters.</value>
   </data>
 </root>

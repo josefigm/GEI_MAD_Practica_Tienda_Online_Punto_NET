@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="btnAddComent.Text" xml:space="preserve">
+    <value>Add comment</value>
+  </data>
   <data name="btnAddToShCart.Text" xml:space="preserve">
     <value>Add to cart</value>
   </data>
   <data name="btnEditProduct.Text" xml:space="preserve">
     <value>Edit Product</value>
+  </data>
+  <data name="btnManageComment.Text" xml:space="preserve">
+    <value>Manage my comment</value>
   </data>
   <data name="lblNoDescription.Text" xml:space="preserve">
     <value>There is no description for this product</value>

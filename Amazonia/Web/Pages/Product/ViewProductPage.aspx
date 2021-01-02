@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Trace="true" Language="C#" MasterPageFile="~/Amazonia.Master" AutoEventWireup="true" CodeBehind="ViewProductPage.aspx.cs" Inherits="Es.Udc.DotNet.Amazonia.Web.Pages.Product.ViewProductPage" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Amazonia.Master" AutoEventWireup="true" CodeBehind="ViewProductPage.aspx.cs" Inherits="Es.Udc.DotNet.Amazonia.Web.Pages.Product.ViewProductPage" %>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder_BodyContent" runat="server">
     <br />
@@ -54,6 +54,8 @@
                     <span>
                         <asp:Label ID="lblProductId" runat="server" visible="false" ></asp:Label>
                         <asp:Button ID="btnEditProduct" runat="server" visible="false" meta:resourcekey="btnEditProduct" OnClick="btnEditProduct_Click"/>
+                        <asp:Button ID="btnAddComent" runat="server" visible="true" meta:resourcekey="btnAddComent" OnClick="btnAddComent_Click" />
+                        <asp:Button ID="btnManageComment" runat="server" visible="true" meta:resourcekey="btnManageComment" OnClick="btnManageComment_Click" />
                     </span>
                 </div>
             </form>
