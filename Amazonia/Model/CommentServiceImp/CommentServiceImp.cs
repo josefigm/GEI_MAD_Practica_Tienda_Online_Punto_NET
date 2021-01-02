@@ -47,6 +47,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
             newComment.value = value;
             newComment.productId = productId;
             newComment.clientId = clientId;
+            newComment.date = DateTime.Now;
             CommentDao.Create(newComment);
 
             return newComment;

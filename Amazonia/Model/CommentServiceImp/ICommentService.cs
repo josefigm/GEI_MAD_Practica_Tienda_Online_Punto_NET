@@ -42,7 +42,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
         /// </summary>
         /// <param name="productId">The product identifier.</param>
         /// <exception cref="InstanceNotFoundException"/>
-        /// <exception cref="AlreadyCommentedThisProduct"/>
         /// <returns></returns>
         [Transactional]
         List<CommentDTO> FindCommentsOfProduct(long productId);

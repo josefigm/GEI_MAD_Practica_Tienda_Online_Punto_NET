@@ -73,5 +73,17 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
             String url = String.Format("./EditProductPage.aspx?productId={0}", lblProductId.Text);
             Response.Redirect(Response.ApplyAppPathModifier(url));
         }
+
+        protected void btnAddComent_Click(object sender, EventArgs e)
+        {
+            String url = String.Format("../Comment/AddCommentPage.aspx?productId={0}", lblProductId.Text);
+            Response.Redirect(Response.ApplyAppPathModifier(url));
+        }
+
+        protected void btnManageComment_Click(object sender, EventArgs e)
+        {
+            String url = String.Format("../Comment/ManageCommentPage.aspx?productId={0}", lblProductId.Text);
+            Response.Redirect(Response.ApplyAppPathModifier(url));
+        }
     }
 }
