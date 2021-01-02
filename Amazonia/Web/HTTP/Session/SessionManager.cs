@@ -363,6 +363,9 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Session
             if (context.Session == null)
                 return false;
 
+            return (context.Session[USER_SESSION_ATTRIBUTE] != null);
+        }
+
         /// <summary>
         /// Changes the user's password
         /// </summary>
@@ -381,10 +384,6 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Session
 
             /* Remove cookies. */
             CookiesManager.RemoveCookies(context);
-        }
-
-
-            return (context.Session[USER_SESSION_ATTRIBUTE] != null);
         }
 
         /// <summary>

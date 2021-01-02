@@ -8,25 +8,31 @@
     <br />
     <div>
         <form runat="server">
-            <asp:GridView ID="GvListCards" runat="server" CssClass="listCards" AutoGenerateColumns="False" OnRowCommand="GvListCards_OnRowCommand" EmptyDataText="<%$ Resources:, EmptyGridView %>">
-                <Columns>
-                    <asp:BoundField DataField="Number" HeaderText="<%$ Resources:, Number %>" />
-                    <asp:BoundField DataField="CVV" HeaderText="<%$ Resources:, CVV %>" />
-                    <asp:BoundField DataField="ExpireDate" HeaderText="<%$ Resources:, ExpireDate %>" />
-                    <asp:BoundField DataField="Type" HeaderText="<%$ Resources:, Type %>" />
-                    <asp:checkboxfield Datafield="DefaultCard" headertext="<%$ Resources:, DefaultCard %>"/>     
-                    <asp:TemplateField ShowHeader="False">
-                        <ItemTemplate>
-                            <asp:Button ID="Button1" runat="server" CausesValidation="false" CommandName="Update Card Details" Text="<%$ Resources:, UpdateCardDetails %>" CommandArgument='<%# Eval("Number") %>' />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField ShowHeader="False">
-                        <ItemTemplate>
-                            <asp:Button ID="Button2" runat="server" CausesValidation="false" CommandName="Set Default Card" Text="<%$ Resources:, SetDefaultCard %>" CommandArgument='<%# Eval("Number") %>' />
-                        </ItemTemplate>
-                    </asp:TemplateField>             
-                </Columns>  
-            </asp:GridView>
+            <section>
+                <center>
+                    <asp:GridView ID="GvListCards" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal" AutoGenerateColumns="False" OnRowCommand="GvListCards_OnRowCommand" EmptyDataText="<%$ Resources:, EmptyGridView %>">
+                        <Columns>
+                            <asp:BoundField DataField="Number" HeaderText="<%$ Resources:, Number %>" />
+                            <asp:BoundField DataField="CVV" HeaderText="<%$ Resources:, CVV %>" />
+                            <asp:BoundField DataField="ExpireDate" HeaderText="<%$ Resources:, ExpireDate %>" />
+                            <asp:BoundField DataField="Type" HeaderText="<%$ Resources:, Type %>" />
+                            <asp:checkboxfield Datafield="DefaultCard" headertext="<%$ Resources:, DefaultCard %>"/>     
+                            <asp:TemplateField ShowHeader="False">
+                                <ItemTemplate>
+                                    <asp:Button ID="Button1" runat="server" CausesValidation="false" CommandName="Update Card Details" Text="<%$ Resources:, UpdateCardDetails %>" CommandArgument='<%# Eval("Number") %>' />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField ShowHeader="False">
+                                <ItemTemplate>
+                                    <asp:Button ID="Button2" runat="server" CausesValidation="false" CommandName="Set Default Card" Text="<%$ Resources:, SetDefaultCard %>" CommandArgument='<%# Eval("Number") %>' />
+                                </ItemTemplate>
+                            </asp:TemplateField>             
+                        </Columns>  
+                        <FooterStyle BackColor="#CCCC99" ForeColor="Black" />
+                        <HeaderStyle BackColor="#333333" Font-Bold="True" ForeColor="White" />
+                    </asp:GridView>
+                </center>
+            </section>
         </form>
     </div>
     <br />
