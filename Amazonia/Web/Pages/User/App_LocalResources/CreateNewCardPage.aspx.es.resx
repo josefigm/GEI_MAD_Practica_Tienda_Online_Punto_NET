@@ -117,31 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btnUpdate.Text" xml:space="preserve">
-    <value>Actualizar</value>
+  <data name="btnCreateCard.Text" xml:space="preserve">
+    <value>Añadir Tarjeta</value>
   </data>
-  <data name="lclAddress.Text" xml:space="preserve">
-    <value>Dirección</value>
+  <data name="lblNumberError.Text" xml:space="preserve">
+    <value>Número de tarjeta repetido</value>
   </data>
-  <data name="lclCountry.Text" xml:space="preserve">
-    <value>País</value>
+  <data name="lclCVV.Text" xml:space="preserve">
+    <value>Cvv</value>
   </data>
-  <data name="lclEmail.Text" xml:space="preserve">
-    <value>Email</value>
+  <data name="lclExpireDate.Text" xml:space="preserve">
+    <value>Fecha de Expiración (MM AAAA)</value>
   </data>
-  <data name="lclFirstName.Text" xml:space="preserve">
-    <value>Nombre</value>
+  <data name="lclNumber.Text" xml:space="preserve">
+    <value>Número de Tarjeta</value>
   </data>
-  <data name="lclLanguage.Text" xml:space="preserve">
-    <value>Idioma</value>
-  </data>
-  <data name="lclSurname.Text" xml:space="preserve">
-    <value>Apellidos</value>
-  </data>
-  <data name="lnkChangePassword.Text" xml:space="preserve">
-    <value>Cambiar Contraseña</value>
-  </data>
-  <data name="lnkManageCardsPage.Text" xml:space="preserve">
-    <value>Gestionar Tarjetas</value>
+  <data name="lclType.Text" xml:space="preserve">
+    <value>Tarjeta Crédito/Débito</value>
   </data>
 </root>

@@ -70,7 +70,7 @@ GO
 
 CREATE TABLE Card (
 	id bigint IDENTITY(1,1),
-	number varchar(16) NOT NULL,
+	number varchar(16) NOT NULL UNIQUE,
 	cvv varchar(3) NOT NULL,
 	expireDate date NOT NULL,
 	clientId bigint NOT NULL,

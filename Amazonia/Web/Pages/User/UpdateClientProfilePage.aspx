@@ -1,9 +1,19 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Amazonia.Master" AutoEventWireup="true" CodeBehind="UpdateClientProfilePage.aspx.cs" Inherits="Es.Udc.DotNet.Amazonia.Web.Pages.User.UpdateClientProfilePage" %>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder_BodyContent" runat="server">
+    <br />
+    <div>
+        <asp:HyperLink ID="lnkChangePassword" runat="server" NavigateUrl="~/Pages/User/ChangePasswordPage.aspx" meta:resourcekey="lnkChangePassword"/>
+    </div>
+    <br />
+    <div>
+        <asp:HyperLink ID="lnkManageCardsPage" runat="server" NavigateUrl="~/Pages/User/ManageCardsPage.aspx" meta:resourcekey="lnkManageCardsPage"/>
+    </div>
+
     <div id="form">
         <form id="UpdateClientProfileForm" method="POST" runat="server">
-            <asp:HyperLink ID="lnkChangePassword" runat="server" NavigateUrl="~/Pages/User/ChangePassword.aspx" meta:resourcekey="lnkChangePassword"/>
+            
+            
             <div class="field">
                 <span class="label">
                     <asp:Localize ID="lclFirstName" runat="server" meta:resourcekey="lclFirstName" />

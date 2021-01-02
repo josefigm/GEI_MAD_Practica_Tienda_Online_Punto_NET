@@ -98,13 +98,17 @@
     <Content Include="Global.asax" />
     <Content Include="Pages\Errors\InternalErrorPage.aspx" />
     <Content Include="Pages\MainPage.aspx" />
+    <Content Include="Pages\User\ChangePasswordPage.aspx" />
+    <Content Include="Pages\User\CreateNewCardPage.aspx" />
     <Content Include="Pages\Product\EditProductPage.aspx" />
     <Content Include="Pages\Product\ResultPage.aspx" />
     <Content Include="Pages\Product\SearchPage.aspx" />
     <Content Include="Pages\Product\ViewProductPage.aspx" />
     <Content Include="Pages\User\LoginPage.aspx" />
     <Content Include="Pages\User\LogoutPage.aspx" />
+    <Content Include="Pages\User\ManageCardsPage.aspx" />
     <Content Include="Pages\User\RegisterPage.aspx" />
+    <Content Include="Pages\User\UpdateCardDetailsPage.aspx" />
     <Content Include="Pages\User\UpdateClientProfilePage.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -153,6 +157,20 @@
     <Compile Include="Pages\MainPage.aspx.designer.cs">
       <DependentUpon>MainPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\User\ChangePasswordPage.aspx.cs">
+      <DependentUpon>ChangePasswordPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\User\ChangePasswordPage.aspx.designer.cs">
+      <DependentUpon>ChangePasswordPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\User\CreateNewCardPage.aspx.cs">
+      <DependentUpon>CreateNewCardPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\User\CreateNewCardPage.aspx.designer.cs">
+      <DependentUpon>CreateNewCardPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Product\EditProductPage.aspx.cs">
       <DependentUpon>EditProductPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -195,12 +213,26 @@
     <Compile Include="Pages\User\LogoutPage.aspx.designer.cs">
       <DependentUpon>LogoutPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\User\ManageCardsPage.aspx.cs">
+      <DependentUpon>ManageCardsPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\User\ManageCardsPage.aspx.designer.cs">
+      <DependentUpon>ManageCardsPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\User\RegisterPage.aspx.cs">
       <DependentUpon>RegisterPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Pages\User\RegisterPage.aspx.designer.cs">
       <DependentUpon>RegisterPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\User\UpdateCardDetailsPage.aspx.cs">
+      <DependentUpon>UpdateCardDetailsPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\User\UpdateCardDetailsPage.aspx.designer.cs">
+      <DependentUpon>UpdateCardDetailsPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\User\UpdateClientProfilePage.aspx.cs">
       <DependentUpon>UpdateClientProfilePage.aspx</DependentUpon>
@@ -269,6 +301,30 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\User\App_LocalResources\UpdateClientProfilePage.aspx.es.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\User\App_LocalResources\ChangePasswordPage.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\User\App_LocalResources\ChangePasswordPage.aspx.es.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\User\App_LocalResources\ManageCardsPage.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\User\App_LocalResources\ManageCardsPage.aspx.es.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\User\App_LocalResources\CreateNewCardPage.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\User\App_LocalResources\CreateNewCardPage.aspx.es.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\User\App_LocalResources\UpdateCardDetailsPage.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\User\App_LocalResources\UpdateCardDetailsPage.aspx.es.resx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\Product\App_LocalResources\SearchPage.aspx.es.resx" />

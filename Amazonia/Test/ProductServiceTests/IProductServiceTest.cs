@@ -137,52 +137,52 @@ namespace Test.ProductService
             }
         }
 
-        [TestMethod]
-        public void TestUpdateProduct()
-        {
-            using (var scope = new TransactionScope())
-            {
-                #region Declaracion de variables
+//        [TestMethod]
+//        public void TestUpdateProduct()
+//        {
+//            using (var scope = new TransactionScope())
+//            {
+//                #region Declaracion de variables
 
-                Category c1 = new Category();
-                c1.name = "Bicicletas";
-                categoryDao.Create(c1);
+//               Category c1 = new Category();
+//               c1.name = "Bicicletas";
+//               categoryDao.Create(c1);
+//
+//               Product biciCarretera = new Product();
+//
+//               double price = 1200;
+//               System.DateTime date = System.DateTime.Now;
+//               long stock = 5;
+//               string image = "ccc";
+//               string description = "Bicicleta";
+//               long categoryIdBicicleta = c1.id;
+//
+//               biciCarretera.name = "Bicicleta Felt FZ85";
+//               biciCarretera.price = price;
+//               biciCarretera.entryDate = date;
+//               biciCarretera.stock = stock;
+//               biciCarretera.image = image;
+//               biciCarretera.description = description;
+//               biciCarretera.categoryId = categoryIdBicicleta;
 
-                Product biciCarretera = new Product();
+//                #endregion Declaracion de variables
+//
+//                #region Persistencia
 
-                double price = 1200;
-                System.DateTime date = System.DateTime.Now;
-                long stock = 5;
-                string image = "ccc";
-                string description = "Bicicleta";
-                long categoryIdBicicleta = c1.id;
+//                productService.CreateProduct(biciCarretera);
 
-                biciCarretera.name = "Bicicleta Felt FZ85";
-                biciCarretera.price = price;
-                biciCarretera.entryDate = date;
-                biciCarretera.stock = stock;
-                biciCarretera.image = image;
-                biciCarretera.description = description;
-                biciCarretera.categoryId = categoryIdBicicleta;
-
-                #endregion Declaracion de variables
-
-                #region Persistencia
-
-                productService.CreateProduct(biciCarretera);
-
-                #endregion Persistencia
-
-                //Se cambia biciCarretera y se comprueba que al actualizarla en BBDD son iguales.
-
-                biciCarretera.price = 1500d;
-
-                productService.UpdateProduct(biciCarretera.id, biciCarretera.name, biciCarretera.price, biciCarretera.stock, biciCarretera.image, biciCarretera.description, biciCarretera.categoryId);
-
-                Product retrievedProduct = productDao.Find(biciCarretera.id);
-                Assert.AreEqual(biciCarretera, retrievedProduct);
-            }
-        }
+//                #endregion Persistencia
+//
+//                //Se cambia biciCarretera y se comprueba que al actualizarla en BBDD son iguales.
+//
+//                biciCarretera.price = 1500d;
+//
+//                productService.UpdateProduct(biciCarretera.id, biciCarretera.name, biciCarretera.price, biciCarretera.stock, biciCarretera.image, biciCarretera.description, biciCarretera.categoryId);
+//
+//                Product retrievedProduct = productDao.Find(biciCarretera.id);
+//                Assert.AreEqual(biciCarretera, retrievedProduct);
+//            }
+//        }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]

@@ -117,31 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btnUpdate.Text" xml:space="preserve">
-    <value>Actualizar</value>
+  <data name="CVV" xml:space="preserve">
+    <value>Cvv</value>
   </data>
-  <data name="lclAddress.Text" xml:space="preserve">
-    <value>Dirección</value>
+  <data name="ExpireDate" xml:space="preserve">
+    <value>Fecha de Expiración</value>
   </data>
-  <data name="lclCountry.Text" xml:space="preserve">
-    <value>País</value>
+  <data name="lblInvalidCard.Text" xml:space="preserve">
+    <value>Tarjeta no válida</value>
   </data>
-  <data name="lclEmail.Text" xml:space="preserve">
-    <value>Email</value>
+  <data name="Number" xml:space="preserve">
+    <value>Número de Tarjeta</value>
   </data>
-  <data name="lclFirstName.Text" xml:space="preserve">
-    <value>Nombre</value>
+  <data name="hlCreateCard.Text" xml:space="preserve">
+    <value>Añadir Nueva Tarjeta</value>
   </data>
-  <data name="lclLanguage.Text" xml:space="preserve">
-    <value>Idioma</value>
+  <data name="DefaultCard" xml:space="preserve">
+    <value>Tarjeta por defecto</value>
   </data>
-  <data name="lclSurname.Text" xml:space="preserve">
-    <value>Apellidos</value>
+  <data name="Type" xml:space="preserve">
+    <value>Tarjeta Crédito/Débito</value>
   </data>
-  <data name="lnkChangePassword.Text" xml:space="preserve">
-    <value>Cambiar Contraseña</value>
+  <data name="SetDefaultCard" xml:space="preserve">
+    <value>Establecer Tarjeta por Defecto</value>
   </data>
-  <data name="lnkManageCardsPage.Text" xml:space="preserve">
-    <value>Gestionar Tarjetas</value>
+  <data name="UpdateCardDetails" xml:space="preserve">
+    <value>Editar Detalles de Tarjeta</value>
+  </data>
+  <data name="EmptyGridView" xml:space="preserve">
+    <value>Sin ninguna tarjeta añadida aún</value>
   </data>
 </root>

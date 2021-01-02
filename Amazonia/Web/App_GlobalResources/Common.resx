@@ -123,6 +123,12 @@
   <data name="Previous" xml:space="preserve">
     <value>Previous</value>
   </data>
+  <data name="creditCard" xml:space="preserve">
+    <value>Credit Card</value>
+  </data>
+  <data name="debitCard" xml:space="preserve">
+    <value>Debit Card</value>
+  </data>
   <data name="requiredField" xml:space="preserve">
     <value>Required field</value>
   </data>

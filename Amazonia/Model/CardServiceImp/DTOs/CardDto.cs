@@ -18,7 +18,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
 
         public DateTime ExpireDate { get; private set; }
 
-        public Boolean Type { get; private set; }
+        public String Type { get; private set; }
 
         public Boolean DefaultCard { get; private set; }
 
@@ -39,7 +39,14 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
             this.Number = number;
             this.CVV = cVV;
             this.ExpireDate = expireDate;
-            this.Type = type;
+
+            this.Type = "Credit Card";
+
+            if (type)
+            {
+                this.Type = "Debit Card";
+            }
+
             this.DefaultCard = defaultCard;
         }
 
@@ -57,19 +64,26 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
             this.Number = number;
             this.CVV = cVV;
             this.ExpireDate = expireDate;
-            this.Type = type;
+
+            this.Type = "Credit Card";
+
+            if (type)
+            {
+                this.Type = "Debit Card";
+            }
+
             this.DefaultCard = false;
         }
 
         public override bool Equals(object obj)
         {
-            var form = obj as CardDTO;
-            return form != null &&
-                   Number == form.Number &&
-                   CVV == form.CVV &&
-                   ExpireDate == form.ExpireDate &&
-                   Type == form.Type &&
-                   DefaultCard == form.DefaultCard;
+            var dTO = obj as CardDTO;
+            return dTO != null &&
+                   Number == dTO.Number &&
+                   CVV == dTO.CVV &&
+                   ExpireDate == dTO.ExpireDate &&
+                   Type == dTO.Type &&
+                   DefaultCard == dTO.DefaultCard;
         }
 
         public override int GetHashCode()
@@ -78,7 +92,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Number);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(CVV);
             hashCode = hashCode * -1521134295 + ExpireDate.GetHashCode();
-            hashCode = hashCode * -1521134295 + Type.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Type);
             hashCode = hashCode * -1521134295 + DefaultCard.GetHashCode();
             return hashCode;
         }

@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace Es.Udc.DotNet.Amazonia.Web.Pages.User
 {
-    public partial class WebForm1 : System.Web.UI.Page
+    public partial class WebForm1 : SpecificCulturePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
