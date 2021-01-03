@@ -33,6 +33,13 @@ namespace Es.Udc.DotNet.Amazonia.Web
                 {
                     lblDash4.Visible = false;
                 }
+
+                if (lnkSales != null)
+                {
+                    lblDash5.Visible = false;
+                    lnkSales.Visible = false;
+                }
+
             }
             else
             {

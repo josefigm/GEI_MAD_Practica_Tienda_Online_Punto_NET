@@ -5,6 +5,7 @@ using System.Web.Security;
 using Es.Udc.DotNet.Amazonia.Model;
 using Es.Udc.DotNet.Amazonia.Model.CardServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs;
 using Es.Udc.DotNet.Amazonia.Web.HTTP.Util;
 using Es.Udc.DotNet.Amazonia.Web.HTTP.View.ApplicationObjects;
 using Es.Udc.DotNet.ModelUtil.IoC;

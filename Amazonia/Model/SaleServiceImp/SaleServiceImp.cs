@@ -210,21 +210,54 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
             return saleDetails;
         }
 
-        [Transactional]
-        public List<SaleListItemDTO> ShowClientSaleList(long clientId, int startIndex, int count)
+        public List<SaleLineDTO> ShowSaleLines(long saleId)
         {
-            List<SaleListItemDTO> saleList = new List<SaleListItemDTO>();
+            // Recupera objeto compra
+            Sale sale = SaleDao.Find(saleId);
 
-            List<Sale> clientSalesFound = SaleDao.FindByClientId(clientId, startIndex, count);
+            // Inicializamos Product y una lista de SaleLineDTO
+            Product product;
+            List<SaleLineDTO> saleLines = new List<SaleLineDTO>();
+
+            // Recorremos las líneas del objeto sale y las añadimos a la listaDTO a devolver
+            foreach (SaleLine line in sale.SaleLines)
+            {
+                product = ProductDao.Find(line.productId);
+                saleLines.Add(new SaleLineDTO(line.units, line.price, line.gift, product.id, product.name));
+            }
+
+            return saleLines;
+
+        }
+
+        [Transactional]
+        public SaleBlock ShowClientSaleList(long clientId, int startIndex, int count)
+        {
+
+            // Recuperamos lista de sales paginada
+            List<Sale> clientSalesFound = SaleDao.FindByClientId(clientId, startIndex, count + 1);
+
+            bool existMoreSales = (clientSalesFound.Count == count + 1);
+
+            if (existMoreSales)
+            {
+                clientSalesFound.RemoveAt(count);
+            }
+
+            List<SaleListItemDTO> saleListItemDTO = new List<SaleListItemDTO>();
 
             foreach (Sale sale in clientSalesFound)
             {
-                saleList.Add(
+                saleListItemDTO.Add(
                     new SaleListItemDTO(sale.id, sale.date, sale.descName, sale.totalPrice)
                     );
             }
 
-            return saleList;
+            SaleBlock result = new SaleBlock(saleListItemDTO, existMoreSales);
+
+            return result;
         }
+
+
     }
 }

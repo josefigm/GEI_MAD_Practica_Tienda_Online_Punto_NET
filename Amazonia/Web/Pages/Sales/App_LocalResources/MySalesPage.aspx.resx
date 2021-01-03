@@ -117,31 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblWelcome.Hello.Text" xml:space="preserve">
-    <value>Hello</value>
+  <data name="date" xml:space="preserve">
+    <value>Purchase's Date</value>
   </data>
-  <data name="lblWelcome.Text" xml:space="preserve">
-    <value>Welcome to Amazonia</value>
+  <data name="descName" xml:space="preserve">
+    <value>Descriptive Name</value>
   </data>
-  <data name="lclFooter.Text" xml:space="preserve">
-    <value>Copyright &amp;copy; Amazonia Limited</value>
+  <data name="EmptyGridViewSales" xml:space="preserve">
+    <value>No sales yet</value>
   </data>
-  <data name="lclPageTitle.Text" xml:space="preserve">
-    <value>Amazonia</value>
+  <data name="totalPrice" xml:space="preserve">
+    <value>Total Price</value>
   </data>
-  <data name="lnkAuthenticate.Text" xml:space="preserve">
-    <value>Authentication</value>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
   </data>
-  <data name="lnkLogout.Text" xml:space="preserve">
-    <value>Logout</value>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous</value>
   </data>
-  <data name="lnkSales.Text" xml:space="preserve">
-    <value>My sales</value>
-  </data>
-  <data name="lnkSearch.Text" xml:space="preserve">
-    <value>Search products</value>
-  </data>
-  <data name="lnkUpdate.Text" xml:space="preserve">
-    <value>Update Profile</value>
+  <data name="lblNoResults.Text" xml:space="preserve">
+    <value>No sales yet</value>
   </data>
 </root>

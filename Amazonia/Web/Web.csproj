@@ -100,6 +100,8 @@
     <Content Include="Pages\Comment\ManageCommentPage.aspx" />
     <Content Include="Pages\Errors\InternalErrorPage.aspx" />
     <Content Include="Pages\MainPage.aspx" />
+    <Content Include="Pages\Sales\MySalesPage.aspx" />
+    <Content Include="Pages\Sales\SaleLinesPage.aspx" />
     <Content Include="Pages\Comment\AddCommentPage.aspx" />
     <Content Include="Pages\User\ChangePasswordPage.aspx" />
     <Content Include="Pages\User\CreateNewCardPage.aspx" />
@@ -173,6 +175,20 @@
     </Compile>
     <Compile Include="Pages\MainPage.aspx.designer.cs">
       <DependentUpon>MainPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Sales\MySalesPage.aspx.cs">
+      <DependentUpon>MySalesPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Sales\MySalesPage.aspx.designer.cs">
+      <DependentUpon>MySalesPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Sales\SaleLinesPage.aspx.cs">
+      <DependentUpon>SaleLinesPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Sales\SaleLinesPage.aspx.designer.cs">
+      <DependentUpon>SaleLinesPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Comment\AddCommentPage.aspx.cs">
       <DependentUpon>AddCommentPage.aspx</DependentUpon>
@@ -377,6 +393,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\Product\App_LocalResources\EditProductPage.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Sales\App_LocalResources\SaleLinesPage.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Sales\App_LocalResources\MySalesPage.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Sales\App_LocalResources\MySalesPage.aspx.es.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Sales\App_LocalResources\SaleLinesPage.aspx.es.resx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\Comment\App_LocalResources\AddCommentPage.aspx.es.resx" />
