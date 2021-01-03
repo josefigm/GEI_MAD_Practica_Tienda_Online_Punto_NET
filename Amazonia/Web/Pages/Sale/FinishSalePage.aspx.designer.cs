@@ -112,6 +112,24 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Sale {
         protected global::System.Web.UI.WebControls.Localize lclDefaultCartNumber;
         
         /// <summary>
+        /// Control lclNoCards.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Localize lclNoCards;
+        
+        /// <summary>
+        /// Control lnkCreateCard.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkCreateCard;
+        
+        /// <summary>
         /// Control lclChooseCard.
         /// </summary>
         /// <remarks>

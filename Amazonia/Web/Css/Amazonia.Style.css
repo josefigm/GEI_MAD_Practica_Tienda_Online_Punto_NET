@@ -144,6 +144,47 @@ form {
     font-weight: bold;
 }
 
+.lblTotalPrice {
+    font-weight: bold;
+    font-size: 1.9em;
+}
+
+.totalPrice {
+    font-weight: bold;
+    font-size: 1.9em;
+    color: #bf0808;
+}
+
+
+.endSaleBtn {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: white;
+    background-color: #32cd32;
+    padding: 8px;
+    border-radius: 3px;
+}
+
+    .endSaleBtn:hover {
+        text-decoration: none;
+        background-color: #28a428;
+    }
+
+.btnFinishSale {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: white;
+    background-color: #32cd32;
+    padding: 8px;
+    border-radius: 3px;
+    border: 0px;
+    position: center;
+}
+    .btnFinishSale:hover {
+        text-decoration: none;
+        background-color: #28a428;
+    }
+
 input, select, textarea {
     background-color: #f4f4f4;
     height: 26px;

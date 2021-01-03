@@ -126,6 +126,9 @@
   <data name="gift" xml:space="preserve">
     <value>Gift</value>
   </data>
+  <data name="lblInsufficientStock.Text" xml:space="preserve">
+    <value>Not enough stock</value>
+  </data>
   <data name="lclEmptyShoppingCart.Text" xml:space="preserve">
     <value>Your shopping cart is empty</value>
   </data>

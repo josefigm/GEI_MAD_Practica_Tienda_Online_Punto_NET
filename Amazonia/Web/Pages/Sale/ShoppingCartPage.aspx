@@ -7,8 +7,9 @@
             <asp:Localize ID="lclShoppingCart" runat="server" meta:resourcekey="lclShoppingCart" Visible="false"></asp:Localize>
         </h1>
         <br />
+        <asp:Label ID="lblInsufficientStock" runat="server" ForeColor="Red" Style="position: relative" Visible="False" meta:resourcekey="lblInsufficientStock"></asp:Label>
         <form id="form1" runat="server">
-            <asp:GridView ID="GvShoppingCart" runat="server" AutoGenerateColumns="False" OnRowCommand="GvShoppingCart_RowCommand">
+            <asp:GridView ID="GvShoppingCart" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal" AutoGenerateColumns="False" OnRowCommand="GvShoppingCart_RowCommand">
                 <Columns>
                     <asp:BoundField DataField="product.id" Visible="false"/>
                     <asp:BoundField DataField="product.productTitle" HeaderText="<%$ Resources:, product %>"/>
@@ -35,16 +36,27 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
+                <FooterStyle BackColor="#CCCC99" ForeColor="Black" />
+                <HeaderStyle BackColor="#333333" Font-Bold="True" ForeColor="White" />
+                <PagerStyle BackColor="White" ForeColor="Black" HorizontalAlign="Right" />
+                <SelectedRowStyle BackColor="#CC3333" Font-Bold="True" ForeColor="White" />
+                <SortedAscendingCellStyle BackColor="#F7F7F7" />
+                <SortedAscendingHeaderStyle BackColor="#4B4B4B" />
+                <SortedDescendingCellStyle BackColor="#E5E5E5" />
+                <SortedDescendingHeaderStyle BackColor="#242121" />
             </asp:GridView>
         </form>
+        <br />
         <div>
-            <span class="attributeName">
+            <span class="lblTotalPrice">
                 <asp:Localize ID="lclTotalPrice" runat="server" meta:resourcekey="lclTotalPrice" Visible="false"></asp:Localize>
             </span>
-            <span class="price">
+            <span class="totalPrice">
                 <asp:Localize ID="totalPrice" runat="server"></asp:Localize>
             </span>
         </div>
-        <asp:HyperLink ID="lnkEndSale" runat="server" NavigateUrl="~/Pages/Sale/FinishSalePage.aspx" meta:resourcekey="lnkEndSale" Visible="false"/>           
+        <br />
+        <asp:HyperLink class="endSaleBtn" ID="lnkEndSale" runat="server" NavigateUrl="~/Pages/Sale/FinishSalePage.aspx" meta:resourcekey="lnkEndSale" Visible="false"/>           
+        <br /><br />
     </center>
 </asp:Content>

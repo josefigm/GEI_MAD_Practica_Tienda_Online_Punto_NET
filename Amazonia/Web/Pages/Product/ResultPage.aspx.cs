@@ -2,6 +2,7 @@
 using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp.DTOs;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs;
+using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions;
 using Es.Udc.DotNet.ModelUtil.IoC;
 using System;
 using System.Collections.Generic;
@@ -127,19 +128,27 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
 
             if (e.CommandName == "AddToCart")
             {
-                if (Session["shoppingCart"] != null)
+                try
                 {
-                    shoppingCart = (ShoppingCart)Session["shoppingCart"];
-                    Session["shoppingCart"] = AddToShoppingCart(shoppingCart, Convert.ToInt64(e.CommandArgument));
-                }
-                else
-                {
-                    shoppingCart = new ShoppingCart();
-                    Session.Add("shoppingCart", AddToShoppingCart(shoppingCart, Convert.ToInt64(e.CommandArgument)));
-                }
+                    if (Session["shoppingCart"] != null)
+                    {
+                        shoppingCart = (ShoppingCart)Session["shoppingCart"];
+                        Session["shoppingCart"] = AddToShoppingCart(shoppingCart, Convert.ToInt64(e.CommandArgument));
+                    }
+                    else
+                    {
+                        shoppingCart = new ShoppingCart();
+                        Session.Add("shoppingCart", AddToShoppingCart(shoppingCart, Convert.ToInt64(e.CommandArgument)));
+                    }
 
-                String url = "/Pages/Sale/ShoppingCartPage.aspx";
-                Response.Redirect(Response.ApplyAppPathModifier(url));
+                    String url = "/Pages/Sale/ShoppingCartPage.aspx";
+                    Response.Redirect(Response.ApplyAppPathModifier(url));
+                }
+                catch (InsufficientStockException)
+                {
+                    lblInsufficientStock.Visible = true;
+                }
+                
             }
         }
 

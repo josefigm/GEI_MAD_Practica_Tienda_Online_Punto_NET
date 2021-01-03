@@ -1,5 +1,6 @@
 ﻿using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs;
+using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions;
 using Es.Udc.DotNet.Amazonia.Web.HTTP.Session;
 using Es.Udc.DotNet.ModelUtil.IoC;
 using System;
@@ -62,18 +63,26 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Sale
 
             if (e.CommandName == "Modify")
             {
-                shoppingCart = (ShoppingCart)Session["shoppingCart"];
+                try
+                {
+                    shoppingCart = (ShoppingCart)Session["shoppingCart"];
 
-                GridViewRow gvr = (GridViewRow)((Button)e.CommandSource).NamingContainer;
+                    GridViewRow gvr = (GridViewRow)((Button)e.CommandSource).NamingContainer;
 
-                TextBox tbbUnits = (TextBox)GvShoppingCart.Rows[gvr.RowIndex].FindControl("tbUnits");
-                CheckBox cbGift = (CheckBox)GvShoppingCart.Rows[gvr.RowIndex].FindControl("cbGift");
+                    TextBox tbbUnits = (TextBox)GvShoppingCart.Rows[gvr.RowIndex].FindControl("tbUnits");
+                    CheckBox cbGift = (CheckBox)GvShoppingCart.Rows[gvr.RowIndex].FindControl("cbGift");
 
-                Session["shoppingCart"] = ModifyItem(shoppingCart, Convert.ToInt64(e.CommandArgument.ToString()), Convert.ToInt64(tbbUnits.Text.ToString()), cbGift.Checked);
+                    Session["shoppingCart"] = ModifyItem(shoppingCart, Convert.ToInt64(e.CommandArgument.ToString()), Convert.ToInt64(tbbUnits.Text.ToString()), cbGift.Checked);
 
-                String url = "/Pages/Sale/ShoppingCartPage.aspx";
-                Response.Redirect(Response.ApplyAppPathModifier(url));
+                    String url = "/Pages/Sale/ShoppingCartPage.aspx";
+                    Response.Redirect(Response.ApplyAppPathModifier(url));
+                }
+                catch (InsufficientStockException)
+                {
+                    lblInsufficientStock.Visible = true;
+                }
             }
+            
         }
 
         private ShoppingCart DeleteFromShoppingCart(ShoppingCart shoppingCart, long productId)

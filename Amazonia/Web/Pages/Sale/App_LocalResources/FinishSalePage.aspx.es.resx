@@ -135,7 +135,13 @@
   <data name="lclFinishSale.Text" xml:space="preserve">
     <value>Finalizar compra</value>
   </data>
+  <data name="lclNoCards.Text" xml:space="preserve">
+    <value>No hay tarjetas, </value>
+  </data>
   <data name="lclPayWithDefault.Text" xml:space="preserve">
     <value>Pagar con su tarjeta por defecto: </value>
+  </data>
+  <data name="lnkCreateCard.Text" xml:space="preserve">
+    <value>Añadir una tarjeta</value>
   </data>
 </root>

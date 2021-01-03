@@ -31,8 +31,13 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Sale
                 lclDefaultCartNumber.Text = defaultCard.Number;
             }
             else
-            {//================================================================
-                lclDefaultCartNumber.Text = "null";
+            {
+                lclChooseCard.Visible = false;
+                comboCards.Visible = false;
+                lclPayWithDefault.Visible = false;
+                lclNoCards.Visible = true;
+                lnkCreateCard.Visible = true;
+                btnFinishSale.Enabled = false;
             }
 
             List<CardDTO> clientCards = clientService.ListCardsByClientId(SessionManager.GetUserSession(Context).UserProfileId);
