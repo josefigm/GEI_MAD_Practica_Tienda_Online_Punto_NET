@@ -117,31 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="bfCategory.HeaderText" xml:space="preserve">
-    <value>Category</value>
+  <data name="btnDelete.Text" xml:space="preserve">
+    <value>Delete</value>
   </data>
-  <data name="bfDate.HeaderText" xml:space="preserve">
-    <value>Entry date</value>
+  <data name="btnModify.Text" xml:space="preserve">
+    <value>Modify</value>
   </data>
-  <data name="bfLinkAddToCart.HeaderText" xml:space="preserve">
-    <value>Add To Cart</value>
-  </data>
-  <data name="bfName.HeaderText" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="bfPrice.HeaderText" xml:space="preserve">
-    <value>Price</value>
-  </data>
-  <data name="btnAddToCart.Text" xml:space="preserve">
-    <value>Add to cart</value>
-  </data>
-  <data name="btnSeeDetail.Text" xml:space="preserve">
-    <value>See detail</value>
+  <data name="gift" xml:space="preserve">
+    <value>Gift</value>
   </data>
   <data name="lblInsufficientStock.Text" xml:space="preserve">
-    <value>Not enough stock for this product</value>
+    <value>Not enough stock</value>
   </data>
-  <data name="lblNoResults.Text" xml:space="preserve">
-    <value>No product matches your criteria</value>
+  <data name="lclEmptyShoppingCart.Text" xml:space="preserve">
+    <value>Your shopping cart is empty</value>
+  </data>
+  <data name="lclShoppingCart.Text" xml:space="preserve">
+    <value>Your shopping cart</value>
+  </data>
+  <data name="lclTotalPrice.Text" xml:space="preserve">
+    <value>Total price: </value>
+  </data>
+  <data name="lnkEndSale.Text" xml:space="preserve">
+    <value>Buy</value>
+  </data>
+  <data name="maxStock" xml:space="preserve">
+    <value>sdafasdf</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="units" xml:space="preserve">
+    <value>Units</value>
   </data>
 </root>

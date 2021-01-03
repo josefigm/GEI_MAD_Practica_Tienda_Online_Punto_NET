@@ -99,9 +99,20 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
                     throw new IncorrectPasswordException(login);
                 }
             }
+            Card card = CardDao.FindDefaultCard(client.id);
+            CardDTO defaultCard;
+            if (card != null)
+            {
+                defaultCard = CardMapper.CardToCardDTO(card);
+            }
+            else
+            {
+                defaultCard = null;
+            }
+            
 
             return new LoginDTO(client.id, client.login, client.firstName,
-            client.password, client.role, client.address, client.language, client.country);
+            client.password, client.role, client.address, client.language, client.country, defaultCard);
         }
 
 
@@ -139,7 +150,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 
             foreach (Card cardItem in listCards)
             {
-                listCardDTO.Add(CardMapper.CardToCardDTO(cardItem));
+                listCardDTO.Add(CardMapper.CardToCardIdDTO(cardItem));
             }
 
             return listCardDTO;

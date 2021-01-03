@@ -18,6 +18,8 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.User
             {
                 List<CardDTO> clientCards = SessionManager.GetClientCards(Context);
 
+                UpdateSessionDefaultCard(clientCards);
+
                 GvListCards.DataSource = clientCards;
                 GvListCards.DataBind();
                 
@@ -46,5 +48,17 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.User
 
         }
 
+        private void UpdateSessionDefaultCard(List<CardDTO> clientCards)
+        {
+            foreach(CardDTO card in clientCards)
+            {
+                if (card.DefaultCard)
+                {
+                    UserSession session = SessionManager.GetUserSession(Context);
+                    session.DefaultCard = card;
+                    SessionManager.UpdateSessionForAuthenticatedUser(Context, session, SessionManager.GetLocale(Context));
+                }
+            }
+        }
     }
 }

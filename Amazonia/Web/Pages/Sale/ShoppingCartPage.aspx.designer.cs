@@ -7,28 +7,28 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product {
+namespace Es.Udc.DotNet.Amazonia.Web.Pages.Sale {
     
     
-    public partial class ResultPage {
+    public partial class ShoppingCartPage {
         
         /// <summary>
-        /// Control lblNoResults.
+        /// Control lclEmptyShoppingCart.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNoResults;
+        protected global::System.Web.UI.WebControls.Localize lclEmptyShoppingCart;
         
         /// <summary>
-        /// Control form1.
+        /// Control lclShoppingCart.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.Localize lclShoppingCart;
         
         /// <summary>
         /// Control lblInsufficientStock.
@@ -40,30 +40,48 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product {
         protected global::System.Web.UI.WebControls.Label lblInsufficientStock;
         
         /// <summary>
-        /// Control gvProducts.
+        /// Control form1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvProducts;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// Control lnkPrevious.
+        /// Control GvShoppingCart.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkPrevious;
+        protected global::System.Web.UI.WebControls.GridView GvShoppingCart;
         
         /// <summary>
-        /// Control lnkNext.
+        /// Control lclTotalPrice.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkNext;
+        protected global::System.Web.UI.WebControls.Localize lclTotalPrice;
+        
+        /// <summary>
+        /// Control totalPrice.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Localize totalPrice;
+        
+        /// <summary>
+        /// Control lnkEndSale.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink lnkEndSale;
     }
 }

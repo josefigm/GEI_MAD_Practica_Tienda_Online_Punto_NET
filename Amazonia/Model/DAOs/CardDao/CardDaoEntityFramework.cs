@@ -30,5 +30,22 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.CardDao
 
             return card;
         }
+
+        public Card FindDefaultCard(long clientId)
+        {
+
+            Card card = null;
+
+            DbSet<Card> cards = Context.Set<Card>();
+
+            var result =
+                (from c in cards
+                 where (c.clientId == clientId && c.defaultCard == true)
+                 select c);
+
+            card = result.FirstOrDefault();
+
+            return card;
+        }
     }
 }

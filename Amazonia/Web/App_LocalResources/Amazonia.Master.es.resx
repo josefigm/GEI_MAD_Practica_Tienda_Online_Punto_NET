@@ -141,6 +141,9 @@
   <data name="lnkSearch.Text" xml:space="preserve">
     <value>Buscar productos</value>
   </data>
+  <data name="lnkShoppingCart.Text" xml:space="preserve">
+    <value>Ver carrito</value>
+  </data>
   <data name="lnkUpdate.Text" xml:space="preserve">
     <value>Actualizar información de usuario</value>
   </data>

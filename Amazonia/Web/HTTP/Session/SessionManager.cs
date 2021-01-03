@@ -84,7 +84,9 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Session
             UserSession userSession = new UserSession
             {
                 UserProfileId = clientId,
-                FirstName = clientDTO.FirstName
+                FirstName = client.firstName,
+                Role = client.role,
+                Address = client.address
             };
 
             Locale locale = new Locale(clientDTO.Language, clientDTO.Country);
@@ -164,7 +166,9 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Session
             {
                 UserProfileId = loginDTO.UserProfileId,
                 FirstName = loginDTO.FirstName,
-                Role = loginDTO.Role
+                Role = loginDTO.Role,
+                Address = loginDTO.Address,
+                DefaultCard = loginDTO.DefaultCard
             };
 
             Locale locale =

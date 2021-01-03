@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Es.Udc.DotNet.Amazonia.Model.CardServiceImp;
+using System;
 using System.Collections.Generic;
 
 namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
@@ -63,6 +64,12 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// <value>The country.</value>
         public string Country { get; private set; }
 
+        /// <summary>
+        /// Gets the default client card
+        /// </summary>
+        /// <value>The card.</value>
+        public CardDTO DefaultCard { get; private set; }
+
         #endregion Properties Region
 
         /// <summary>
@@ -72,19 +79,24 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// <param name="login">The user login.</param>
         /// <param name="firstName">Users's first name.</param>
         /// <param name="encryptedPassword">The encrypted password.</param>
+        /// <param name="role">The role of user.</param>
+        /// <param name="address">User postal address.</param>
         /// <param name="language">The language.</param>
         /// <param name="country">The country.</param>
-        public LoginDTO(long userProfileId, String login, String firstName,
-            String encryptedPassword, byte role, String address, string language, string country)
+        /// <param name="defaultCard">User default card.</param>
+        public LoginDTO(long userProfileId, string login, string firstName,
+            string encryptedPassword, byte role, string address, string language,
+            string country, CardDTO defaultCard)
         {
-            this.UserProfileId = userProfileId;
-            this.Login = login;
-            this.FirstName = firstName;
-            this.EncryptedPassword = encryptedPassword;
-            this.Role = role;
-            this.Address = address;
-            this.Language = language;
-            this.Country = country;
+            UserProfileId = userProfileId;
+            Login = login;
+            FirstName = firstName;
+            EncryptedPassword = encryptedPassword;
+            Role = role;
+            Address = address;
+            Language = language;
+            Country = country;
+            this.DefaultCard = defaultCard;
         }
 
         public override bool Equals(object obj)
@@ -103,7 +115,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 
         public override int GetHashCode()
         {
-            var hashCode = 90024136;
+            var hashCode = -1359125452;
             hashCode = hashCode * -1521134295 + UserProfileId.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Login);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(FirstName);

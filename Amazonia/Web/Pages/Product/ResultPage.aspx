@@ -11,6 +11,7 @@
     <div class="div_text_center">
         <section>
             <center>
+                <asp:Label ID="lblInsufficientStock" runat="server" ForeColor="Red" Style="position: relative" Visible="False" meta:resourcekey="lblInsufficientStock"></asp:Label>
                 <asp:GridView ID="gvProducts" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal" AutoGenerateColumns="False" OnRowCommand="GvProducts_RowCommand">
                     <Columns>
                         <asp:BoundField DataField="productTitle" meta:resourcekey="bfName" HeaderText="Name"/>

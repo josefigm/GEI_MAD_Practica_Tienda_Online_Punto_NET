@@ -117,31 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="bfCategory.HeaderText" xml:space="preserve">
-    <value>Category</value>
+  <data name="btnFinishSale.Text" xml:space="preserve">
+    <value>Comprar</value>
   </data>
-  <data name="bfDate.HeaderText" xml:space="preserve">
-    <value>Entry date</value>
+  <data name="lclAdress.Text" xml:space="preserve">
+    <value>Enviar a esta dirección: </value>
   </data>
-  <data name="bfLinkAddToCart.HeaderText" xml:space="preserve">
-    <value>Add To Cart</value>
+  <data name="lclChangeAddress.Text" xml:space="preserve">
+    <value>Enviar a otra dirección</value>
   </data>
-  <data name="bfName.HeaderText" xml:space="preserve">
-    <value>Name</value>
+  <data name="lclChooseCard.Text" xml:space="preserve">
+    <value>Elegir otra tarjeta</value>
   </data>
-  <data name="bfPrice.HeaderText" xml:space="preserve">
-    <value>Price</value>
+  <data name="lclDescName.Text" xml:space="preserve">
+    <value>Asigna un nombre descriptivo</value>
   </data>
-  <data name="btnAddToCart.Text" xml:space="preserve">
-    <value>Add to cart</value>
+  <data name="lclFinishSale.Text" xml:space="preserve">
+    <value>Finalizar compra</value>
   </data>
-  <data name="btnSeeDetail.Text" xml:space="preserve">
-    <value>See detail</value>
+  <data name="lclNoCards.Text" xml:space="preserve">
+    <value>No hay tarjetas, </value>
   </data>
-  <data name="lblInsufficientStock.Text" xml:space="preserve">
-    <value>Not enough stock for this product</value>
+  <data name="lclPayWithDefault.Text" xml:space="preserve">
+    <value>Pagar con su tarjeta por defecto: </value>
   </data>
-  <data name="lblNoResults.Text" xml:space="preserve">
-    <value>No product matches your criteria</value>
+  <data name="lnkCreateCard.Text" xml:space="preserve">
+    <value>Añadir una tarjeta</value>
   </data>
 </root>

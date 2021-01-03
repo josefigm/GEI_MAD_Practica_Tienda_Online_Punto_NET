@@ -7,180 +7,153 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Es.Udc.DotNet.Amazonia.Web {
+namespace Es.Udc.DotNet.Amazonia.Web.Pages.Sale {
     
     
-    public partial class Amazonia {
+    public partial class FinishSalePage {
         
         /// <summary>
-        /// Control lclPageTitle.
+        /// Control lclFinishSale.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lclPageTitle;
+        protected global::System.Web.UI.WebControls.Localize lclFinishSale;
         
         /// <summary>
-        /// Control ContentPlaceHolder_MenuWelcome.
+        /// Control form.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder_MenuWelcome;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form;
         
         /// <summary>
-        /// Control lblWelcome.
+        /// Control lclDescName.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblWelcome;
+        protected global::System.Web.UI.WebControls.Localize lclDescName;
         
         /// <summary>
-        /// Control ContentPlaceHolder_MenuExplanation.
+        /// Control tbDescName.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder_MenuExplanation;
+        protected global::System.Web.UI.WebControls.TextBox tbDescName;
         
         /// <summary>
-        /// Control ContentPlaceHolder_MenuLinks.
+        /// Control RequiredFieldValidator1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder_MenuLinks;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
         
         /// <summary>
-        /// Control lblDash1.
+        /// Control lclAdress.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDash1;
+        protected global::System.Web.UI.WebControls.Localize lclAdress;
         
         /// <summary>
-        /// Control lnkAuthenticate.
+        /// Control defaultAddress.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkAuthenticate;
+        protected global::System.Web.UI.WebControls.Localize defaultAddress;
         
         /// <summary>
-        /// Control lblDash2.
+        /// Control lclChangeAddress.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDash2;
+        protected global::System.Web.UI.WebControls.Localize lclChangeAddress;
         
         /// <summary>
-        /// Control lnkUpdate.
+        /// Control tbNewAddress.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkUpdate;
+        protected global::System.Web.UI.WebControls.TextBox tbNewAddress;
         
         /// <summary>
-        /// Control lblDash3.
+        /// Control lclPayWithDefault.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDash3;
+        protected global::System.Web.UI.WebControls.Localize lclPayWithDefault;
         
         /// <summary>
-        /// Control lnkLogout.
+        /// Control lclDefaultCartNumber.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkLogout;
+        protected global::System.Web.UI.WebControls.Localize lclDefaultCartNumber;
         
         /// <summary>
-        /// Control lblDash4.
+        /// Control lclNoCards.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDash4;
+        protected global::System.Web.UI.WebControls.Localize lclNoCards;
         
         /// <summary>
-        /// Control lnkBuscador.
+        /// Control lnkCreateCard.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkBuscador;
+        protected global::System.Web.UI.WebControls.HyperLink lnkCreateCard;
         
         /// <summary>
-        /// Control lblDash5.
+        /// Control lclChooseCard.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDash5;
+        protected global::System.Web.UI.WebControls.Localize lclChooseCard;
         
         /// <summary>
-        /// Control lnkSales.
+        /// Control comboCards.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkSales;
+        protected global::System.Web.UI.WebControls.DropDownList comboCards;
         
         /// <summary>
-        /// Control lblDash6.
+        /// Control btnFinishSale.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDash6;
-        
-        /// <summary>
-        /// Control lnkShoppingCart.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkShoppingCart;
-        
-        /// <summary>
-        /// Control ContentPlaceHolder_BodyContent.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder_BodyContent;
-        
-        /// <summary>
-        /// Control lclFooter.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Localize lclFooter;
+        protected global::System.Web.UI.WebControls.Button btnFinishSale;
     }
 }

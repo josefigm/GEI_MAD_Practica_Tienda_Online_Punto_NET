@@ -117,31 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="bfCategory.HeaderText" xml:space="preserve">
-    <value>Category</value>
+  <data name="lclFinishedMsg.Text" xml:space="preserve">
+    <value>Finished succesfully. Sale id:</value>
   </data>
-  <data name="bfDate.HeaderText" xml:space="preserve">
-    <value>Entry date</value>
-  </data>
-  <data name="bfLinkAddToCart.HeaderText" xml:space="preserve">
-    <value>Add To Cart</value>
-  </data>
-  <data name="bfName.HeaderText" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="bfPrice.HeaderText" xml:space="preserve">
-    <value>Price</value>
-  </data>
-  <data name="btnAddToCart.Text" xml:space="preserve">
-    <value>Add to cart</value>
-  </data>
-  <data name="btnSeeDetail.Text" xml:space="preserve">
-    <value>See detail</value>
-  </data>
-  <data name="lblInsufficientStock.Text" xml:space="preserve">
-    <value>Not enough stock for this product</value>
-  </data>
-  <data name="lblNoResults.Text" xml:space="preserve">
-    <value>No product matches your criteria</value>
+  <data name="lclPageTitle.Text" xml:space="preserve">
+    <value>Main page</value>
   </data>
 </root>

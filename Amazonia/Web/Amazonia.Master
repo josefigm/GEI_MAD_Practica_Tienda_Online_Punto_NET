@@ -42,6 +42,8 @@
                     <asp:HyperLink ID="lnkBuscador" runat="server" NavigateUrl="~/Pages/Product/SearchPage.aspx" meta:resourcekey="lnkSearch" />
                     <asp:Label ID="lblDash5" runat="server" Text="-" />
                     <asp:HyperLink ID="lnkSales" runat="server" NavigateUrl="~/Pages/Sales/MySalesPage.aspx" meta:resourcekey="lnkSales" />
+                    <asp:Label ID="lblDash6" runat="server" Text="-" />
+                    <asp:HyperLink ID="lnkShoppingCart" runat="server" NavigateUrl="~/Pages/Sale/ShoppingCartPage.aspx" meta:resourcekey="lnkShoppingCart" />
                 </asp:ContentPlaceHolder>
             </span>
         </div>

@@ -6,6 +6,7 @@ using Es.Udc.DotNet.ModelUtil.Transactions;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using System.Collections.Generic;
 using Es.Udc.DotNet.Amazonia.Model.CardServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.CardDao;
 
 namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 {
@@ -14,6 +15,9 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 
         [Inject]
         IClientDao ClientDao { set; }
+
+        [Inject]
+        ICardDao CardDao { set; }
 
         /// <summary>
         /// Registra un nuevo cliente.
