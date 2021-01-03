@@ -21,8 +21,6 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Sales
             lnkPrevious.Visible = false;
             lnkNext.Visible = false;
 
-
-
             /* Get Start Index */
             try
             {
@@ -97,5 +95,7 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Sales
             return saleBlock;
 
         }
+
+
     }
 }

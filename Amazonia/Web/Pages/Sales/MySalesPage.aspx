@@ -8,9 +8,9 @@
         <form runat="server">
             <section>
                 <center>
-                    <asp:GridView ID="GvListSales" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal" AutoGenerateColumns="False" EmptyDataText="<%$ Resources:, EmptyGridViewSales %>">
-                        <Columns>
-                            <asp:BoundField DataField="descName" HeaderText="<%$ Resources:, descName %>" />
+                    <asp:GridView ID="GvListSales" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal" AutoGenerateColumns="False" EmptyDataText="<%$ Resources:, EmptyGridViewSales %>" >
+                        <Columns>                
+                            <asp:HyperLinkField DataNavigateUrlFields="id" DataNavigateUrlFormatString="SaleLinesPage.aspx?idSale={0}" DataTextField="descName" HeaderText="<%$ Resources:, descName %>" />
                             <asp:BoundField DataField="date" HeaderText="<%$ Resources:, date %>" />
                             <asp:BoundField DataField="totalPrice" HeaderText="<%$ Resources:, totalPrice %>" />               
                         </Columns>  

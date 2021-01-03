@@ -10,7 +10,7 @@
         <form runat="server">
             <section>
                 <center>
-                    <asp:GridView ID="GvListCards" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal" AutoGenerateColumns="False" OnRowCommand="GvListCards_OnRowCommand" EmptyDataText="<%$ Resources:, EmptyGridView %>">
+                    <asp:GridView ID="GvListCards" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal" AutoGenerateColumns="False" OnRowCommand="GvListCards_OnRowCommand" EmptyDataText="<%$ Resources:, EmptyGridView %>" OnSelectedIndexChanged="GvListCards_SelectedIndexChanged">
                         <Columns>
                             <asp:BoundField DataField="Number" HeaderText="<%$ Resources:, Number %>" />
                             <asp:BoundField DataField="CVV" HeaderText="<%$ Resources:, CVV %>" />
