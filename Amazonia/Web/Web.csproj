@@ -96,10 +96,13 @@
   <ItemGroup>
     <Content Include="Css\Amazonia.Style.css" />
     <Content Include="Global.asax" />
+    <Content Include="Pages\Comment\CommentsPage.aspx" />
+    <Content Include="Pages\Comment\ManageCommentPage.aspx" />
     <Content Include="Pages\Errors\InternalErrorPage.aspx" />
     <Content Include="Pages\MainPage.aspx" />
     <Content Include="Pages\Sales\MySalesPage.aspx" />
     <Content Include="Pages\Sales\SaleLinesPage.aspx" />
+    <Content Include="Pages\Comment\AddCommentPage.aspx" />
     <Content Include="Pages\User\ChangePasswordPage.aspx" />
     <Content Include="Pages\User\CreateNewCardPage.aspx" />
     <Content Include="Pages\Product\EditProductPage.aspx" />
@@ -145,6 +148,20 @@
     <Compile Include="HTTP\View\ApplicationObjects\Countries.cs" />
     <Compile Include="HTTP\View\ApplicationObjects\Languages.cs" />
     <Compile Include="HTTP\View\ApplicationObjects\Locale.cs" />
+    <Compile Include="Pages\Comment\CommentsPage.aspx.cs">
+      <DependentUpon>CommentsPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Comment\CommentsPage.aspx.designer.cs">
+      <DependentUpon>CommentsPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Comment\ManageCommentPage.aspx.cs">
+      <DependentUpon>ManageCommentPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Comment\ManageCommentPage.aspx.designer.cs">
+      <DependentUpon>ManageCommentPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Errors\InternalErrorPage.aspx.cs">
       <DependentUpon>InternalErrorPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -172,6 +189,13 @@
     </Compile>
     <Compile Include="Pages\Sales\SaleLinesPage.aspx.designer.cs">
       <DependentUpon>SaleLinesPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Comment\AddCommentPage.aspx.cs">
+      <DependentUpon>AddCommentPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Comment\AddCommentPage.aspx.designer.cs">
+      <DependentUpon>AddCommentPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\User\ChangePasswordPage.aspx.cs">
       <DependentUpon>ChangePasswordPage.aspx</DependentUpon>
@@ -381,6 +405,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\Sales\App_LocalResources\SaleLinesPage.aspx.es.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Comment\App_LocalResources\AddCommentPage.aspx.es.resx" />
+    <Content Include="Pages\Comment\App_LocalResources\AddCommentPage.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Comment\App_LocalResources\ManageCommentPage.aspx.es.resx" />
+    <Content Include="Pages\Comment\App_LocalResources\ManageCommentPage.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Comment\App_LocalResources\CommentsPage.aspx.es.resx" />
+    <Content Include="Pages\Comment\App_LocalResources\CommentsPage.aspx.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

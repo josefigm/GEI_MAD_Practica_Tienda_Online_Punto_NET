@@ -146,6 +146,7 @@ form {
 
 input, select, textarea {
     background-color: #f4f4f4;
+    height: 26px;
 }
 
 /* Error messages. */

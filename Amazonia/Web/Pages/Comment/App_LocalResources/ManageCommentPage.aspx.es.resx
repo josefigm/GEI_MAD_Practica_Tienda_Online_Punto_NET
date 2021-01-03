@@ -117,40 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btnAddComent.Text" xml:space="preserve">
-    <value>Add comment</value>
+  <data name="btnDeleteComment.Text" xml:space="preserve">
+    <value>Borrar comentario</value>
   </data>
-  <data name="btnAddToShCart.Text" xml:space="preserve">
-    <value>Add to cart</value>
+  <data name="btnUpdateComment.Text" xml:space="preserve">
+    <value>Actualizar comentario</value>
   </data>
-  <data name="btnEditProduct.Text" xml:space="preserve">
-    <value>Edit product</value>
+  <data name="lblCommentNotFound.Text" xml:space="preserve">
+    <value>El comentario que intentas modificar sorprendentemente no exite. ¿Qué estás haciendo?</value>
   </data>
-  <data name="btnManageComment.Text" xml:space="preserve">
-    <value>Manage my comment</value>
+  <data name="lblNoCommentYet.Text" xml:space="preserve">
+    <value>¡Todavía no has comentado este producto! Nada que ver por aquí...</value>
   </data>
-  <data name="btnReadComments.Text" xml:space="preserve">
-    <value>Read comments</value>
+  <data name="lblNotAllowed.Text" xml:space="preserve">
+    <value>El comentario que intentas modificar no te pertenece... ¿Qué tramas?</value>
   </data>
-  <data name="lblNoDescription.Text" xml:space="preserve">
-    <value>There is no description for this product</value>
+  <data name="lclTitle.Text" xml:space="preserve">
+    <value>Título:</value>
   </data>
-  <data name="lclDescription.Text" xml:space="preserve">
-    <value>Product description: </value>
+  <data name="lclValue.Text" xml:space="preserve">
+    <value>Comentario:</value>
   </data>
-  <data name="lclEntryDate.Text" xml:space="preserve">
-    <value>Entry date: </value>
+  <data name="maxLenghtTitle" xml:space="preserve">
+    <value>El título no puede ser mayor de 60 caracteres.</value>
   </data>
-  <data name="lclPrice.Text" xml:space="preserve">
-    <value>Price:</value>
-  </data>
-  <data name="lclProductCategory.Text" xml:space="preserve">
-    <value>Category: </value>
-  </data>
-  <data name="lclProductName.Text" xml:space="preserve">
-    <value>Product: </value>
-  </data>
-  <data name="lclStock.Text" xml:space="preserve">
-    <value>Stock</value>
+  <data name="maxLenghtValue" xml:space="preserve">
+    <value>El comentario no debe superar los 1000 caracteres.</value>
   </data>
 </root>
