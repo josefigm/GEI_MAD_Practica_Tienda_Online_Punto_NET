@@ -1,8 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Amazonia.Master" AutoEventWireup="true" CodeBehind="MySalesPage.aspx.cs" Inherits="Es.Udc.DotNet.Amazonia.Web.Pages.Sales.MySalesPage" %>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder_BodyContent" runat="server">
-    
-    <asp:Label ID="lblNoResults" runat="server" Text="Label" Visible="false" meta:resourcekey="lblNoResults"></asp:Label>
 
     <div> 
         <form runat="server">

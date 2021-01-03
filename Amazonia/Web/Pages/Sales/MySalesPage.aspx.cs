@@ -45,10 +45,6 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Sales
 
             SaleBlock saleBlock = GetSales(userId, startIndex, count);
 
-            if (saleBlock.Sales.Count == 0)
-            {
-                lblNoResults.Visible = true;
-            }
 
             if (!IsPostBack)
             {
