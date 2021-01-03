@@ -231,20 +231,31 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         }
 
         [Transactional]
-        public List<SaleListItemDTO> ShowClientSaleList(long clientId, int startIndex, int count)
+        public SaleBlock ShowClientSaleList(long clientId, int startIndex, int count)
         {
-            List<SaleListItemDTO> saleList = new List<SaleListItemDTO>();
 
-            List<Sale> clientSalesFound = SaleDao.FindByClientId(clientId, startIndex, count);
+            // Recuperamos lista de sales paginada
+            List<Sale> clientSalesFound = SaleDao.FindByClientId(clientId, startIndex, count + 1);
+
+            bool existMoreSales = (clientSalesFound.Count == count + 1);
+
+            if (existMoreSales)
+            {
+                clientSalesFound.RemoveAt(count);
+            }
+
+            List<SaleListItemDTO> saleListItemDTO = new List<SaleListItemDTO>();
 
             foreach (Sale sale in clientSalesFound)
             {
-                saleList.Add(
+                saleListItemDTO.Add(
                     new SaleListItemDTO(sale.id, sale.date, sale.descName, sale.totalPrice)
                     );
             }
 
-            return saleList;
+            SaleBlock result = new SaleBlock(saleListItemDTO, existMoreSales);
+
+            return result;
         }
 
 

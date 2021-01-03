@@ -14,7 +14,7 @@
                         <Columns>
                             <asp:BoundField DataField="Number" HeaderText="<%$ Resources:, Number %>" />
                             <asp:BoundField DataField="CVV" HeaderText="<%$ Resources:, CVV %>" />
-                            <asp:BoundField DataField="ExpireDate" HeaderText="<%$ Resources:, ExpireDate %>" />
+                            <asp:BoundField DataField="ExpireDate" DataFormatString = "{0:MM/yyyy}" ItemStyle-HorizontalAlign="Center" HeaderText="<%$ Resources:, ExpireDate %>" />
                             <asp:BoundField DataField="Type" HeaderText="<%$ Resources:, Type %>" />
                             <asp:checkboxfield Datafield="DefaultCard" headertext="<%$ Resources:, DefaultCard %>"/>     
                             <asp:TemplateField ShowHeader="False">

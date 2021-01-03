@@ -724,11 +724,11 @@ namespace Test.SaleServiceTests
 
             saleService.Buy(shoppingCart2, descName, address, card2.id, client2.id);
 
-            List<SaleListItemDTO> saleList = saleService.ShowClientSaleList(client.id, 0, 1);
+            SaleBlock saleList = saleService.ShowClientSaleList(client.id, 0, 1);
 
-            Assert.AreEqual(1, saleList.Count);
+            Assert.AreEqual(1, saleList.Sales.Count);
 
-            List<SaleListItemDTO>.Enumerator saleEnum = saleList.GetEnumerator();
+            List<SaleListItemDTO>.Enumerator saleEnum = saleList.Sales.GetEnumerator();
             saleEnum.MoveNext();
             SaleListItemDTO sale = saleEnum.Current;
 
@@ -757,9 +757,9 @@ namespace Test.SaleServiceTests
 
             #endregion Declaracion de variables
 
-            List<SaleListItemDTO> saleList = saleService.ShowClientSaleList(client.id, 0, 1);
+            SaleBlock saleList = saleService.ShowClientSaleList(client.id, 0, 1);
 
-            Assert.AreEqual(0, saleList.Count);
+            Assert.AreEqual(0, saleList.Sales.Count);
         }
 
         #region Additional test attributes

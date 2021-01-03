@@ -2,8 +2,9 @@
 
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder_BodyContent" runat="server">
     
-    <div>
-        
+    <asp:Label ID="lblNoResults" runat="server" Text="Label" Visible="false" meta:resourcekey="lblNoResults"></asp:Label>
+
+    <div> 
         <form runat="server">
             <section>
                 <center>
@@ -19,6 +20,16 @@
                 </center>
             </section>
         </form>
+    </div>
+
+     <div>
+        <section>
+            <span class="previousLink">
+                <asp:HyperLink ID="lnkPrevious" Text="<%$ Resources:Common, Previous %>" runat="server" Visible="False"></asp:HyperLink>
+            </span><span class="nextLink">
+                <asp:HyperLink ID="lnkNext" Text="<%$ Resources:Common, Next %>" runat="server" Visible="False"></asp:HyperLink>
+            </span>
+        </section>
     </div>
 
 

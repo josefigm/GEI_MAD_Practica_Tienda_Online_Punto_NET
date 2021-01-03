@@ -82,6 +82,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         /// <param name="count">The count.</param>
         /// <returns>Client sale list</returns>
         [Transactional]
-        List<SaleListItemDTO> ShowClientSaleList(long clientId, int startIndex, int count);
+        SaleBlock ShowClientSaleList(long clientId, int startIndex, int count);
     }
 }

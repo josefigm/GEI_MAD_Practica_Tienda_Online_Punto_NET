@@ -163,6 +163,7 @@
     <Compile Include="SaleLine.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="SaleServiceImp\DTOs\SaleBlock.cs" />
     <Compile Include="SaleServiceImp\DTOs\SaleDTO.cs" />
     <Compile Include="SaleServiceImp\DTOs\SaleLineDTO.cs" />
     <Compile Include="SaleServiceImp\DTOs\SaleListItemDTO.cs" />

@@ -129,4 +129,13 @@
   <data name="totalPrice" xml:space="preserve">
     <value>Precio Total</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>Siguiente</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
+  <data name="lblNoResults" xml:space="preserve">
+    <value>Sin compras todavía</value>
+  </data>
 </root>
