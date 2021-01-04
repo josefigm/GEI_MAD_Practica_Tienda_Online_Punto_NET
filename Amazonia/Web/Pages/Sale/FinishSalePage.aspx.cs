@@ -2,6 +2,7 @@
 using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs;
+using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions;
 using Es.Udc.DotNet.Amazonia.Web.HTTP.Session;
 using Es.Udc.DotNet.ModelUtil.IoC;
 using System;
@@ -83,10 +84,27 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Sale
                 address = tbNewAddress.Text;
             }
 
-            long saleId = saleService.Buy(shoppingCart, tbDescName.Text , address, Convert.ToInt64(comboCards.SelectedValue), clientId);
+            long saleId;
+            String url;
 
-            String url = String.Format("./FinishedSalePage.aspx?saleId={0}", saleId);
-            Response.Redirect(Response.ApplyAppPathModifier(url));
+            try
+            {
+                saleId = saleService.Buy(shoppingCart, tbDescName.Text, address, Convert.ToInt64(comboCards.SelectedValue), clientId);
+
+                url = String.Format("./FinishedSalePage.aspx?saleId={0}", saleId);
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
+            catch (EmptyShoppingCartException)
+            {
+                url = String.Format("~/Pages/MainPage.aspx");
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
+            catch (InsufficientStockException ex)
+            {
+                url = String.Format("./StockErrorPage.aspx?productName=" + ex.Name + "&stock=" + ex.Stock);
+                Response.Redirect(Response.ApplyAppPathModifier(url));
+            }
+            
         }
     }
 }

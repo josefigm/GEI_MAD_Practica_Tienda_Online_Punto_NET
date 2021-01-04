@@ -51,7 +51,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
                 }
                 else
                 {
-                    throw new InsufficientStockException(product.stock, units);
+                    throw new InsufficientStockException(product.name, product.stock, units);
                 }
                 
             }
@@ -97,7 +97,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
                     }
                     else
                     {
-                        throw new InsufficientStockException(product.stock, units);
+                        throw new InsufficientStockException(product.name, product.stock, units);
                     }
                     
                 }
@@ -151,7 +151,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
                 }
                 else
                 {
-                    throw new InsufficientStockException(lineProduct.stock, line.units);
+                    throw new InsufficientStockException(lineProduct.name, lineProduct.stock, line.units);
                 }
             }
 

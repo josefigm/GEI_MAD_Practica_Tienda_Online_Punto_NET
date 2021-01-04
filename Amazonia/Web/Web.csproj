@@ -104,6 +104,7 @@
     <Content Include="Pages\Sales\SaleLinesPage.aspx" />
     <Content Include="Pages\Comment\AddCommentPage.aspx" />
     <Content Include="Pages\Sale\FinishedSalePage.aspx" />
+    <Content Include="Pages\Sale\StockErrorPage.aspx" />
     <Content Include="Pages\User\ChangePasswordPage.aspx" />
     <Content Include="Pages\User\CreateNewCardPage.aspx" />
     <Content Include="Pages\Product\EditProductPage.aspx" />
@@ -206,6 +207,13 @@
     </Compile>
     <Compile Include="Pages\Sale\FinishedSalePage.aspx.designer.cs">
       <DependentUpon>FinishedSalePage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Sale\StockErrorPage.aspx.cs">
+      <DependentUpon>StockErrorPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Sale\StockErrorPage.aspx.designer.cs">
+      <DependentUpon>StockErrorPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\User\ChangePasswordPage.aspx.cs">
       <DependentUpon>ChangePasswordPage.aspx</DependentUpon>
@@ -457,6 +465,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\Sale\App_LocalResources\FinishedSalePage.aspx.es.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Sale\App_LocalResources\StockErrorPage.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Sale\App_LocalResources\StockErrorPage.aspx.es.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
