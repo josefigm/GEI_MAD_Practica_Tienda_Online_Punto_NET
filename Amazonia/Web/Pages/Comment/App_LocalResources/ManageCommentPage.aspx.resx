@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="btnCrateLabel.Text" xml:space="preserve">
+    <value>Create</value>
+  </data>
   <data name="btnDeleteComment.Text" xml:space="preserve">
     <value>Delete comment</value>
   </data>
@@ -126,11 +129,20 @@
   <data name="lblCommentNotFound.Text" xml:space="preserve">
     <value>The comment you try to modify does not exist. What are you doing?</value>
   </data>
+  <data name="lblDuplicatedLabel.Text" xml:space="preserve">
+    <value>Trying to add an existent label</value>
+  </data>
   <data name="lblNoCommentYet.Text" xml:space="preserve">
     <value>You have not commented this product yet! Nothing to see here...</value>
   </data>
   <data name="lblNotAllowed.Text" xml:space="preserve">
     <value>The comment you try to modify does not belong to you... What are you trying to do?</value>
+  </data>
+  <data name="lclAvailableLabels.Text" xml:space="preserve">
+    <value>Available labels</value>
+  </data>
+  <data name="lclNewLabel.Text" xml:space="preserve">
+    <value>Create new label</value>
   </data>
   <data name="lclTitle.Text" xml:space="preserve">
     <value>Title:</value>

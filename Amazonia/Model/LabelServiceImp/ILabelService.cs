@@ -17,8 +17,16 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
         ILabelDao LabelDao { set; }
 
         /// <summary>
-        /// Creates the label and associates the label to a comment since a label with no
-        /// comment has no reason to exist.
+        /// Creates the label
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <exception cref="DuplicateInstanceException"/>
+        /// <returns></returns>
+        [Transactional]
+        void CreateLabel(string value);
+
+        /// <summary>
+        /// Creates the label and associates the label to a comment 
         /// </summary>
         /// <param name="value">The value.</param>
         /// <param name="commentId">The comment identifier.</param>
@@ -66,7 +74,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
         /// </summary>
         /// <returns></returns>
         [Transactional]
-        List<Label> FindAllLabels();
+        List<LabelDTO> FindAllLabels();
 
         /// <summary>
         /// Finds the labels by comment.
@@ -74,7 +82,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
         /// <param name="commendId">The commend identifier.</param>
         /// <returns></returns>
         [Transactional]
-        List<Label> FindLabelsByComment(long commentId);
+        List<LabelDTO> FindLabelsByComment(long commentId);
 
         /// <summary>Gets the number of comments.</summary>
         /// <param name="labels">The labels.</param>

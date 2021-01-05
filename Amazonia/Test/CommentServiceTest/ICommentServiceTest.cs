@@ -137,15 +137,15 @@ namespace Test.CommentServiceTest
 
                 Client cliente = registerUser(LOGIN);
 
-                Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
+                long newCommentId = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
 
-                Label label = labelService.CreateLabel("Genial", newComment.id);
-                Label label2 = labelService.CreateLabel("Inmejorable", newComment.id);
+                Label label = labelService.CreateLabel("Genial", newCommentId);
+                Label label2 = labelService.CreateLabel("Inmejorable", newCommentId);
 
                 List<CommentDTO> retrievedComments = CommentMapper.CommentListToCommentDTOList(commentDao.FindCommentsOfProduct(biciCarretera.id));
 
                 Assert.AreEqual(retrievedComments.Count, 1);
-                Assert.AreEqual(newComment.id, retrievedComments[0].id);
+                Assert.AreEqual(newCommentId, retrievedComments[0].id);
                 Assert.AreEqual(2, retrievedComments[0].labels.Count);
             }
         }
@@ -184,13 +184,13 @@ namespace Test.CommentServiceTest
 
                 Client cliente = registerUser(LOGIN);
 
-                Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
-                Comment newComment2 = commentService.AddComment("Review 2", "Muy mala bicicleta", biciCarretera.id, cliente.id);
+                long newCommentId = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
+                long newComment2Id = commentService.AddComment("Review 2", "Muy mala bicicleta", biciCarretera.id, cliente.id);
 
                 List<CommentDTO> retrievedComments = CommentMapper.CommentListToCommentDTOList(commentDao.FindCommentsOfProduct(biciCarretera.id));
 
                 Assert.AreEqual(retrievedComments.Count, 1);
-                Assert.AreEqual(newComment, retrievedComments[0]);
+                Assert.AreEqual(newCommentId, retrievedComments[0]);
             }
         }
 

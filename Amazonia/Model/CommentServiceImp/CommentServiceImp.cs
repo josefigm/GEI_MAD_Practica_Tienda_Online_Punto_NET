@@ -22,7 +22,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
         [Inject]
         public ILabelDao LabelDao { private get; set; }
 
-        public Comment AddComment(string title, string value, long productId, long clientId)
+        public long AddComment(string title, string value, long productId, long clientId)
         {
             List<Comment> commentsOfThisUserAndProduct = new List<Comment>();
 
@@ -50,7 +50,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
             newComment.date = DateTime.Now;
             CommentDao.Create(newComment);
 
-            return newComment;
+            return newComment.id;
         }
 
         public void RemoveComment(long commentId, long clientId)

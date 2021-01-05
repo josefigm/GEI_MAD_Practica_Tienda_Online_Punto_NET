@@ -529,9 +529,9 @@ namespace Test.ProductService
                 #region Comment and label section
                 Client cliente = registerUser(LOGIN);
 
-                Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
+                long newCommentId = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
 
-                labelService.CreateLabel("Genial", newComment.id);
+                labelService.CreateLabel("Genial", newCommentId);
 
                 #endregion Comment and label section
 
@@ -579,8 +579,8 @@ namespace Test.ProductService
 
                 #region Comment and label section
                 Client cliente = registerUser(LOGIN2);
-                Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
-                labelService.CreateLabel("Genial", newComment.id);
+                long newCommentId = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
+                labelService.CreateLabel("Genial", newCommentId);
 
                 #endregion Comment and label section
 
@@ -657,13 +657,13 @@ namespace Test.ProductService
                 Client cliente2 = registerUser(LOGIN2);
                 Client cliente3 = registerUser(LOGIN3);
 
-                Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
-                Comment newComment2 = commentService.AddComment("Review 1", "Muy mala bicicleta", biciMontaña.id, cliente2.id);
-                Comment newComment3 = commentService.AddComment("Review 1", "Muy buen portátil", portatil.id, cliente3.id);
+                long newCommentId = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
+                long newComment2Id = commentService.AddComment("Review 1", "Muy mala bicicleta", biciMontaña.id, cliente2.id);
+                long newComment3Id = commentService.AddComment("Review 1", "Muy buen portátil", portatil.id, cliente3.id);
 
-                labelService.CreateLabel("Genial", newComment.id);
-                labelService.CreateLabel("Mala", newComment2.id);
-                labelService.CreateLabel("Fenomenal", newComment3.id);
+                labelService.CreateLabel("Genial", newCommentId);
+                labelService.CreateLabel("Mala", newComment2Id);
+                labelService.CreateLabel("Fenomenal", newComment3Id);
 
                 #endregion Comment and label section
 
@@ -713,9 +713,9 @@ namespace Test.ProductService
                 #region Comment and label section
                 Client cliente = registerUser(LOGIN);
 
-                Comment newComment = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
-                labelService.CreateLabel("Genial", newComment.id);
-                labelService.CreateLabel("Buena", newComment.id);
+                long newCommentId = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
+                labelService.CreateLabel("Genial", newCommentId);
+                labelService.CreateLabel("Buena", newCommentId);
 
                 #endregion Comment and label section
 

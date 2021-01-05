@@ -94,6 +94,56 @@
                 </asp:RegularExpressionValidator>
             </span>
         </div>
+
+        <div class="field">
+            <asp:Label 
+                ID="lblDuplicatedLabel" 
+                runat="server" 
+                ForeColor="Red" 
+                Style="position: relative"             
+                Visible="False" 
+                meta:resourcekey="lblDuplicatedLabel">                        
+            </asp:Label>
+            <asp:Label 
+                ID="lblRequiredTb" 
+                runat="server" 
+                ForeColor="Red" 
+                Style="position: relative"             
+                Visible="False" 
+                Text="<%$ Resources:Common, requiredField %>">                        
+            </asp:Label>
+        </div>
+        <div class="field">
+            <span class="label">
+                <asp:Localize 
+                    ID="lclNewLabel" 
+                    runat="server" 
+                    meta:resourcekey="lclNewLabel" />
+            </span>
+            <span class="entry">
+            <asp:TextBox 
+                    ID="tbNewLabel" 
+                    runat="server" 
+                    Width="200" 
+                    Columns="16">
+                </asp:TextBox>
+                <asp:Button ID="btnCrateLabel" runat="server" meta:resourcekey="btnCrateLabel" OnClick="btnCrateLabel_Click"/>
+            </span>
+        </div>
+        <br /><br />
+        <div class="field" >
+                <asp:Localize 
+                    ID="lclAvailableLabels" 
+                    runat="server" 
+                    meta:resourcekey="lclAvailableLabels" />
+        </div>
+        <div class="field" >
+            <div style="OVERFLOW-Y:scroll; WIDTH:150px; HEIGHT:100px; margin:auto;">
+                <asp:CheckBoxList ID="CheckBoxList1" runat="server"> 
+                </asp:CheckBoxList>
+            </div>
+        </div>
+
         <div class="button">
             <span>
                 <asp:Button 

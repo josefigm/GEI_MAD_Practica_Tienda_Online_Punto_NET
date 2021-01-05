@@ -25,7 +25,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
         /// <exception cref="AlreadyCommentedThisProduct"/>
         /// <returns></returns>
         [Transactional]
-        Comment AddComment(string title, string value, long productId, long clientId);
+        long AddComment(string title, string value, long productId, long clientId);
 
         /// <summary>
         /// Removes the comment.

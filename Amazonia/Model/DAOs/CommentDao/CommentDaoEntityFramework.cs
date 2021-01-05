@@ -60,5 +60,12 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao
 
             return result;
         }
+
+        public void ReplaceLabels(long commentId, List<Label> newLabels)
+        {
+            Comment comment = Find(commentId);
+            comment.Labels = newLabels;
+            Update(comment);
+        }
     }
 }

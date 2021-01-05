@@ -12,6 +12,8 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao
         List<Comment> FindCommentsOfProductPaged(long productId, int startIndex, int count);
 
         List<Comment> FindCommentsByLabel(Label label);
+
+        void ReplaceLabels(long commentId, List<Label> newLabels);
         
     }
 }
