@@ -52,6 +52,19 @@
         <div id="content">
             <asp:ContentPlaceHolder ID="ContentPlaceHolder_BodyContent" runat="server" />
         </div>
+        <!-- Label cloud content. -->
+        <div id="tagCloud" runat="server">
+            <center>
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    <h4>
+                        <asp:Label ID="lblLabelCloud" runat="server" meta:resourcekey="lblLabelCloud"></asp:Label>
+                    </h4>
+                    <br>
+                    <asp:Label ID="lblNoLabels" runat="server" meta:resourcekey="lblNoLabels"></asp:Label>
+                    <br>
+                </asp:ContentPlaceHolder>
+            </center>
+        </div>
         <!-- Footer. -->
         <div id="footer">
             <asp:Localize ID="lclFooter" runat="server" meta:resourcekey="lclFooter" />

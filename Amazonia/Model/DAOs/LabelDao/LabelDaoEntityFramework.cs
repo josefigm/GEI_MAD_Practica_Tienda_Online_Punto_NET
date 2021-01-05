@@ -24,21 +24,21 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao
 
         }
 
-        public List<LabelDTO> FindMostUsedLabels()
+        public List<LabelDTO> FindMostUsedLabels(int count)
         {
             DbSet<Label> labelList = Context.Set<Label>();
 
             // We only select the id in order to be as efficient as possible
-            List<long> labelIds =
+            List<Label> labels =
                 (from l in labelList
                  orderby l.Comments.Count descending
-                 select l.id).ToList<long>();
+                 select l).Take(count).ToList<Label>();
 
             // The labelDTOs are created
             List<LabelDTO> result = new List<LabelDTO>();
-            for (int index = 0; index < labelIds.Count; index++)
+            for (int index = 0; index < labels.Count; index++)
             {
-                result.Add(new LabelDTO(labelIds[index]));
+                result.Add(LabelMapper.toLabelDTO(labels[index]));
             }
 
             return result;

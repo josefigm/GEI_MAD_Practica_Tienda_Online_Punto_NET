@@ -1,6 +1,7 @@
 ﻿using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp.Exceptions;
 using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp.DTOs;
 using Es.Udc.DotNet.Amazonia.Web.HTTP.Session;
 using Es.Udc.DotNet.Amazonia.Web.HTTP.View.ApplicationObjects;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
@@ -19,6 +20,8 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
         protected void Page_Load(object sender, EventArgs e)
         {
             lblAlreadyCommentedError.Visible = false;
+            CheckBoxList1.Visible = true;
+            lclAvailableLabels.Visible = true;
 
             if (!IsPostBack)
             {
@@ -85,7 +88,15 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
             IIoCManager iocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
             ILabelService labelService = iocManager.Resolve<ILabelService>();
 
-            this.CheckBoxList1.DataSource = labelService.FindAllLabels();
+            List<LabelDTO> labelList = labelService.FindAllLabels();
+
+            if(labelList.Count == 0)
+            {
+                CheckBoxList1.Visible = false;
+                lclAvailableLabels.Visible = false;
+            }
+
+            this.CheckBoxList1.DataSource = labelList;
             this.CheckBoxList1.DataTextField = "value";
             this.CheckBoxList1.DataValueField = "id";
             this.CheckBoxList1.DataBind();

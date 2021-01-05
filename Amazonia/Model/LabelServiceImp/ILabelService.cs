@@ -42,7 +42,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
         /// <param name="commentId">The comment identifier.</param>
         /// <param name="labelIds">The label ids.</param>
         /// <exception cref="InstanceNotFoundException"/>
-        /// <exception cref="ArgumentException"/>
         [Transactional]
         void AssignLabelsToComment(long commentId, List<long> labelIds);
 

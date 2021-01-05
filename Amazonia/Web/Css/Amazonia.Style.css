@@ -8,6 +8,7 @@ body {
 }
 
 /* Links. */
+
 a {
     font-weight: bold;
     text-decoration: none;
@@ -66,6 +67,11 @@ a {
     margin: 10px 0;
     text-align: center;
     width: 100%;
+}
+
+#tagCloud {
+    background-color: #bfbfbf;
+    justify-content: center;
 }
 
 .info {
@@ -186,7 +192,8 @@ form {
 
 input, select, textarea {
     background-color: #f4f4f4;
-    }
+    height: 26px;
+}
 
 /* Error messages. */
 

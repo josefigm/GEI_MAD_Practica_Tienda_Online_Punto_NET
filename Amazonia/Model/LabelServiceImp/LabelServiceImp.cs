@@ -71,11 +71,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
 
         public void AssignLabelsToComment(long commentId, List<long> labelIds)
         {
-            if (labelIds == null || labelIds.Count == 0)
-            {
-                throw new ArgumentException("Lista de etiquetas de entrada nula");
-            }
-
             if (!CommentDao.Exists(commentId))
             {
                 throw new InstanceNotFoundException("No existe un comentario con id: " + commentId);
@@ -166,10 +161,9 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
 
         public List<LabelDTO> FindMostUsedLabels(int limit)
         {
-            List<LabelDTO> result = LabelDao.FindMostUsedLabels();
-            
-            // We return only the first limit labels
-            return result.GetRange(0, limit);
+            List<LabelDTO> result = LabelDao.FindMostUsedLabels(limit);
+
+            return result;
         }
     }
 }

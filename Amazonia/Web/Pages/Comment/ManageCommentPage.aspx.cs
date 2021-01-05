@@ -23,6 +23,8 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Comment
             lblNoCommentYet.Visible = false;
             lblCommentNotFound.Visible = false;
             lblNotAllowed.Visible = false;
+            CheckBoxList1.Visible = true;
+            lclAvailableLabels.Visible = true;
 
             if (!IsPostBack)
             {
@@ -33,7 +35,6 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Comment
 
                 GetAndSetData(productId);
 
-                UpdateCheckboxList();
             }
         }
 
@@ -63,6 +64,9 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Comment
                 tbValue.Text = comment.value;
 
                 commentForm.Visible = true;
+
+
+                UpdateCheckboxList();
 
             }
             //If the product does not exist. This is not normal (Maybe a hacker changed the URL)
@@ -156,7 +160,15 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Comment
             IIoCManager iocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
             ILabelService labelService = iocManager.Resolve<ILabelService>();
 
-            this.CheckBoxList1.DataSource = labelService.FindAllLabels();
+            List<LabelDTO> labelList = labelService.FindAllLabels();
+
+            if (labelList.Count == 0)
+            {
+                CheckBoxList1.Visible = false;
+                lclAvailableLabels.Visible = false;
+            }
+
+            this.CheckBoxList1.DataSource = labelList;
             this.CheckBoxList1.DataTextField = "value";
             this.CheckBoxList1.DataValueField = "id";
             this.CheckBoxList1.DataBind();

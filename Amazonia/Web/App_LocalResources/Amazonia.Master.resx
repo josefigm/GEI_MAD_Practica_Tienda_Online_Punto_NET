@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="lblLabelCloud.Text" xml:space="preserve">
+    <value>Label cloud</value>
+  </data>
+  <data name="lblNoLabels.Text" xml:space="preserve">
+    <value>There are no labels yet</value>
+  </data>
   <data name="lblWelcome.Hello.Text" xml:space="preserve">
     <value>Hello</value>
   </data>
