@@ -491,6 +491,7 @@ namespace Test.ProductService
         }
 
         [TestMethod]
+        [ExpectedException(typeof(Es.Udc.DotNet.ModelUtil.Exceptions.InstanceNotFoundException))]
         public void RetrieveProductsWithLabelEmptyTest()
         {
             using (var scope = new TransactionScope())
@@ -535,7 +536,7 @@ namespace Test.ProductService
 
                 #endregion Comment and label section
 
-                List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Malo");
+                List<ProductDTO> productsWithLabel = productService.RetrieveProductsWithLabel(0, 5, -1L).products;
 
                 Assert.AreEqual(productsWithLabel.Count, 0);
             }
@@ -580,14 +581,14 @@ namespace Test.ProductService
                 #region Comment and label section
                 Client cliente = registerUser(LOGIN2);
                 long newCommentId = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
-                labelService.CreateLabel("Genial", newCommentId);
+                Label label = labelService.CreateLabel("Genial", newCommentId);
 
                 #endregion Comment and label section
 
-                List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Genial");
+                List<ProductDTO> productsWithLabel = productService.RetrieveProductsWithLabel(0, 5, label.id).products;
 
                 Assert.AreEqual(productsWithLabel.Count, 1);
-                Assert.AreEqual(productsWithLabel[0], biciCarretera);
+                Assert.AreEqual(productsWithLabel[0], ProductMapper.ProductToProductDto(biciCarretera));
             }
         }
 
@@ -661,16 +662,16 @@ namespace Test.ProductService
                 long newComment2Id = commentService.AddComment("Review 1", "Muy mala bicicleta", biciMontaña.id, cliente2.id);
                 long newComment3Id = commentService.AddComment("Review 1", "Muy buen portátil", portatil.id, cliente3.id);
 
-                labelService.CreateLabel("Genial", newCommentId);
+                Label label = labelService.CreateLabel("Genial", newCommentId);
                 labelService.CreateLabel("Mala", newComment2Id);
                 labelService.CreateLabel("Fenomenal", newComment3Id);
 
                 #endregion Comment and label section
 
-                List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Genial");
+                List<ProductDTO> productsWithLabel = productService.RetrieveProductsWithLabel(0, 5, label.id).products;
 
                 Assert.AreEqual(productsWithLabel.Count, 1);
-                Assert.IsTrue(productsWithLabel.Contains(biciCarretera));
+                Assert.IsTrue(productsWithLabel.Contains(ProductMapper.ProductToProductDto(biciCarretera)));
             }
         }
 
@@ -714,22 +715,22 @@ namespace Test.ProductService
                 Client cliente = registerUser(LOGIN);
 
                 long newCommentId = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
-                labelService.CreateLabel("Genial", newCommentId);
-                labelService.CreateLabel("Buena", newCommentId);
+                Label label1 = labelService.CreateLabel("Genial", newCommentId);
+                Label label2 = labelService.CreateLabel("Buena", newCommentId);
 
                 #endregion Comment and label section
 
                 // Se busca primero por la primera etiqueta
-                List<Product> productsWithLabel = productService.RetrieveProductsWithLabel("Genial");
+                List<ProductDTO> productsWithLabel = productService.RetrieveProductsWithLabel(0, 5, label1.id).products;
 
                 Assert.AreEqual(productsWithLabel.Count, 1);
-                Assert.AreEqual(productsWithLabel[0], biciCarretera);
+                Assert.AreEqual(productsWithLabel[0], ProductMapper.ProductToProductDto(biciCarretera));
 
                 //Se busca luego por la segunda etiqueta
-                productsWithLabel = productService.RetrieveProductsWithLabel("Buena");
+                productsWithLabel = productService.RetrieveProductsWithLabel(0, 5, label2.id).products;
 
                 Assert.AreEqual(productsWithLabel.Count, 1);
-                Assert.AreEqual(productsWithLabel[0], biciCarretera);
+                Assert.AreEqual(productsWithLabel[0], ProductMapper.ProductToProductDto(biciCarretera));
             }
         }
 

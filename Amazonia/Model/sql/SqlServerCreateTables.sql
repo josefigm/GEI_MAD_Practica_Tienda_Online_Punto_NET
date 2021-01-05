@@ -86,7 +86,7 @@ GO
 
 CREATE TABLE Sale (
 	id bigint IDENTITY(1,1),
-	date date NOT NULL,
+	date datetime2 NOT NULL,
 	descName varchar(100) NOT NULL,
 	address varchar(100) NOT NULL,
 	totalPrice float NOT NULL,
@@ -117,7 +117,7 @@ CREATE TABLE Product (
 	id bigint IDENTITY(1,1),
 	name varchar(30) NOT NULL,
 	price float NOT NULL,
-	entryDate date NOT NULL,
+	entryDate datetime2 NOT NULL,
 	stock bigint NOT NULL,
 	image varchar(100),
 	description varchar(1000),

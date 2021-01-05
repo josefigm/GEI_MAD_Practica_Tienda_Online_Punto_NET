@@ -85,7 +85,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
                 if (item.product.id == productId)
                 {
                     Product product = ProductDao.Find(productId);
-                    if (product.stock >= (units + item.units))
+                    if (product.stock >= units )
                     {
                         item.units = units;
                         item.gift = gift;
