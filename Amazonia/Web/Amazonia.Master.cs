@@ -103,7 +103,7 @@ namespace Es.Udc.DotNet.Amazonia.Web
                 {
                     HyperLink link = new HyperLink();
                     link.Text = mostUsedLabels[i].value;
-                    link.NavigateUrl = "Pagina de comentarios de esta etiqueta";
+                    link.NavigateUrl = String.Format("./Pages/Product/ProductsWithLabel.aspx?labelId={0}&startIndex={1}&count={2}", mostUsedLabels[i].id, 0, 5);
                     link.Font.Size = sizeOfLabel[i];
                     ContentPlaceHolder1.Controls.Add(link);
                     ContentPlaceHolder1.Controls.Add(new Literal() { Text = "&nbsp;&nbsp;" });

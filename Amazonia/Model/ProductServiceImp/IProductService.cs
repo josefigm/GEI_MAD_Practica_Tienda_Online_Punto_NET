@@ -101,10 +101,9 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         /// Retrieves the products with label.
         /// </summary>
         /// <param name="lavelValue">The lavel value.</param>
-        /// <exception cref="ArgumentNullException"/>
         /// <returns></returns>
         [Transactional]
-        List<Product> RetrieveProductsWithLabel(string labelValue);
+        ProductBlock RetrieveProductsWithLabel(int startIndex, int count, long labelId);
 
     }
 }

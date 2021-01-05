@@ -236,37 +236,24 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
             return result;
         }
 
-        public List<Product> RetrieveProductsWithLabel(string labelValue)
+        public ProductBlock RetrieveProductsWithLabel(int startIndex, int count, long labelId)
         {
-            if (labelValue == null)
+            Label label = LabelDao.Find(labelId);
+
+            List<Comment> comentariosConLabel = CommentDao.FindCommentsByLabel(label);
+
+            List<ProductDTO> productDTOs = ProductDao.FindProductsByComments(startIndex, count + 1, comentariosConLabel);
+
+            bool existMoreProducts = (productDTOs.Count == count + 1);
+
+            if (existMoreProducts)
             {
-                throw new ArgumentNullException("Valor de etiqueta nulo");
+                productDTOs.RemoveAt(count);
             }
 
-            List<Product> allProducts = ProductDao.GetAllElements();
-            List<Product> productsWithLabel = new List<Product>();
+            ProductBlock result = new ProductBlock(productDTOs, existMoreProducts);
 
-            foreach (Product product in allProducts)
-            {
-                bool labelFound = false;
-                List<Comment> commentList = CommentDao.FindCommentsOfProduct(product.id);
-
-                List<CommentDTO> comments = CommentMapper.CommentListToCommentDTOList(commentList);
-                    
-                for (int i = 0; i < comments.Count && labelFound == false; i++)
-                {
-                    List<Label> labels = LabelDao.FindLabelsOfComment(comments[i].id);
-                    for (int j = 0; j < labels.Count && labelFound == false; j++)
-                    {
-                        if (labels[j].value == labelValue)
-                        {
-                            labelFound = true;
-                            productsWithLabel.Add(product);
-                        }
-                    }
-                }
-            }
-            return productsWithLabel;
+            return result;
         }
     }
 }

@@ -59,6 +59,23 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao
 
             return ProductMapper.ProductToCompleteProductDto(product);
         }
+
+        public List<ProductDTO> FindProductsByComments(int startIndex, int count, List<Comment> comments)
+        {
+            DbSet<Product> productList = Context.Set<Product>();
+
+            List<long> commentIds = comments.Select(c => c.id).ToList();
+
+            List<Product> products =
+                (from p in productList
+                 where p.Comments.Select(c => c.id).Intersect(commentIds).Any()
+                 orderby p.entryDate
+                 select p).Skip(startIndex).Take(count).ToList<Product>();
+
+            List<ProductDTO> productsDTO = products.Select(p => ProductMapper.ProductToProductDto(p)).ToList();
+
+            return productsDTO;
+        }
     }
 }
 

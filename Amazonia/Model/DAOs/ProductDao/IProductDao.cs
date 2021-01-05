@@ -12,5 +12,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao
         List<ProductDTO> FindByKeyWord(string keyWord, int startIndex, int count);
 
         CompleteProductDTO FindCompleteProductDTO(long productId);
+
+        List<ProductDTO> FindProductsByComments(int startIndex, int count, List<Comment> comments);
     }
 }

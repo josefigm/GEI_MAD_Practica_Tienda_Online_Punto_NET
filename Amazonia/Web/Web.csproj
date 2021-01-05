@@ -100,6 +100,7 @@
     <Content Include="Pages\Comment\ManageCommentPage.aspx" />
     <Content Include="Pages\Errors\InternalErrorPage.aspx" />
     <Content Include="Pages\MainPage.aspx" />
+    <Content Include="Pages\Product\ProductsWithLabel.aspx" />
     <Content Include="Pages\Sales\MySalesPage.aspx" />
     <Content Include="Pages\Sales\SaleLinesPage.aspx" />
     <Content Include="Pages\Comment\AddCommentPage.aspx" />
@@ -179,6 +180,13 @@
     </Compile>
     <Compile Include="Pages\MainPage.aspx.designer.cs">
       <DependentUpon>MainPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Product\ProductsWithLabel.aspx.cs">
+      <DependentUpon>ProductsWithLabel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Product\ProductsWithLabel.aspx.designer.cs">
+      <DependentUpon>ProductsWithLabel.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Sales\MySalesPage.aspx.cs">
       <DependentUpon>MySalesPage.aspx</DependentUpon>
@@ -471,6 +479,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Pages\Sale\App_LocalResources\StockErrorPage.aspx.es.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Product\App_LocalResources\ProductsWithLabel.aspx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pages\Product\App_LocalResources\ProductsWithLabel.aspx.es.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
