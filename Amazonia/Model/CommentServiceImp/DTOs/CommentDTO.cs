@@ -15,6 +15,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp.DTOs
         public long clientId { get; set; }
         public string clientLogin { get; set; }
         public List<LabelDTO> labels { get; set; }
+        public string formattedLabels { get; set; }
 
         public CommentDTO()
         {
@@ -30,6 +31,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp.DTOs
             this.clientId = clientId;
             this.clientLogin = clientLogin;
             this.labels = labels;
+            this.formattedLabels = GenerateFormattedLabels(labels);
         }
 
         public override bool Equals(object obj)
@@ -44,6 +46,23 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp.DTOs
                    clientId == dTO.clientId &&
                    clientLogin == dTO.clientLogin &&
                    EqualityComparer<List<LabelDTO>>.Default.Equals(labels, dTO.labels);
+        }
+
+        private string GenerateFormattedLabels(List<LabelDTO> labelDTOs)
+        {
+            string result = "";
+
+            for (int i = 0; i < labelDTOs.Count; i++)
+            {
+                if (i == labelDTOs.Count - 1)
+                {
+                    result += labelDTOs[i].value;
+                    break;
+                }
+
+                result += labelDTOs[i].value + ", ";
+            }
+            return result;
         }
 
         public override int GetHashCode()

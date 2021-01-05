@@ -176,13 +176,6 @@ namespace Test.LabelServiceTest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void AssignLabelsToCommentEmptyLabelsListTest()
-        {
-            labelService.AssignLabelsToComment(1L, new List<long>());
-        }
-
-        [TestMethod]
         [ExpectedException(typeof(InstanceNotFoundException))]
         public void AssignLabelsToNonExistentCommentTest()
         {

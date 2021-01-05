@@ -201,7 +201,7 @@ CREATE TABLE Comment (
 	id bigint IDENTITY(1,1),
 	title varchar(60) NOT NULL,
 	value varchar(1000) NOT NULL,
-	date date NOT NULL,
+	date datetime2 NOT NULL,
 	productId bigint NOT NULL,
 	clientId bigint NOT NULL,
 

@@ -120,6 +120,9 @@
   <data name="bfClientLogin.HeaderText" xml:space="preserve">
     <value>Autor</value>
   </data>
+  <data name="bfLabels.HeaderText" xml:space="preserve">
+    <value>Etiquetas</value>
+  </data>
   <data name="bfValue.HeaderText" xml:space="preserve">
     <value>Comentario</value>
   </data>

@@ -136,18 +136,18 @@
     <Compile Include="LabelServiceImp\ILabelService.cs" />
     <Compile Include="LabelServiceImp\LabelServiceImp.cs" />
     <Compile Include="Model.Context.cs">
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>Model.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Model.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model.Designer.cs">
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
     <Compile Include="Product.cs">
@@ -185,8 +185,8 @@
     </Content>
     <Content Include="Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model.cs</LastGenOutput>
       <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
     <Content Include="sql\SqlServerCreateDatabase.sql" />
     <Content Include="sql\SqlServerCreateTables.sql" />

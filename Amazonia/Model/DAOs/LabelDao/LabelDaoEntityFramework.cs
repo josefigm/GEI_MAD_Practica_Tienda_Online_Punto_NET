@@ -32,16 +32,16 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao
             List<Label> labels =
                 (from l in labelList
                  orderby l.Comments.Count descending
-                 select l).Take(count).ToList<Label>();
+                 select l).ToList<Label>();
 
             // The labelDTOs are created
             List<LabelDTO> result = new List<LabelDTO>();
-            for (int index = 0; index < labels.Count; index++)
+            for (int index = 0; index < labels.Count && index < count; index++)
             {
                 result.Add(LabelMapper.toLabelDTO(labels[index]));
             }
 
-            return result;
+            return result; 
         }
 
         public int GetNumberOfCommentsForLabel(long labelId)

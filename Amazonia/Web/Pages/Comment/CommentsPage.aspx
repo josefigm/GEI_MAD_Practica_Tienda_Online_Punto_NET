@@ -14,7 +14,8 @@
                     <Columns>
                         <asp:BoundField DataField="clientLogin" meta:resourcekey="bfClientLogin" HeaderText="Author"/>
                         <asp:BoundField DataField="date" meta:resourcekey="vfDate" HeaderText="Date"/>
-                        <asp:BoundField DataField="value" meta:resourcekey="bfValue" HeaderText="Comment"/>  
+                        <asp:BoundField DataField="value" meta:resourcekey="bfValue" HeaderText="Comment"/> 
+                        <asp:BoundField DataField="formattedLabels" meta:resourcekey="bfLabels" HeaderText="Labels"/> 
                     </Columns>
                     <FooterStyle BackColor="#CCCC99" ForeColor="Black" />
                     <HeaderStyle BackColor="#333333" Font-Bold="True" ForeColor="White" />
