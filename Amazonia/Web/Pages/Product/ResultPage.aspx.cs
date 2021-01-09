@@ -1,4 +1,5 @@
 ﻿using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp.Cache;
 using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp.DTOs;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs;
@@ -91,6 +92,7 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
         private ProductBlock GetData(string keyword, long categoryId, int startIndex, int count)
         {
             ProductBlock productBlock;
+
             IIoCManager iiocManager = (IIoCManager)HttpContext.Current.Application["managerIoC"];
             IProductService productService = iiocManager.Resolve<IProductService>();
 

@@ -13,6 +13,7 @@ using System;
 using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp.DTOs;
 using Es.Udc.DotNet.Amazonia.Model.ClientServiceImp;
 using System.Management.Instrumentation;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao;
 
 namespace Test.LabelServiceTest
 {
@@ -24,6 +25,7 @@ namespace Test.LabelServiceTest
         private static ICommentService commentService;
         private static ICategoryDao categoryDao;
         private static IProductDao productDao;
+        private static ILabelDao labelDao;
         private static ILabelService labelService;
         private static IProductService productService;
         private static IClientService clientService;
@@ -63,16 +65,8 @@ namespace Test.LabelServiceTest
         [ExpectedException(typeof(ArgumentException))]
         public void CreateLabelValueNullTest()
         {
-            Label label = labelService.CreateLabel("", 1L);
+            labelService.CreateLabel("");
         }
-
-        [TestMethod]
-        [ExpectedException(typeof(Es.Udc.DotNet.ModelUtil.Exceptions.InstanceNotFoundException))]
-        public void CreateLabelWithNoExistentCommentTest()
-        {
-            Label label = labelService.CreateLabel("Hola", 9999L);
-        }
-
 
         [TestMethod]
         public void CreateLabelTest()
@@ -113,14 +107,14 @@ namespace Test.LabelServiceTest
 
                 long newCommentId = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
 
-                Label label = labelService.CreateLabel("Genial", newCommentId);
+                LabelDTO label = labelService.CreateLabel("Genial");
 
                 #endregion
 
-                List<LabelDTO> labels = labelService.FindLabelsByComment(newCommentId);
+                List<LabelDTO> labels = labelService.FindAllLabels();
 
                 Assert.AreEqual(labels.Count, 1);
-                Assert.AreEqual(LabelMapper.toLabelDTO(label), labels[0]);
+                Assert.AreEqual(label, labels[0]);
             }
 
         }
@@ -162,15 +156,15 @@ namespace Test.LabelServiceTest
                 Client cliente = registerUser(LOGIN);
                 long newCommentId = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
 
-                Label label = labelService.CreateLabel("Genial", newCommentId);
-                Label label2 = labelService.CreateLabel("Malo", newCommentId);
+                LabelDTO label = labelService.CreateLabel("Genial");
+                LabelDTO label2 = labelService.CreateLabel("Malo");
 
                 #endregion
 
                 List<LabelDTO> labels = labelService.FindAllLabels();
 
-                Assert.IsTrue(labels.Contains(LabelMapper.toLabelDTO(label)));
-                Assert.IsTrue(labels.Contains(LabelMapper.toLabelDTO(label2)));
+                Assert.IsTrue(labels.Contains(label));
+                Assert.IsTrue(labels.Contains(label2));
             }
 
         }
@@ -213,10 +207,12 @@ namespace Test.LabelServiceTest
 
                 long newCommentId = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
 
-                Label label = labelService.CreateLabel("Genial", newCommentId);
+                LabelDTO label = labelService.CreateLabel("Genial");
 
                 List<long> labelIds = new List<long>();
                 labelIds.Add(label.id);
+
+                labelService.AssignLabelsToComment(newCommentId, labelIds);
 
                 // Non existent comment id
                 labelService.AssignLabelsToComment(99999L, labelIds);
@@ -264,163 +260,9 @@ namespace Test.LabelServiceTest
                 long newCommentId = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
                 long newComment2Id = commentService.AddComment("Review 2", "Muy mala bicicleta", biciCarretera.id, cliente2.id);
 
-                Label label = labelService.CreateLabel("Genial", newCommentId);
-                Label label2 = labelService.CreateLabel("Ridicula", newCommentId);
-                Label label3 = labelService.CreateLabel("Espectacular", newCommentId);
-
-                List<long> labelIds = new List<long>();
-                labelIds.Add(label.id);
-                labelIds.Add(label2.id);
-                labelIds.Add(label3.id);
-
-                labelService.AssignLabelsToComment(newComment2Id, labelIds);
-
-                Comment newComment2 = commentDao.Find(newComment2Id);
-
-                Assert.IsTrue(label.Comments.Contains(newComment2));
-                Assert.IsTrue(label2.Comments.Contains(newComment2));
-                Assert.IsTrue(label3.Comments.Contains(newComment2));
-            }
-        }
-
-        [TestMethod]
-        public void UpdateLabelTest()
-        {
-            using (var scope = new TransactionScope())
-            {
-                #region Needed variables
-                Category c1 = new Category();
-                c1.name = "Bicicletas";
-                categoryDao.Create(c1);
-
-                Product biciCarretera = new Product();
-
-                double price = 1200;
-                System.DateTime date = System.DateTime.Now;
-                long stock = 5;
-                string image = "ccc";
-                string description = "Bicicleta";
-                long categoryIdBicicleta = c1.id;
-
-
-                biciCarretera.name = "Bicicleta Felt FZ85";
-                biciCarretera.price = price;
-                biciCarretera.entryDate = date;
-                biciCarretera.stock = stock;
-                biciCarretera.image = image;
-                biciCarretera.description = description;
-                biciCarretera.categoryId = categoryIdBicicleta;
-                #endregion
-
-                #region Persistencia
-                productDao.Create(biciCarretera);
-                #endregion
-
-                #region Comment and label section
-                Client cliente = registerUser(LOGIN);
-                
-                long newCommentId = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
-
-                Label label = labelService.CreateLabel("Genial", newCommentId);
-
-                #endregion
-
-                labelService.UpdateLabel(label.id, "Bien");
-
-                Assert.IsTrue(label.value.Equals("Bien"));
-            }
-        }
-
-        [TestMethod]
-        public void DeleteLabelTest()
-        {
-            using (var scope = new TransactionScope())
-            {
-                #region Needed variables
-                Category c1 = new Category();
-                c1.name = "Bicicletas";
-                categoryDao.Create(c1);
-
-                Product biciCarretera = new Product();
-
-                double price = 1200;
-                System.DateTime date = System.DateTime.Now;
-                long stock = 5;
-                string image = "ccc";
-                string description = "Bicicleta";
-                long categoryIdBicicleta = c1.id;
-
-
-                biciCarretera.name = "Bicicleta Felt FZ85";
-                biciCarretera.price = price;
-                biciCarretera.entryDate = date;
-                biciCarretera.stock = stock;
-                biciCarretera.image = image;
-                biciCarretera.description = description;
-                biciCarretera.categoryId = categoryIdBicicleta;
-                #endregion
-
-                #region Persistencia
-                productDao.Create(biciCarretera);
-                #endregion
-
-                #region Comment and label section
-                Client cliente = registerUser(LOGIN);
-
-                long newCommentId = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
-
-                Label label = labelService.CreateLabel("Genial", newCommentId);
-
-                labelService.DeleteLabel(label.id);
-
-                #endregion
-
-                List<LabelDTO> labels = labelService.FindLabelsByComment(newCommentId);
-
-                Assert.AreEqual(labels.Count, 0);
-            }
-        }
-
-        [TestMethod]
-        public void DeleteLabelsFromCommentTest()
-        {
-            using (var scope = new TransactionScope())
-            {
-                #region Needed variables
-                Category c1 = new Category();
-                c1.name = "Bicicletas";
-                categoryDao.Create(c1);
-
-                Product biciCarretera = new Product();
-
-                double price = 1200;
-                System.DateTime date = System.DateTime.Now;
-                long stock = 5;
-                string image = "ccc";
-                string description = "Bicicleta";
-                long categoryIdBicicleta = c1.id;
-
-
-                biciCarretera.name = "Bicicleta Felt FZ85";
-                biciCarretera.price = price;
-                biciCarretera.entryDate = date;
-                biciCarretera.stock = stock;
-                biciCarretera.image = image;
-                biciCarretera.description = description;
-                biciCarretera.categoryId = categoryIdBicicleta;
-                #endregion
-
-                #region Persistencia
-                productDao.Create(biciCarretera);
-                #endregion
-
-                Client cliente = registerUser(LOGIN);
-
-                long newCommentId = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
-
-                Label label = labelService.CreateLabel("Genial", newCommentId);
-                Label label2 = labelService.CreateLabel("Ridicula", newCommentId);
-                Label label3 = labelService.CreateLabel("Espectacular", newCommentId);
+                LabelDTO label = labelService.CreateLabel("Genial");
+                LabelDTO label2 = labelService.CreateLabel("Ridicula");
+                LabelDTO label3 = labelService.CreateLabel("Espectacular");
 
                 List<long> labelIds = new List<long>();
                 labelIds.Add(label.id);
@@ -428,13 +270,17 @@ namespace Test.LabelServiceTest
                 labelIds.Add(label3.id);
 
                 labelService.AssignLabelsToComment(newCommentId, labelIds);
-                labelService.DeleteLabelsFromComment(newCommentId, labelIds);
+                labelService.AssignLabelsToComment(newComment2Id, labelIds);
 
-                Comment newComment = commentDao.Find(newCommentId);
+                Comment newComment2 = commentDao.Find(newComment2Id);
 
-                Assert.IsTrue(!label.Comments.Contains(newComment));
-                Assert.IsTrue(!label2.Comments.Contains(newComment));
-                Assert.IsTrue(!label3.Comments.Contains(newComment));
+                Label label1Found = labelDao.Find(label.id);
+                Label label2Found = labelDao.Find(label2.id);
+                Label label3Found = labelDao.Find(label3.id);
+
+                Assert.IsTrue(label1Found.Comments.Contains(newComment2));
+                Assert.IsTrue(label2Found.Comments.Contains(newComment2));
+                Assert.IsTrue(label3Found.Comments.Contains(newComment2));
             }
         }
 
@@ -477,8 +323,8 @@ namespace Test.LabelServiceTest
             long newComment2Id = commentService.AddComment("Review 2", "Buena bicicleta", biciCarretera.id, cliente2.id);
             long newComment3Id = commentService.AddComment("Review 3", "Mejorable", biciCarretera.id, cliente3.id);
 
-            Label label = labelService.CreateLabel("Genial", newCommentId);
-            Label label2 = labelService.CreateLabel("Ridicula", newComment3Id);
+            LabelDTO label = labelService.CreateLabel("Genial");
+            LabelDTO label2 = labelService.CreateLabel("Ridicula");
 
             List<long> labelIds = new List<long>();
             labelIds.Add(label.id);
@@ -487,6 +333,7 @@ namespace Test.LabelServiceTest
             label2Ids.Add(label.id);
             label2Ids.Add(label2.id);
 
+            labelService.AssignLabelsToComment(newCommentId, labelIds);
             labelService.AssignLabelsToComment(newComment2Id, label2Ids);
             labelService.AssignLabelsToComment(newComment3Id, labelIds);
 
@@ -544,17 +391,13 @@ namespace Test.LabelServiceTest
             long newComment2Id = commentService.AddComment("Review 2", "Buena bicicleta", biciCarretera.id, cliente2.id);
             long newComment3Id = commentService.AddComment("Review 3", "Mejorable", biciCarretera.id, cliente3.id);
 
-            Label label = labelService.CreateLabel("Genial", newCommentId);
-            // Label 1 is assigned to comment 2
-            labelService.AssignLabelsToComment(newComment2Id, new List<long> { label.id });
-            // Label 1 is assigned to comment 3
-            labelService.AssignLabelsToComment(newComment3Id, new List<long> { label.id });
+            LabelDTO label = labelService.CreateLabel("Genial");
+            LabelDTO label2 = labelService.CreateLabel("Ridicula");
+            LabelDTO label3 = labelService.CreateLabel("Penosa");
 
-            Label label2 = labelService.CreateLabel("Ridicula", newComment2Id);
-            // Label 2 is assigned to comment 1
-            labelService.AssignLabelsToComment(newCommentId, new List<long> { label2.id });
-
-            Label label3 = labelService.CreateLabel("Penosa", newComment3Id);
+            labelService.AssignLabelsToComment(newCommentId, new List<long> { label.id, label2.id });
+            labelService.AssignLabelsToComment(newComment2Id, new List<long> { label.id, label2.id });
+            labelService.AssignLabelsToComment(newComment3Id, new List<long> { label.id, label3.id });
 
             // At this point, label is assigned to comments 1, 2 & 3
             // At this point, label 2 is assigned to comments 1 & 2
@@ -606,17 +449,13 @@ namespace Test.LabelServiceTest
             long newComment2Id = commentService.AddComment("Review 2", "Buena bicicleta", biciCarretera.id, cliente2.id);
             long newComment3Id = commentService.AddComment("Review 3", "Mejorable", biciCarretera.id, cliente3.id);
 
-            Label label = labelService.CreateLabel("Genial", newCommentId);
-            // Label 1 is assigned to comment 2
-            labelService.AssignLabelsToComment(newComment2Id, new List<long> { label.id });
-            // Label 1 is assigned to comment 3
-            labelService.AssignLabelsToComment(newComment3Id, new List<long> { label.id });
+            LabelDTO label = labelService.CreateLabel("Genial");
+            LabelDTO label2 = labelService.CreateLabel("Ridicula");
+            LabelDTO label3 = labelService.CreateLabel("Penosa");
 
-            Label label2 = labelService.CreateLabel("Ridicula", newComment2Id);
-            // Label 2 is assigned to comment 1
-            labelService.AssignLabelsToComment(newCommentId, new List<long> { label2.id });
-
-            Label label3 = labelService.CreateLabel("Penosa", newComment3Id);
+            labelService.AssignLabelsToComment(newCommentId, new List<long> { label.id, label2.id });
+            labelService.AssignLabelsToComment(newComment2Id, new List<long> { label.id, label2.id });
+            labelService.AssignLabelsToComment(newComment3Id, new List<long> { label.id, label3.id });
 
             // At this point, label is assigned to comments 1, 2 & 3
             // At this point, label 2 is assigned to comments 1 & 2
@@ -640,6 +479,7 @@ namespace Test.LabelServiceTest
             commentService = kernel.Get<ICommentService>();
             categoryDao = kernel.Get<ICategoryDao>();
             productDao = kernel.Get<IProductDao>();
+            labelDao = kernel.Get<ILabelDao>();
             labelService = kernel.Get<ILabelService>();
             productService = kernel.Get<IProductService>();
             clientService = kernel.Get<IClientService>();

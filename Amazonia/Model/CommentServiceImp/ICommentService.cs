@@ -55,7 +55,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
         [Transactional]
         List<CommentDTO> FindCommentsOfProductAndClient(long productId, long clientId);
 
-
         /// <summary>
         /// Finds the comments by label.
         /// </summary>
@@ -78,7 +77,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
         /// <returns></returns>
         [Transactional]
         Comment ChangeComment(long commentId, string title, string value, long clientId); 
-
 
     }
 }

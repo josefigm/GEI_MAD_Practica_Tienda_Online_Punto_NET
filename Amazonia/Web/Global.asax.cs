@@ -1,4 +1,5 @@
-﻿using Es.Udc.DotNet.Amazonia.Web.HTTP.Util.IoC;
+﻿using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp.Cache;
+using Es.Udc.DotNet.Amazonia.Web.HTTP.Util.IoC;
 using Es.Udc.DotNet.ModelUtil.IoC;
 using Es.Udc.DotNet.ModelUtil.Log;
 using Ninject;

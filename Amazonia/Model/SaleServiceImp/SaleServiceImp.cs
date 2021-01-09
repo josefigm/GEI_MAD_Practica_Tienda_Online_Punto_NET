@@ -106,11 +106,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
             return shoppingCart;
         }
 
-        public List<ShoppingCartItem> ShowShoppingCartItems(ShoppingCart shoppingCart)
-        {
-            return shoppingCart.items;
-        }
-
         [Transactional]
         public long Buy(ShoppingCart shoppingCart, String descName, String address, long cardId, long clientId)
         {
@@ -180,34 +175,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
             shoppingCart.items = new List<ShoppingCartItem>();
 
             return sale.id;
-        }
-
-        [Transactional]
-        public SaleDTO ShowSaleDetails(long saleId)
-        {
-            Sale sale = SaleDao.Find(saleId);
-            SaleDTO saleDetails = new SaleDTO
-            {
-                id = sale.id,
-                date = sale.date,
-                address = sale.address,
-                totalPrice = sale.totalPrice,
-                cardNumber = sale.Card.number,
-                clientLogin = sale.Client.login,
-            };
-
-            Product product;
-            List<SaleLineDTO> saleLines = new List<SaleLineDTO>();
-            foreach (SaleLine line in sale.SaleLines)
-            {
-                product = ProductDao.Find(line.productId);
-                saleLines.Add(
-                    new SaleLineDTO(line.units, line.price, line.gift, product.id, product.name));
-            }
-
-            saleDetails.saleLines = saleLines;
-
-            return saleDetails;
         }
 
         public List<SaleLineDTO> ShowSaleLines(long saleId)

@@ -21,20 +21,10 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
         /// </summary>
         /// <param name="value">The value.</param>
         /// <exception cref="DuplicateInstanceException"/>
-        /// <returns></returns>
-        [Transactional]
-        void CreateLabel(string value);
-
-        /// <summary>
-        /// Creates the label and associates the label to a comment 
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="commentId">The comment identifier.</param>
         /// <exception cref="ArgumentException"/>
-        /// <exception cref="InstanceNotFoundException"/>
         /// <returns></returns>
         [Transactional]
-        Label CreateLabel(string value, long commentId);
+        LabelDTO CreateLabel(string value);
 
         /// <summary>
         /// Assigns the labels to an specific comment.
@@ -44,29 +34,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
         void AssignLabelsToComment(long commentId, List<long> labelIds);
-
-        /// <summary>
-        /// Updates the label.
-        /// </summary>
-        /// <param name="labelId">The label identifier.</param>
-        /// <param name="value">The value.</param>
-        /// <exception cref="InstanceNotFoundException"/>
-        void UpdateLabel(long labelId, string newValue);
-
-        /// <summary>
-        /// Deletes the label.
-        /// </summary>
-        /// <param name="labelId">The label identifier.</param>
-        [Transactional]
-        void DeleteLabel(long labelId);
-
-        /// <summary>
-        /// Deletes the labels from a certain comment.
-        /// </summary>
-        /// <param name="commentId">The comment identifier.</param>
-        /// <param name="labelIds">The label ids.</param>
-        /// <exception cref="InstanceNotFoundException"/>
-        void DeleteLabelsFromComment(long commentId, List<long> labelIds);
 
         /// <summary>
         /// Finds all labels.

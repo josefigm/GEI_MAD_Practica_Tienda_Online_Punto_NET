@@ -319,7 +319,7 @@ namespace Test.SaleServiceTests
             ShoppingCart returnedShoppingCart = saleService.AddToShoppingCart(shoppingCart, product.id, 3, false);
             returnedShoppingCart = saleService.AddToShoppingCart(returnedShoppingCart, product2.id, 1, false);
 
-            List<ShoppingCartItem> items = saleService.ShowShoppingCartItems(returnedShoppingCart);
+            List<ShoppingCartItem> items = returnedShoppingCart.items;
             CollectionAssert.AreEqual(returnedShoppingCart.items, items);
         }
 
@@ -488,71 +488,7 @@ namespace Test.SaleServiceTests
             long saleId = saleService.Buy(shoppingCart, descName, address, card.id, client.id);
         }
 
-        [TestMethod]
-        public void TestShowSaleDetails()
-        {
-            #region Declaracion de variables
-
-            Client client = new Client
-            {
-                login = "client",
-                password = "password",
-                firstName = "firstName",
-                lastName = "lastName",
-                address = "adress",
-                email = "email",
-                role = 1,
-                language = "en",
-                country = "en",
-            };
-            clientDao.Create(client);
-
-            Card card = new Card
-            {
-                number = "1111222233334444",
-                cvv = "123",
-                expireDate = new DateTime(2025, 1, 1),
-                type = true,
-                defaultCard = true,
-                Client = client
-            };
-            cardDao.Create(card);
-
-            Category category = new Category
-            {
-                name = "category"
-            };
-            categoryDao.Create(category);
-
-            Product product = new Product
-            {
-                name = "TestProduct",
-                price = 24,
-                entryDate = new DateTime(2020, 1, 1),
-                stock = 200,
-                Category = category
-            };
-            productDao.Create(product);
-
-            List<ShoppingCartItem> lines = new List<ShoppingCartItem>();
-
-            ShoppingCartItem line1 = new ShoppingCartItem(3, false, ProductMapper.ProductToProductDto(product));
-
-            lines.Add(line1);
-
-            ShoppingCart shoppingCart = new ShoppingCart(72, lines);
-
-            #endregion Declaracion de variables
-
-            long saleId = saleService.Buy(shoppingCart, descName, address, card.id, client.id);
-
-            SaleDTO sale = saleService.ShowSaleDetails(saleId);
-
-            Assert.AreEqual(1, sale.saleLines.Count);
-            Assert.AreEqual(card.number, sale.cardNumber);
-            Assert.AreEqual(client.login, sale.clientLogin);
-            Assert.AreEqual((line1.price * line1.units), sale.totalPrice);
-        }
+        
 
         [TestMethod]
         public void TestShowSaleLines()
@@ -628,14 +564,6 @@ namespace Test.SaleServiceTests
             SaleLineDTO saleLine2 = new SaleLineDTO(2, 50, true, product2.id, product2.name);
 
             Assert.AreEqual(2, saleLines.Count);
-
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(InstanceNotFoundException))]
-        public void TestShowSaleDetailsNonExistentSale()
-        {
-            SaleDTO sale = saleService.ShowSaleDetails(NON_EXISTENT_SALE_ID);
         }
 
         [TestMethod]

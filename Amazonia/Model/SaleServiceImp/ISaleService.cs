@@ -46,11 +46,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         [Transactional]
         ShoppingCart ModifyShoppingCartItem(ShoppingCart shoppingCart, long productId, long units, bool gift);
 
-        /// <summary>Shows the shopping cart items.</summary>
-        /// <param name="shoppingCart">The shopping cart.</param>
-        /// <returns>List of shopping cart items.</returns>
-        List<ShoppingCartItem> ShowShoppingCartItems(ShoppingCart shoppingCart);
-
         /// <summary>Buy shopping cart products</summary>
         /// <param name="shoppingCart"></param>
         /// <param name="descName"></param>
@@ -61,13 +56,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         /// <exception cref="Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions.InsufficientStockException">Try to buy more than stock</exception>
         [Transactional]
         long Buy(ShoppingCart shoppingCart, String descName, String address, long cardId, long clientId);
-
-        /// <summary>Shows the sale details.</summary>
-        /// <param name="saleId">The sale identifier.</param>
-        /// <exception cref="InstanceNotFoundException"/>
-        /// <returns>A DTO with sale details</returns>
-        [Transactional]
-        SaleDTO ShowSaleDetails(long saleId);
 
         /// <summary>Shows the sale lines.</summary>
         /// <param name="saleId">The sale identifier.</param>

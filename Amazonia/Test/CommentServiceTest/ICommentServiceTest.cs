@@ -7,6 +7,7 @@ using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp.DTOs;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
@@ -139,10 +140,11 @@ namespace Test.CommentServiceTest
 
                 long newCommentId = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
 
-                Label label = labelService.CreateLabel("Genial", newCommentId);
-                Label label2 = labelService.CreateLabel("Inmejorable", newCommentId);
+                LabelDTO label = labelService.CreateLabel("Genial");
+                LabelDTO label2 = labelService.CreateLabel("Inmejorable");
+                labelService.AssignLabelsToComment(newCommentId, new List<long> { label.id, label2.id });
 
-                List<CommentDTO> retrievedComments = CommentMapper.CommentListToCommentDTOList(commentDao.FindCommentsOfProduct(biciCarretera.id));
+                List<CommentDTO> retrievedComments = CommentMapper.CommentListToCommentDTOList(commentDao.FindCommentsOfProductPaged(biciCarretera.id, 0 ,1));
 
                 Assert.AreEqual(retrievedComments.Count, 1);
                 Assert.AreEqual(newCommentId, retrievedComments[0].id);
@@ -187,7 +189,7 @@ namespace Test.CommentServiceTest
                 long newCommentId = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
                 long newComment2Id = commentService.AddComment("Review 2", "Muy mala bicicleta", biciCarretera.id, cliente.id);
 
-                List<CommentDTO> retrievedComments = CommentMapper.CommentListToCommentDTOList(commentDao.FindCommentsOfProduct(biciCarretera.id));
+                List<CommentDTO> retrievedComments = CommentMapper.CommentListToCommentDTOList(commentDao.FindCommentsOfProductPaged(biciCarretera.id, 0, 1));
 
                 Assert.AreEqual(retrievedComments.Count, 1);
                 Assert.AreEqual(newCommentId, retrievedComments[0]);
@@ -226,6 +228,10 @@ namespace Test.CommentServiceTest
 
                 #region Create 3 Comments to a label
 
+                LabelDTO label = labelService.CreateLabel("Bicicletas Molonas");
+                List<long> labelIds = new List<long>();
+                labelIds.Add(label.id);
+
                 Client cliente = registerUser(LOGIN);
                 Client cliente2 = registerUser(LOGIN2);
                 Client cliente3 = registerUser(LOGIN3);
@@ -237,10 +243,7 @@ namespace Test.CommentServiceTest
                 newComment1.clientId = cliente.id;
 
                 commentDao.Create(newComment1);
-                Label label = labelService.CreateLabel("Bicicletas Molonas", newComment1.id);
-
-                List<long> labelIds = new List<long>();
-                labelIds.Add(label.id);
+                labelService.AssignLabelsToComment(newComment1.id, labelIds);
 
                 Comment newComment2 = new Comment();
                 newComment2.title = "Review bicicleta Felt FZ85";
@@ -312,14 +315,14 @@ namespace Test.CommentServiceTest
 
                 commentDao.Create(newComment);
 
-                List<CommentDTO> retrievedComments = CommentMapper.CommentListToCommentDTOList(commentDao.FindCommentsOfProduct(biciCarretera.id));
+                List<CommentDTO> retrievedComments = CommentMapper.CommentListToCommentDTOList(commentDao.FindCommentsOfProductPaged(biciCarretera.id, 0, 1));
 
                 Assert.AreEqual(retrievedComments.Count, 1);
                 Assert.AreEqual(newComment.id, retrievedComments[0].id);
 
                 commentService.RemoveComment(newComment.id, cliente.id);
 
-                List<CommentDTO> retrievedComments2 = CommentMapper.CommentListToCommentDTOList(commentDao.FindCommentsOfProduct(biciCarretera.id));
+                List<CommentDTO> retrievedComments2 = CommentMapper.CommentListToCommentDTOList(commentDao.FindCommentsOfProductPaged(biciCarretera.id, 0, 1));
 
                 Assert.AreEqual(retrievedComments2.Count, 0);
             }
@@ -367,7 +370,7 @@ namespace Test.CommentServiceTest
 
                 commentDao.Create(newComment);
 
-                List<CommentDTO> retrievedComments = CommentMapper.CommentListToCommentDTOList(commentDao.FindCommentsOfProduct(biciCarretera.id));
+                List<CommentDTO> retrievedComments = CommentMapper.CommentListToCommentDTOList(commentDao.FindCommentsOfProductPaged(biciCarretera.id, 0, 1));
 
                 Assert.AreEqual(retrievedComments.Count, 1);
                 Assert.AreEqual(newComment.id, retrievedComments[0].id);

@@ -4,6 +4,7 @@ using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CategoryDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp.DTOs;
 using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp;
 using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp.DTOs;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -57,83 +58,29 @@ namespace Test.ProductService
 
             return clientBd;
         }
-//        Este test solo tiene sentido en un entorno con la BBDD vacía.
-//        [TestMethod]
-//        public void TestFindCategories()
-//        {
-//            using (var scope = new TransactionScope())
-//            {
-//                Category c1 = new Category();
-//                c1.name = "c1";
-//                Category c2 = new Category();
-//                c2.name = "c2";
-//
-//                categoryDao.Create(c1);
-//                categoryDao.Create(c2);
-//
-//                List<Category> categoriesExpected = new List<Category>(2);
-//
-//                categoriesExpected.Add(c1);
-//                categoriesExpected.Add(c2);
-//
-//                List<Category> categoriesFound = productService.FindCategories();
-//
-//                Assert.AreEqual(2, categoriesFound.Count);
-//                CollectionAssert.AreEqual(categoriesExpected, categoriesFound);
-//            }
-//        }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void CreateProductBadArgumentsTest()
+        public void TestFindCategories()
         {
             using (var scope = new TransactionScope())
             {
-                // Precio negativo...
-
-                productService.CreateProduct("GafasRadioactivas", -12, 23, "imagen", "desc", 2);
-            }
-
-        }
-
-        [TestMethod]
-        public void TestCreateProduct()
-        {
-            using (var scope = new TransactionScope())
-            {
-                #region Declaracion de variables
-
                 Category c1 = new Category();
-                c1.name = "Bicicletas";
+                c1.name = "c1";
+                Category c2 = new Category();
+                c2.name = "c2";
+
                 categoryDao.Create(c1);
+                categoryDao.Create(c2);
 
-                Product biciCarretera = new Product();
+                List<Category> categoriesexpected = new List<Category>(2);
 
-                double price = 1200;
-                System.DateTime date = System.DateTime.Now;
-                long stock = 5;
-                string image = "ccc";
-                string description = "Bicicleta";
-                long categoryIdBicicleta = c1.id;
+                categoriesexpected.Add(c1);
+                categoriesexpected.Add(c2);
 
-                biciCarretera.name = "Bicicleta Felt FZ85";
-                biciCarretera.price = price;
-                biciCarretera.entryDate = date;
-                biciCarretera.stock = stock;
-                biciCarretera.image = image;
-                biciCarretera.description = description;
-                biciCarretera.categoryId = categoryIdBicicleta;
+                List<Category> categoriesfound = productService.FindCategories();
 
-                #endregion Declaracion de variables
-
-                #region Persistencia
-
-                productService.CreateProduct(biciCarretera);
-
-                #endregion Persistencia
-
-                Product retrievedProduct = productDao.Find(biciCarretera.id);
-                Assert.AreEqual(biciCarretera, retrievedProduct);
+                Assert.AreEqual(2, categoriesfound.Count);
+                CollectionAssert.AreEqual(categoriesexpected, categoriesfound);
             }
         }
 
@@ -169,7 +116,7 @@ namespace Test.ProductService
 
                 #region Persistencia
 
-                productService.CreateProduct(biciCarretera);
+                productDao.Create(biciCarretera);
 
                 #endregion Persistencia
 
@@ -265,9 +212,9 @@ namespace Test.ProductService
 
                 #region Persistencia
 
-                productService.CreateProduct(biciCarretera);
-                productService.CreateProduct(portatil);
-                productService.CreateProduct(biciMontaña);
+                productDao.Create(biciCarretera);
+                productDao.Create(portatil);
+                productDao.Create(biciMontaña);
 
                 #endregion Persistencia
 
@@ -332,9 +279,9 @@ namespace Test.ProductService
 
                 #region Persistencia
 
-                productService.CreateProduct(biciCarretera);
-                productService.CreateProduct(portatil);
-                productService.CreateProduct(biciMontaña);
+                productDao.Create(biciCarretera);
+                productDao.Create(portatil);
+                productDao.Create(biciMontaña);
 
                 #endregion Persistencia
 
@@ -412,9 +359,9 @@ namespace Test.ProductService
 
                 #region Persistencia
 
-                productService.CreateProduct(biciCarretera);
-                productService.CreateProduct(portatil);
-                productService.CreateProduct(biciMontaña);
+                productDao.Create(biciCarretera);
+                productDao.Create(portatil);
+                productDao.Create(biciMontaña);
 
                 #endregion Persistencia
 
@@ -475,8 +422,8 @@ namespace Test.ProductService
 
                 #region Persistencia
 
-                productService.CreateProduct(biciCarretera);
-                productService.CreateProduct(biciMontaña);
+                productDao.Create(biciCarretera);
+                productDao.Create(biciMontaña);
 
                 #endregion Persistencia
 
@@ -532,7 +479,7 @@ namespace Test.ProductService
 
                 long newCommentId = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
 
-                labelService.CreateLabel("Genial", newCommentId);
+                labelService.CreateLabel("Genial");
 
                 #endregion Comment and label section
 
@@ -581,7 +528,8 @@ namespace Test.ProductService
                 #region Comment and label section
                 Client cliente = registerUser(LOGIN2);
                 long newCommentId = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
-                Label label = labelService.CreateLabel("Genial", newCommentId);
+                LabelDTO label = labelService.CreateLabel("Genial");
+                labelService.AssignLabelsToComment(newCommentId, new List<long> { label.id });
 
                 #endregion Comment and label section
 
@@ -662,15 +610,20 @@ namespace Test.ProductService
                 long newComment2Id = commentService.AddComment("Review 1", "Muy mala bicicleta", biciMontaña.id, cliente2.id);
                 long newComment3Id = commentService.AddComment("Review 1", "Muy buen portátil", portatil.id, cliente3.id);
 
-                Label label = labelService.CreateLabel("Genial", newCommentId);
-                labelService.CreateLabel("Mala", newComment2Id);
-                labelService.CreateLabel("Fenomenal", newComment3Id);
+                LabelDTO label = labelService.CreateLabel("Genial");
+                labelService.AssignLabelsToComment(newCommentId, new List<long> { label.id });
+
+                LabelDTO label2 = labelService.CreateLabel("Mala");
+                labelService.AssignLabelsToComment(newComment2Id, new List<long> { label.id });
+
+                LabelDTO label3 = labelService.CreateLabel("Fenomenal");
+                labelService.AssignLabelsToComment(newComment3Id, new List<long> { label.id });
 
                 #endregion Comment and label section
 
                 List<ProductDTO> productsWithLabel = productService.RetrieveProductsWithLabel(0, 5, label.id).products;
 
-                Assert.AreEqual(productsWithLabel.Count, 1);
+                Assert.AreEqual(productsWithLabel.Count, 3);
                 Assert.IsTrue(productsWithLabel.Contains(ProductMapper.ProductToProductDto(biciCarretera)));
             }
         }
@@ -715,13 +668,15 @@ namespace Test.ProductService
                 Client cliente = registerUser(LOGIN);
 
                 long newCommentId = commentService.AddComment("Review 1", "Muy buena bicicleta", biciCarretera.id, cliente.id);
-                Label label1 = labelService.CreateLabel("Genial", newCommentId);
-                Label label2 = labelService.CreateLabel("Buena", newCommentId);
+                LabelDTO label = labelService.CreateLabel("Genial");
+                LabelDTO label2 = labelService.CreateLabel("Buena");
+                labelService.AssignLabelsToComment(newCommentId, new List<long> { label.id, label2.id });
+                
 
                 #endregion Comment and label section
 
                 // Se busca primero por la primera etiqueta
-                List<ProductDTO> productsWithLabel = productService.RetrieveProductsWithLabel(0, 5, label1.id).products;
+                List<ProductDTO> productsWithLabel = productService.RetrieveProductsWithLabel(0, 5, label.id).products;
 
                 Assert.AreEqual(productsWithLabel.Count, 1);
                 Assert.AreEqual(productsWithLabel[0], ProductMapper.ProductToProductDto(biciCarretera));
@@ -772,5 +727,6 @@ namespace Test.ProductService
         }
 
         #endregion Additional test attributes
+
     }
 }

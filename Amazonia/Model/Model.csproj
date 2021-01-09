@@ -153,6 +153,8 @@
     <Compile Include="Product.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProductServiceImp\Cache\CacheContainer.cs" />
+    <Compile Include="ProductServiceImp\Cache\CacheUtils.cs" />
     <Compile Include="ProductServiceImp\DTOs\ProductBlock.cs" />
     <Compile Include="ProductServiceImp\DTOs\CompleteProductDTO.cs" />
     <Compile Include="ProductServiceImp\DTOs\ProductDTO.cs" />
@@ -167,7 +169,6 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="SaleServiceImp\DTOs\SaleBlock.cs" />
-    <Compile Include="SaleServiceImp\DTOs\SaleDTO.cs" />
     <Compile Include="SaleServiceImp\DTOs\SaleLineDTO.cs" />
     <Compile Include="SaleServiceImp\DTOs\SaleListItemDTO.cs" />
     <Compile Include="SaleServiceImp\DTOs\ShoppingCart.cs" />

@@ -7,8 +7,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao
     {
         List<Comment> FindCommentsOfProductAndClient(long productId, long clientId);
 
-        List<Comment> FindCommentsOfProduct(long productId);
-
         List<Comment> FindCommentsOfProductPaged(long productId, int startIndex, int count);
 
         List<Comment> FindCommentsByLabel(Label label);

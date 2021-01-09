@@ -38,8 +38,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// <param name="clientDetails"> The client profile details. </param>
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
-        void UpdateUserProfileDetails(long id,
-            ClientDTO clientDetails);
+        void UpdateUserProfileDetails(long id, ClientDTO clientDetails);
 
         /// <summary>
         /// Inicia sesión de un login determinado.

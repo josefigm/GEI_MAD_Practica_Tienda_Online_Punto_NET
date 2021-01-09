@@ -19,35 +19,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         IProductDao ProductDao { set; }
         ILabelDao LabelDao { set; }
         ICommentService CommentService { set; }
-
         IProductDao ProductDaoEntityFramework { set; }
-
-        MemoryCache Cache { get; }
-
-        /// <summary>
-        /// Creates the product.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <param name="price">The price.</param>
-        /// <param name="entryDate">The entry date.</param>
-        /// <param name="stock">The stock.</param>
-        /// <param name="image">The image.</param>
-        /// <param name="description">The description.</param>
-        /// <param name="categoryId">The category identifier.</param>
-        /// <exception cref="ArgumentException"/>
-        /// <returns></returns>
-        [Transactional]
-        Product CreateProduct(string name, double price, long stock, string image, string description, long categoryId);
-
-        /// <summary>
-        /// Creates the product (Utility method for testing).
-        /// </summary>
-        /// <param name="product">The product.</param>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="ArgumentException"/>
-        /// <returns></returns>
-        [Transactional]
-        Product CreateProduct(Product product);
 
         /// <summary>
         /// Updates the product.

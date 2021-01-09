@@ -15,7 +15,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
         [Inject]
         public ILabelDao LabelDao { private get; set; }
 
-        public void CreateLabel(string value)
+        public LabelDTO CreateLabel(string value)
         {
             if (value == null || value.Length == 0)
             {
@@ -36,37 +36,8 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
             newLabel.value = value;
 
             LabelDao.Create(newLabel);
-        }
 
-        public Label CreateLabel(string value, long commentId)
-        {
-            if (value == null || value.Length == 0)
-            {
-                throw new ArgumentException("Valor de etiqueta no valido");
-            }
-            Comment relatedComment = CommentDao.Find(commentId);
-            if (relatedComment == null)
-            {
-                throw new InstanceNotFoundException("No existe un comentario con id: " + commentId);
-            }
-
-            List<Label> existentLabels = LabelDao.GetAllElements();
-
-            foreach (Label label in existentLabels)
-            {
-                if (label.value.Equals(value))
-                {
-                    throw new ArgumentException("Se intenta añadir un label que ya existe");
-                }
-            }
-
-            Label newLabel = new Label();
-            newLabel.value = value;
-            newLabel.Comments.Add(relatedComment);
-
-            LabelDao.Create(newLabel);
-
-            return newLabel;
+            return LabelMapper.toLabelDTO(newLabel);
         }
 
         public void AssignLabelsToComment(long commentId, List<long> labelIds)
@@ -89,48 +60,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
             }
 
             CommentDao.ReplaceLabels(commentId, newLabels);
-        }
-
-        public void UpdateLabel(long labelId, string newValue)
-        {
-            Label labelToProcess = LabelDao.Find(labelId);
-            if (labelToProcess == null)
-            {
-                throw new InstanceNotFoundException("No existe una etiqueta con id: " + labelId);
-            }
-            labelToProcess.value = newValue;
-            LabelDao.Update(labelToProcess);
-        }
-
-        public void DeleteLabel(long labelId)
-        {
-            LabelDao.Remove(labelId);
-        }
-
-
-        public void DeleteLabelsFromComment(long commentId, List<long> labelIds)
-        {
-            if (labelIds == null || labelIds.Count == 0)
-            {
-                throw new ArgumentException("Lista de etiquetas de entrada nula");
-            }
-            Comment relatedComment = CommentDao.Find(commentId);
-            if (relatedComment == null)
-            {
-                throw new InstanceNotFoundException("No existe un comentario con id: " + commentId);
-            }
-
-            foreach (long labelId in labelIds)
-            {
-                Label labelToProcess = LabelDao.Find(labelId);
-                if (labelToProcess == null)
-                {
-                    throw new InstanceNotFoundException("No existe una etiqueta con id: " + labelId);
-                }
-
-                labelToProcess.Comments.Remove(relatedComment);
-                LabelDao.Update(labelToProcess);
-            }
         }
 
         public List<LabelDTO> FindAllLabels()

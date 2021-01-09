@@ -11,6 +11,7 @@ using System.Runtime.Caching;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp.DTOs;
 using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp.DTOs;
+using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp.Cache;
 
 namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 {
@@ -37,51 +38,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         [Inject]
         public ICommentService CommentService { private get; set; }
 
-        private MemoryCache _Cache = new MemoryCache("cache");
-        private List<string> cacheEntries = new List<string>();
-
-        public MemoryCache Cache { get => _Cache; }
-
-        [Transactional]
-        public Product CreateProduct(string name, double price, long stock, string image, string description, long categoryId)
-        {
-            if (name == null || name.Length == 0 || price <= 0 || stock <= 0)
-            {
-                throw new ArgumentException("Se han pasado parámetros no válidos");
-            }
-
-            Product productToInsert = new Product();
-            productToInsert.name = name;
-            productToInsert.price = price;
-            productToInsert.entryDate = DateTime.Now;
-            productToInsert.stock = stock;
-            productToInsert.image = image;
-            productToInsert.description = description;
-            productToInsert.categoryId = categoryId;
-
-            ProductDaoEntityFramework.Create(productToInsert);
-
-            return productToInsert;
-        }
-
-
-        [Transactional]
-        public Product CreateProduct(Product product)
-        {
-            if (product == null)
-            {
-                throw new ArgumentNullException("Se han pasado parámetros nulos");
-            }
-
-            if (product.price < 0 || product.stock < 0)
-            {
-                throw new ArgumentException("Se han pasado parámetros no válidos");
-            }
-
-            ProductDaoEntityFramework.Create(product);
-
-            return product;
-        }
+        private CacheContainer cache = CacheContainer.GetCacheContainer();
 
         [Transactional]
         public Product UpdateProduct(long productId, string name, double price, long stock, string description)
@@ -122,41 +79,6 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
             return ProductDaoEntityFramework.FindCompleteProductDTO(id);
         }
 
-        private void AddToCache(String entrie, ProductBlock result)
-        {
-            CacheItem item = new CacheItem(entrie, result);
-            CacheItemPolicy itemPolicy = new CacheItemPolicy();
-
-            if (_Cache.GetCount() < 5)
-            {
-                cacheEntries.Add(entrie);
-                _Cache.Add(item, itemPolicy);
-            }
-            else
-            {
-                String firstItem = cacheEntries[0];
-                cacheEntries.Remove(firstItem);
-                cacheEntries.Add(entrie);
-
-                _Cache.Remove(firstItem);
-                _Cache.Add(item, itemPolicy);
-            }
-        }
-
-
-        private string FormatKeyWordAndCategoryNames(string keyWord, Category category)
-        {
-            if (category != null)
-            {
-                return keyWord + "From" + category.name;
-            }
-            else
-            {
-                return keyWord;    
-            }
-        }
-
-
         [Transactional]
         public ProductBlock FindProductByWord(string keyWord, int startIndex, int count)
         {
@@ -169,11 +91,11 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
             string cleanKeyWord = keyWord.Trim();
 
             
-            string formattedKeywordAndCategory = FormatKeyWordAndCategoryNames(cleanKeyWord, null);
+            string formattedSearch = CacheUtils.FormatSearch(cleanKeyWord, -1, startIndex, count);
 
-            if (_Cache.Contains(formattedKeywordAndCategory))
+            if (cache.IsInCache(formattedSearch))
             {
-                ProductBlock cacheResult = (ProductBlock)_Cache.GetCacheItem(formattedKeywordAndCategory).Value;
+                ProductBlock cacheResult = cache.GetEntrie(formattedSearch);
                 return cacheResult;
             }
 
@@ -188,7 +110,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 
             ProductBlock result = new ProductBlock(productListOutput, existMoreProducts);
 
-            AddToCache(formattedKeywordAndCategory, result);
+            cache.AddToCache(formattedSearch, result);
 
             return result;
         }
@@ -211,12 +133,12 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 
             List<ProductDTO> productListOutput = new List<ProductDTO>();
             string cleanKeyWord = keyWord.Trim();
-            
-            string formattedKeywordAndCategory = FormatKeyWordAndCategoryNames(cleanKeyWord, category);
 
-            if (_Cache.Contains(formattedKeywordAndCategory))
+            string formattedSearch = CacheUtils.FormatSearch(cleanKeyWord, category.id, startIndex, count);
+
+            if (cache.IsInCache(formattedSearch))
             {
-                ProductBlock cacheResult = (ProductBlock)_Cache.GetCacheItem(formattedKeywordAndCategory).Value;
+                ProductBlock cacheResult = cache.GetEntrie(formattedSearch);
                 return cacheResult;
             }
 
@@ -231,7 +153,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 
             ProductBlock result = new ProductBlock(productListOutput, existMoreProducts);
 
-            AddToCache(formattedKeywordAndCategory, result);
+            cache.AddToCache(formattedSearch, result);
 
             return result;
         }
