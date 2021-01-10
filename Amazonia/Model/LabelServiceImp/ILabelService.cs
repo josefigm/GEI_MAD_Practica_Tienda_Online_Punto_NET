@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Es.Udc.DotNet.ModelUtil.Transactions;
+using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp.DTOs;
 
 namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
 {
@@ -16,37 +17,51 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
         ILabelDao LabelDao { set; }
 
         /// <summary>
-        /// Creates the label.
+        /// Creates the label
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <param name="commentId">The comment identifier.</param>
-        /// <exception cref="ArgumentNullException"/>
-        /// <exception cref="InstanceNotFoundException"/>
+        /// <exception cref="DuplicateInstanceException"/>
+        /// <exception cref="ArgumentException"/>
         /// <returns></returns>
         [Transactional]
-        Label CreateLabel(string value, long commentId);
+        LabelDTO CreateLabel(string value);
 
         /// <summary>
-        /// Deletes the label.
+        /// Assigns the labels to an specific comment.
         /// </summary>
-        /// <param name="labelId">The label identifier.</param>
+        /// <param name="commentId">The comment identifier.</param>
+        /// <param name="labelIds">The label ids.</param>
+        /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
-        void DeleteLabel(long labelId);
+        void AssignLabelsToComment(long commentId, List<long> labelIds);
 
         /// <summary>
         /// Finds all labels.
         /// </summary>
         /// <returns></returns>
         [Transactional]
-        List<Label> FindAllLabels();
+        List<LabelDTO> FindAllLabels();
 
         /// <summary>
         /// Finds the labels by comment.
         /// </summary>
         /// <param name="commendId">The commend identifier.</param>
-        /// <exception cref="InstanceNotFoundException"/>
         /// <returns></returns>
         [Transactional]
-        List<Label> FindLabelsByComment(long commendId);
+        List<LabelDTO> FindLabelsByComment(long commentId);
+
+        /// <summary>Gets the number of comments.</summary>
+        /// <param name="labels">The labels.</param>
+        /// <returns>A list with the number of comments for each label</returns>
+        [Transactional]
+        List<int> GetNumberOfComments(List<long> labels);
+
+        /// <summary>
+        /// Finds the most used labels.
+        /// </summary>
+        /// <param name="limit"> Specifies the number of labels to retrieve.</param>
+        /// <returns> The list of the most used labels (containing limit labels)</returns>
+        [Transactional]
+        List<LabelDTO> FindMostUsedLabels(int limit);
     }
 }

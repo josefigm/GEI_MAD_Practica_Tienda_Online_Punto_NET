@@ -17,10 +17,12 @@ namespace Es.Udc.DotNet.Amazonia.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Client()
         {
-            this.Sales = new HashSet<Sale>();
             this.Cards = new HashSet<Card>();
+            this.Comments = new HashSet<Comment>();
+            this.Sales = new HashSet<Sale>();
         }
     
+        public long id { get; set; }
         public string login { get; set; }
         public string password { get; set; }
         public string firstName { get; set; }
@@ -28,13 +30,14 @@ namespace Es.Udc.DotNet.Amazonia.Model
         public string address { get; set; }
         public string email { get; set; }
         public byte role { get; set; }
-        public byte language { get; set; }
-        public string defaultCardNumber { get; set; }
+        public string language { get; set; }
+        public string country { get; set; }
     
-        public virtual Card Card { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sale> Sales { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Card> Cards { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comment> Comments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sale> Sales { get; set; }
     }
 }

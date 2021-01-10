@@ -1,0 +1,138 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Amazonia.Master" AutoEventWireup="true" CodeBehind="AddCommentPage.aspx.cs" Inherits="Es.Udc.DotNet.Amazonia.Web.Pages.Product.AddCommentPage" %>
+
+<asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder_BodyContent" runat="server">
+    <br>
+    <asp:Label 
+        ID="lblAlreadyCommentedError" 
+        runat="server" 
+        ForeColor="Red" 
+        Style="position: relative"             
+        Visible="False" 
+        meta:resourcekey="lblAlreadyCommentedError">                        
+    </asp:Label>
+    <form runat="server">
+        <asp:Label ID="lblProductId" runat="server" visible="false" ></asp:Label>
+        <div class="field">
+            <span class="label">
+                <asp:Localize 
+                    ID="lclTitle" 
+                    runat="server" 
+                    meta:resourcekey="lclTitle"
+                />
+            </span>
+            <span class="entry">
+                <asp:TextBox 
+                    ID="tbTitle" 
+                    runat="server" 
+                    Width="200" 
+                    Columns="16">
+                </asp:TextBox>
+                <asp:RequiredFieldValidator 
+                    ID="rfvTitle" 
+                    runat="server"
+                    ControlToValidate="tbTitle" 
+                    Display="Dynamic" 
+                    Text="<%$ Resources:Common, requiredField %>"
+                />
+                <asp:RegularExpressionValidator 
+                    ID="RegularExpressionValidator1" 
+                    runat="server" 
+                    Display = "Dynamic"
+                    ControlToValidate = "tbTitle"
+                    ValidationExpression = "^[\s\S]{0,60}$"
+                    ErrorMessage="<%$ Resources:, maxLenghtTitle %>">
+                </asp:RegularExpressionValidator>
+            </span>
+        </div>
+        <div class="field">
+            <span class="label">
+                <asp:Localize 
+                    ID="lclValue" 
+                    runat="server" 
+                    meta:resourcekey="lclValue" />
+            </span>
+            <span class="entry">
+                <asp:TextBox 
+                    ID="tbValue" 
+                    runat="server" 
+                    TextMode="MultiLine" 
+                    Rows="10" 
+                    Height="41px" 
+                    Width="312px">
+                </asp:TextBox>
+                <asp:RequiredFieldValidator 
+                    ID="rfvValue" 
+                    runat="server"
+                    ControlToValidate="tbValue" 
+                    Display="Dynamic" 
+                    Text="<%$ Resources:Common, requiredField %>"/>
+                <asp:RegularExpressionValidator 
+                    ID="rfvLenght" 
+                    runat="server" 
+                    Display = "Dynamic"
+                    ControlToValidate = "tbValue"
+                    ValidationExpression = "^[\s\S]{0,1000}$"
+                    ErrorMessage="<%$ Resources:, maxLenghtValue %>">
+                </asp:RegularExpressionValidator>
+            </span>
+        </div>
+        <div class="field">
+            <asp:Label 
+                ID="lblDuplicatedLabel" 
+                runat="server" 
+                ForeColor="Red" 
+                Style="position: relative"             
+                Visible="False" 
+                meta:resourcekey="lblDuplicatedLabel">                        
+            </asp:Label>
+            <asp:Label 
+                ID="lblRequiredTb" 
+                runat="server" 
+                ForeColor="Red" 
+                Style="position: relative"             
+                Visible="False" 
+                Text="<%$ Resources:Common, requiredField %>">                        
+            </asp:Label>
+        </div>
+        <div class="field">
+            <span class="label">
+                <asp:Localize 
+                    ID="lclNewLabel" 
+                    runat="server" 
+                    meta:resourcekey="lclNewLabel" />
+            </span>
+            <span class="entry">
+            <asp:TextBox 
+                    ID="tbNewLabel" 
+                    runat="server" 
+                    Width="200" 
+                    Columns="16">
+                </asp:TextBox>
+                <asp:Button ID="btnCrateLabel" runat="server" meta:resourcekey="btnCrateLabel" OnClick="btnCrateLabel_Click"/>
+            </span>
+        </div>
+        <br /><br />
+        <div class="field" >
+                <asp:Localize 
+                    ID="lclAvailableLabels" 
+                    runat="server" 
+                    meta:resourcekey="lclAvailableLabels" />
+        </div>
+        <div class="field" >
+            <div style="OVERFLOW-Y:scroll; WIDTH:150px; HEIGHT:100px; margin:auto;">
+                <asp:CheckBoxList ID="CheckBoxList1" runat="server"> 
+                </asp:CheckBoxList>
+            </div>
+        </div>
+            
+        <div class="button">
+            <span>
+                <asp:Button 
+                    ID="btnAddComment" 
+                    runat="server" 
+                    visible="true" 
+                    meta:resourcekey="btnAddComment" OnClick="btnAddComment_Click"/>
+            </span>
+        </div>
+    </form>
+</asp:Content>

@@ -11,7 +11,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao
     public class ProductDaoEntityFramework :
         GenericDaoEntityFramework<Product, Int64>, IProductDao
     {
-        public List<ProductDTO> FindByKeyWordAndCategory(string keyWord, long categoryId)
+        public List<ProductDTO> FindByKeyWordAndCategory(string keyWord, long categoryId, int startIndex, int count)
         {
 
             DbSet<Product> productList = Context.Set<Product>();
@@ -19,7 +19,8 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao
             List<Product> productListToTransform =
                     (from p in productList
                      where (p.name.ToLower().Contains(keyWord.ToLower())) && (p.categoryId == categoryId)
-                     select p).ToList<Product>();
+                     orderby p.entryDate
+                     select p).Skip(startIndex).Take(count).ToList<Product>();
 
             List<ProductDTO> productListOutput = new List<ProductDTO>();
 
@@ -32,14 +33,15 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao
             return productListOutput;
         }
 
-        public List<ProductDTO> FindByKeyWord(string keyWord)
+        public List<ProductDTO> FindByKeyWord(string keyWord, int startIndex, int count)
         {
             DbSet<Product> productList = Context.Set<Product>();
 
             List<Product> productListToTransform =
                 (from p in productList
                  where p.name.ToLower().Contains(keyWord.ToLower())
-                 select p).ToList<Product>();
+                 orderby p.entryDate
+                 select p).Skip(startIndex).Take(count).ToList<Product>();
 
             List<ProductDTO> productListOutput = new List<ProductDTO>();
 
@@ -51,6 +53,29 @@ namespace Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao
             return productListOutput;
         }
 
+        public CompleteProductDTO FindCompleteProductDTO(long productId)
+        {
+            Product product = Find(productId);
+
+            return ProductMapper.ProductToCompleteProductDto(product);
+        }
+
+        public List<ProductDTO> FindProductsByComments(int startIndex, int count, List<Comment> comments)
+        {
+            DbSet<Product> productList = Context.Set<Product>();
+
+            List<long> commentIds = comments.Select(c => c.id).ToList();
+
+            List<Product> products =
+                (from p in productList
+                 where p.Comments.Select(c => c.id).Intersect(commentIds).Any()
+                 orderby p.entryDate
+                 select p).Skip(startIndex).Take(count).ToList<Product>();
+
+            List<ProductDTO> productsDTO = products.Select(p => ProductMapper.ProductToProductDto(p)).ToList();
+
+            return productsDTO;
+        }
     }
 }
 

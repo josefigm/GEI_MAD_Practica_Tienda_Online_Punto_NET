@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp;
+using System;
 using System.Collections.Generic;
 
 namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs
@@ -6,19 +7,17 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs
     [Serializable()]
     public class ShoppingCartItem
     {
+        public ProductDTO product { get; set; }
         public long units { get; set; }
         public double price { get; set; }
         public bool gift { get; set; }
-        public long productId { get; set; }
-        public string productName { get; set; }
 
-        public ShoppingCartItem(long units, bool gift, long productId, string productName)
+        public ShoppingCartItem(long units, bool gift, ProductDTO product)
         {
             this.units = units;
             this.gift = gift;
-            this.productId = productId;
+            this.product = product;
             this.price = 0;
-            this.productName = productName;
         }
 
         public override bool Equals(object obj)
@@ -30,19 +29,19 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs
             ShoppingCartItem target = obj as ShoppingCartItem;
 
             return true
-                && (this.productId == target.productId)
+                && product.Equals(target.product);
                 ;
         }
 
         public override int GetHashCode()
         {
-            var hashCode = -1781825586;
+            var hashCode = -1869399599;
+            hashCode = hashCode * -1521134295 + EqualityComparer<ProductDTO>.Default.GetHashCode(product);
             hashCode = hashCode * -1521134295 + units.GetHashCode();
             hashCode = hashCode * -1521134295 + price.GetHashCode();
             hashCode = hashCode * -1521134295 + gift.GetHashCode();
-            hashCode = hashCode * -1521134295 + productId.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(productName);
             return hashCode;
         }
+
     }
 }

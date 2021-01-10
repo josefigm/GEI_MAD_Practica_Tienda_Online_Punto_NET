@@ -4,7 +4,10 @@ using Ninject;
 using System;
 using System.Management.Instrumentation;
 using System.Collections.Generic;
-
+using Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao;
+using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp.Exceptions;
+using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp.DTOs;
+using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp.DTOs;
 
 namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
 {
@@ -16,33 +19,157 @@ namespace Es.Udc.DotNet.Amazonia.Model.CommentServiceImp
         [Inject]
         public IProductDao ProductDao { private get;  set; }
 
-        public Comment AddComment(string title, string value, long productId)
+        [Inject]
+        public ILabelDao LabelDao { private get; set; }
+
+        public long AddComment(string title, string value, long productId, long clientId)
         {
+            List<Comment> commentsOfThisUserAndProduct = new List<Comment>();
+
             if(title == null || value == null)
             {
                 throw new ArgumentNullException("Se ha pasado argumentos nulos");
             }
 
+            commentsOfThisUserAndProduct = CommentDao.FindCommentsOfProductAndClient(productId, clientId);
+
+            // An user should not be able to comment more than one time the same product
+            if (commentsOfThisUserAndProduct.Count != 0)
+            {
+                throw new AlreadyCommentedThisProduct();
+            }
+
+
+            // Buscar comentarios de ese producto y ese cliente
+
             Comment newComment = new Comment();
             newComment.title = title;
             newComment.value = value;
             newComment.productId = productId;
+            newComment.clientId = clientId;
+            newComment.date = DateTime.Now;
             CommentDao.Create(newComment);
 
-            return newComment;
+            return newComment.id;
+        }
+
+        public void RemoveComment(long commentId, long clientId)
+        {
+            Comment commentToRemove = CommentDao.Find(commentId);
+
+            if (commentToRemove == null)
+            {
+                throw new InstanceNotFoundException("The comment does not exist.");
+            }
+
+            // An user can not delete other user's comments.
+            if (commentToRemove.clientId != clientId)
+            {
+                throw new NotAllowedToDeleteComment();
+            }
+
+            CommentDao.Remove(commentToRemove.id);
+        }
+
+        public List<Comment> FindCommentsByLabel(long labelId)
+        {
+
+            // etiqueta : label de la que vamos a buscar sus comentarios
+            Label etiqueta = LabelDao.Find(labelId);
+
+            if (etiqueta == null)
+            {
+                throw new InstanceNotFoundException("No existe " +
+                    "una etiqueta con id: " + labelId);
+            }
+
+            List<Comment> result = new List<Comment>();
+            result = CommentDao.FindCommentsByLabel(etiqueta);
+            return result;
+
         }
 
         // Optional method
-        public List<Comment> FindCommentsOfProduct(long productId)
+        public CommentBlock FindCommentsOfProduct(long productId, int startIndex, int count)
+        {
+            if (ProductDao.Find(productId) == null)
+            {
+                throw new InstanceNotFoundException("No existe un producto con id: " + productId);
+            }
+            List<Comment> comments = new List<Comment>();
+            List<CommentDTO> commentsDTO = new List<CommentDTO>();
+
+            comments = CommentDao.FindCommentsOfProductPaged(productId, startIndex, count + 1);
+
+            bool existMoreComments = (comments.Count == count + 1);
+
+            if (existMoreComments)
+            {
+                comments.RemoveAt(count);
+            }
+
+            commentsDTO = CommentMapper.CommentListToCommentDTOList(comments);
+
+            CommentBlock result = new CommentBlock(commentsDTO, existMoreComments);
+
+            return result;
+        }
+
+
+        public List<CommentDTO> FindCommentsOfProductAndClient(long productId, long clientId)
         {
             if (ProductDao.Find(productId) == null)
             {
                 throw new InstanceNotFoundException("No existe un producto con id: " + productId);
             }
             List<Comment> result = new List<Comment>();
+            List<CommentDTO> comments = new List<CommentDTO>();
+            Comment comment;
 
-            result = CommentDao.FindCommentsOfProduct(productId);
-            return result;
+            result = CommentDao.FindCommentsOfProductAndClient(productId, clientId);
+
+            for (int i = 0; i < result.Count; i++)
+            {
+                comment = result[i];
+
+                comments.Add(
+                    new CommentDTO(comment.id, comment.title, comment.value, comment.date, comment.productId,
+                    comment.clientId, comment.Client.login, LabelMapper.toLabelDTOList(comment.Labels))
+                    );
+            }
+
+            return comments;
+        }
+
+        public Comment ChangeComment(long commentId, string title, string value, long clientId)
+        {
+
+            // Recuperamos commentario : commentToChange y comprobamos que no sea nulo
+            Comment commentToChange = CommentDao.Find(commentId);
+            if (commentToChange == null)
+            {
+                throw new InstanceNotFoundException("No existe un producto con id: " 
+                    + commentId);
+            }
+
+            // Comprobamos que el propietario del comentario sea el
+            //      mismo que el que lo quiera cambiar
+            if ((clientId != commentToChange.clientId))
+            {
+                throw new NotAllowedToChangeCommentException();
+            }
+
+            // Actualizamos title
+            commentToChange.title = title;
+
+            // Actualizamos value
+            commentToChange.value = value;
+
+            // Actualizamos commentToChange en BD
+            CommentDao.Update(commentToChange);
+
+            // Devolvemos commentToChange
+            return commentToChange;
         }
     }
 }

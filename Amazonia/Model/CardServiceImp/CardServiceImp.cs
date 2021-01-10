@@ -1,7 +1,8 @@
-﻿using System;
-using System.Management.Instrumentation;
+﻿using System.Collections.Generic;
+using Es.Udc.DotNet.Amazonia.Model.CardServiceImp.DTOs;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.CardDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao;
+using Es.Udc.DotNet.ModelUtil.Exceptions;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 using Ninject;
 
@@ -18,40 +19,97 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
         public ICardDao CardDao { private get; set; }
 
         /// <exception cref="InstanceNotFoundException"/>
+        /// <exception cref="DuplicateInstanceException"/>
         [Transactional]
-        public Card CreateCardToClient(Card card, string login)
+        public Card CreateCardToClient(CardDTO cardForm, long clientId)
         {
+            // Recuperamos el cliente del login pasado
+            Client relatedClient = ClientDao.Find(clientId);
 
-            // Comprobamos que tanto tarjeta como usuario del login pasado
-            //    no sean nulos
-
-            if (card == null)
+            if (relatedClient == null)
             {
-                throw new ArgumentNullException("Card Nulo");
+                throw new InstanceNotFoundException("No existe un cliente con login: ", relatedClient.firstName);
             }
 
-            if (ClientDao.Find(login) == null)
-            {
-                throw new InstanceNotFoundException("No existe un cliente con login: " + login);
-            }
+            try {
 
-            // Cliente a añadir tarjeta
-            Client relatedClient = ClientDao.FindByLogin(login);
+                // Comprobamos que el número de tarjeta no esté repetido
+                Card cardRep = CardDao.FindByNumber(cardForm.Number);
 
-            if (!CardDao.Exists(card.number))
+                // Si no lanza excepcíón de que no la ha encontrado...
+                throw new ModelUtil.Exceptions.DuplicateInstanceException(
+                   "Ya existe tarjeta con ese número: ", cardForm.Number);
+
+
+            } catch (InstanceNotFoundException)
             {
+                // Al lanzar InstanceNotFoundException sabemos que no existe
+                //   ninguna tarjeta por ese nombre
+
+                // Creamos tarjeta
+                Card card = new Card();
+                card.number = cardForm.Number;
+                card.cvv = cardForm.CVV;
+                card.expireDate = cardForm.ExpireDate;
+
+                if (cardForm.Type == "Credit Card" )
+                {
+                    card.type = false;
+                }
+
+                if (cardForm.Type == "Debit Card")
+                {
+                    card.type = true;
+                }
+
+                card.clientId = clientId;
+                card.defaultCard = false;
+                // Si es la unica, la ponemos por defecto
+                List<Card> listCards = ClientDao.FindCardsOfClient(relatedClient);
+                if (listCards.Count == 0)
+                {
+                    card.defaultCard = true;
+                }
                 CardDao.Create(card);
+
+                // Modificamos cliente
+                relatedClient.Cards.Add(card);
+
+                ClientDao.Update(relatedClient);
+
+                return card;
+
             }
-
-            card.Clients1.Add(relatedClient);
-            relatedClient.Cards.Add(card);
-
-            ClientDao.Update(relatedClient);
-            CardDao.Update(card);
-
-            return card;
         }
 
+        /// <exception cref="InstanceNotFoundException"/>
+        public CardDTO GetCardDTO(long cardId)
+        {
+            Card card = CardDao.Find(cardId);
 
+            return CardMapper.CardToCardDTO(card);
+        }
+
+        public void UpdateCardDetails(CardDTO cardDTO)
+        {
+
+            Card card = CardDao.FindByNumber(cardDTO.Number);
+
+            card.cvv = cardDTO.CVV;
+            card.expireDate = cardDTO.ExpireDate;
+
+            if (cardDTO.Type == "Credit Card")
+            {
+                card.type = false;
+            }
+
+            if (cardDTO.Type == "Debit Card")
+            {
+                card.type = true;
+            }
+
+            CardDao.Update(card);
+
+        }
     }
 }

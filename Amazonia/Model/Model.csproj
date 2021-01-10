@@ -81,7 +81,9 @@
     <Compile Include="Card.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="CardServiceImp\DTOs\CardDTO.cs" />
     <Compile Include="CardServiceImp\CardServiceImp.cs" />
+    <Compile Include="CardServiceImp\DTOs\CardMapper.cs" />
     <Compile Include="CardServiceImp\ICardService.cs" />
     <Compile Include="Category.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -89,15 +91,22 @@
     <Compile Include="Client.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="ClientServiceImp\ClientDetails.cs" />
+    <Compile Include="ClientServiceImp\DTOs\ClientDTO.cs" />
     <Compile Include="ClientServiceImp\ClientServiceImp.cs" />
+    <Compile Include="ClientServiceImp\DTOs\ClientMapper.cs" />
     <Compile Include="ClientServiceImp\Exceptions\IncorrectPasswordException.cs" />
     <Compile Include="ClientServiceImp\IClientService.cs" />
-    <Compile Include="ClientServiceImp\LoginDetails.cs" />
+    <Compile Include="ClientServiceImp\DTOs\LoginDTO.cs" />
     <Compile Include="ClientServiceImp\Util\PasswordEncrypter.cs" />
     <Compile Include="Comment.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="CommentServiceImp\DTOs\CommentBlock.cs" />
+    <Compile Include="CommentServiceImp\DTOs\CommentDTO.cs" />
+    <Compile Include="CommentServiceImp\DTOs\CommentMapper.cs" />
+    <Compile Include="CommentServiceImp\Exceptions\AlreadyCommentedThisProduct.cs" />
+    <Compile Include="CommentServiceImp\Exceptions\NotAllowedToChangeCommentException.cs" />
+    <Compile Include="CommentServiceImp\Exceptions\NotAllowedToDeleteComment.cs" />
     <Compile Include="CommentServiceImp\ICommentService.cs" />
     <Compile Include="CommentServiceImp\CommentServiceImp.cs" />
     <Compile Include="Computer.cs">
@@ -122,6 +131,8 @@
     <Compile Include="Label.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="LabelServiceImp\DTOs\LabelDTO.cs" />
+    <Compile Include="LabelServiceImp\DTOs\LabelMapper.cs" />
     <Compile Include="LabelServiceImp\ILabelService.cs" />
     <Compile Include="LabelServiceImp\LabelServiceImp.cs" />
     <Compile Include="Model.Context.cs">
@@ -142,6 +153,10 @@
     <Compile Include="Product.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProductServiceImp\Cache\CacheContainer.cs" />
+    <Compile Include="ProductServiceImp\Cache\CacheUtils.cs" />
+    <Compile Include="ProductServiceImp\DTOs\ProductBlock.cs" />
+    <Compile Include="ProductServiceImp\DTOs\CompleteProductDTO.cs" />
     <Compile Include="ProductServiceImp\DTOs\ProductDTO.cs" />
     <Compile Include="ProductServiceImp\DTOs\ProductMapper.cs" />
     <Compile Include="ProductServiceImp\IProductService.cs" />
@@ -153,7 +168,7 @@
     <Compile Include="SaleLine.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="SaleServiceImp\DTOs\SaleDTO.cs" />
+    <Compile Include="SaleServiceImp\DTOs\SaleBlock.cs" />
     <Compile Include="SaleServiceImp\DTOs\SaleLineDTO.cs" />
     <Compile Include="SaleServiceImp\DTOs\SaleListItemDTO.cs" />
     <Compile Include="SaleServiceImp\DTOs\ShoppingCart.cs" />

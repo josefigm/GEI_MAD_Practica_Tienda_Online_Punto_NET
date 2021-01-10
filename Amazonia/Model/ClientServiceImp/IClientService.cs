@@ -5,6 +5,8 @@ using Ninject;
 using Es.Udc.DotNet.ModelUtil.Transactions;
 using Es.Udc.DotNet.ModelUtil.Exceptions;
 using System.Collections.Generic;
+using Es.Udc.DotNet.Amazonia.Model.CardServiceImp;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.CardDao;
 
 namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
 {
@@ -14,6 +16,8 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         [Inject]
         IClientDao ClientDao { set; }
 
+        [Inject]
+        ICardDao CardDao { set; }
 
         /// <summary>
         /// Registra un nuevo cliente.
@@ -23,19 +27,18 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// <param name="clientDetails"> Detalles de cliente. </param>
         /// <exception cref="DuplicateInstanceException"/>
         [Transactional]
-        void RegisterClient(String login, String clearPassword, 
-            ClientDetails clientDetails);
+        Client RegisterClient(String login, String clearPassword,
+            ClientDTO clientDetails);
 
 
         /// <summary>
         /// Actualiza los datos de un cliente ya existente.
         /// </summary>
-        /// <param name="login"> The user profile id. </param>
-        /// <param name="clientDetails"> The user profile details. </param>
+        /// <param name="id"> The user profile id. </param>
+        /// <param name="clientDetails"> The client profile details. </param>
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
-        void UpdateUserProfileDetails(String login,
-            ClientDetails clientDetails);
+        void UpdateUserProfileDetails(long id, ClientDTO clientDetails);
 
         /// <summary>
         /// Inicia sesión de un login determinado.
@@ -47,29 +50,47 @@ namespace Es.Udc.DotNet.Amazonia.Model.ClientServiceImp
         /// <exception cref="InstanceNotFoundException"/>
         /// <exception cref="IncorrectPasswordException"/>
         [Transactional]
-        LoginDetails Login(String login, String password,
+        LoginDTO Login(String login, String password,
             Boolean passwordIsEncrypted);
-
-        /// <summary>
-        /// Salida de sesión de un cliente autenticado.
-        /// </summary>
-        /// <exception cref="InstanceNotFoundException"/>
-        [Transactional]
-        void Logout(LoginDetails loginDetails);
 
         /// <summary>
         /// Define por defecto una tarjeta para un usuario.
         /// </summary>
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
-        void SetDefaultCard(String numberCard, String login);
+        void SetDefaultCard(String numberCard);
 
         /// <summary>
         /// Lista tarjetas de un cliente por su login.
         /// </summary>
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
-        List<Card> ListCardsByClientLogin(string login);
+        List<CardDTO> ListCardsByClientId(long clientId);
+
+        /// <summary>
+        /// Recuperar tarjeta por defecto
+        /// </summary>
+        /// <exception cref="InstanceNotFoundException"/>
+        [Transactional]
+        Card GetDefaultCard(long clientId);
+
+        /// <summary>
+        /// Recuperar ClientDTO
+        /// </summary>
+        /// <exception cref="InstanceNotFoundException"/>
+        [Transactional]
+        ClientDTO GetClientDTO(long id);
+
+        /// <summary>
+        /// Changes the password.
+        /// </summary>
+        /// <param name="clientId"> The client id. </param>
+        /// <param name="oldClearPassword"> The old clear password. </param>
+        /// <param name="newClearPassword"> The new clear password. </param>
+        /// <exception cref="IncorrectPasswordException"/>
+        /// <exception cref="InstanceNotFoundException"/>
+        void ChangePassword(long clientId, String oldClearPassword,
+            String newClearPassword);
 
     }
 }

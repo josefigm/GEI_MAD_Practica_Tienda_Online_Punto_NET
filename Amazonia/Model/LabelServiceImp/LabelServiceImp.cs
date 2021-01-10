@@ -3,6 +3,7 @@ using Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao;
 using Ninject;
 using System.Collections.Generic;
 using System;
+using Es.Udc.DotNet.Amazonia.Model.LabelServiceImp.DTOs;
 using System.Management.Instrumentation;
 
 namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
@@ -14,47 +15,83 @@ namespace Es.Udc.DotNet.Amazonia.Model.LabelServiceImp
         [Inject]
         public ILabelDao LabelDao { private get; set; }
 
-        public Label CreateLabel(string value, long commentId)
+        public LabelDTO CreateLabel(string value)
         {
-            if (value == null)
+            if (value == null || value.Length == 0)
             {
-                throw new ArgumentNullException("Valor de etiqueta nulo");
+                throw new ArgumentException("Valor de etiqueta no valido");
             }
-            if (CommentDao.Find(commentId) == null)
+
+            List<Label> existentLabels = LabelDao.GetAllElements();
+
+            foreach (Label label in existentLabels)
             {
-                throw new InstanceNotFoundException("No existe un comentario con id: " + commentId);
+                if (label.value.Equals(value))
+                {
+                    throw new ModelUtil.Exceptions.DuplicateInstanceException("Se intenta añadir un label que ya existe", "Label");
+                }
             }
+
             Label newLabel = new Label();
             newLabel.value = value;
 
-            Comment relatedComment = CommentDao.Find(commentId);
-            newLabel.Comments.Add(relatedComment);
-
             LabelDao.Create(newLabel);
 
-            return newLabel;
+            return LabelMapper.toLabelDTO(newLabel);
         }
 
-        public void DeleteLabel(long labelId)
+        public void AssignLabelsToComment(long commentId, List<long> labelIds)
         {
-            LabelDao.Remove(labelId);
-        }
-
-        public List<Label> FindAllLabels()
-        {
-            return LabelDao.GetAllElements();
-        }
-
-        public List<Label> FindLabelsByComment(long commentId)
-        {
-            if (CommentDao.Find(commentId) == null)
+            if (!CommentDao.Exists(commentId))
             {
                 throw new InstanceNotFoundException("No existe un comentario con id: " + commentId);
             }
 
-            Comment relatedComment = CommentDao.Find(commentId);
+            List<Label> newLabels = new List<Label>();
+            foreach (long labelId in labelIds)
+            {
+                Label labelToProcess = LabelDao.Find(labelId);
+                if (labelToProcess == null)
+                {
+                    throw new InstanceNotFoundException("No existe una etiqueta con id: " + labelId);
+                }
+
+                newLabels.Add(labelToProcess);
+            }
+
+            CommentDao.ReplaceLabels(commentId, newLabels);
+        }
+
+        public List<LabelDTO> FindAllLabels()
+        {
+            List<Label> labels = LabelDao.GetAllElements();
+            labels.Reverse();
+            return LabelMapper.toLabelDTOList(labels);
+        }
+
+        public List<LabelDTO> FindLabelsByComment(long commentId)
+        {
             List<Label> result = new List<Label>();
-            result = LabelDao.FindLabelsOfComment(relatedComment);
+            result = LabelDao.FindLabelsOfComment(commentId);
+            return LabelMapper.toLabelDTOList(result);
+        }
+
+        public List<int> GetNumberOfComments(List<long> labels)
+        {
+            List<int> commentsForLabels = new List<int>();
+
+            for (int i = 0; i < labels.Count; i++)
+            {
+                commentsForLabels.Add(LabelDao.GetNumberOfCommentsForLabel(labels[i]));
+            }
+
+            return commentsForLabels;
+        }
+
+        public List<LabelDTO> FindMostUsedLabels(int limit)
+        {
+            List<LabelDTO> result = LabelDao.FindMostUsedLabels(limit);
+
             return result;
         }
     }

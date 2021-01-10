@@ -1,4 +1,6 @@
-﻿using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
+﻿using Es.Udc.DotNet.Amazonia.Model.DAOs.CardDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.ClientDao;
+using Es.Udc.DotNet.Amazonia.Model.DAOs.ProductDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.SaleLineDao;
 using Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.DTOs;
@@ -11,10 +13,10 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
     public interface ISaleService
     {
         IProductDao ProductDao { set; }
-
         ISaleDao SaleDao { set; }
-
         ISaleLineDao SaleLineDao { set; }
+        ICardDao CardDao { set; }
+        IClientDao ClientDao { set; }
 
         /// <summary>Adds to shopping cart.</summary>
         /// <param name="shoppingCart">The shopping cart.</param>
@@ -22,6 +24,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         /// <param name="units">The units.</param>
         /// <param name="gift">if set to <c>true</c> [gift].</param>
         /// <exception cref="InstanceNotFoundException"/>
+        /// <exception cref="Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions.InsufficientStockException">Try to add more than stock</exception>
         /// <returns>The sopping cart with new item added </returns>
         [Transactional]
         ShoppingCart AddToShoppingCart(ShoppingCart shoppingCart, long productId, long units, bool gift);
@@ -38,6 +41,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         /// <param name="units">The units.</param>
         /// <param name="gift">if set to <c>true</c> [gift].</param>
         /// <exception cref="InstanceNotFoundException"/>
+        /// <exception cref="Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions.InsufficientStockException">Try to add more than stock</exception>
         /// <returns>The shopping cart with the item of product modified</returns>
         [Transactional]
         ShoppingCart ModifyShoppingCartItem(ShoppingCart shoppingCart, long productId, long units, bool gift);
@@ -46,26 +50,26 @@ namespace Es.Udc.DotNet.Amazonia.Model.SaleServiceImp
         /// <param name="shoppingCart"></param>
         /// <param name="descName"></param>
         /// <param name="address"></param>
-        /// <param name="cardNumber"></param>
-        /// <param name="clientLogin"></param>
-        /// <exception cref="Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions.EmptyShoppingCartException">Carrito sin items</exception>
-        /// <exception cref="Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions.InsufficientStockException">Stock de producto insuficiente</exception>
+        /// <param name="cardId"></param>
+        /// <param name="clientId"></param>
+        /// <exception cref="Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions.EmptyShoppingCartException">Empty shopping cart</exception>
+        /// <exception cref="Es.Udc.DotNet.Amazonia.Model.SaleServiceImp.Exceptions.InsufficientStockException">Try to buy more than stock</exception>
         [Transactional]
-        long Buy(ShoppingCart shoppingCart, String descName, String address, String cardNumber, String clientLogin);
+        long Buy(ShoppingCart shoppingCart, String descName, String address, long cardId, long clientId);
 
-        /// <summary>Shows the sale details.</summary>
+        /// <summary>Shows the sale lines.</summary>
         /// <param name="saleId">The sale identifier.</param>
         /// <exception cref="InstanceNotFoundException"/>
-        /// <returns>A DTO with sale details</returns>
+        /// <returns>A list of SaleLines </returns>
         [Transactional]
-        SaleDTO ShowSaleDetails(long saleId);
+        List<SaleLineDTO> ShowSaleLines(long saleId);
 
         /// <summary>Shows the client sale list.</summary>
-        /// <param name="clientLogin">The client login.</param>
+        /// <param name="clientId">The client id.</param>
         /// <param name="startIndex">The start index.</param>
         /// <param name="count">The count.</param>
         /// <returns>Client sale list</returns>
         [Transactional]
-        List<SaleListItemDTO> ShowClientSaleList(String clientLogin, int startIndex, int count);
+        SaleBlock ShowClientSaleList(long clientId, int startIndex, int count);
     }
 }

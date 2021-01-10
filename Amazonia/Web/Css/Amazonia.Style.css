@@ -1,0 +1,220 @@
+﻿/* Body. */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    margin: 10px 20px;
+    background-color: #dddde0;
+}
+
+/* Links. */
+
+a {
+    font-weight: bold;
+    text-decoration: none;
+}
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+
+/* Window. */
+
+#window {
+    border: #000 1px solid;
+    background-color: #fff;
+    padding: 7px;
+    width: 98%;
+}
+
+/* Page title. */
+
+#pageTitle {
+    background-color: #333333;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    padding: 5px 0 5px 5px;
+    width: 99%;
+}
+
+/* Menu. */
+
+#menu {
+    background-color: #bfbfbf;
+    color: #fff;
+    text-align: left;
+    padding: 5px 0 5px 5px;
+    width: 99%;
+}
+
+#menuWelcome {
+    font-weight: bold;
+}
+
+#lclPageTitle {
+    color: white;
+}
+
+#menuLinks a {
+    color: #000000;
+}
+
+/* Content. */
+
+#content {
+    margin: 10px 0;
+    text-align: center;
+    width: 100%;
+}
+
+#tagCloud {
+    background-color: #bfbfbf;
+    justify-content: center;
+}
+
+.info {
+    font-size: 16px;
+}
+
+/* Forms. */
+
+form {
+    width: 100%;
+}
+
+.field {
+    clear: both;
+    padding-top: 1em;
+    width: 100%;
+}
+
+.field span.label {
+    float: left;
+    text-align: right;
+    font-weight: bold;
+    vertical-align: middle;
+    padding-top: 0.3em;
+    width: 49.5%;
+}
+
+.field span.entry {
+    float: right;
+    text-align: left;
+    width: 49.5%;
+}
+
+.checkbox {
+    clear: both;
+    padding-top: 1em;
+    text-align: center;
+    width: 100%;
+}
+
+.button {
+    clear: both;
+    padding-top: 1em;
+    text-align: center;
+    width: 100%;
+}
+
+.div_text_center {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.viewProductContainer {
+    margin-left: 100px;
+    margin-right: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.productDetails {
+    font-size: 20px;
+    margin-left: 25px;
+    text-align: left;
+    
+}
+
+.price {
+    color: #bf0808;
+    font-weight: bold;
+}
+
+.attributeName {
+    font-weight: bold;
+}
+
+.lblTotalPrice {
+    font-weight: bold;
+    font-size: 1.9em;
+}
+
+.totalPrice {
+    font-weight: bold;
+    font-size: 1.9em;
+    color: #bf0808;
+}
+
+
+.endSaleBtn {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: white;
+    background-color: #32cd32;
+    padding: 8px;
+    border-radius: 3px;
+}
+
+    .endSaleBtn:hover {
+        text-decoration: none;
+        background-color: #28a428;
+    }
+
+.btnFinishSale {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: white;
+    background-color: #32cd32;
+    padding: 8px;
+    border-radius: 3px;
+    border: 0px;
+    position: center;
+}
+    .btnFinishSale:hover {
+        text-decoration: none;
+        background-color: #28a428;
+    }
+
+input, select, textarea {
+    background-color: #f4f4f4;
+    height: 26px;
+}
+
+/* Error messages. */
+
+.errorMessage {
+    font-weight: bold;
+    color: red;
+    margin-left: 5px;
+}
+
+/* Footer. */
+
+#footer {
+    border-top: 1px solid #000;
+    padding-top: 5px;
+    text-align: center;
+    width: 100%;
+}
+
+/* Table */
+.centered-table {
+    margin-left: auto;
+    margin-right: auto;
+}
+

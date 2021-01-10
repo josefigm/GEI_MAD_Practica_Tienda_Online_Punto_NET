@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{A278D744-0077-4D5D-A6A4-A95585DADA0B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{B866E7EA-1823-4B97-927C-11B2FF2AE094}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,12 +23,15 @@ Global
 		{A278D744-0077-4D5D-A6A4-A95585DADA0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A278D744-0077-4D5D-A6A4-A95585DADA0B}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{A278D744-0077-4D5D-A6A4-A95585DADA0B}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{B866E7EA-1823-4B97-927C-11B2FF2AE094}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B866E7EA-1823-4B97-927C-11B2FF2AE094}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B866E7EA-1823-4B97-927C-11B2FF2AE094}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B866E7EA-1823-4B97-927C-11B2FF2AE094}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45
 		SolutionGuid = {85A5B372-0433-40C2-954F-4F93BE133FE1}
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45
 	EndGlobalSection

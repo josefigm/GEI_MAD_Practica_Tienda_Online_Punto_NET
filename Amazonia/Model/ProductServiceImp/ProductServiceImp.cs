@@ -8,6 +8,10 @@ using Es.Udc.DotNet.Amazonia.Model.DAOs.CommentDao;
 using Es.Udc.DotNet.Amazonia.Model.DAOs.LabelDao;
 using Ninject;
 using System.Runtime.Caching;
+using Es.Udc.DotNet.ModelUtil.Exceptions;
+using Es.Udc.DotNet.Amazonia.Model.CommentServiceImp.DTOs;
+using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp.DTOs;
+using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp.Cache;
 
 namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 {
@@ -34,67 +38,31 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
         [Inject]
         public ICommentService CommentService { private get; set; }
 
-        private MemoryCache _Cache = new MemoryCache("cache");
-        private List<string> cacheEntries = new List<string>();
-
-        public MemoryCache Cache { get => _Cache; }
+        private CacheContainer cache = CacheContainer.GetCacheContainer();
 
         [Transactional]
-        public Product CreateProduct(string name, double price, DateTime entryDate, long stock, string image, string description, long categoryId)
+        public Product UpdateProduct(long productId, string name, double price, long stock, string description)
         {
-            if (name == null || price >= 0 || entryDate == null || stock >= 0)
+            if (name == null || name.Length == 0 || price <= 0 || stock < 0)
             {
                 throw new ArgumentException("Se han pasado parámetros no válidos");
             }
 
-            Product productToInsert = new Product();
-            productToInsert.name = name;
-            productToInsert.price = price;
-            productToInsert.entryDate = entryDate;
-            productToInsert.stock = stock;
-            productToInsert.image = image;
-            productToInsert.description = description;
-            productToInsert.categoryId = categoryId;
+            Product productToProcess = ProductDaoEntityFramework.Find(productId);
 
-            ProductDaoEntityFramework.Create(productToInsert);
-
-            return productToInsert;
-        }
-
-
-        [Transactional]
-        public Product CreateProduct(Product product)
-        {
-            if (product == null)
-            {
-                throw new ArgumentNullException("Se han pasado parámetros nulos");
-            }
-
-            if (product.price < 0 || product.stock < 0)
-            {
-                throw new ArgumentException("Se han pasado parámetros no válidos");
-            }
-
-            ProductDaoEntityFramework.Create(product);
-
-            return product;
-        }
-
-        [Transactional]
-        public Product UpdateProduct(Product product)
-        {
-            if (product == null)
-            {
-                throw new ArgumentNullException("Se han pasado parámetros nulos");
-            }
-
-            if (ProductDaoEntityFramework.Find(product.id) == null)
+            if (productToProcess == null)
             {
                 throw new Exception("Se intenta actualizar un producto que no existe");
             }
-            ProductDaoEntityFramework.Update(product);
 
-            return product;
+            productToProcess.name = name;
+            productToProcess.price = price;
+            productToProcess.stock = stock;
+            productToProcess.description = description;
+
+            ProductDaoEntityFramework.Update(productToProcess);
+
+            return productToProcess;
         }
 
 
@@ -106,108 +74,108 @@ namespace Es.Udc.DotNet.Amazonia.Model.ProductServiceImp
 
 
         [Transactional]
-        public Product FindProductById(long id)
+        public CompleteProductDTO FindProductById(long id)
         {
-            return ProductDaoEntityFramework.Find(id);
-        }
-
-        private void AddToCache(String entrie, List<ProductDTO> result)
-        {
-            CacheItem item = new CacheItem(entrie, result);
-            CacheItemPolicy itemPolicy = new CacheItemPolicy();
-
-            if (_Cache.GetCount() < 5)
-            {
-                cacheEntries.Add(entrie);
-                _Cache.Add(item, itemPolicy);
-            }
-            else
-            {
-                String firstItem = cacheEntries[0];
-                cacheEntries.Remove(firstItem);
-                cacheEntries.Add(entrie);
-
-                _Cache.Remove(firstItem);
-                _Cache.Add(item, itemPolicy);
-            }
-        }
-
-        private string FormatKeyWordAndCategoryNames(string keyWord, Category category)
-        {
-            if (category != null)
-            {
-                return keyWord + "From" + category.name;
-            }
-            else
-            {
-                return keyWord;    
-            }
+            return ProductDaoEntityFramework.FindCompleteProductDTO(id);
         }
 
         [Transactional]
-        public List<ProductDTO> FindProductByWordAndCategory(string keyWord, Category category)
+        public ProductBlock FindProductByWord(string keyWord, int startIndex, int count)
         {
-            // Category sí puede ser null (Es otro CU)
-
-            if (keyWord == null)
+            if (keyWord == null || keyWord.Length == 0)
             {
-                throw new ArgumentNullException("Se han pasado parámetros nulos");
+                throw new ArgumentException("Se han pasado parámetros invalidos");
             }
 
             List<ProductDTO> productListOutput = new List<ProductDTO>();
             string cleanKeyWord = keyWord.Trim();
-            string formattedKeywordAndCategory = FormatKeyWordAndCategoryNames(cleanKeyWord, category);
 
-            if (_Cache.Contains(formattedKeywordAndCategory))
+            
+            string formattedSearch = CacheUtils.FormatSearch(cleanKeyWord, -1, startIndex, count);
+
+            if (cache.IsInCache(formattedSearch))
             {
-                List<ProductDTO> cacheResult = (List<ProductDTO>)_Cache.GetCacheItem(formattedKeywordAndCategory).Value;
+                ProductBlock cacheResult = cache.GetEntrie(formattedSearch);
                 return cacheResult;
             }
 
-            if (category != null)
+            productListOutput = ProductDaoEntityFramework.FindByKeyWord(cleanKeyWord, startIndex, count + 1);
+
+            bool existMoreProducts = (productListOutput.Count == count + 1);
+
+            if (existMoreProducts)
             {
-                productListOutput = ProductDaoEntityFramework.FindByKeyWordAndCategory(cleanKeyWord, category.id);
-            }
-            else
-            {
-                productListOutput = ProductDaoEntityFramework.FindByKeyWord(cleanKeyWord);
+                productListOutput.RemoveAt(count);
             }
 
-            AddToCache(formattedKeywordAndCategory, productListOutput);
+            ProductBlock result = new ProductBlock(productListOutput, existMoreProducts);
 
-            return productListOutput;
+            cache.AddToCache(formattedSearch, result);
+
+            return result;
         }
 
-        public List<Product> RetrieveProductsWithLabel(string labelValue)
+        [Transactional]
+        public ProductBlock FindProductByWordAndCategory(string keyWord, long categoryId, int startIndex, int count)
         {
-            if (labelValue == null)
+            // Category sí puede ser null (Es otro CU)
+
+            if (keyWord == null || keyWord.Length == 0)
             {
-                throw new ArgumentNullException("Valor de etiqueta nulo");
+                throw new ArgumentNullException("Se han pasado parámetros invalidos");
             }
 
-            List<Product> allProducts = ProductDao.GetAllElements();
-            List<Product> productsWithLabel = new List<Product>();
-
-            foreach (Product product in allProducts)
+            Category category = CategoryDao.Find(categoryId);
+            if (category == null)
             {
-                bool labelFound = false;
-                List<Comment> comments = CommentService.FindCommentsOfProduct(product.id);
-                for (int i = 0; i < comments.Count && labelFound == false; i++)
-                {
-                    List<Label> labels = LabelDao.FindLabelsOfComment(comments[i]);
-                    for (int j = 0; j < labels.Count && labelFound == false; j++)
-                    {
-                        if (labels[j].value == labelValue)
-                        {
-                            labelFound = true;
-                            productsWithLabel.Add(product);
-                        }
-                    }
-                }
+                throw new InstanceNotFoundException(categoryId, "No existe esa categoria");
             }
 
-            return productsWithLabel;
+            List<ProductDTO> productListOutput = new List<ProductDTO>();
+            string cleanKeyWord = keyWord.Trim();
 
+            string formattedSearch = CacheUtils.FormatSearch(cleanKeyWord, category.id, startIndex, count);
+
+            if (cache.IsInCache(formattedSearch))
+            {
+                ProductBlock cacheResult = cache.GetEntrie(formattedSearch);
+                return cacheResult;
+            }
+
+            productListOutput = ProductDaoEntityFramework.FindByKeyWordAndCategory(cleanKeyWord, categoryId, startIndex, count +1);
+
+            bool existMoreProducts = (productListOutput.Count == count + 1);
+
+            if (existMoreProducts)
+            {
+                productListOutput.RemoveAt(count);
+            }
+
+            ProductBlock result = new ProductBlock(productListOutput, existMoreProducts);
+
+            cache.AddToCache(formattedSearch, result);
+
+            return result;
+        }
+
+        public ProductBlock RetrieveProductsWithLabel(int startIndex, int count, long labelId)
+        {
+            Label label = LabelDao.Find(labelId);
+
+            List<Comment> comentariosConLabel = CommentDao.FindCommentsByLabel(label);
+
+            List<ProductDTO> productDTOs = ProductDao.FindProductsByComments(startIndex, count + 1, comentariosConLabel);
+
+            bool existMoreProducts = (productDTOs.Count == count + 1);
+
+            if (existMoreProducts)
+            {
+                productDTOs.RemoveAt(count);
+            }
+
+            ProductBlock result = new ProductBlock(productDTOs, existMoreProducts);
+
+            return result;
         }
     }
 }
