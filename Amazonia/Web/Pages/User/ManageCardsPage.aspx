@@ -12,6 +12,7 @@
                 <center>
                     <asp:GridView ID="GvListCards" runat="server" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Horizontal" AutoGenerateColumns="False" OnRowCommand="GvListCards_OnRowCommand" EmptyDataText="<%$ Resources:, EmptyGridView %>">
                         <Columns>
+                            <asp:BoundField DataField="CardId" Visible ="false" />
                             <asp:BoundField DataField="Number" HeaderText="<%$ Resources:, Number %>" />
                             <asp:BoundField DataField="CVV" HeaderText="<%$ Resources:, CVV %>" />
                             <asp:BoundField DataField="ExpireDate" DataFormatString = "{0:MM/yyyy}" ItemStyle-HorizontalAlign="Center" HeaderText="<%$ Resources:, ExpireDate %>" />
@@ -19,7 +20,7 @@
                             <asp:checkboxfield Datafield="DefaultCard" headertext="<%$ Resources:, DefaultCard %>"/>     
                             <asp:TemplateField ShowHeader="False">
                                 <ItemTemplate>
-                                    <asp:Button ID="Button1" runat="server" CausesValidation="false" CommandName="Update Card Details" Text="<%$ Resources:, UpdateCardDetails %>" CommandArgument='<%# Eval("Number") %>' />
+                                    <asp:Button ID="Button1" runat="server" CausesValidation="false" CommandName="Update Card Details" Text="<%$ Resources:, UpdateCardDetails %>" CommandArgument='<%# Eval("CardId") %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField ShowHeader="False">

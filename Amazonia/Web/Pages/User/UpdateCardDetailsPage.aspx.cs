@@ -16,9 +16,10 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.User
 
             if (!IsPostBack)
             {
-                string cardNumber = Request.Params.Get("Number");
-                CardDTO cardDTO = SessionManager.FindCardDetails(Context, cardNumber);
+                long idCard = Convert.ToInt64(Request.Params.Get("idCard"));
+                CardDTO cardDTO = SessionManager.FindCardDetails(Context, idCard);
 
+                Label1.Text = cardDTO.Number;
                 tbCVV.Text = cardDTO.CVV;
                 tbExpireDateMonth.Text = cardDTO.ExpireDate.Month.ToString();
                 tbExpireDateYear.Text = cardDTO.ExpireDate.Year.ToString();
@@ -52,7 +53,7 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.User
                 }
 
                 CardDTO cardDTO =
-                    new CardDTO(Request.Params.Get("Number"), tbCVV.Text, expirationDate, cardType);
+                    new CardDTO(Label1.Text, tbCVV.Text, expirationDate, cardType);
 
                 SessionManager.UpdateCardDetails(cardDTO);
 

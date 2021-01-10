@@ -233,7 +233,7 @@ namespace Test.CardServiceTests
                 Card card = cardService.CreateCardToClient(refCardDTO, client.id);
 
                 // Recuperamos el DTO
-                CardDTO realCardDTO = cardService.GetCardDTO(card.number);
+                CardDTO realCardDTO = cardService.GetCardDTO(card.id);
 
                 Assert.AreEqual(NUMBER, realCardDTO.Number);
                 Assert.AreEqual(CVV, realCardDTO.CVV);
@@ -267,7 +267,7 @@ namespace Test.CardServiceTests
                 Card card = cardService.CreateCardToClient(refCardDTO, client.id);
 
                 // Recuperamos el DTO
-                CardDTO realCardDTO = cardService.GetCardDTO(card.number);
+                CardDTO realCardDTO = cardService.GetCardDTO(card.id);
 
                 Assert.AreEqual(NUMBER, realCardDTO.Number);
                 Assert.AreEqual(CVV, realCardDTO.CVV);

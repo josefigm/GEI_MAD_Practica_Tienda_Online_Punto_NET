@@ -13,6 +13,15 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.User {
     public partial class UpdateCardDetailsPage {
         
         /// <summary>
+        /// Control Label1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+        
+        /// <summary>
         /// Control lclCVV.
         /// </summary>
         /// <remarks>

@@ -83,9 +83,9 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
         }
 
         /// <exception cref="InstanceNotFoundException"/>
-        public CardDTO GetCardDTO(string cardNumber)
+        public CardDTO GetCardDTO(long cardId)
         {
-            Card card = CardDao.FindByNumber(cardNumber);
+            Card card = CardDao.Find(cardId);
 
             return CardMapper.CardToCardDTO(card);
         }

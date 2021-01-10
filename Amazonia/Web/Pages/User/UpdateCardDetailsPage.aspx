@@ -5,6 +5,9 @@
 
     <form method="post" runat="server">
 
+        <asp:Label ID="Label1" runat="server" Visible ="false"></asp:Label>
+
+
         <div class="field">
             <span class="label">
                 <asp:Localize ID="lclCVV" runat="server" meta:resourcekey="lclCVV" />

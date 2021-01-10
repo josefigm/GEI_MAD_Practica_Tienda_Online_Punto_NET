@@ -37,6 +37,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
         /// 
         public CardDTO(string number, string cVV, DateTime expireDate, bool type, bool defaultCard)
         {
+
             this.Number = number;
             this.CVV = cVV;
             this.ExpireDate = expireDate;

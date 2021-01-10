@@ -304,9 +304,9 @@ namespace Es.Udc.DotNet.Amazonia.Web.HTTP.Session
         /// </summary>
         /// <param name="context">The context.</param>
         /// <returns></returns>
-        public static CardDTO FindCardDetails(HttpContext context, string cardNumber)
+        public static CardDTO FindCardDetails(HttpContext context, long cardId)
         {
-            return cardService.GetCardDTO(cardNumber);
+            return cardService.GetCardDTO(cardId);
         }
 
         /// <summary>

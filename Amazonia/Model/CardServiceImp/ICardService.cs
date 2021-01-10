@@ -41,7 +41,7 @@ namespace Es.Udc.DotNet.Amazonia.Model.CardServiceImp
         /// </summary>
         /// <exception cref="InstanceNotFoundException"/>
         [Transactional]
-        CardDTO GetCardDTO(string cardNumber);
+        CardDTO GetCardDTO(long cardId);
 
 
 
