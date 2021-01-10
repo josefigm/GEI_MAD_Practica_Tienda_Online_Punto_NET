@@ -207,6 +207,7 @@ namespace Test.ProductService
                 portatil.image = image;
                 portatil.description = description;
                 portatil.categoryId = categoryIdPortatil;
+                
 
                 #endregion Declaracion de variables
 
@@ -241,7 +242,7 @@ namespace Test.ProductService
 
                 Product biciCarretera = new Product();
                 Product biciMontaña = new Product();
-                Product portatil = new Product();
+                Computer portatil = new Computer();
 
                 double price = 1200;
                 System.DateTime date = System.DateTime.Now;
@@ -274,6 +275,10 @@ namespace Test.ProductService
                 portatil.image = image;
                 portatil.description = description;
                 portatil.categoryId = categoryIdPortatil;
+                portatil.cpuPower = "aaa";
+                portatil.memoryRAM = "aaaa";
+                portatil.memoryROM = "aaa";
+                portatil.model = 1;
 
                 #endregion Declaracion de variables
 

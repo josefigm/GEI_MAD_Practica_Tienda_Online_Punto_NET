@@ -30,19 +30,8 @@ namespace Es.Udc.DotNet.Amazonia.Web.Pages.Product
                 productPrice.Text = product.price.ToString() + " €";
                 entryDate.Text = product.entryDate.ToShortDateString();
                 stock.Text = product.stock.ToString();
-
-                if (product.image != null)
-                {
-                    //productImage.ImageUrl = Server.MapPath("~/images/img.jpg");
-                    productImage.ImageUrl = "./noImg.jpg";
-                }
-                else
-                {
-                    productImage.ImageUrl = "./noImg.jpg";
-                    //productImage.ImageUrl = "../../../images/img.jpg";
-                    //productImage.ImageUrl = Server.MapPath("~/images/img.jpg");
-                }
-
+                productImage.ImageUrl = "./noImg.jpg";
+ 
                 // A role equal to 1 indicates that the user is an administrator.
                 // If a user is an administrator, the user can edit the product info.
                 if (SessionManager.IsUserAuthenticated(Context) && SessionManager.GetUserSession(Context).Role == 1)
