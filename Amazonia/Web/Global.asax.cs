@@ -1,4 +1,5 @@
 ﻿using Es.Udc.DotNet.Amazonia.Model.ProductServiceImp.Cache;
+using Es.Udc.DotNet.Amazonia.Web.HTTP.Session;
 using Es.Udc.DotNet.Amazonia.Web.HTTP.Util.IoC;
 using Es.Udc.DotNet.ModelUtil.IoC;
 using Es.Udc.DotNet.ModelUtil.Log;
@@ -28,10 +29,10 @@ namespace Es.Udc.DotNet.Amazonia.Web
             Application.UnLock();
         }
 
-        //protected void Session_Start(object sender, EventArgs e)
-        //{
-        //    SessionManager.TouchSession(Context);
-        //}
+        protected void Session_Start(object sender, EventArgs e)
+        {
+            SessionManager.TouchSession(Context);
+        }
 
         protected void Application_End(object sender, EventArgs e)
         {
